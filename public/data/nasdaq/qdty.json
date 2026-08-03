@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 38.9215,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 39.5029,
         "englishName": "YieldMax Nasdaq 100 0DTE Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 13660,
-        "AvgVolume": 18251,
+        "Volume": 32345,
+        "AvgVolume": 18229,
         "sharesOutstanding": null,
         "52Week": "36.36 - 46.907",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 38.9215,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13660,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 18251,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3318,6 +3331,10 @@
         },
         {
             "date": "2027-01-27",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-03",
             "forecasted": true
         }
     ]

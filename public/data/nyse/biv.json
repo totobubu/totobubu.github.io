@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 75.54,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 75.42,
         "englishName": "Vanguard Intermediate-Term Bond Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1277084,
-        "AvgVolume": 1621200,
+        "Volume": 1558471,
+        "AvgVolume": 1608679,
         "sharesOutstanding": null,
-        "52Week": "75.35 - 79.09",
+        "52Week": "75.32 - 79.09",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 75.54,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1277084,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1621200,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39356,15 +39369,6 @@
             "volume": 1479009
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 75.550003,
-            "high": 75.565002,
-            "low": 75.390099,
-            "close": 75.540001,
-            "volume": 1293537
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -39382,6 +39386,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

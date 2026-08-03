@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 76.3602,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 76.23,
         "englishName": "Vanguard Core-Plus Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 296153,
-        "AvgVolume": 177517,
+        "Volume": 742639,
+        "AvgVolume": 182933,
         "sharesOutstanding": null,
-        "52Week": "76.283 - 79.41",
+        "52Week": "76.16 - 79.41",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 76.3602,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 296153,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 177517,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5386,15 +5399,6 @@
             "volume": 251889
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 76.449997,
-            "high": 76.449997,
-            "low": 76.290001,
-            "close": 76.360199,
-            "volume": 296153
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -5412,6 +5416,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

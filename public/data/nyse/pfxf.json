@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 17.58,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 17.86,
         "englishName": "VanEck Preferred Securities ex Financials ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 971143,
-        "AvgVolume": 931009,
+        "Volume": 1070832,
+        "AvgVolume": 933722,
         "sharesOutstanding": null,
         "52Week": "17.03 - 19.07",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.58,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 971143,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 931009,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28583,15 +28596,6 @@
             "volume": 721236
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 17.59,
-            "high": 17.7029,
-            "low": 17.465,
-            "close": 17.58,
-            "volume": 972475
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -28609,6 +28613,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

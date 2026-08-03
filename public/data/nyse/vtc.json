@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 75.2533,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 75.125,
         "englishName": "Vanguard Total Corporate Bond ETF ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 114272,
-        "AvgVolume": 94614,
+        "Volume": 47220,
+        "AvgVolume": 92398,
         "sharesOutstanding": null,
-        "52Week": "75.1348 - 79.24",
+        "52Week": "75.06 - 79.24",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 75.2533,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 114272,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 94614,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17758,15 +17771,6 @@
             "volume": 27411
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 75.269997,
-            "high": 75.269997,
-            "low": 75.134804,
-            "close": 75.253304,
-            "volume": 114272
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -17784,6 +17788,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

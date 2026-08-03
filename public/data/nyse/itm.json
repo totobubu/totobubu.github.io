@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 45.91,
-        "englishName": "VanEck Intermediate Muni ETF",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 45.86,
+        "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 309377,
-        "AvgVolume": 230282,
+        "Volume": 381939,
+        "AvgVolume": 230506,
         "sharesOutstanding": null,
         "52Week": "45.45 - 48.02",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.91,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 309377,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 230282,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39323,15 +39336,6 @@
             "volume": 323134
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 45.880001,
-            "high": 45.915001,
-            "low": 45.865002,
-            "close": 45.91,
-            "volume": 309377
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -39349,6 +39353,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

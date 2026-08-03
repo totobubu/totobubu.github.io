@@ -9,14 +9,14 @@
         "underlying": "AVGO",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 39.43,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 39.45,
         "englishName": "Roundhill AVGO WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 25427,
-        "AvgVolume": 30319,
+        "Volume": 24095,
+        "AvgVolume": 30359,
         "sharesOutstanding": null,
         "52Week": "33.625 - 64.13",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.43,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 25427,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 30319,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2339,6 +2352,10 @@
         },
         {
             "date": "2027-01-25",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

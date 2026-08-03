@@ -9,14 +9,14 @@
         "underlying": "AMZN",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 14.4348,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 14.47,
         "englishName": "Graniteshares YieldBOOST AMZN ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 914,
-        "AvgVolume": 2696,
+        "Volume": 2768,
+        "AvgVolume": 2624,
         "sharesOutstanding": null,
         "52Week": "14.27 - 25.32",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.4348,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 914,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2696,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1922,7 +1935,9 @@
             "high": 14.4348,
             "low": 14.43,
             "close": 14.4348,
-            "volume": 914
+            "volume": 914,
+            "amount": 0.094,
+            "yield": 0.5398212058
         },
         {
             "date": "2026-08-07",

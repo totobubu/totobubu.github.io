@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 51.75,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 51.64,
         "englishName": "PIMCO Intermediate Municipal Bond Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 275205,
-        "AvgVolume": 319930,
+        "Volume": 381891,
+        "AvgVolume": 319020,
         "sharesOutstanding": null,
-        "52Week": "51.11 - 53.37",
+        "52Week": "51.15 - 53.37",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.75,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 275205,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 319930,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33856,15 +33869,6 @@
             "volume": 297781
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 51.790001,
-            "high": 51.790001,
-            "low": 51.650101,
-            "close": 51.75,
-            "volume": 275205
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -33882,6 +33886,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

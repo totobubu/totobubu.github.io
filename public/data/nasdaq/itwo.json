@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 45.36,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 45.95,
         "englishName": "ProShares Russell 2000 High Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 19620,
-        "AvgVolume": 31066,
+        "Volume": 20082,
+        "AvgVolume": 31035,
         "sharesOutstanding": null,
-        "52Week": "35.67 - 47.07",
+        "52Week": "36.111 - 47.07",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.36,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 19620,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 31066,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3883,15 +3896,6 @@
             "volume": 28431
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 45.849998,
-            "high": 45.669998,
-            "low": 44.810001,
-            "close": 45.360001,
-            "volume": 19620
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -3909,6 +3913,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

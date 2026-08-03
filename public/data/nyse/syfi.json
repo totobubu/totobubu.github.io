@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 35.66,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 35.545,
         "englishName": "AB Short Duration High Yield ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 102616,
-        "AvgVolume": 116440,
+        "Volume": 87133,
+        "AvgVolume": 117054,
         "sharesOutstanding": null,
         "52Week": "35.11 - 36.28",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.66,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 102616,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 116440,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4360,15 +4373,6 @@
             "volume": 121335
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 35.669998,
-            "high": 35.669998,
-            "low": 35.584999,
-            "close": 35.66,
-            "volume": 102616
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -4386,6 +4390,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

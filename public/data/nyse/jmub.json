@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 49.74,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 49.65,
         "englishName": "JPMorgan Municipal ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 910561,
-        "AvgVolume": 1010477,
+        "Volume": 644425,
+        "AvgVolume": 1010320,
         "sharesOutstanding": null,
         "52Week": "49.275 - 51.34",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.74,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 910561,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1010477,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15746,15 +15759,6 @@
             "volume": 755045
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 49.779999,
-            "high": 49.779999,
-            "low": 49.689999,
-            "close": 49.740002,
-            "volume": 910561
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -15772,6 +15776,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

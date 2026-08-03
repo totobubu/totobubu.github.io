@@ -9,14 +9,14 @@
         "underlying": "PLTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 8.395,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 8.45,
         "englishName": "GraniteShares YieldBoost PLTR ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2033,
-        "AvgVolume": 7332,
+        "Volume": 4160,
+        "AvgVolume": 7301,
         "sharesOutstanding": null,
         "52Week": "8.22 - 25.71",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.395,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2033,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7332,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1870,7 +1883,9 @@
             "high": 8.4,
             "low": 8.33,
             "close": 8.395,
-            "volume": 2033
+            "volume": 2033,
+            "amount": 0.091,
+            "yield": 1.38227491
         },
         {
             "date": "2026-08-07",

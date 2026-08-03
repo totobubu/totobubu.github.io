@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 47.29,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 47.33,
         "englishName": "Janus Henderson B-BBB CLO ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 157163,
-        "AvgVolume": 327709,
+        "Volume": 483017,
+        "AvgVolume": 326867,
         "sharesOutstanding": null,
         "52Week": "46.42 - 48.61",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.29,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 157163,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 327709,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9264,10 +9277,12 @@
             "high": 47.34,
             "low": 47.220001,
             "close": 47.290001,
-            "volume": 157163
+            "volume": 157163,
+            "amount": 0.227,
+            "yield": 0.0696553168
         },
         {
-            "date": "2026-08-28",
+            "date": "2026-08-31",
             "forecasted": true
         },
         {

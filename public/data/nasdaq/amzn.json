@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 271.58,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 284.02,
         "englishName": "Amazon.com, Inc.",
         "earningsDate": "2026-07-30",
-        "enterpriseValue": 2639640395776,
-        "marketCap": 2921415835648,
-        "Volume": 125921078,
-        "AvgVolume": 48180779,
+        "enterpriseValue": 3057994170368,
+        "marketCap": 3055234318336,
+        "Volume": 86036639,
+        "AvgVolume": 49455214,
         "sharesOutstanding": 10757109436,
-        "52Week": "196.0 - 278.56",
+        "52Week": "196.0 - 287.13",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 271.58,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 2639640395776,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 2921415835648,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 125921078,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 48180779,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -66131,7 +66152,8 @@
             "high": 273.230011,
             "low": 262.054993,
             "close": 271.579987,
-            "volume": 125921078
+            "volume": 125921078,
+            "marketCap": 3055234318336
         }
     ]
 }

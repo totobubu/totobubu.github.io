@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 275.74,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 269.04,
         "englishName": "Texas Instruments Incorporated",
         "earningsDate": "2026-07-22",
-        "enterpriseValue": 261627920384,
-        "marketCap": 251818901504,
-        "Volume": 7660546,
-        "AvgVolume": 8775088,
+        "enterpriseValue": 258869919744,
+        "marketCap": 245700165632,
+        "Volume": 7803783,
+        "AvgVolume": 8845059,
         "sharesOutstanding": 913247686,
         "52Week": "152.73 - 334.03",
-        "Yield": 0.020382,
+        "Yield": 0.020889,
         "dividendRate": 5.68,
         "payoutRatio": 0.8541,
         "isin": "US8825081040",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 275.74,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 261627920384,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 251818901504,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7660546,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8775088,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.020382,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2671,7 +2696,7 @@
             "close": 1.7395830154418945,
             "volume": 1248000,
             "amount": 0.0001,
-            "yield": 0.0000558952,
+            "yield": 5.58952e-5,
             "marketCap": 1580625173,
             "amountOriginal": 6.720768,
             "amountSplitAdjustments": [
@@ -3282,7 +3307,7 @@
             "close": 2.648437976837158,
             "volume": 3700800,
             "amount": 0.0001,
-            "yield": 0.0000787692,
+            "yield": 7.87692e-5,
             "marketCap": 2406431712,
             "amountOriginal": 8.160768,
             "amountSplitAdjustments": [
@@ -126501,14 +126526,16 @@
             "high": 285.109985,
             "low": 273.590088,
             "close": 275.73999,
-            "volume": 8797555
+            "volume": 8797555,
+            "amount": 1.42,
+            "yield": 0.0248810634
         },
         {
-            "date": "2026-08-05",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-05",
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]

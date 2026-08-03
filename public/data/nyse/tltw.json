@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 21.3,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 21.38,
         "englishName": "iShares 20+ Year Treasury Bond Buywrite Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1667132,
-        "AvgVolume": 1528274,
+        "Volume": 1134650,
+        "AvgVolume": 1509885,
         "sharesOutstanding": null,
         "52Week": "21.21 - 24.08",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.3,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1667132,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1528274,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8020,15 +8033,6 @@
             "volume": 1482715
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 21.35,
-            "high": 21.350201,
-            "low": 21.209999,
-            "close": 21.299999,
-            "volume": 1667132
-        },
-        {
             "date": "2026-09-02",
             "forecasted": true
         },
@@ -8046,6 +8050,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-02",
             "forecasted": true
         }
     ]

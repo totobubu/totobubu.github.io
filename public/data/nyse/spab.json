@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 25.11,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 25.07,
         "englishName": "State Street SPDR Portfolio Aggregate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5930849,
-        "AvgVolume": 2289870,
+        "Volume": 1174151,
+        "AvgVolume": 2351764,
         "sharesOutstanding": null,
-        "52Week": "25.06 - 26.17",
+        "52Week": "25.032 - 26.17",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.11,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5930849,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2289870,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40282,15 +40295,6 @@
             "volume": 927715
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 25.129999,
-            "high": 25.1793,
-            "low": 25.059999,
-            "close": 25.110001,
-            "volume": 5930849
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -40308,6 +40312,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

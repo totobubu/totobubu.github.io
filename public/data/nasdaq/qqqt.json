@@ -9,14 +9,14 @@
         "underlying": "QQQ",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 17.61,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 17.54,
         "englishName": "Defiance Nasdaq 100 Income Target ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 27821,
-        "AvgVolume": 42300,
+        "Volume": 38021,
+        "AvgVolume": 42203,
         "sharesOutstanding": null,
         "52Week": "15.24 - 19.45",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.61,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 27821,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 42300,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4330,15 +4343,6 @@
             "volume": 37963
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 17.66,
-            "high": 17.715,
-            "low": 17.360001,
-            "close": 17.610001,
-            "volume": 28052
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -4356,6 +4360,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

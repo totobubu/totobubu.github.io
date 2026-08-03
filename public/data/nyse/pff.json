@@ -9,24 +9,41 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 30.47,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 30.62,
         "englishName": "iShares Preferred and Income Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2912637,
-        "AvgVolume": 2982461,
+        "Volume": 3024980,
+        "AvgVolume": 2990933,
         "sharesOutstanding": 418449984,
         "52Week": "30.1 - 32.26",
-        "Yield": 0.059797,
+        "Yield": 0.059504,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642886877",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.47,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2912637,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2982461,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.059797,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44083,15 +44100,6 @@
             "volume": 2934041
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 30.450001,
-            "high": 30.504999,
-            "low": 30.291,
-            "close": 30.469999,
-            "volume": 2912637
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -44109,6 +44117,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

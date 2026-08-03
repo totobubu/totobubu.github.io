@@ -9,24 +9,41 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 82.25,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 82.19,
         "englishName": "iShares 20+ Year Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 47779551,
-        "AvgVolume": 25269356,
+        "Volume": 31336888,
+        "AvgVolume": 25737606,
         "sharesOutstanding": 109700000,
         "52Week": "81.89 - 92.19",
-        "Yield": 0.026164,
+        "Yield": 0.026183,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642874329",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 82.25,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 47779551,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 25269356,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.026164,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54767,15 +54784,6 @@
             "volume": 39731529
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 82.445,
-            "high": 82.449997,
-            "low": 81.889999,
-            "close": 82.25,
-            "volume": 49938490
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -54793,6 +54801,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

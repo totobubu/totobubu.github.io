@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 81.26,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 81.11,
         "englishName": "Vanguard Intermediate-Term Corporate Bond Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9326340,
-        "AvgVolume": 8679429,
+        "Volume": 8386001,
+        "AvgVolume": 8743088,
         "sharesOutstanding": null,
-        "52Week": "81.04 - 84.84",
+        "52Week": "81.03 - 84.84",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 81.26,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9326340,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8679429,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33986,15 +33999,6 @@
             "volume": 8600834
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 81.275002,
-            "high": 81.300003,
-            "low": 81.110001,
-            "close": 81.260002,
-            "volume": 9326340
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -34012,6 +34016,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

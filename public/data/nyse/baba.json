@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 122.25,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 127.3,
         "englishName": "Alibaba Group Holding Limited",
         "earningsDate": "2026-05-13",
-        "enterpriseValue": 301746159616,
-        "marketCap": 293017616384,
-        "Volume": 16323414,
-        "AvgVolume": 12538743,
+        "enterpriseValue": 315585232896,
+        "marketCap": 305121853440,
+        "Volume": 13752437,
+        "AvgVolume": 12715514,
         "sharesOutstanding": 2396872232,
         "52Week": "91.99 - 192.67",
-        "Yield": 0.059239,
+        "Yield": 0.056889,
         "dividendRate": 1.05,
         "payoutRatio": 0.1712,
         "isin": "US01609W1027",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 122.25,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 301746159616,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 293017616384,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 16323414,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12538743,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.059239,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26744,7 +26769,8 @@
             "high": 122.584999,
             "low": 119.220001,
             "close": 122.25,
-            "volume": 16933673
+            "volume": 16933673,
+            "marketCap": 305121853440
         }
     ]
 }

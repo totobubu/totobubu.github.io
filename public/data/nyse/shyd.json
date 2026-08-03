@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 22.68,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 22.63,
         "englishName": "VanEck Short High Yield Muni ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 57158,
-        "AvgVolume": 98120,
+        "Volume": 105721,
+        "AvgVolume": 98346,
         "sharesOutstanding": null,
-        "52Week": "22.45 - 24.03",
+        "52Week": "22.49 - 24.03",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.68,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 57158,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 98120,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25556,15 +25569,6 @@
             "volume": 21938
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 22.690001,
-            "high": 22.700001,
-            "low": 22.645,
-            "close": 22.68,
-            "volume": 57158
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -25582,6 +25586,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

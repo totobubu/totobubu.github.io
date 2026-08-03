@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 36.78,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 36.68,
         "englishName": "iShares Broad USD High Yield Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 14095601,
-        "AvgVolume": 10556491,
+        "Volume": 19633618,
+        "AvgVolume": 10534353,
         "sharesOutstanding": null,
         "52Week": "36.39 - 37.867",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.78,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 14095601,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 10556491,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18092,15 +18105,6 @@
             "volume": 12881382
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 36.790001,
-            "high": 36.810001,
-            "low": 36.68,
-            "close": 36.779999,
-            "volume": 14095601
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -18118,6 +18122,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

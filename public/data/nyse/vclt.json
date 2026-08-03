@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 71.99,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 72,
         "englishName": "Vanguard Long-Term Corporate Bond Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6395279,
-        "AvgVolume": 4790779,
+        "Volume": 4796993,
+        "AvgVolume": 4819335,
         "sharesOutstanding": null,
         "52Week": "71.74 - 79.28",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 71.99,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6395279,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4790779,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33988,15 +34001,6 @@
             "volume": 5330586
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 72.110001,
-            "high": 72.150002,
-            "low": 71.739998,
-            "close": 71.989998,
-            "volume": 6395279
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -34014,6 +34018,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

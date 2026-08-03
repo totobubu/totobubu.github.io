@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 25.2,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 25.115,
         "englishName": "Schwab Ultra-Short Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 126804,
-        "AvgVolume": 115335,
+        "Volume": 229441,
+        "AvgVolume": 115990,
         "sharesOutstanding": null,
         "52Week": "25.1 - 25.33",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.2,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 126804,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 115335,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4010,15 +4023,6 @@
             "volume": 86937
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 25.18,
-            "high": 25.200001,
-            "low": 25.18,
-            "close": 25.200001,
-            "volume": 126804
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -4036,6 +4040,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 29.94,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 29.92,
         "englishName": "Schwab Long-Term U.S. Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 859686,
-        "AvgVolume": 609640,
+        "Volume": 693331,
+        "AvgVolume": 615330,
         "sharesOutstanding": null,
-        "52Week": "29.8299 - 33.19",
+        "52Week": "29.83 - 33.19",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.94,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 859686,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 609640,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13856,15 +13869,6 @@
             "volume": 419216
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 30.01,
-            "high": 30.01,
-            "low": 29.829901,
-            "close": 29.940001,
-            "volume": 985362
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -13882,6 +13886,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

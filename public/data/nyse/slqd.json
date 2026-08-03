@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 50.1553,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 50.015,
         "englishName": "iShares 0-5 Year Investment Grade Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 138866,
-        "AvgVolume": 211967,
+        "Volume": 76011,
+        "AvgVolume": 204219,
         "sharesOutstanding": null,
-        "52Week": "50.02 - 50.99",
+        "52Week": "50.002 - 50.99",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.1553,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 138866,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 211967,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26045,15 +26058,6 @@
             "volume": 185914
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 50.150002,
-            "high": 50.169998,
-            "low": 50.130001,
-            "close": 50.1553,
-            "volume": 138866
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -26071,6 +26075,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

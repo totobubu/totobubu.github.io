@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 24.855,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 24.78,
         "englishName": "iShares ESG 1-5 Year USD Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 174110,
-        "AvgVolume": 367424,
+        "Volume": 96948,
+        "AvgVolume": 367729,
         "sharesOutstanding": null,
-        "52Week": "24.775 - 25.39",
+        "52Week": "24.77 - 25.39",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.855,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 174110,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 367424,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18412,15 +18425,6 @@
             "volume": 162333
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 24.860001,
-            "high": 24.860001,
-            "low": 24.84,
-            "close": 24.855,
-            "volume": 174110
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -18438,6 +18442,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

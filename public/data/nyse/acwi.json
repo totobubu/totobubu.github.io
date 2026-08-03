@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 156.43,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 157.94,
         "englishName": "iShares MSCI ACWI ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2985034,
-        "AvgVolume": 3267717,
+        "Volume": 2029786,
+        "AvgVolume": 3279675,
         "sharesOutstanding": null,
-        "52Week": "127.77 - 160.03",
+        "52Week": "129.21 - 160.03",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 156.43,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2985034,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3267717,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37018,10 +37031,6 @@
             "volume": 2985034
         },
         {
-            "date": "2026-08-03",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-10",
             "forecasted": true
         },
@@ -37119,6 +37128,10 @@
         },
         {
             "date": "2027-01-25",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

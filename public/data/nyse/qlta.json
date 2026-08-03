@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 46.52,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 46.445,
         "englishName": "iShares Aaa - A Rated Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 170194,
-        "AvgVolume": 363146,
+        "Volume": 487396,
+        "AvgVolume": 361472,
         "sharesOutstanding": null,
-        "52Week": "46.4315 - 49.02",
+        "52Week": "46.415 - 49.02",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.52,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 170194,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 363146,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29439,15 +29452,6 @@
             "volume": 191559
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 46.540001,
-            "high": 46.5499,
-            "low": 46.431499,
-            "close": 46.52,
-            "volume": 170194
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -29465,6 +29469,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

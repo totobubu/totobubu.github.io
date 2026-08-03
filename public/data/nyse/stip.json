@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 101.36,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 100.6,
         "englishName": "iShares 0-5 Year TIPS Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 946331,
-        "AvgVolume": 974143,
+        "Volume": 1011003,
+        "AvgVolume": 987732,
         "sharesOutstanding": null,
-        "52Week": "101.1 - 104.16",
+        "52Week": "100.56 - 104.16",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 101.36,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 946331,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 974143,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31756,15 +31769,6 @@
             "volume": 545396
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 101.309998,
-            "high": 101.379997,
-            "low": 101.267601,
-            "close": 101.360001,
-            "volume": 946331
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -31782,6 +31786,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

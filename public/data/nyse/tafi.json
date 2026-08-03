@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 25.06,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 25,
         "englishName": "AB Tax-Aware Short Duration Municipal ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 367476,
-        "AvgVolume": 461240,
+        "Volume": 410230,
+        "AvgVolume": 462516,
         "sharesOutstanding": null,
-        "52Week": "25.0 - 25.65",
+        "52Week": "24.99 - 25.65",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.06,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 367476,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 461240,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7888,15 +7901,6 @@
             "volume": 373764
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 25.059999,
-            "high": 25.07,
-            "low": 25.049999,
-            "close": 25.059999,
-            "volume": 367476
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -7914,6 +7918,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

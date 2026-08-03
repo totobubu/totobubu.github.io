@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 22.07,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 21.961,
         "englishName": "Global X Variable Rate Preferred ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 49392,
-        "AvgVolume": 55885,
+        "Volume": 61980,
+        "AvgVolume": 55895,
         "sharesOutstanding": null,
         "52Week": "21.7 - 23.38",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.07,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 49392,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 55885,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12422,15 +12435,6 @@
             "volume": 48500
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 22.049999,
-            "high": 22.115,
-            "low": 22.01,
-            "close": 22.07,
-            "volume": 49392
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -12448,6 +12452,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

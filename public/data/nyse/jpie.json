@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 45.84,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 45.69,
         "englishName": "JPMorgan Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1100001,
-        "AvgVolume": 1476996,
+        "Volume": 1196263,
+        "AvgVolume": 1476372,
         "sharesOutstanding": null,
-        "52Week": "45.73 - 46.61",
+        "52Week": "45.66 - 46.61",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.84,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1100001,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1476996,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9648,15 +9661,6 @@
             "volume": 1257001
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 45.869999,
-            "high": 45.869999,
-            "low": 45.820099,
-            "close": 45.84,
-            "volume": 1189906
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -9674,6 +9678,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

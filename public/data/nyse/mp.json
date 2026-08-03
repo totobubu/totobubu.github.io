@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 41.37,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 43.84,
         "englishName": "MP Materials Corp.",
         "earningsDate": "2026-08-06",
-        "enterpriseValue": 7139634688,
-        "marketCap": 7364777984,
-        "Volume": 7063097,
-        "AvgVolume": 6037587,
+        "enterpriseValue": 7088008192,
+        "marketCap": 7804492800,
+        "Volume": 5046951,
+        "AvgVolume": 6076037,
         "sharesOutstanding": 178022198,
         "52Week": "37.81 - 100.251",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.37,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 7139634688,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 7364777984,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7063097,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6037587,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12356,7 +12377,8 @@
             "high": 42.5,
             "low": 40.720001,
             "close": 41.369999,
-            "volume": 7063097
+            "volume": 7063097,
+            "marketCap": 7804492800
         }
     ]
 }

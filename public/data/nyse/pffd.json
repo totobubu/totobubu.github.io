@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 18.52,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 18.61,
         "englishName": "Global X U.S. Preferred ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 790177,
-        "AvgVolume": 638412,
+        "Volume": 950656,
+        "AvgVolume": 641895,
         "sharesOutstanding": null,
         "52Week": "18.215 - 19.89",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.52,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 790177,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 638412,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18083,15 +18096,6 @@
             "volume": 656444
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 18.51,
-            "high": 18.6101,
-            "low": 18.433901,
-            "close": 18.52,
-            "volume": 790177
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -18109,6 +18113,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

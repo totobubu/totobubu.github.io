@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 49.94,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 49.96,
         "englishName": "JPMorgan Flexible Debt ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 71560,
-        "AvgVolume": 102137,
+        "Volume": 182479,
+        "AvgVolume": 101935,
         "sharesOutstanding": null,
         "52Week": "49.395 - 50.825",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.94,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 71560,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 102137,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1720,15 +1733,6 @@
             "volume": 163941
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 49.970001,
-            "high": 49.959999,
-            "low": 49.900002,
-            "close": 49.939602,
-            "volume": 71560
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -1746,6 +1750,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

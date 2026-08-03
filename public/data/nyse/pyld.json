@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 26.15,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 26.05,
         "englishName": "PIMCO ETF Trust - PIMCO Multisector Bond Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2767430,
-        "AvgVolume": 4017624,
+        "Volume": 3848895,
+        "AvgVolume": 4018351,
         "sharesOutstanding": null,
         "52Week": "25.92 - 27.04",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.15,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2767430,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4017624,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6331,15 +6344,6 @@
             "volume": 3715244
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 26.15,
-            "high": 26.16,
-            "low": 26.105,
-            "close": 26.15,
-            "volume": 2767430
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -6357,6 +6361,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

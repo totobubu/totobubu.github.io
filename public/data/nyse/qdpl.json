@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 45.23,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 45.89,
         "englishName": "Pacer Metaurus US Large Cap Dividend Multiplier 400 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 109444,
-        "AvgVolume": 140180,
+        "Volume": 146938,
+        "AvgVolume": 138024,
         "sharesOutstanding": null,
         "52Week": "39.12 - 46.34",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.23,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 109444,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 140180,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10149,10 +10162,12 @@
             "high": 45.404999,
             "low": 44.8498,
             "close": 45.23,
-            "volume": 109444
+            "volume": 109444,
+            "amount": 0.121,
+            "yield": 0.0485297369
         },
         {
-            "date": "2026-08-28",
+            "date": "2026-08-31",
             "forecasted": true
         },
         {

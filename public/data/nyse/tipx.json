@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 18.72,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 18.58,
         "englishName": "State Street SPDR Bloomberg 1-10 Year TIPS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 248632,
-        "AvgVolume": 452850,
+        "Volume": 563517,
+        "AvgVolume": 438580,
         "sharesOutstanding": null,
-        "52Week": "18.66 - 19.41",
+        "52Week": "18.5729 - 19.41",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.72,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 248632,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 452850,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26730,15 +26743,6 @@
             "volume": 208604
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 18.709999,
-            "high": 18.719999,
-            "low": 18.68,
-            "close": 18.719999,
-            "volume": 248632
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -26756,6 +26760,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

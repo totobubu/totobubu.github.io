@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 52.07,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 51.89,
         "englishName": "J P Morgan Exchange-Traded Fund Trust - Limited Duration Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 286864,
-        "AvgVolume": 468641,
+        "Volume": 248764,
+        "AvgVolume": 467574,
         "sharesOutstanding": null,
         "52Week": "51.875 - 52.75",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.07,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 286864,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 468641,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6116,15 +6129,6 @@
             "volume": 228572
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 52.029999,
-            "high": 52.07,
-            "low": 52,
-            "close": 52.07,
-            "volume": 286864
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -6142,6 +6146,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

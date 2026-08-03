@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 110.72,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 111.32,
         "englishName": "iShares MSCI All Country Asia ex Japan ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 753074,
-        "AvgVolume": 663808,
+        "Volume": 371008,
+        "AvgVolume": 672377,
         "sharesOutstanding": null,
-        "52Week": "82.53 - 124.89",
+        "52Week": "83.59 - 124.89",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 110.72,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 753074,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 663808,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36230,10 +36243,6 @@
             "volume": 753074
         },
         {
-            "date": "2026-08-03",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-10",
             "forecasted": true
         },
@@ -36331,6 +36340,10 @@
         },
         {
             "date": "2027-01-25",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

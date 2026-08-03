@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 26.3,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 26.09,
         "englishName": "Warner Bros. Discovery, Inc.",
         "earningsDate": "2026-08-06",
-        "enterpriseValue": 94155767808,
-        "marketCap": 65937694720,
-        "Volume": 36268037,
-        "AvgVolume": 21420687,
+        "enterpriseValue": 96236691456,
+        "marketCap": 65411198976,
+        "Volume": 13110752,
+        "AvgVolume": 21833195,
         "sharesOutstanding": 2507136702,
         "52Week": "10.76 - 30.0",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.3,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 94155767808,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 65937694720,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 36268037,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 21420687,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -47579,7 +47600,8 @@
             "high": 26.450001,
             "low": 25.4,
             "close": 26.299999,
-            "volume": 37061712
+            "volume": 37061712,
+            "marketCap": 65411198976
         }
     ]
 }

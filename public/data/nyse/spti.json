@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 28.08,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 28.03,
         "englishName": "State Street SPDR Portfolio Intermediate Term Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1830291,
-        "AvgVolume": 2481519,
+        "Volume": 2724564,
+        "AvgVolume": 2457833,
         "sharesOutstanding": null,
         "52Week": "28.0 - 29.24",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.08,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1830291,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2481519,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40467,15 +40480,6 @@
             "volume": 911225
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 28.09,
-            "high": 28.09,
-            "low": 28.040001,
-            "close": 28.08,
-            "volume": 1830291
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -40493,6 +40497,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

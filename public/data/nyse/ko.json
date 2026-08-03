@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 87.59,
-        "englishName": "The Coca-Cola Company",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 86.86,
+        "englishName": null,
         "earningsDate": "2026-07-28",
-        "enterpriseValue": 410787577856,
-        "marketCap": 376860246016,
-        "Volume": 10879681,
-        "AvgVolume": 17637022,
+        "enterpriseValue": 406915284992,
+        "marketCap": 373719400448,
+        "Volume": 22855450,
+        "AvgVolume": 17670880,
         "sharesOutstanding": 4302549243,
         "52Week": "65.35 - 90.92",
-        "Yield": 0.023747,
+        "Yield": 0.023947,
         "dividendRate": 2.12,
         "payoutRatio": 0.6246,
         "isin": "US1912161007",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 87.59,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 410787577856,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 376860246016,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10879681,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 17637022,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.023747,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28407,7 +28432,7 @@
             "close": 1.46875,
             "volume": 1276800,
             "amount": 0.0001,
-            "yield": 0.0000668407,
+            "yield": 6.68407e-5,
             "marketCap": 6317987991,
             "amountOriginal": 45.600768,
             "amountSplitAdjustments": [

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 95.46,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 95.15,
         "englishName": "PIMCO Enhanced Low Duration Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 54487,
-        "AvgVolume": 54183,
+        "Volume": 106936,
+        "AvgVolume": 54445,
         "sharesOutstanding": null,
         "52Week": "95.05 - 96.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 95.46,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 54487,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 54183,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25500,15 +25513,6 @@
             "volume": 67684
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 95.449997,
-            "high": 95.459999,
-            "low": 95.335197,
-            "close": 95.459999,
-            "volume": 54487
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -25526,6 +25530,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

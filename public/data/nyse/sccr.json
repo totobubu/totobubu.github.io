@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 25.113,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 25.065,
         "englishName": "Schwab Core Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 174871,
-        "AvgVolume": 287632,
+        "Volume": 215555,
+        "AvgVolume": 287064,
         "sharesOutstanding": null,
-        "52Week": "25.0801 - 26.25",
+        "52Week": "25.0509 - 26.25",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.113,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 174871,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 287632,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3038,15 +3051,6 @@
             "volume": 269546
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 25.15,
-            "high": 25.159901,
-            "low": 25.080099,
-            "close": 25.113001,
-            "volume": 175307
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -3064,6 +3068,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

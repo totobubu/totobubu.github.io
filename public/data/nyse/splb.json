@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 21.41,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 21.43,
         "englishName": "State Street SPDR Portfolio Long Term Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2680607,
-        "AvgVolume": 2693643,
+        "Volume": 3249758,
+        "AvgVolume": 2692787,
         "sharesOutstanding": null,
-        "52Week": "21.3445 - 23.6",
+        "52Week": "21.34 - 23.6",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.41,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2680607,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2693643,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36460,15 +36473,6 @@
             "volume": 2085472
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 21.450001,
-            "high": 21.459999,
-            "low": 21.3445,
-            "close": 21.41,
-            "volume": 2680607
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -36486,6 +36490,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 137,
-        "englishName": "DuPont de Nemours, Inc.",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 141.28,
+        "englishName": null,
         "earningsDate": "2026-08-04",
-        "enterpriseValue": 21675968512,
-        "marketCap": 18497658880,
-        "Volume": 5003618,
-        "AvgVolume": 1355003,
-        "sharesOutstanding": 135019401,
-        "52Week": "86.58578 - 157.98",
-        "Yield": 0.026715,
+        "enterpriseValue": 21424551936,
+        "marketCap": null,
+        "Volume": 1449416,
+        "AvgVolume": 1458988,
+        "sharesOutstanding": null,
+        "52Week": "87.263596 - 157.98",
+        "Yield": 0.025906,
         "dividendRate": 2.4,
         "payoutRatio": 3.2105,
         "isin": "US26614N1028",
@@ -67,7 +67,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 137,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 21675968512,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5003618,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1355003,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.026715,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -231,7 +252,7 @@
             "close": 7.195418834686279,
             "volume": 74617,
             "amount": 0.0005,
-            "yield": 0.0000686401,
+            "yield": 6.86401e-5,
             "marketCap": 3012841921,
             "amountOriginal": 32.508493,
             "amountSplitAdjustments": [

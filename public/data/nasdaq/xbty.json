@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 5.48,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 5.54,
         "englishName": "GraniteShares YieldBOOST Bitcoin ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 19557,
-        "AvgVolume": 38362,
+        "Volume": 7046,
+        "AvgVolume": 38137,
         "sharesOutstanding": null,
-        "52Week": "5.43 - 24.41",
+        "52Week": "5.43 - 24.15",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.48,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 19557,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 38362,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2662,7 +2675,9 @@
             "high": 5.51,
             "low": 5.455,
             "close": 5.48,
-            "volume": 19557
+            "volume": 19557,
+            "amount": 0.042,
+            "yield": 1.9830744102
         },
         {
             "date": "2026-08-07",

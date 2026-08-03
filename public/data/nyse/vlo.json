@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 312.9,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 307.54,
         "englishName": "Valero Energy Corporation",
         "earningsDate": "2026-07-30",
-        "enterpriseValue": 101378916352,
-        "marketCap": 92910264320,
-        "Volume": 1750228,
-        "AvgVolume": 3021475,
-        "sharesOutstanding": 296932782,
+        "enterpriseValue": 96834502656,
+        "marketCap": 88549212160,
+        "Volume": 2521367,
+        "AvgVolume": 3020685,
+        "sharesOutstanding": 287927461,
         "52Week": "130.78 - 320.24",
-        "Yield": 0.014893,
+        "Yield": 0.015153,
         "dividendRate": 4.8,
         "payoutRatio": 0.1943,
         "isin": "US91913Y1001",
@@ -42,7 +42,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 312.9,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 101378916352,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 92910264320,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1750228,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3021475,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 296932782,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.014893,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -103225,14 +103254,16 @@
             "high": 314.853302,
             "low": 306.274994,
             "close": 312.899994,
-            "volume": 2385738
+            "volume": 2385738,
+            "amount": 1.2,
+            "yield": 0.0187622074
         },
         {
-            "date": "2026-08-21",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2027-01-29",
             "forecasted": true
         }
     ]

@@ -9,24 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 106.25,
-        "englishName": "iShares iBoxx $ Investment Grade Corporate Bond ETF",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 106.11,
+        "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 37857204,
-        "AvgVolume": 27864101,
-        "sharesOutstanding": 293500000,
-        "52Week": "105.995 - 112.93",
-        "Yield": 0.030033,
+        "Volume": 29026222,
+        "AvgVolume": 27963270,
+        "sharesOutstanding": null,
+        "52Week": "105.96 - 112.93",
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642872422",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 106.25,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 37857204,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 27864101,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54772,15 +54785,6 @@
             "volume": 29761658
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 106.239998,
-            "high": 106.345001,
-            "low": 105.995003,
-            "close": 106.25,
-            "volume": 37857204
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -54798,6 +54802,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

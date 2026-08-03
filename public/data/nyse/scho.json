@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 24.1,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 24.03,
         "englishName": "Schwab Short-Term U.S. Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2267788,
-        "AvgVolume": 3503848,
+        "Volume": 2422112,
+        "AvgVolume": 3489098,
         "sharesOutstanding": null,
-        "52Week": "24.03 - 24.46",
+        "52Week": "24.02 - 24.46",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.1,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2267788,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3503848,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -195,7 +208,7 @@
             "close": 25.03499984741211,
             "volume": 109400,
             "amount": 0.0018,
-            "yield": 0.0000718133,
+            "yield": 7.18133e-5,
             "amountOriginal": 0.014,
             "amountSplitAdjustments": [
                 {
@@ -34090,15 +34103,6 @@
             "volume": 2071739
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 24.09,
-            "high": 24.1,
-            "low": 24.08,
-            "close": 24.1,
-            "volume": 2267788
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -34116,6 +34120,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

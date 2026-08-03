@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 48.82,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 48.81,
         "englishName": "Janus Henderson Short Duration Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 529822,
-        "AvgVolume": 377248,
+        "Volume": 793718,
+        "AvgVolume": 380209,
         "sharesOutstanding": null,
         "52Week": "48.8 - 49.437",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.82,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 529822,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 377248,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19730,10 +19743,12 @@
             "high": 48.82,
             "low": 48.799999,
             "close": 48.82,
-            "volume": 529822
+            "volume": 529822,
+            "amount": 0.194,
+            "yield": 0.0516181893
         },
         {
-            "date": "2026-08-28",
+            "date": "2026-08-31",
             "forecasted": true
         },
         {

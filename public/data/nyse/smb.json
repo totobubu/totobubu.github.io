@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 17.235,
-        "englishName": "VanEck Short Muni ETF",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 17.205,
+        "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 23495,
-        "AvgVolume": 59866,
+        "Volume": 226992,
+        "AvgVolume": 59003,
         "sharesOutstanding": null,
         "52Week": "17.18 - 17.53",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.235,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 23495,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 59866,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37817,15 +37830,6 @@
             "volume": 16470
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 17.23,
-            "high": 17.24,
-            "low": 17.23,
-            "close": 17.235001,
-            "volume": 23495
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -37843,6 +37847,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 100.595,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 100.44,
         "englishName": "Vanguard Short-Term Tax-Exempt Bond ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 179195,
-        "AvgVolume": 174945,
+        "Volume": 191068,
+        "AvgVolume": 175251,
         "sharesOutstanding": null,
         "52Week": "100.33 - 102.71",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.595,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 179195,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 174945,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6919,15 +6932,6 @@
             "volume": 177878
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 100.57,
-            "high": 100.620003,
-            "low": 100.5,
-            "close": 100.595001,
-            "volume": 179195
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -6945,6 +6949,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

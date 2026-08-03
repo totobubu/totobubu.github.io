@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 23.48,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 23.285,
         "englishName": "FlexShares iBoxx 5-Year Target Duration TIPS Index Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 73630,
-        "AvgVolume": 173927,
+        "Volume": 118208,
+        "AvgVolume": 173527,
         "sharesOutstanding": null,
         "52Week": "22.93 - 24.49",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.48,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 73630,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 173927,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30122,15 +30135,6 @@
             "volume": 102387
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 23.459999,
-            "high": 23.48,
-            "low": 23.420099,
-            "close": 23.48,
-            "volume": 73630
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -30148,6 +30152,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

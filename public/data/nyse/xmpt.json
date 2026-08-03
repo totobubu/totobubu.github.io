@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 21.54,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 21.41,
         "englishName": "VanEck CEF Municipal Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9059,
-        "AvgVolume": 44222,
+        "Volume": 127926,
+        "AvgVolume": 43058,
         "sharesOutstanding": null,
-        "52Week": "20.61 - 22.66",
+        "52Week": "20.68 - 22.66",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.54,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9059,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 44222,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30660,15 +30673,6 @@
             "volume": 89068
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 21.719999,
-            "high": 21.719999,
-            "low": 21.51,
-            "close": 21.540001,
-            "volume": 9059
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -30686,6 +30690,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

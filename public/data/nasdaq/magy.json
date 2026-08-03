@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 41.56,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 42.38,
         "englishName": "Roundhill Magnificent Seven Covered Call ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 39009,
-        "AvgVolume": 63720,
+        "Volume": 35761,
+        "AvgVolume": 63259,
         "sharesOutstanding": null,
         "52Week": "39.92 - 57.67",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.56,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 39009,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 63720,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2788,7 +2801,8 @@
             "low": 41.07,
             "close": 41.560001,
             "volume": 39009,
-            "amountFixed": 0.249131
+            "amountFixed": 0.249131,
+            "yield": 0.4039691938
         },
         {
             "date": "2026-08-07",

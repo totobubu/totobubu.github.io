@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 29.94,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 29.86,
         "englishName": "State Street SPDR Portfolio Short Term Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3097790,
-        "AvgVolume": 3022316,
+        "Volume": 5504841,
+        "AvgVolume": 3022132,
         "sharesOutstanding": null,
         "52Week": "29.84 - 30.34",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.94,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3097790,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3022316,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33767,15 +33780,6 @@
             "volume": 4672053
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 29.940001,
-            "high": 29.9459,
-            "low": 29.92,
-            "close": 29.940001,
-            "volume": 3097790
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -33793,6 +33797,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

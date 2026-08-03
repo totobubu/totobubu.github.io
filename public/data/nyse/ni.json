@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 44.43,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 44.53,
         "englishName": "NiSource Inc.",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 40612528128,
-        "marketCap": 21301485568,
-        "Volume": 3086539,
-        "AvgVolume": 4480429,
+        "enterpriseValue": 40305684480,
+        "marketCap": 21349429248,
+        "Volume": 3415451,
+        "AvgVolume": 4477369,
         "sharesOutstanding": 479439245,
         "52Week": "38.45 - 49.21",
-        "Yield": 0.019356,
+        "Yield": 0.019313,
         "dividendRate": 1.2,
         "payoutRatio": 0.5672,
         "isin": "US65473P1057",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.43,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 40612528128,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21301485568,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3086539,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4480429,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.019356,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -122797,7 +122822,9 @@
             "high": 44.955002,
             "low": 44.43,
             "close": 44.43,
-            "volume": 3086539
+            "volume": 3086539,
+            "amount": 0.3,
+            "yield": 0.0326256983
         },
         {
             "date": "2026-10-30",

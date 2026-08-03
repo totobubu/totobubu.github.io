@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 48.03,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 47.91,
         "englishName": "iShares Core 1-5 Year USD Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 367051,
-        "AvgVolume": 540314,
+        "Volume": 515370,
+        "AvgVolume": 532422,
         "sharesOutstanding": null,
-        "52Week": "47.89 - 49.05",
+        "52Week": "47.88 - 49.05",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.03,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 367051,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 540314,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28524,15 +28537,6 @@
             "volume": 350477
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 48.029999,
-            "high": 48.029999,
-            "low": 47.990002,
-            "close": 48.029999,
-            "volume": 371272
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -28550,6 +28554,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

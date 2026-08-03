@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 9.39,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 9.46,
         "englishName": "Global X SuperIncome Preferred ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 42386,
-        "AvgVolume": 64579,
+        "Volume": 53414,
+        "AvgVolume": 64553,
         "sharesOutstanding": null,
         "52Week": "8.79 - 9.77",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.39,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 42386,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 64579,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28580,15 +28593,6 @@
             "volume": 69757
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 9.5,
-            "high": 9.395,
-            "low": 9.34,
-            "close": 9.39,
-            "volume": 42386
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -28606,6 +28610,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

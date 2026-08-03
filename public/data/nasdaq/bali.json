@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 34.12,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 34.33,
         "englishName": "iShares U.S. Large Cap Premium Income Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 193610,
-        "AvgVolume": 269172,
+        "Volume": 212790,
+        "AvgVolume": 269561,
         "sharesOutstanding": null,
-        "52Week": "29.745 - 34.5",
+        "52Week": "29.94 - 34.5",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.12,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 193610,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 269172,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5787,15 +5800,6 @@
             "volume": 189538
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 34.029999,
-            "high": 34.200001,
-            "low": 33.790001,
-            "close": 34.119999,
-            "volume": 193610
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -5813,6 +5817,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

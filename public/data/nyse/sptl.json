@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
+        "Update": "2026-08-04 05:47:22 KST",
         "regularMarketPrice": 25.08,
         "englishName": "State Street SPDR Portfolio Long Term Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7015295,
-        "AvgVolume": 5682070,
+        "Volume": 5965218,
+        "AvgVolume": 5687501,
         "sharesOutstanding": null,
-        "52Week": "24.995 - 27.7",
+        "52Week": "25.0 - 27.7",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,16 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 7015295,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5682070,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40283,15 +40292,6 @@
             "volume": 10114506
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 25.145,
-            "high": 25.15,
-            "low": 24.995001,
-            "close": 25.08,
-            "volume": 7635392
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -40309,6 +40309,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

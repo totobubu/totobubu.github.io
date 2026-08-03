@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 41.29,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 41.22,
         "englishName": "BNY Mellon Core Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 141987,
-        "AvgVolume": 159943,
+        "Volume": 93143,
+        "AvgVolume": 160388,
         "sharesOutstanding": null,
-        "52Week": "41.22 - 43.07",
+        "52Week": "41.2 - 43.07",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.29,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 141987,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 159943,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12770,15 +12783,6 @@
             "volume": 61367
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 41.32,
-            "high": 41.290001,
-            "low": 41.220001,
-            "close": 41.290001,
-            "volume": 141987
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -12796,6 +12800,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

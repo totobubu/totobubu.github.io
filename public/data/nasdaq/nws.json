@@ -9,24 +9,53 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 31.27,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 31.79,
         "englishName": "News Corporation",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 18857807872,
-        "marketCap": 16927453184,
-        "Volume": 863032,
-        "AvgVolume": 1589711,
-        "sharesOutstanding": 180633618,
+        "enterpriseValue": 18567659520,
+        "marketCap": 17206102016,
+        "Volume": 993097,
+        "AvgVolume": 1589312,
+        "sharesOutstanding": 180606490,
         "52Week": "25.49 - 35.58",
-        "Yield": 0.006396,
+        "Yield": 0.006291,
         "dividendRate": 0.2,
         "payoutRatio": 0.2532,
         "isin": "CNE000000KJ6",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31.27,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 18857807872,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 16927453184,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 863032,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1589711,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 180633618,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.006396,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29617,7 +29646,8 @@
             "high": 31.870001,
             "low": 31.01,
             "close": 31.27,
-            "volume": 863032
+            "volume": 863032,
+            "marketCap": 17206102016
         }
     ]
 }

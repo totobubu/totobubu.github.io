@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 50.98,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 50.955,
         "englishName": "Janus Henderson Securitized Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 65354,
-        "AvgVolume": 127883,
+        "Volume": 147778,
+        "AvgVolume": 126646,
         "sharesOutstanding": null,
-        "52Week": "50.943 - 53.15",
+        "52Week": "50.93 - 53.15",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.98,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 65354,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 127883,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5548,10 +5561,12 @@
             "high": 50.990002,
             "low": 50.943001,
             "close": 50.98,
-            "volume": 65354
+            "volume": 65354,
+            "amount": 0.245,
+            "yield": 0.0637005096
         },
         {
-            "date": "2026-08-28",
+            "date": "2026-08-31",
             "forecasted": true
         },
         {

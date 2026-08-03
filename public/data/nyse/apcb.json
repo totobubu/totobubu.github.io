@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 28.95,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 28.92,
         "englishName": "ActivePassive Core Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 37218,
-        "AvgVolume": 98880,
+        "Volume": 90096,
+        "AvgVolume": 97795,
         "sharesOutstanding": null,
         "52Week": "28.87 - 30.18",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.95,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 37218,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 98880,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6609,15 +6622,6 @@
             "volume": 48324
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 28.969999,
-            "high": 28.995001,
-            "low": 28.905001,
-            "close": 28.950001,
-            "volume": 37218
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -6635,6 +6639,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

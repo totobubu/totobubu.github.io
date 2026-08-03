@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 38.76,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 38.65,
         "englishName": "State Street DoubleLine Total Return Tactical ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1195443,
-        "AvgVolume": 512404,
+        "Volume": 428600,
+        "AvgVolume": 527545,
         "sharesOutstanding": null,
-        "52Week": "38.695 - 40.859",
+        "52Week": "38.615 - 40.859",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 38.76,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1195443,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 512404,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -23301,15 +23314,6 @@
             "volume": 847825
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 38.779999,
-            "high": 38.790001,
-            "low": 38.695,
-            "close": 38.759998,
-            "volume": 1195443
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -23327,6 +23331,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

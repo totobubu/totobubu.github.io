@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 46.18,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 46.08,
         "englishName": "JPMorgan Core Plus Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1787508,
-        "AvgVolume": 2181717,
+        "Volume": 1265931,
+        "AvgVolume": 2177693,
         "sharesOutstanding": null,
-        "52Week": "46.1049 - 48.17",
+        "52Week": "46.04 - 48.17",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.18,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1787508,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2181717,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15061,15 +15074,6 @@
             "volume": 1579645
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 46.220001,
-            "high": 46.2159,
-            "low": 46.1049,
-            "close": 46.18,
-            "volume": 1787508
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -15087,6 +15091,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

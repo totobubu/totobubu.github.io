@@ -9,24 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 97.37,
-        "englishName": "iShares Core U.S. Aggregate Bond ETF",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 97.26,
+        "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9929249,
-        "AvgVolume": 8308293,
-        "sharesOutstanding": 572600000,
-        "52Week": "97.235 - 101.46",
-        "Yield": 0.02547,
+        "Volume": 9813961,
+        "AvgVolume": 8298322,
+        "sharesOutstanding": null,
+        "52Week": "97.13 - 101.46",
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642872265",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 97.37,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9929249,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8308293,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -52107,15 +52120,6 @@
             "volume": 7622035
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 97.480003,
-            "high": 97.480003,
-            "low": 97.235001,
-            "close": 97.370003,
-            "volume": 11043377
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -52133,6 +52137,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

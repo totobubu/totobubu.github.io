@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 100.79,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 100.47,
         "englishName": "PIMCO Enhanced Short Maturity Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2668746,
-        "AvgVolume": 1537069,
+        "Volume": 2193435,
+        "AvgVolume": 1548646,
         "sharesOutstanding": null,
-        "52Week": "100.27 - 100.82",
+        "52Week": "100.28 - 100.82",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.79,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2668746,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1537069,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -101,7 +114,7 @@
             "close": 100.16999816894531,
             "volume": 6700,
             "amount": 0.006,
-            "yield": 0.0000599101
+            "yield": 5.99101e-5
         },
         {
             "date": "2009-12-01",
@@ -34026,15 +34039,6 @@
             "volume": 1527642
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 100.800003,
-            "high": 100.809998,
-            "low": 100.779999,
-            "close": 100.790001,
-            "volume": 2668746
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -34052,6 +34056,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

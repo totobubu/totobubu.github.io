@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 47.49,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 47.24,
         "englishName": "JPMorgan Inflation Managed Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 59495,
-        "AvgVolume": 48230,
+        "Volume": 61641,
+        "AvgVolume": 48353,
         "sharesOutstanding": null,
-        "52Week": "47.31 - 50.95",
+        "52Week": "47.23 - 50.95",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.49,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 59495,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 48230,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8758,15 +8771,6 @@
             "volume": 26826
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 47.540001,
-            "high": 47.580002,
-            "low": 47.389999,
-            "close": 47.490101,
-            "volume": 59495
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -8784,6 +8788,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

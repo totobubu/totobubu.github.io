@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 92.92,
-        "englishName": "iShares MBS ETF",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 92.72,
+        "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2732003,
-        "AvgVolume": 2169580,
+        "Volume": 3601436,
+        "AvgVolume": 2186925,
         "sharesOutstanding": null,
-        "52Week": "92.76 - 96.97",
+        "52Week": "92.68 - 96.97",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.92,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2732003,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2169580,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39473,15 +39486,6 @@
             "volume": 1832666
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 93.160004,
-            "high": 93.160004,
-            "low": 92.760002,
-            "close": 92.919998,
-            "volume": 2732003
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -39499,6 +39503,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

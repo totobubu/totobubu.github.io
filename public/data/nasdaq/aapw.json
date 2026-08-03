@@ -9,14 +9,14 @@
         "underlying": "AAPL",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 39,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 38.0649,
         "englishName": "Roundhill AAPL WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 51127,
-        "AvgVolume": 16717,
+        "Volume": 30834,
+        "AvgVolume": 17246,
         "sharesOutstanding": null,
         "52Week": "33.02 - 44.654",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 51127,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 16717,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3280,6 +3293,10 @@
         },
         {
             "date": "2027-01-25",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

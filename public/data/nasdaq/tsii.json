@@ -9,14 +9,14 @@
         "underlying": "TSLA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 11.83,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 12.26,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 32895,
-        "AvgVolume": 66482,
+        "Volume": 30029,
+        "AvgVolume": 66230,
         "sharesOutstanding": null,
         "52Week": "11.12 - 30.39",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.83,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 32895,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 66482,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2642,6 +2655,10 @@
         },
         {
             "date": "2027-01-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-02",
             "forecasted": true
         }
     ]

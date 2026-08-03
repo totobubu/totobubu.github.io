@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 30.28,
-        "englishName": "State Street SPDR ICE Preferred Securities ETF",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 30.16,
+        "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 92261,
-        "AvgVolume": 86033,
+        "Volume": 148247,
+        "AvgVolume": 86462,
         "sharesOutstanding": null,
-        "52Week": "30.15 - 33.77",
+        "52Week": "30.12 - 33.77",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.28,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 92261,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 86033,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34241,15 +34254,6 @@
             "volume": 169017
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 30.219999,
-            "high": 30.32,
-            "low": 30.215,
-            "close": 30.280001,
-            "volume": 92261
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -34267,6 +34271,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

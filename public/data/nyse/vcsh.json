@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 78.62,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 78.42,
         "englishName": "Vanguard Short-Term Corporate Bond Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5455369,
-        "AvgVolume": 4317569,
+        "Volume": 3678330,
+        "AvgVolume": 4356767,
         "sharesOutstanding": null,
         "52Week": "78.36 - 80.26",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 78.62,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5455369,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4317569,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33986,15 +33999,6 @@
             "volume": 8612765
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 78.620003,
-            "high": 78.644997,
-            "low": 78.559998,
-            "close": 78.620003,
-            "volume": 5455369
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -34012,6 +34016,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

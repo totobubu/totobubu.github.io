@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 24.41,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 24.36,
         "englishName": "Schwab Intermediate-Term U.S. Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2367298,
-        "AvgVolume": 3030316,
+        "Volume": 5033677,
+        "AvgVolume": 2991682,
         "sharesOutstanding": 78600000,
-        "52Week": "24.34 - 25.42",
+        "52Week": "24.3327 - 25.42",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.41,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2367298,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3030316,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -37924,15 +37937,6 @@
             "volume": 1917498
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 24.41,
-            "high": 24.415001,
-            "low": 24.370001,
-            "close": 24.41,
-            "volume": 2367298
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -37950,6 +37954,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

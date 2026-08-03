@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 75.44,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 75.14,
         "englishName": "FlexShares Ultra-Short Income Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 16390,
-        "AvgVolume": 78737,
+        "Volume": 74083,
+        "AvgVolume": 78570,
         "sharesOutstanding": null,
         "52Week": "74.36 - 75.98",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 75.44,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 16390,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 78737,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28098,15 +28111,6 @@
             "volume": 37596
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 75.330002,
-            "high": 75.440002,
-            "low": 75.331001,
-            "close": 75.440002,
-            "volume": 16390
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -28124,6 +28128,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

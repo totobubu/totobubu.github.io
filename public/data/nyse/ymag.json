@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 11.25,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 11.55,
         "englishName": "YieldMax Magnificent 7 Fund of Option Income ETFs",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1560775,
-        "AvgVolume": 1270461,
+        "Volume": 1168107,
+        "AvgVolume": 1270270,
         "sharesOutstanding": null,
         "52Week": "10.73 - 16.01",
         "Yield": null,
@@ -40,7 +40,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.25,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1560775,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1270461,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5527,6 +5540,10 @@
         },
         {
             "date": "2027-01-27",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-03",
             "forecasted": true
         }
     ]

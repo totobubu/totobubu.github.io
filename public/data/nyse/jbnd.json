@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 52.68,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 52.59,
         "englishName": "Jpmorgan Active Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 803405,
-        "AvgVolume": 1003438,
+        "Volume": 714393,
+        "AvgVolume": 1006156,
         "sharesOutstanding": null,
-        "52Week": "52.59 - 55.785",
+        "52Week": "52.43 - 55.785",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.68,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 803405,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1003438,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5703,15 +5716,6 @@
             "volume": 913901
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 52.73,
-            "high": 52.7262,
-            "low": 52.59,
-            "close": 52.68,
-            "volume": 803405
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -5729,6 +5733,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

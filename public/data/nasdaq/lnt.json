@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 70.78,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 71.27,
         "englishName": "Alliant Energy Corporation",
         "earningsDate": "2026-07-30",
-        "enterpriseValue": 30418065408,
-        "marketCap": 18280849408,
-        "Volume": 3238025,
-        "AvgVolume": 2545483,
+        "enterpriseValue": 30445170688,
+        "marketCap": 18407403520,
+        "Volume": 3181217,
+        "AvgVolume": 2527666,
         "sharesOutstanding": 258277037,
         "52Week": "63.28 - 78.81",
-        "Yield": 0.01434,
+        "Yield": 0.029255,
         "dividendRate": 2.14,
         "payoutRatio": 0.647,
         "isin": "US0188021085",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 70.78,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 30418065408,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 18280849408,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3238025,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2545483,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.01434,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -122563,7 +122588,9 @@
             "high": 71.139999,
             "low": 69.919998,
             "close": 70.779999,
-            "volume": 3238025
+            "volume": 3238025,
+            "amount": 0.535,
+            "yield": 0.0371700261
         },
         {
             "date": "2026-10-30",

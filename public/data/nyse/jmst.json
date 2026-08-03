@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 50.91,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 50.845,
         "englishName": "JPMorgan Ultra-Short Municipal Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 711056,
-        "AvgVolume": 1157377,
+        "Volume": 1007824,
+        "AvgVolume": 1152482,
         "sharesOutstanding": null,
-        "52Week": "50.83 - 51.13",
+        "52Week": "50.8 - 51.13",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.91,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 711056,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1157377,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15825,15 +15838,6 @@
             "volume": 1051561
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 50.919998,
-            "high": 50.93,
-            "low": 50.900002,
-            "close": 50.91,
-            "volume": 711056
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -15851,6 +15855,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

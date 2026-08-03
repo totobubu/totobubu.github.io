@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 173.55,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 181.24,
         "englishName": "Direxion Daily Technology Bull 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 771554,
-        "AvgVolume": 1114780,
+        "Volume": 624125,
+        "AvgVolume": 1106420,
         "sharesOutstanding": null,
         "52Week": "75.16 - 275.4",
         "Yield": null,
@@ -42,7 +42,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 173.55,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 771554,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1114780,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18251,7 +18264,7 @@
             "close": 11.675000190734863,
             "volume": 1623000,
             "amount": 0.0011,
-            "yield": 0.0000929447,
+            "yield": 9.29447e-5,
             "amountOriginal": 1.12,
             "amountSplitAdjustments": [
                 {

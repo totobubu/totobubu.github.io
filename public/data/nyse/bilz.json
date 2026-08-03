@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 100.975,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 100.67,
         "englishName": "PIMCO Ultra Short Government Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 82916,
-        "AvgVolume": 223545,
+        "Volume": 457779,
+        "AvgVolume": 223314,
         "sharesOutstanding": null,
         "52Week": "100.63 - 101.25",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.975,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 82916,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 223545,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6326,15 +6339,6 @@
             "volume": 140029
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 100.970001,
-            "high": 100.980003,
-            "low": 100.970001,
-            "close": 100.974998,
-            "volume": 82916
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -6352,6 +6356,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

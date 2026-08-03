@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 91.68,
-        "englishName": "State Street SPDR Bloomberg 1-3 Month T-Bill ETF",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 91.42,
+        "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 13831255,
-        "AvgVolume": 9836909,
+        "Volume": 21691049,
+        "AvgVolume": 9846387,
         "sharesOutstanding": null,
         "52Week": "91.26 - 91.78",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 91.68,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 13831255,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 9836909,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9621,7 +9634,7 @@
             "close": 91.66000366210938,
             "volume": 273600,
             "amount": 0.008,
-            "yield": 0.0000872791,
+            "yield": 8.72791e-5,
             "amountOriginal": 0.001,
             "amountSplitAdjustments": [
                 {
@@ -39333,15 +39346,6 @@
             "volume": 10132907
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 91.68,
-            "high": 91.690002,
-            "low": 91.669998,
-            "close": 91.68,
-            "volume": 13831255
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -39359,6 +39363,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

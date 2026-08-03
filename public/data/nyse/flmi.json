@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 24.66,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 24.57,
         "englishName": "Franklin Dynamic Municipal Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 621154,
-        "AvgVolume": 735541,
+        "Volume": 691962,
+        "AvgVolume": 730537,
         "sharesOutstanding": null,
         "52Week": "24.05 - 25.46",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.66,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 621154,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 735541,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18078,15 +18091,6 @@
             "volume": 827333
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 24.67,
-            "high": 24.68,
-            "low": 24.594999,
-            "close": 24.66,
-            "volume": 621154
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -18104,6 +18108,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 100.53,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 101.12,
         "englishName": "Arch Capital Group Ltd.",
         "earningsDate": "2026-07-28",
-        "enterpriseValue": 34998083584,
-        "marketCap": 34280728576,
-        "Volume": 1632995,
-        "AvgVolume": 2280129,
+        "enterpriseValue": 34790932480,
+        "marketCap": 34481922048,
+        "Volume": 1547951,
+        "AvgVolume": 2275358,
         "sharesOutstanding": 341000000,
         "52Week": "82.45 - 107.09",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.53,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 34998083584,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 34280728576,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1632995,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2280129,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -69921,7 +69942,8 @@
             "high": 101.379997,
             "low": 99.800003,
             "close": 100.529999,
-            "volume": 1702880
+            "volume": 1702880,
+            "marketCap": 34481922048
         }
     ]
 }

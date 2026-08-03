@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 24.85,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 24.77,
         "englishName": "State Street SPDR Bloomberg Short Term High Yield Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2065734,
-        "AvgVolume": 2466025,
+        "Volume": 3498046,
+        "AvgVolume": 2469509,
         "sharesOutstanding": null,
         "52Week": "24.72 - 25.65",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.85,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2065734,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2466025,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29155,15 +29168,6 @@
             "volume": 4385395
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 24.860001,
-            "high": 24.870001,
-            "low": 24.795,
-            "close": 24.85,
-            "volume": 2065734
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -29181,6 +29185,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 18.88,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 18.82,
         "englishName": "Principal Spectrum Preferred Securities Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 118258,
-        "AvgVolume": 235987,
+        "Volume": 148702,
+        "AvgVolume": 235391,
         "sharesOutstanding": null,
         "52Week": "18.64 - 19.32",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.88,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 118258,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 235987,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18863,15 +18876,6 @@
             "volume": 123031
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 18.889999,
-            "high": 18.889999,
-            "low": 18.855,
-            "close": 18.879999,
-            "volume": 118258
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -18889,6 +18893,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

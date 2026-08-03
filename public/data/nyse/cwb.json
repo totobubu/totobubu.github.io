@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 101.85,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 103.3,
         "englishName": "State Street SPDR Bloomberg Convertible Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 632627,
-        "AvgVolume": 871109,
+        "Volume": 890500,
+        "AvgVolume": 870953,
         "sharesOutstanding": null,
-        "52Week": "83.18 - 112.02",
+        "52Week": "83.5 - 112.02",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 101.85,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 632627,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 871109,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35236,15 +35249,6 @@
             "volume": 518410
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 103,
-            "high": 103.235001,
-            "low": 101.050003,
-            "close": 101.849998,
-            "volume": 632627
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -35262,6 +35266,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

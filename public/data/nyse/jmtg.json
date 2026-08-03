@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 49.98,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 49.92,
         "englishName": "JPMorgan Mortgage-Backed Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 272102,
-        "AvgVolume": 720016,
+        "Volume": 483876,
+        "AvgVolume": 739661,
         "sharesOutstanding": null,
-        "52Week": "49.875 - 52.04",
+        "52Week": "49.845 - 52.04",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.98,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 272102,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 720016,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2230,15 +2243,6 @@
             "volume": 262862
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 50.09,
-            "high": 50.080002,
-            "low": 49.875,
-            "close": 49.98,
-            "volume": 272102
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -2256,6 +2260,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

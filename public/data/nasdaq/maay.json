@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 5.825,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 5.863,
         "englishName": "GraniteShares YieldBOOST MARA ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12708,
-        "AvgVolume": 16429,
+        "Volume": 20397,
+        "AvgVolume": 16453,
         "sharesOutstanding": null,
-        "52Week": "5.81 - 24.89",
+        "52Week": "5.8099 - 24.89",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.825,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12708,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 16429,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1600,7 +1613,9 @@
             "high": 5.85,
             "low": 5.81,
             "close": 5.825,
-            "volume": 12708
+            "volume": 12708,
+            "amount": 0.102,
+            "yield": 1.7060717949
         },
         {
             "date": "2026-08-07",

@@ -9,24 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 82,
-        "englishName": "iShares 1-3 Year Treasury Bond ETF",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 81.77,
+        "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3043856,
-        "AvgVolume": 3335904,
-        "sharesOutstanding": 209300000,
-        "52Week": "81.76 - 83.2",
-        "Yield": 0.003817,
+        "Volume": 4513052,
+        "AvgVolume": 3338204,
+        "sharesOutstanding": null,
+        "52Week": "81.75 - 83.2",
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642874576",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 82,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3043856,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3335904,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54769,15 +54782,6 @@
             "volume": 3450040
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 81.964996,
-            "high": 82,
-            "low": 81.940002,
-            "close": 82,
-            "volume": 3141464
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -54795,6 +54799,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

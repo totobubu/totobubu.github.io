@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 58.1,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 57.96,
         "englishName": "Vanguard Short-Term Treasury Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2148150,
-        "AvgVolume": 3333291,
+        "Volume": 4732657,
+        "AvgVolume": 3293090,
         "sharesOutstanding": null,
-        "52Week": "57.96 - 59.01",
+        "52Week": "57.95 - 59.01",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.1,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2148150,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3333291,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33986,15 +33999,6 @@
             "volume": 2069617
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 58.0994,
-            "high": 58.110001,
-            "low": 58.07,
-            "close": 58.099998,
-            "volume": 2148150
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -34012,6 +34016,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

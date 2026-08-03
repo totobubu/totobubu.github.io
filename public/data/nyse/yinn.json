@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 32.47,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 32.26,
         "englishName": "Direxion Daily FTSE China Bull 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1112747,
-        "AvgVolume": 2083811,
+        "Volume": 862542,
+        "AvgVolume": 2084588,
         "sharesOutstanding": null,
         "52Week": "20.69 - 57.71",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.47,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1112747,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2083811,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24991,7 +25004,7 @@
             "volume": 953380,
             "amount": 0.4,
             "yield": 0.2421874964,
-            "amountOriginal": 0.00005,
+            "amountOriginal": 5e-5,
             "amountSplitAdjustments": [
                 {
                     "date": "2022-05-31",

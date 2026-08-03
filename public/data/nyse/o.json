@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 63.87,
-        "englishName": "Realty Income Corporation",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 63.48,
+        "englishName": null,
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 92067487744,
-        "marketCap": 59558297600,
-        "Volume": 3329215,
-        "AvgVolume": 5894212,
-        "sharesOutstanding": 932492530,
+        "enterpriseValue": 91545288704,
+        "marketCap": null,
+        "Volume": 4623375,
+        "AvgVolume": 5911512,
+        "sharesOutstanding": null,
         "52Week": "55.86 - 67.94",
-        "Yield": 0.050634,
+        "Yield": 0.050945,
         "dividendRate": 3.25,
         "payoutRatio": 2.65,
         "isin": "US7561091049",
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 63.87,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 92067487744,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3329215,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5894212,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.050634,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -76293,10 +76314,12 @@
             "high": 64.059998,
             "low": 63.240002,
             "close": 63.869999,
-            "volume": 5722634
+            "volume": 5722634,
+            "amount": 0.271,
+            "yield": 0.0549679236
         },
         {
-            "date": "2026-08-28",
+            "date": "2026-08-31",
             "forecasted": true
         },
         {

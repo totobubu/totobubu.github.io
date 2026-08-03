@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 574.3,
-        "englishName": "Thermo Fisher Scientific Inc.",
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 574.03,
+        "englishName": null,
         "earningsDate": "2026-07-23",
-        "enterpriseValue": 252587671552,
-        "marketCap": 213422211072,
-        "Volume": 1610965,
-        "AvgVolume": 2390116,
-        "sharesOutstanding": 371621465,
+        "enterpriseValue": 250958872576,
+        "marketCap": null,
+        "Volume": 1294863,
+        "AvgVolume": 2401195,
+        "sharesOutstanding": null,
         "52Week": "435.27 - 643.99",
-        "Yield": 0.001497,
+        "Yield": 0.003136,
         "dividendRate": 1.88,
         "payoutRatio": 0.0969,
         "isin": "US8835561023",
@@ -57,7 +57,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 574.3,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 252587671552,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1610965,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2390116,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.001497,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36181,7 +36202,7 @@
             "close": 34.66666793823242,
             "volume": 724650,
             "amount": 0.0027,
-            "yield": 0.000080198,
+            "yield": 8.0198e-5,
             "marketCap": 13090554008,
             "amountOriginal": 0.009,
             "amountSplitAdjustments": [

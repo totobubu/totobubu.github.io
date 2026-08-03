@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 8.82,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 8.86,
         "englishName": "Roundhill Ether Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 55793,
-        "AvgVolume": 79300,
+        "Volume": 33199,
+        "AvgVolume": 78483,
         "sharesOutstanding": null,
         "52Week": "7.63 - 31.78",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.82,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 55793,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 79300,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4157,6 +4170,10 @@
         },
         {
             "date": "2027-01-27",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-03",
             "forecasted": true
         }
     ]

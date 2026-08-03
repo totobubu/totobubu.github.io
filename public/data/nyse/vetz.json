@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 19.386,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 19.315,
         "englishName": "Academy Veteran Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1507,
-        "AvgVolume": 28403,
+        "Volume": 7066,
+        "AvgVolume": 28398,
         "sharesOutstanding": null,
-        "52Week": "19.34 - 20.49",
+        "52Week": "19.2001 - 20.49",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.386,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1507,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 28403,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6108,15 +6121,6 @@
             "volume": 621
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 19.4,
-            "high": 19.395,
-            "low": 19.34,
-            "close": 19.386,
-            "volume": 1507
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -6134,6 +6138,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

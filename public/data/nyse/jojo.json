@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 14.97,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 15.0344,
         "englishName": "ATAC Credit Rotation ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3701,
-        "AvgVolume": 6662,
+        "Volume": 2787,
+        "AvgVolume": 6679,
         "sharesOutstanding": null,
-        "52Week": "14.955 - 16.24",
+        "52Week": "14.95 - 16.24",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.97,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3701,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6662,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10268,15 +10281,6 @@
             "volume": 2046
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 15,
-            "high": 14.9842,
-            "low": 14.955,
-            "close": 14.9842,
-            "volume": 3701
-        },
-        {
             "date": "2026-09-02",
             "forecasted": true
         },
@@ -10294,6 +10298,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-02",
             "forecasted": true
         }
     ]

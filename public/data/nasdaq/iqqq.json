@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 47.18,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 47.7152,
         "englishName": "ProShares Nasdaq-100 High Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 48829,
-        "AvgVolume": 59529,
+        "Volume": 53638,
+        "AvgVolume": 59483,
         "sharesOutstanding": null,
         "52Week": "40.43 - 51.66",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.18,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 48829,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 59529,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4823,15 +4836,6 @@
             "volume": 42891
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 47.91,
-            "high": 47.91,
-            "low": 46.6586,
-            "close": 47.18,
-            "volume": 48860
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -4849,6 +4853,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

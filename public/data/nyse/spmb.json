@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 21.92,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 21.9,
         "englishName": "State Street SPDR Portfolio Mortgage Backed Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 983310,
-        "AvgVolume": 1244993,
+        "Volume": 1175552,
+        "AvgVolume": 1252437,
         "sharesOutstanding": null,
         "52Week": "21.88 - 22.87",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.92,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 983310,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1244993,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35655,15 +35668,6 @@
             "volume": 638252
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 21.98,
-            "high": 22,
-            "low": 21.879999,
-            "close": 21.92,
-            "volume": 983310
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -35681,6 +35685,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

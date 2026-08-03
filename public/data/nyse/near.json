@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 50.55,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 50.39,
         "englishName": "iShares Short Duration Bond Active ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 432307,
-        "AvgVolume": 589116,
+        "Volume": 488145,
+        "AvgVolume": 583188,
         "sharesOutstanding": null,
-        "52Week": "50.38 - 51.37",
+        "52Week": "50.3155 - 51.37",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.55,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 432307,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 589116,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26125,15 +26138,6 @@
             "volume": 632601
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 50.529999,
-            "high": 50.549999,
-            "low": 50.5,
-            "close": 50.549999,
-            "volume": 432307
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -26151,6 +26155,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

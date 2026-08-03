@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 50.31,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 50.18,
         "englishName": "AB Ultra Short Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 106056,
-        "AvgVolume": 148377,
+        "Volume": 215467,
+        "AvgVolume": 148203,
         "sharesOutstanding": null,
-        "52Week": "50.17 - 50.78",
+        "52Week": "50.16 - 50.78",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.31,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 106056,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 148377,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7888,15 +7901,6 @@
             "volume": 151153
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 50.310001,
-            "high": 50.32,
-            "low": 50.309898,
-            "close": 50.310001,
-            "volume": 106056
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -7914,6 +7918,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

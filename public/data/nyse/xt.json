@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 79.57,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 80.32,
         "englishName": "iShares Future Exponential Technologies ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 62021,
-        "AvgVolume": 127803,
+        "Volume": 56948,
+        "AvgVolume": 127330,
         "sharesOutstanding": null,
-        "52Week": "64.658 - 84.23",
+        "52Week": "65.254 - 84.23",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 79.57,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 62021,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 127803,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22932,10 +22945,6 @@
             "volume": 62021
         },
         {
-            "date": "2026-08-03",
-            "forecasted": true
-        },
-        {
             "date": "2026-08-10",
             "forecasted": true
         },
@@ -23033,6 +23042,10 @@
         },
         {
             "date": "2027-01-25",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

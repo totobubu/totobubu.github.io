@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 33.13,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 33.06,
         "englishName": "State Street SPDR Portfolio Intermediate Term Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10892581,
-        "AvgVolume": 6983201,
+        "Volume": 2844148,
+        "AvgVolume": 7026977,
         "sharesOutstanding": null,
         "52Week": "33.03 - 34.14",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.13,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10892581,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6983201,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35543,15 +35556,6 @@
             "volume": 12887782
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 33.150002,
-            "high": 33.145,
-            "low": 33.09,
-            "close": 33.130001,
-            "volume": 10892581
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -35569,6 +35573,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

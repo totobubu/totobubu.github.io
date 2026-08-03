@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 44.12,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 44.21,
         "englishName": "Janus Henderson Mortgage-Backed Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1283706,
-        "AvgVolume": 644895,
+        "Volume": 616710,
+        "AvgVolume": 658308,
         "sharesOutstanding": null,
         "52Week": "44.05 - 46.39",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.12,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1283706,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 644895,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16051,10 +16064,12 @@
             "high": 44.23,
             "low": 44.049999,
             "close": 44.119999,
-            "volume": 1283706
+            "volume": 1283706,
+            "amount": 0.192,
+            "yield": 0.0570232992
         },
         {
-            "date": "2026-08-28",
+            "date": "2026-08-31",
             "forecasted": true
         },
         {

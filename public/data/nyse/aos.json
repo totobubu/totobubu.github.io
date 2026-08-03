@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 60.13,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 60.73,
         "englishName": "A. O. Smith Corporation",
         "earningsDate": "2026-07-30",
-        "enterpriseValue": 8740985856,
-        "marketCap": 8287635456,
-        "Volume": 1535839,
-        "AvgVolume": 1782040,
-        "sharesOutstanding": 111965465,
+        "enterpriseValue": 8668082176,
+        "marketCap": 8253727744,
+        "Volume": 1852571,
+        "AvgVolume": 1791237,
+        "sharesOutstanding": 110047214,
         "52Week": "54.16 - 81.87",
-        "Yield": 0.023615,
+        "Yield": 0.023382,
         "dividendRate": 1.44,
         "payoutRatio": 0.3955,
         "isin": "US8318652091",
@@ -52,7 +52,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 60.13,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 8740985856,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 8287635456,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1535839,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1782040,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 111965465,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.023615,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -100247,7 +100276,9 @@
             "high": 60.4725,
             "low": 58.855,
             "close": 60.130001,
-            "volume": 1535839
+            "volume": 1535839,
+            "amount": 0.36,
+            "yield": 0.0300980729
         },
         {
             "date": "2026-10-30",

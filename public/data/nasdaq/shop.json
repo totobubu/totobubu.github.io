@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 117.15,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 117.01,
         "englishName": "Shopify Inc.",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 153268928512,
-        "marketCap": 152020238336,
-        "Volume": 11923370,
-        "AvgVolume": 10473132,
+        "enterpriseValue": 146456231936,
+        "marketCap": 151838572544,
+        "Volume": 8823497,
+        "AvgVolume": 10548300,
         "sharesOutstanding": 1219581025,
         "52Week": "94.0 - 182.19",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 117.15,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 153268928512,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 152020238336,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 11923370,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10473132,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25232,7 +25253,8 @@
             "high": 122.25,
             "low": 115.269997,
             "close": 117.150002,
-            "volume": 12057784
+            "volume": 12057784,
+            "marketCap": 151838572544
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 51.06,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 50.92,
         "englishName": "iShares Floating Rate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2284282,
-        "AvgVolume": 1812572,
+        "Volume": 2149912,
+        "AvgVolume": 1815800,
         "sharesOutstanding": null,
         "52Week": "50.67 - 51.09",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.06,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2284282,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1812572,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30796,15 +30809,6 @@
             "volume": 2479521
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 51.07,
-            "high": 51.080002,
-            "low": 51.060001,
-            "close": 51.060001,
-            "volume": 2284282
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -30822,6 +30826,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

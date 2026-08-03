@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 100.71,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 100.42,
         "englishName": "iShares 0-3 Month Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 26915566,
-        "AvgVolume": 20262685,
+        "Volume": 34021927,
+        "AvgVolume": 20178646,
         "sharesOutstanding": null,
         "52Week": "100.27 - 100.74",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.71,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 26915566,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 20262685,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -213,7 +226,7 @@
             "close": 100.01499938964844,
             "volume": 15100,
             "amount": 0.006,
-            "yield": 0.000059988
+            "yield": 5.9988e-5
         },
         {
             "date": "2020-07-02",
@@ -12566,15 +12579,6 @@
             "volume": 21769812
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 100.709999,
-            "high": 100.720001,
-            "low": 100.709999,
-            "close": 100.709999,
-            "volume": 27655074
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -12592,6 +12596,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

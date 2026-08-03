@@ -9,14 +9,14 @@
         "underlying": "PLTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 16.87,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 17.08,
         "englishName": "Roundhill PLTR WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 225151,
-        "AvgVolume": 186017,
+        "Volume": 213564,
+        "AvgVolume": 187600,
         "sharesOutstanding": null,
         "52Week": "15.0 - 57.83",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.87,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 225151,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 186017,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3285,6 +3298,10 @@
         },
         {
             "date": "2027-01-25",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]

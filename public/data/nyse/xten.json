@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-01 05:29:53 KST",
-        "regularMarketPrice": 44.27,
+        "Update": "2026-08-04 05:47:22 KST",
+        "regularMarketPrice": 44.219,
         "englishName": "Bondbloxx Bloomberg Ten Year Target Duration US Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 324971,
-        "AvgVolume": 274164,
+        "Volume": 204288,
+        "AvgVolume": 276275,
         "sharesOutstanding": null,
-        "52Week": "44.13 - 47.5",
+        "52Week": "44.12 - 47.5",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 44.27,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 324971,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 274164,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7736,15 +7749,6 @@
             "volume": 89951
         },
         {
-            "date": "2026-07-31",
-            "forecasted": true,
-            "open": 44.215599,
-            "high": 44.27,
-            "low": 44.130001,
-            "close": 44.27,
-            "volume": 326298
-        },
-        {
             "date": "2026-08-31",
             "forecasted": true
         },
@@ -7762,6 +7766,10 @@
         },
         {
             "date": "2026-12-31",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-01",
             "forecasted": true
         }
     ]
