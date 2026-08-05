@@ -6,8 +6,6 @@ export function createApiHandler(handler) {
         const allowedOrigins = [
             'http://localhost:5173',
             'http://localhost:3000',
-            'https://www.divgrow.com',
-            'https://divgrow.com',
         ];
         const origin = req.headers.origin;
 

@@ -57,9 +57,6 @@ const roiClass = computed(() => {
             </div>
         </div>
 
-        <div class="flex justify-content-center">
-            <span class="text-gray-400 text-xs tracking-widest uppercase">divgrow.com</span>
-        </div>
     </div>
 </template>
 

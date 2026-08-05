@@ -85,7 +85,7 @@
     };
 
     const chartTitle = computed(() => {
-        if (!props.result) return 'DivGrow.com/Backtester';
+        if (!props.result) return 'DivGrow Backtester';
         const portfolioName = props.result.symbols.join(', ');
         const comparisonName =
             props.result.comparisonSymbol !== 'None'
