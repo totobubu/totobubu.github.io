@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-14 05:00:37 KST",
-        "regularMarketPrice": 66.01,
+        "Update": "2026-08-15 04:54:59 KST",
+        "regularMarketPrice": 67.51,
         "englishName": "Centene Corporation",
         "earningsDate": "2026-10-27",
-        "enterpriseValue": 22275244032,
-        "marketCap": 32608612352,
-        "Volume": 2392647,
-        "AvgVolume": 5053929,
+        "enterpriseValue": 21766430720,
+        "marketCap": 33349603328,
+        "Volume": 1517529,
+        "AvgVolume": 5016617,
         "sharesOutstanding": 493995000,
-        "52Week": "26.71 - 69.36",
+        "52Week": "27.76 - 69.36",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 66.01,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 22275244032,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 32608612352,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2392647,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5053929,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -55837,7 +55858,8 @@
             "high": 67.839897,
             "low": 65.720001,
             "close": 66.040001,
-            "volume": 2723061
+            "volume": 2723061,
+            "marketCap": 33349603328
         }
     ]
 }

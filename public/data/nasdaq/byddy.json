@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-14 05:00:37 KST",
-        "regularMarketPrice": 11.17,
+        "Update": "2026-08-15 04:54:59 KST",
+        "regularMarketPrice": 11.26,
         "englishName": "BYD Company Limited",
         "earningsDate": null,
-        "enterpriseValue": 129946492928,
-        "marketCap": 101839093760,
-        "Volume": 172379,
-        "AvgVolume": 1702787,
+        "enterpriseValue": 128583737344,
+        "marketCap": 102659645440,
+        "Volume": 344490,
+        "AvgVolume": 1685288,
         "sharesOutstanding": 3683400000,
         "52Week": "9.21 - 15.19",
-        "Yield": 0.03205,
+        "Yield": 0.031794,
         "dividendRate": 0.05,
         "payoutRatio": 0.441,
         "isin": "US05606L1008",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.17,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 129946492928,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 101839093760,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 172379,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1702787,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.03205,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28348,7 +28373,7 @@
             "close": 13.046667098999023,
             "volume": 1324800,
             "amount": 0.0009,
-            "yield": 0.0000690537,
+            "yield": 6.90537e-5,
             "marketCap": 48056093592,
             "amountOriginal": 0.198,
             "amountSplitAdjustments": [
@@ -37664,7 +37689,8 @@
             "high": 11.27,
             "low": 11.12,
             "close": 11.18,
-            "volume": 186970
+            "volume": 186970,
+            "marketCap": 102659645440
         }
     ]
 }

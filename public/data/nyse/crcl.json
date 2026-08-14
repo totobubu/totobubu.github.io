@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-14 05:00:37 KST",
-        "regularMarketPrice": 75.38,
+        "Update": "2026-08-15 04:54:59 KST",
+        "regularMarketPrice": 71.9,
         "englishName": "Circle Internet Group",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 16383491072,
-        "marketCap": 20548143104,
-        "Volume": 8882064,
-        "AvgVolume": 13431603,
+        "enterpriseValue": 17424381952,
+        "marketCap": 19599517696,
+        "Volume": 6763143,
+        "AvgVolume": 13223483,
         "sharesOutstanding": 234685190,
         "52Week": "49.9 - 159.47",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 75.38,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 16383491072,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 20548143104,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8882064,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13431603,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2662,7 +2683,8 @@
             "high": 75.889999,
             "low": 70.07,
             "close": 75.379997,
-            "volume": 10597955
+            "volume": 10597955,
+            "marketCap": 19599517696
         }
     ]
 }

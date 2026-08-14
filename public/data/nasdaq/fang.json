@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-14 05:00:37 KST",
-        "regularMarketPrice": 199.67,
+        "Update": "2026-08-15 04:54:59 KST",
+        "regularMarketPrice": 201.735,
         "englishName": "Diamondback Energy, Inc.",
         "earningsDate": "2026-08-03",
-        "enterpriseValue": 74477092864,
-        "marketCap": 55911546880,
-        "Volume": 682023,
-        "AvgVolume": 2246916,
+        "enterpriseValue": 74104659968,
+        "marketCap": 56489791488,
+        "Volume": 677728,
+        "AvgVolume": 2242145,
         "sharesOutstanding": 280019792,
         "52Week": "134.3 - 214.51",
-        "Yield": 0.021285,
+        "Yield": 0.021067,
         "dividendRate": 4.4,
         "payoutRatio": 0.7905,
         "isin": "US25278X1090",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 199.67,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 74477092864,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 55911546880,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 682023,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2246916,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.021285,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31186,14 +31211,16 @@
             "high": 199.860001,
             "low": 196.660004,
             "close": 199.509995,
-            "volume": 1190387
-        },
-        {
-            "date": "2026-08-14",
-            "forecasted": true
+            "volume": 1190387,
+            "amount": 1.1,
+            "yield": 0.0265151515
         },
         {
             "date": "2026-11-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-12",
             "forecasted": true
         }
     ]

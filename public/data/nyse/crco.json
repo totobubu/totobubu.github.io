@@ -9,14 +9,14 @@
         "underlying": "CRCL",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-14 05:00:37 KST",
-        "regularMarketPrice": 13.665,
+        "Update": "2026-08-15 04:54:59 KST",
+        "regularMarketPrice": 13.2,
         "englishName": "YieldMax CRCL Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 42719,
-        "AvgVolume": 78517,
+        "Volume": 42373,
+        "AvgVolume": 78524,
         "sharesOutstanding": null,
         "52Week": "11.7 - 57.31",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.665,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 42719,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 78517,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1915,7 +1928,8 @@
             "high": 13.7206,
             "low": 13,
             "close": 13.6423,
-            "volume": 44182
+            "volume": 44182,
+            "yield": 1.5288405797
         },
         {
             "date": "2026-08-20",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-14 05:00:37 KST",
-        "regularMarketPrice": 47.535,
+        "Update": "2026-08-15 04:54:59 KST",
+        "regularMarketPrice": 47.4723,
         "englishName": "Dimensional Short-Duration Fixed Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 545542,
-        "AvgVolume": 525441,
+        "Volume": 450505,
+        "AvgVolume": 525879,
         "sharesOutstanding": null,
         "52Week": "47.145 - 48.51",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.535,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 545542,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 525441,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -77,7 +90,7 @@
             "close": 49.94599914550781,
             "volume": 74100,
             "amount": 0.001,
-            "yield": 0.000020008
+            "yield": 2.0008e-5
         },
         {
             "date": "2021-11-24",

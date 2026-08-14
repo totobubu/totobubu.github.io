@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-14 05:00:37 KST",
-        "regularMarketPrice": 94.68,
+        "Update": "2026-08-15 04:54:59 KST",
+        "regularMarketPrice": 94.57,
         "englishName": null,
         "earningsDate": "2026-07-28",
-        "enterpriseValue": 25354184704,
-        "marketCap": 21918779392,
-        "Volume": 1234385,
-        "AvgVolume": 3663383,
+        "enterpriseValue": 24983779328,
+        "marketCap": 21893314560,
+        "Volume": 1161241,
+        "AvgVolume": 3662106,
         "sharesOutstanding": 231503789,
         "52Week": "84.985 - 126.621",
-        "Yield": 0.033692,
+        "Yield": 0.033732,
         "dividendRate": 2.3,
         "payoutRatio": 0.275,
         "isin": "US1651677353",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 94.68,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 25354184704,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21918779392,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1234385,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3663383,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.033692,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12316,14 +12341,16 @@
             "high": 95.459999,
             "low": 94.209999,
             "close": 94.68,
-            "volume": 1831361
-        },
-        {
-            "date": "2026-08-14",
-            "forecasted": true
+            "volume": 1831361,
+            "amount": 0.575,
+            "yield": 0.0397613256
         },
         {
             "date": "2026-11-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-12",
             "forecasted": true
         }
     ]

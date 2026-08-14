@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-14 05:00:37 KST",
-        "regularMarketPrice": 71.845,
+        "Update": "2026-08-15 04:54:59 KST",
+        "regularMarketPrice": 71.925,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 573239,
-        "AvgVolume": 986201,
+        "Volume": 555365,
+        "AvgVolume": 982175,
         "sharesOutstanding": null,
-        "52Week": "58.69 - 71.955",
+        "52Week": "58.69 - 72.12",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 71.845,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 573239,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 986201,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -943,7 +956,7 @@
             "close": 34.75,
             "volume": 5400,
             "amount": 0.0018,
-            "yield": 0.0000517056,
+            "yield": 5.17056e-5,
             "marketCap": 5320225000,
             "amountOriginal": 0.014,
             "amountSplitAdjustments": [

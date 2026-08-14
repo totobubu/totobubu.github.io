@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-14 05:00:37 KST",
-        "regularMarketPrice": 25.35,
+        "Update": "2026-08-15 04:54:59 KST",
+        "regularMarketPrice": 26.145,
         "englishName": "DraftKings Inc.",
         "earningsDate": "2026-08-06",
-        "enterpriseValue": 13596669952,
-        "marketCap": 12585110528,
-        "Volume": 6252561,
-        "AvgVolume": 12939004,
+        "enterpriseValue": 13551988736,
+        "marketCap": 12979790848,
+        "Volume": 6894247,
+        "AvgVolume": 12936351,
         "sharesOutstanding": 496454048,
         "52Week": "20.46 - 48.78",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.35,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 13596669952,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 12585110528,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6252561,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 12939004,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15927,7 +15948,8 @@
             "high": 25.860001,
             "low": 25.035,
             "close": 25.42,
-            "volume": 8213069
+            "volume": 8213069,
+            "marketCap": 12979790848
         }
     ]
 }
