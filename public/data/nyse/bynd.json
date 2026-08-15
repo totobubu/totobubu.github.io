@@ -24,7 +24,13 @@
         "payoutRatio": 0,
         "isin": "US08862E1091",
         "events": {
-            "splits": []
+            "splits": [
+                {
+                    "date": "2026-08-14",
+                    "ratio": "1:30",
+                    "type": "split"
+                }
+            ]
         },
         "changes": {
             "regularMarketPrice": {
@@ -16473,6 +16479,14 @@
             "close": 0.407,
             "volume": 77011154,
             "marketCap": 6958397952
+        },
+        {
+            "date": "2026-08-14",
+            "open": 12.21,
+            "high": 14.34,
+            "low": 12.21,
+            "close": 13.47,
+            "volume": 3122303
         }
     ]
 }
