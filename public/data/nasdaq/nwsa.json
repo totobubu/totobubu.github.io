@@ -9,24 +9,53 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-19 05:05:36 KST",
-        "regularMarketPrice": 29.44,
+        "Update": "2026-08-20 04:30:37 KST",
+        "regularMarketPrice": 29.515,
         "englishName": "News Corporation",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 17052211200,
-        "marketCap": 15905061888,
-        "Volume": 2759810,
-        "AvgVolume": 4874143,
-        "sharesOutstanding": 359946918,
+        "enterpriseValue": 17425537024,
+        "marketCap": 15942940672,
+        "Volume": 1700729,
+        "AvgVolume": 4885648,
+        "sharesOutstanding": 359884595,
         "52Week": "22.2 - 31.61",
-        "Yield": 0.006793,
+        "Yield": 0.006776,
         "dividendRate": 0.2,
         "payoutRatio": 0.1942,
         "isin": "CNE000000KJ6",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.44,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 17052211200,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 15905061888,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2759810,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4874143,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 359946918,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.006793,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29717,7 +29746,8 @@
             "high": 29.65,
             "low": 28.91,
             "close": 29.389999,
-            "volume": 3783888
+            "volume": 3783888,
+            "marketCap": 15942940672
         }
     ]
 }

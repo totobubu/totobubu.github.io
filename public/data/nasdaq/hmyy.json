@@ -9,16 +9,16 @@
         "underlying": "HIMS",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-19 05:05:36 KST",
-        "regularMarketPrice": 5.7999,
+        "Update": "2026-08-20 04:30:37 KST",
+        "regularMarketPrice": 5.93,
         "englishName": "GraniteShares YieldBOOST HIMS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7482,
-        "AvgVolume": 4100,
+        "Volume": 6064,
+        "AvgVolume": 4132,
         "sharesOutstanding": null,
-        "52Week": "5.79 - 25.79",
+        "52Week": "5.765 - 25.79",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.7999,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7482,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4100,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1636,6 +1649,10 @@
         },
         {
             "date": "2027-02-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-19",
             "forecasted": true
         }
     ]

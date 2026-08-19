@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-19 05:05:36 KST",
-        "regularMarketPrice": 45.8974,
+        "Update": "2026-08-20 04:30:37 KST",
+        "regularMarketPrice": 46.63,
         "englishName": "The Hoya Capital Housing ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1071,
-        "AvgVolume": 3862,
+        "Volume": 4058,
+        "AvgVolume": 3859,
         "sharesOutstanding": null,
         "52Week": "41.16 - 50.01",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 45.8974,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1071,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3862,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15105,30 +15118,32 @@
             "high": 46.080002,
             "low": 45.7822,
             "close": 45.7822,
-            "volume": 1071
+            "volume": 1071,
+            "amount": 0.098,
+            "yield": 0.0264322905
         },
         {
-            "date": "2026-08-21",
+            "date": "2026-09-18",
             "forecasted": true
         },
         {
-            "date": "2026-09-21",
+            "date": "2026-10-16",
             "forecasted": true
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-11-18",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-12-18",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
+            "date": "2027-01-18",
             "forecasted": true
         },
         {
-            "date": "2027-01-21",
+            "date": "2027-02-18",
             "forecasted": true
         }
     ]

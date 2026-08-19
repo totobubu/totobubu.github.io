@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-19 05:05:36 KST",
-        "regularMarketPrice": 65.33,
-        "englishName": "Altria Group, Inc.",
+        "Update": "2026-08-20 04:30:37 KST",
+        "regularMarketPrice": 65.8423,
+        "englishName": null,
         "earningsDate": "2026-10-29",
-        "enterpriseValue": 129056825344,
-        "marketCap": 109084368896,
-        "Volume": 8986686,
-        "AvgVolume": 8485932,
+        "enterpriseValue": 131110608896,
+        "marketCap": 109939777536,
+        "Volume": 7003939,
+        "AvgVolume": 8566740,
         "sharesOutstanding": 1669743926,
         "52Week": "54.7 - 77.06",
-        "Yield": 0.064901,
+        "Yield": 0.064396,
         "dividendRate": 4.24,
         "payoutRatio": 0.8926,
         "isin": "US02209S1033",
@@ -62,7 +62,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.33,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 129056825344,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 109084368896,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8986686,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8485932,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.064901,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30001,7 +30026,7 @@
             "close": 1.2395830154418945,
             "volume": 1113600,
             "amount": 0.0001,
-            "yield": 0.0000798337,
+            "yield": 7.98337e-5,
             "marketCap": 2082364293,
             "amountOriginal": 9.600768,
             "amountSplitAdjustments": [

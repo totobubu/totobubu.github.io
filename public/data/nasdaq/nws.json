@@ -9,24 +9,53 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-19 05:05:36 KST",
-        "regularMarketPrice": 33.52,
+        "Update": "2026-08-20 04:30:37 KST",
+        "regularMarketPrice": 33.6,
         "englishName": "News Corporation",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 19205599232,
-        "marketCap": 18109294592,
-        "Volume": 522200,
-        "AvgVolume": 1528662,
-        "sharesOutstanding": 180306537,
+        "enterpriseValue": 19643852800,
+        "marketCap": 18149511168,
+        "Volume": 549175,
+        "AvgVolume": 1522098,
+        "sharesOutstanding": 180279409,
         "52Week": "25.49 - 35.31",
-        "Yield": 0.005967,
+        "Yield": 0.005952,
         "dividendRate": 0.2,
         "payoutRatio": 0.1942,
         "isin": "CNE000000KJ6",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.52,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 19205599232,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 18109294592,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 522200,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1528662,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 180306537,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.005967,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29717,7 +29746,8 @@
             "high": 33.73,
             "low": 32.855,
             "close": 33.490002,
-            "volume": 727431
+            "volume": 727431,
+            "marketCap": 18149511168
         }
     ]
 }

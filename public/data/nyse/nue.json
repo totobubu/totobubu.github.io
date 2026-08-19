@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-19 05:05:36 KST",
-        "regularMarketPrice": 264.95,
-        "englishName": "Nucor Corporation",
+        "Update": "2026-08-20 04:30:37 KST",
+        "regularMarketPrice": 246.3981,
+        "englishName": null,
         "earningsDate": "2026-07-27",
-        "enterpriseValue": 67428458496,
-        "marketCap": 60110712832,
-        "Volume": 1073173,
-        "AvgVolume": 1531320,
+        "enterpriseValue": 65502285824,
+        "marketCap": 55901736960,
+        "Volume": 3321223,
+        "AvgVolume": 1534072,
         "sharesOutstanding": 226875676,
         "52Week": "131.32 - 280.11",
-        "Yield": 0.008417,
+        "Yield": 0.00905,
         "dividendRate": 2.24,
         "payoutRatio": 0.178,
         "isin": "US6703461052",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 264.95,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 67428458496,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 60110712832,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1073173,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1531320,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.008417,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8096,7 +8121,7 @@
             "close": 1.6770830154418945,
             "volume": 528000,
             "amount": 0.0001,
-            "yield": 0.00006,
+            "yield": 6e-5,
             "marketCap": 384949999,
             "amountOriginal": 1.919808,
             "amountSplitAdjustments": [

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-19 05:05:36 KST",
-        "regularMarketPrice": 88.96,
-        "englishName": "The Coca-Cola Company",
+        "Update": "2026-08-20 04:30:37 KST",
+        "regularMarketPrice": 90.415,
+        "englishName": null,
         "earningsDate": "2026-07-28",
-        "enterpriseValue": 404290732032,
-        "marketCap": 382754750464,
-        "Volume": 8518129,
-        "AvgVolume": 17728850,
+        "enterpriseValue": 412207415296,
+        "marketCap": 389014978560,
+        "Volume": 10729163,
+        "AvgVolume": 17663193,
         "sharesOutstanding": 4302549243,
         "52Week": "65.35 - 90.92",
-        "Yield": 0.023381,
+        "Yield": 0.023005,
         "dividendRate": 2.12,
         "payoutRatio": 0.6246,
         "isin": "US1912161007",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 88.96,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 404290732032,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 382754750464,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8518129,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 17728850,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.023381,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28407,7 +28432,7 @@
             "close": 1.46875,
             "volume": 1276800,
             "amount": 0.0001,
-            "yield": 0.0000668407,
+            "yield": 6.68407e-5,
             "marketCap": 6317987991,
             "amountOriginal": 45.600768,
             "amountSplitAdjustments": [
