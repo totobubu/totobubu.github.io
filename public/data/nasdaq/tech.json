@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 72.32,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 72.38,
         "englishName": "Bio-Techne Corporation",
         "earningsDate": "2026-08-12",
-        "enterpriseValue": 11323729920,
-        "marketCap": 11268227072,
-        "Volume": 1269162,
-        "AvgVolume": 4820669,
-        "sharesOutstanding": 155810652,
+        "enterpriseValue": 11366270976,
+        "marketCap": 11350503424,
+        "Volume": 1386237,
+        "AvgVolume": 4809717,
+        "sharesOutstanding": 156818238,
         "52Week": "43.2 - 72.62",
-        "Yield": 0.004425,
+        "Yield": 0.004421,
         "dividendRate": 0.32,
         "payoutRatio": 0.2759,
         "isin": "US09073M1045",
@@ -42,7 +42,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 72.32,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 11323729920,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 11268227072,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1269162,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4820669,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 155810652,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.004425,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -85585,7 +85614,8 @@
             "high": 72.419998,
             "low": 72.269997,
             "close": 72.389999,
-            "volume": 2001600
+            "volume": 2001600,
+            "yield": 0.004426615
         },
         {
             "date": "2026-08-25",

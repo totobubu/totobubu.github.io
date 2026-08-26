@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 351.29,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 345.82,
         "englishName": "Tesla, Inc.",
         "earningsDate": "2026-07-22",
-        "enterpriseValue": 1351411564544,
-        "marketCap": 1387436572672,
-        "Volume": 26006210,
-        "AvgVolume": 42015017,
+        "enterpriseValue": 1356545916928,
+        "marketCap": 1365832499200,
+        "Volume": 28245570,
+        "AvgVolume": 41763974,
         "sharesOutstanding": 3949547394,
         "52Week": "297.38 - 498.83",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 351.29,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1351411564544,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1387436572672,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 26006210,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 42015017,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36457,7 +36478,8 @@
             "high": 357,
             "low": 349.200287,
             "close": 350.25,
-            "volume": 29715710
+            "volume": 29715710,
+            "marketCap": 1365832499200
         }
     ]
 }

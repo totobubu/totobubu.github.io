@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 9.78,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 9.27,
         "englishName": "NuScale Power Corporation",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 2600917248,
-        "marketCap": 4013609472,
-        "Volume": 50034872,
-        "AvgVolume": 32992752,
+        "enterpriseValue": 2912813312,
+        "marketCap": 3804311296,
+        "Volume": 51432002,
+        "AvgVolume": 33162347,
         "sharesOutstanding": 410389522,
         "52Week": "7.21 - 57.42",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.78,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2600917248,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 4013609472,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 50034872,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 32992752,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10003,7 +10024,8 @@
             "high": 9.97,
             "low": 9.03,
             "close": 9.81,
-            "volume": 55401328
+            "volume": 55401328,
+            "marketCap": 3804311296
         }
     ]
 }

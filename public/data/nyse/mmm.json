@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 179.72,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 180,
         "englishName": "3M Company",
         "earningsDate": "2026-07-21",
-        "enterpriseValue": 100229472256,
-        "marketCap": 92685639680,
-        "Volume": 1440401,
-        "AvgVolume": 3568557,
+        "enterpriseValue": 100415127552,
+        "marketCap": 92830040064,
+        "Volume": 2620270,
+        "AvgVolume": 3568522,
         "sharesOutstanding": 515722417,
         "52Week": "139.34 - 184.9",
-        "Yield": 0.016804,
+        "Yield": 0.016778,
         "dividendRate": 3.12,
         "payoutRatio": 0.5364,
         "isin": "US88579Y1010",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 179.72,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 100229472256,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 92685639680,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1440401,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3568557,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.016804,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -151582,7 +151607,8 @@
             "high": 180.350006,
             "low": 178.229996,
             "close": 179.009995,
-            "volume": 2088100
+            "volume": 2088100,
+            "yield": 0.021243291
         },
         {
             "date": "2026-08-25",

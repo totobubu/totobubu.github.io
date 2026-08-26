@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 29.14,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 28.4076,
         "englishName": "Roundhill UBER WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1593,
-        "AvgVolume": 4642,
+        "Volume": 3342,
+        "AvgVolume": 4585,
         "sharesOutstanding": null,
         "52Week": "24.0 - 54.44",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.14,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1593,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4642,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1808,7 +1821,8 @@
             "high": 28.780001,
             "low": 28.4,
             "close": 28.694,
-            "volume": 15000
+            "volume": 15000,
+            "yield": 0.4051290459
         },
         {
             "date": "2026-08-25",

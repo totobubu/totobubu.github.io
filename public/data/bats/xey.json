@@ -9,14 +9,14 @@
         "underlying": "ETHER",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 19.69,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 19.79,
         "englishName": "GraniteShares YieldBOOST Ether ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 19,
-        "AvgVolume": 150,
+        "Volume": 47,
+        "AvgVolume": 136,
         "sharesOutstanding": null,
         "52Week": "19.62 - 25.44",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.69,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 19,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 150,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -817,6 +830,10 @@
         },
         {
             "date": "2027-02-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-26",
             "forecasted": true
         }
     ]

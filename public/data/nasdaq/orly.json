@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 90.41,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 89.55,
         "englishName": "O'Reilly Automotive, Inc.",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 82681815040,
-        "marketCap": 73138143232,
-        "Volume": 1734656,
-        "AvgVolume": 7693195,
+        "enterpriseValue": 82390589440,
+        "marketCap": 72442437632,
+        "Volume": 3697541,
+        "AvgVolume": 7620763,
         "sharesOutstanding": 808960792,
         "52Week": "82.59 - 108.72",
         "Yield": null,
@@ -47,7 +47,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 90.41,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 82681815040,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 73138143232,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1734656,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7693195,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -75420,7 +75441,8 @@
             "high": 91.43,
             "low": 90.220001,
             "close": 90.32,
-            "volume": 4496896
+            "volume": 4496896,
+            "marketCap": 72442437632
         }
     ]
 }

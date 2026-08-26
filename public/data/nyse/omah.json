@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 18.325,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 18.3,
         "englishName": "VistaShares Target 15 Berkshire Select Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1367737,
-        "AvgVolume": 1068836,
+        "Volume": 801155,
+        "AvgVolume": 1071157,
         "sharesOutstanding": null,
         "52Week": "17.82 - 19.57",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.325,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1367737,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1068836,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3022,7 +3035,8 @@
             "high": 18.43,
             "low": 18.315001,
             "close": 18.360001,
-            "volume": 1282100
+            "volume": 1282100,
+            "yield": 0.1658695652
         },
         {
             "date": "2026-08-25",

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 72.78,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 73.6,
         "englishName": "Masco Corporation",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 17628092416,
-        "marketCap": 14351300608,
-        "Volume": 890629,
-        "AvgVolume": 2434628,
+        "enterpriseValue": 17570908160,
+        "marketCap": 14512994304,
+        "Volume": 2007083,
+        "AvgVolume": 2427112,
         "sharesOutstanding": 197187430,
         "52Week": "58.16 - 83.64",
-        "Yield": 0.017312,
+        "Yield": 0.01712,
         "dividendRate": 1.28,
         "payoutRatio": 0.2903,
         "isin": "US5745991068",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 72.78,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 17628092416,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14351300608,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 890629,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2434628,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.017312,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -107144,7 +107169,8 @@
             "high": 74.540001,
             "low": 72.43,
             "close": 73.209999,
-            "volume": 1285600
+            "volume": 1285600,
+            "yield": 0.0173544684
         },
         {
             "date": "2026-08-25",

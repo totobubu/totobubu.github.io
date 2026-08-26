@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
+        "Update": "2026-08-27 06:27:56 KST",
         "regularMarketPrice": 16.26,
         "englishName": "Global X Russell 2000 Covered Call ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 375667,
-        "AvgVolume": 532203,
+        "Volume": 247645,
+        "AvgVolume": 531700,
         "sharesOutstanding": null,
         "52Week": "14.61 - 16.47",
         "Yield": null,
@@ -26,7 +26,16 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 375667,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 532203,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -14968,7 +14977,8 @@
             "high": 16.27,
             "low": 16.200001,
             "close": 16.209999,
-            "volume": 343900
+            "volume": 343900,
+            "yield": 0.1153657037
         },
         {
             "date": "2026-08-25",

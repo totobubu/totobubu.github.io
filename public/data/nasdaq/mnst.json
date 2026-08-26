@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 48.79,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 47.81,
         "englishName": "Monster Beverage Corporation",
         "earningsDate": "2026-08-06",
-        "enterpriseValue": 92510486528,
-        "marketCap": 95582134272,
-        "Volume": 4242318,
-        "AvgVolume": 11722076,
+        "enterpriseValue": 92138266624,
+        "marketCap": 93662265344,
+        "Volume": 6204301,
+        "AvgVolume": 11681787,
         "sharesOutstanding": 1959051764,
         "52Week": "30.485 - 50.17",
         "Yield": null,
@@ -62,7 +62,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.79,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 92510486528,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 95582134272,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4242318,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 11722076,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -92256,7 +92277,8 @@
             "high": 49.240002,
             "low": 48.34,
             "close": 48.73,
-            "volume": 6900096
+            "volume": 6900096,
+            "marketCap": 93662265344
         }
     ]
 }

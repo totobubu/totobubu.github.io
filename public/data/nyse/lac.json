@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 3.237,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 3.21,
         "englishName": "Lithium Americas Corp.",
         "earningsDate": "2026-08-13",
-        "enterpriseValue": 1999740544,
-        "marketCap": 1175170048,
-        "Volume": 6204425,
-        "AvgVolume": 10529603,
+        "enterpriseValue": 2050566528,
+        "marketCap": 1165367808,
+        "Volume": 6194951,
+        "AvgVolume": 10465879,
         "sharesOutstanding": 363042943,
         "52Week": "2.67 - 10.52",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 3.237,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 1999740544,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1175170048,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6204425,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10529603,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5906,7 +5927,8 @@
             "high": 3.27,
             "low": 3.085,
             "close": 3.25,
-            "volume": 7782612
+            "volume": 7782612,
+            "marketCap": 1165367808
         }
     ]
 }

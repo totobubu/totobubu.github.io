@@ -9,14 +9,14 @@
         "underlying": "NFLX",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 18.01,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 17.8466,
         "englishName": "Roundhill NFLX WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9540,
-        "AvgVolume": 18257,
+        "Volume": 3650,
+        "AvgVolume": 18263,
         "sharesOutstanding": null,
         "52Week": "14.29 - 46.62",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.01,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9540,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 18257,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2587,7 +2600,8 @@
             "high": 17.6,
             "low": 17.225,
             "close": 17.504999,
-            "volume": 7100
+            "volume": 7100,
+            "yield": 0.6745482501
         },
         {
             "date": "2026-08-25",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 2.26,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 2.17,
         "englishName": "Plug Power Inc.",
         "earningsDate": "2026-08-10",
-        "enterpriseValue": 3902307840,
-        "marketCap": 3157661184,
-        "Volume": 56261774,
-        "AvgVolume": 59445223,
+        "enterpriseValue": 4042027264,
+        "marketCap": 3031913728,
+        "Volume": 78453994,
+        "AvgVolume": 58682998,
         "sharesOutstanding": 1397195278,
         "52Week": "1.41 - 4.58",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 2.26,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 3902307840,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 3157661184,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 56261774,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 59445223,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -54040,7 +54061,8 @@
             "high": 2.3,
             "low": 2.2,
             "close": 2.27,
-            "volume": 63760800
+            "volume": 63760800,
+            "marketCap": 3031913728
         }
     ]
 }

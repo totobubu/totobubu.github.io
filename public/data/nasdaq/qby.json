@@ -9,16 +9,16 @@
         "underlying": "QBTS",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 6.32,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 6.15,
         "englishName": "GraniteShares YieldBOOST QBTS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10128,
-        "AvgVolume": 16685,
+        "Volume": 33467,
+        "AvgVolume": 16673,
         "sharesOutstanding": null,
-        "52Week": "6.25 - 23.63",
+        "52Week": "6.14 - 23.63",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 6.32,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10128,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 16685,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1725,6 +1738,10 @@
         },
         {
             "date": "2027-02-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-26",
             "forecasted": true
         }
     ]

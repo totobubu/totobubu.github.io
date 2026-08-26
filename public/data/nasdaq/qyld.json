@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 18.1172,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 18.15,
         "englishName": "Global X NASDAQ 100 Covered Call ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5006419,
-        "AvgVolume": 4831496,
+        "Volume": 4859661,
+        "AvgVolume": 4807890,
         "sharesOutstanding": null,
         "52Week": "16.42 - 18.54",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.1172,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5006419,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4831496,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25856,7 +25869,8 @@
             "high": 18.110001,
             "low": 18,
             "close": 18.059999,
-            "volume": 3647700
+            "volume": 3647700,
+            "yield": 0.1175884956
         },
         {
             "date": "2026-08-25",

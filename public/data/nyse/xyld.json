@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 41.3429,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 41.38,
         "englishName": "Global X S&P 500 Covered Call ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 445529,
-        "AvgVolume": 736358,
+        "Volume": 302254,
+        "AvgVolume": 731763,
         "sharesOutstanding": null,
         "52Week": "38.22 - 41.71",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.3429,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 445529,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 736358,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26838,7 +26851,8 @@
             "high": 41.360001,
             "low": 41.220001,
             "close": 41.290001,
-            "volume": 524100
+            "volume": 524100,
+            "yield": 0.1049200245
         },
         {
             "date": "2026-08-25",

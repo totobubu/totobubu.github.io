@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-26 04:46:31 KST",
-        "regularMarketPrice": 266.01,
+        "Update": "2026-08-27 06:27:56 KST",
+        "regularMarketPrice": 264.76,
         "englishName": "VanEck Retail ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2434,
-        "AvgVolume": 5522,
+        "Volume": 5160,
+        "AvgVolume": 5447,
         "sharesOutstanding": null,
         "52Week": "242.88 - 275.19",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 266.01,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2434,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5522,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -107,7 +120,7 @@
             "low": 32.03333282470703,
             "close": 32.03333282470703,
             "volume": 13200,
-            "yield": 0.0000959752,
+            "yield": 9.59752e-5,
             "amountOriginal": 0.08397,
             "amountSplitAdjustments": [
                 {
