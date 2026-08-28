@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-27 06:27:56 KST",
-        "regularMarketPrice": 19.9367,
-        "englishName": "Kurv Yield Premium Strategy Netflix ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 2599,
-        "AvgVolume": 4065,
-        "sharesOutstanding": null,
-        "52Week": "15.78 - 39.09",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-08-28 11:36:44 KST",
         "isin": "US5009488074",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 20.35,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 1806,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 4076,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -5778,18 +5753,16 @@
             "high": 20.07,
             "low": 19.889999,
             "close": 19.937,
-            "volume": 2600
+            "volume": 2600,
+            "amount": 0.25,
+            "yield": 0.2571143157
         },
         {
-            "date": "2026-08-28",
+            "date": "2026-09-25",
             "forecasted": true
         },
         {
-            "date": "2026-09-29",
-            "forecasted": true
-        },
-        {
-            "date": "2026-10-29",
+            "date": "2026-10-26",
             "forecasted": true
         },
         {
@@ -5797,11 +5770,15 @@
             "forecasted": true
         },
         {
-            "date": "2026-12-29",
+            "date": "2026-12-24",
             "forecasted": true
         },
         {
-            "date": "2027-01-29",
+            "date": "2027-01-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-26",
             "forecasted": true
         }
     ]
