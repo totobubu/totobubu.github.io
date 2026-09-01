@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-29 11:10:16 KST",
-        "regularMarketPrice": 194.35,
+        "Update": "2026-09-02 06:34:33 KST",
+        "regularMarketPrice": 186.2,
         "englishName": "Equifax Inc.",
         "earningsDate": "2026-07-21",
-        "enterpriseValue": 27801124864,
-        "marketCap": 22833190912,
-        "Volume": 1145037,
-        "AvgVolume": 1644219,
+        "enterpriseValue": 28269889536,
+        "marketCap": 21875687424,
+        "Volume": 802771,
+        "AvgVolume": 1623138,
         "sharesOutstanding": 117484896,
         "52Week": "150.75 - 271.84",
-        "Yield": 0.010908,
+        "Yield": 0.011386,
         "dividendRate": 2.24,
         "payoutRatio": 0.3726,
         "isin": "US2944291051",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 194.35,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 27801124864,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 22833190912,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1145037,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1644219,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.010908,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106015,11 +106040,15 @@
             "volume": 1145037
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-08-31",
+            "amount": 0.56
+        },
+        {
+            "date": "2026-11-30",
             "forecasted": true
         },
         {
-            "date": "2027-02-22",
+            "date": "2027-02-26",
             "forecasted": true
         }
     ]

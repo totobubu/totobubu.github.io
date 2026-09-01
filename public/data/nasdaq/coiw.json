@@ -9,14 +9,14 @@
         "underlying": "COIN",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-08-29 11:10:16 KST",
-        "regularMarketPrice": 9.09,
+        "Update": "2026-09-02 06:34:33 KST",
+        "regularMarketPrice": 8.8,
         "englishName": "Roundhill COIN WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 221234,
-        "AvgVolume": 165655,
+        "Volume": 185044,
+        "AvgVolume": 164017,
         "sharesOutstanding": null,
         "52Week": "7.185 - 48.602",
         "Yield": null,
@@ -28,12 +28,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 9.83,
+                "value": 9.09,
                 "change": "down"
             },
             "Volume": {
-                "value": 124963,
-                "change": "up"
+                "value": 221234,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 165655,
+                "change": "down"
             }
         }
     },
@@ -3367,7 +3371,8 @@
         },
         {
             "date": "2026-08-31",
-            "expected": true
+            "expected": true,
+            "amount": 0.179
         },
         {
             "date": "2026-09-08",
@@ -3467,6 +3472,10 @@
         },
         {
             "date": "2027-02-22",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]

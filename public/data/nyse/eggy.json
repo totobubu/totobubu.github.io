@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-08-29 11:10:16 KST",
-        "regularMarketPrice": 32.32,
+        "Update": "2026-09-02 06:34:33 KST",
+        "regularMarketPrice": 32.03,
         "englishName": "NestYield Dynamic Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 127769,
-        "AvgVolume": 105209,
+        "Volume": 90303,
+        "AvgVolume": 107161,
         "sharesOutstanding": null,
         "52Week": "29.145 - 45.945",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.32,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 127769,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 105209,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3402,15 +3415,6 @@
             "low": 33.549999,
             "close": 34.200001,
             "volume": 117500
-        },
-        {
-            "date": "2026-08-28",
-            "forecasted": true,
-            "open": 32.900002,
-            "high": 33.195,
-            "low": 32.32,
-            "close": 32.32,
-            "volume": 127769
         },
         {
             "date": "2026-09-30",
