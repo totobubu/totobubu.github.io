@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-02 06:34:33 KST",
-        "regularMarketPrice": 51.725,
+        "Update": "2026-09-03 06:45:06 KST",
+        "regularMarketPrice": 51.715,
         "englishName": "Dimensional International Core Fixed Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 220142,
-        "AvgVolume": 165695,
+        "Volume": 192134,
+        "AvgVolume": 167560,
         "sharesOutstanding": null,
-        "52Week": "51.72 - 54.73",
+        "52Week": "51.6901 - 54.73",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.725,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 220142,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 165695,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -109,7 +122,7 @@
             "close": 50.99800109863281,
             "volume": 36000,
             "amount": 0.003,
-            "yield": 0.0000587889
+            "yield": 5.87889e-5
         },
         {
             "date": "2023-11-22",

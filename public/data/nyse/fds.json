@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-02 06:34:33 KST",
-        "regularMarketPrice": 305.44,
+        "Update": "2026-09-03 06:45:06 KST",
+        "regularMarketPrice": 306.07,
         "englishName": "FactSet Research Systems Inc.",
-        "earningsDate": "2026-07-01",
-        "enterpriseValue": 12417982464,
-        "marketCap": 10863139840,
-        "Volume": 951986,
-        "AvgVolume": 936168,
+        "earningsDate": "2026-09-30",
+        "enterpriseValue": 12129545216,
+        "marketCap": 10885545984,
+        "Volume": 524037,
+        "AvgVolume": 932760,
         "sharesOutstanding": 35565543,
         "52Week": "185.0 - 377.07",
-        "Yield": 0.014602,
+        "Yield": 0.014572,
         "dividendRate": 4.64,
         "payoutRatio": 0.2938,
         "isin": "US3030751057",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 305.44,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 12417982464,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 10863139840,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 951986,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 936168,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.014602,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -68714,7 +68739,8 @@
             "high": 314.51001,
             "low": 303.649994,
             "close": 313.549988,
-            "volume": 1078900
+            "volume": 1078900,
+            "yield": 0.0147149781
         },
         {
             "date": "2026-09-01",

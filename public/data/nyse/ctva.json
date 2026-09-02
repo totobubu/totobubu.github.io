@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-02 06:34:33 KST",
-        "regularMarketPrice": 87.73,
+        "Update": "2026-09-03 06:45:06 KST",
+        "regularMarketPrice": 89.97,
         "englishName": "Corteva, Inc.",
         "earningsDate": "2026-07-30",
-        "enterpriseValue": 58731745280,
-        "marketCap": 58533109760,
-        "Volume": 5503037,
-        "AvgVolume": 4390803,
+        "enterpriseValue": 61287104512,
+        "marketCap": 60027629568,
+        "Volume": 8709480,
+        "AvgVolume": 4435853,
         "sharesOutstanding": 667196000,
         "52Week": "60.535 - 90.97",
-        "Yield": 0.008207,
+        "Yield": 0.008003,
         "dividendRate": 0.72,
         "payoutRatio": 0.4364,
         "isin": "US22052L1044",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 87.73,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 58731745280,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 58533109760,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5503037,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4390803,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.008207,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16330,7 +16355,9 @@
             "high": 87.839996,
             "low": 85.305,
             "close": 87.730003,
-            "volume": 5503037
+            "volume": 5503037,
+            "amount": 0.18,
+            "yield": 0.0105275473
         },
         {
             "date": "2026-12-01",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-02 06:34:33 KST",
-        "regularMarketPrice": 100.95,
+        "Update": "2026-09-03 06:45:06 KST",
+        "regularMarketPrice": 101.31,
         "englishName": "State Street SPDR Bloomberg Convertible Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 419991,
-        "AvgVolume": 731842,
+        "Volume": 875962,
+        "AvgVolume": 730755,
         "sharesOutstanding": null,
         "52Week": "85.37 - 112.02",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.95,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 419991,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 731842,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35419,22 +35432,20 @@
             "high": 101.610001,
             "low": 100.540001,
             "close": 100.949997,
-            "volume": 419991
+            "volume": 419991,
+            "amount": 0.155,
+            "yield": 0.0170086818
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-10-01",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
-            "forecasted": true
-        },
-        {
-            "date": "2026-12-03",
+            "date": "2026-12-01",
             "forecasted": true
         },
         {
@@ -35442,7 +35453,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-01",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]

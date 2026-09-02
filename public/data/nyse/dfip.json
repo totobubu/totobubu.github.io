@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-02 06:34:33 KST",
-        "regularMarketPrice": 40.18,
+        "Update": "2026-09-03 06:45:06 KST",
+        "regularMarketPrice": 40.2,
         "englishName": "Dimensional Inflation-Protected Securities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 80963,
-        "AvgVolume": 110888,
+        "Volume": 132794,
+        "AvgVolume": 110733,
         "sharesOutstanding": null,
-        "52Week": "40.1409 - 42.77",
+        "52Week": "40.14 - 42.77",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.18,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 80963,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 110888,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -77,7 +90,7 @@
             "close": 49.3120002746582,
             "volume": 180100,
             "amount": 0.001,
-            "yield": 0.0000202511
+            "yield": 2.02511e-5
         },
         {
             "date": "2021-11-24",
