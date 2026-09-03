@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 328.48,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 331.94,
         "englishName": "Palo Alto Networks, Inc.",
         "earningsDate": "2026-09-01",
-        "enterpriseValue": 294122356736,
-        "marketCap": 267711201280,
-        "Volume": 13170703,
-        "AvgVolume": 6814141,
+        "enterpriseValue": 267797168128,
+        "marketCap": 270531100672,
+        "Volume": 6810005,
+        "AvgVolume": 6791117,
         "sharesOutstanding": 815000000,
         "52Week": "139.57 - 398.88",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 328.48,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 294122356736,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 267711201280,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13170703,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 6814141,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31828,7 +31849,8 @@
             "high": 350.670013,
             "low": 321.390015,
             "close": 328.480011,
-            "volume": 13170703
+            "volume": 13170703,
+            "marketCap": 270531100672
         }
     ]
 }

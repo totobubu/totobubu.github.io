@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 21.14,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 21.16,
         "englishName": "iShares 20+ Year Treasury Bond Buywrite Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 996737,
-        "AvgVolume": 1301226,
+        "Volume": 1135980,
+        "AvgVolume": 1294895,
         "sharesOutstanding": null,
         "52Week": "20.97 - 24.08",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.14,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 996737,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1301226,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8211,30 +8224,32 @@
             "high": 21.16,
             "low": 21.08,
             "close": 21.139999,
-            "volume": 996737
-        },
-        {
-            "date": "2026-09-04",
-            "forecasted": true
+            "volume": 996737,
+            "amount": 0.131,
+            "yield": 0.1163043478
         },
         {
             "date": "2026-10-02",
             "forecasted": true
         },
         {
-            "date": "2026-11-04",
+            "date": "2026-11-02",
             "forecasted": true
         },
         {
-            "date": "2026-12-04",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
-            "date": "2027-01-04",
+            "date": "2026-12-31",
             "forecasted": true
         },
         {
-            "date": "2027-02-04",
+            "date": "2027-02-02",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-02",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 216.14,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 214.13,
         "englishName": "Take-Two Interactive Software, Inc.",
         "earningsDate": "2026-08-07",
-        "enterpriseValue": 41633021952,
-        "marketCap": 40413954048,
-        "Volume": 2476857,
-        "AvgVolume": 2504153,
+        "enterpriseValue": 41532051456,
+        "marketCap": 40038125568,
+        "Volume": 2607350,
+        "AvgVolume": 2509001,
         "sharesOutstanding": 186980443,
         "52Week": "187.63 - 265.94",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 216.14,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 41633021952,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 40413954048,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2476857,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2504153,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25972,7 +25993,7 @@
             "close": 16.219999313354492,
             "volume": 1285200,
             "amount": 0.001,
-            "yield": 0.0000613497,
+            "yield": 6.13497e-5,
             "marketCap": 2992106711
         },
         {
@@ -66411,7 +66432,8 @@
             "high": 220.7099,
             "low": 214.850006,
             "close": 216.139999,
-            "volume": 2476857
+            "volume": 2476857,
+            "marketCap": 40038125568
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 15.57,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 15.59,
         "englishName": "Norwegian Cruise Line Holdings Ltd.",
         "earningsDate": "2026-07-30",
-        "enterpriseValue": 22845986816,
-        "marketCap": 7149554688,
-        "Volume": 13600201,
-        "AvgVolume": 16280025,
+        "enterpriseValue": 22910273536,
+        "marketCap": 7158738432,
+        "Volume": 13346459,
+        "AvgVolume": 16095955,
         "sharesOutstanding": 459187846,
         "52Week": "14.53 - 27.18",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.57,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 22845986816,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 7149554688,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13600201,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 16280025,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30705,7 +30726,8 @@
             "high": 15.92,
             "low": 15.48,
             "close": 15.57,
-            "volume": 13600201
+            "volume": 13600201,
+            "marketCap": 7158738432
         }
     ]
 }

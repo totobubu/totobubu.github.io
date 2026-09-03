@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 76.45,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 75.96,
         "englishName": "Uber Technologies, Inc.",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 164105224192,
-        "marketCap": 156153708544,
-        "Volume": 12973697,
-        "AvgVolume": 19370014,
+        "enterpriseValue": 166576717824,
+        "marketCap": 155152859136,
+        "Volume": 14385534,
+        "AvgVolume": 19301015,
         "sharesOutstanding": 2042560121,
         "52Week": "65.41 - 101.99",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 76.45,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 164105224192,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 156153708544,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 12973697,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 19370014,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16417,7 +16438,8 @@
             "high": 77.239998,
             "low": 75.360001,
             "close": 76.449997,
-            "volume": 12973697
+            "volume": 12973697,
+            "marketCap": 155152859136
         }
     ]
 }

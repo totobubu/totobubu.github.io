@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 36.12,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 36.15,
         "englishName": "Xtrackers USD High Yield Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 710305,
-        "AvgVolume": 994874,
+        "Volume": 692873,
+        "AvgVolume": 991377,
         "sharesOutstanding": null,
         "52Week": "35.92 - 37.19",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 36.12,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 710305,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 994874,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20325,7 +20338,9 @@
             "high": 36.189999,
             "low": 36.080002,
             "close": 36.09,
-            "volume": 1871264
+            "volume": 1871264,
+            "amount": 0.193,
+            "yield": 0.0708678828
         },
         {
             "date": "2026-09-02",
@@ -20336,19 +20351,15 @@
             "volume": 710305
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-10-01",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
-            "forecasted": true
-        },
-        {
-            "date": "2026-12-03",
+            "date": "2026-12-01",
             "forecasted": true
         },
         {
@@ -20356,7 +20367,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-01",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]

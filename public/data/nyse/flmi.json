@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 24.26,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 24.21,
         "englishName": "Franklin Dynamic Municipal Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1008153,
-        "AvgVolume": 700428,
+        "Volume": 745066,
+        "AvgVolume": 695700,
         "sharesOutstanding": null,
-        "52Week": "24.08 - 25.46",
+        "52Week": "24.15 - 25.46",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.26,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1008153,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 700428,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18261,7 +18274,9 @@
             "high": 24.4286,
             "low": 24.24,
             "close": 24.27,
-            "volume": 703545
+            "volume": 703545,
+            "amount": 0.08,
+            "yield": 0.0435728953
         },
         {
             "date": "2026-09-02",
@@ -18272,19 +18287,15 @@
             "volume": 1008153
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-10-01",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
-            "forecasted": true
-        },
-        {
-            "date": "2026-12-03",
+            "date": "2026-12-01",
             "forecasted": true
         },
         {
@@ -18292,7 +18303,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-01",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]

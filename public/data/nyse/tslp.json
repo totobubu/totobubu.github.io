@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 14.5251,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 15.31,
         "englishName": "Kurv Yield Premium Strategy Tesla ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 9036,
-        "AvgVolume": 13780,
+        "Volume": 25289,
+        "AvgVolume": 13774,
         "sharesOutstanding": null,
         "52Week": "12.919 - 26.52",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.5251,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9036,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 13780,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5807,30 +5820,32 @@
             "high": 14.54,
             "low": 14.26,
             "close": 14.5251,
-            "volume": 9036
+            "volume": 9036,
+            "amount": 0.32,
+            "yield": 0.3687798228
         },
         {
-            "date": "2026-09-04",
+            "date": "2026-10-02",
             "forecasted": true
         },
         {
-            "date": "2026-10-05",
+            "date": "2026-11-02",
             "forecasted": true
         },
         {
-            "date": "2026-11-05",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
-            "date": "2026-12-04",
+            "date": "2026-12-31",
             "forecasted": true
         },
         {
-            "date": "2027-01-05",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-02-05",
+            "date": "2027-03-02",
             "forecasted": true
         }
     ]

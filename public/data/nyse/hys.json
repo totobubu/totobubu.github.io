@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 92.27,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 92.41,
         "englishName": "PIMCO 0-5 Year High Yield Corporate Bond Index Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 101595,
-        "AvgVolume": 103485,
+        "Volume": 89301,
+        "AvgVolume": 103396,
         "sharesOutstanding": null,
         "52Week": "92.0 - 95.88",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.27,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 101595,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 103485,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30975,7 +30988,9 @@
             "high": 92.542503,
             "low": 92.239998,
             "close": 92.25,
-            "volume": 93052
+            "volume": 93052,
+            "amount": 0.49,
+            "yield": 0.0802208483
         },
         {
             "date": "2026-09-02",
@@ -30986,19 +31001,15 @@
             "volume": 101595
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-10-01",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
-            "forecasted": true
-        },
-        {
-            "date": "2026-12-03",
+            "date": "2026-12-01",
             "forecasted": true
         },
         {
@@ -31006,7 +31017,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-01",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]

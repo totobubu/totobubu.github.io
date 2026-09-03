@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 14.87,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 15.18,
         "englishName": "Rigetti Computing, Inc.",
         "earningsDate": "2026-08-06",
-        "enterpriseValue": 4617185280,
-        "marketCap": 4963141120,
-        "Volume": 11900092,
-        "AvgVolume": 25777565,
+        "enterpriseValue": 4577133056,
+        "marketCap": 5066609664,
+        "Volume": 14081611,
+        "AvgVolume": 24723526,
         "sharesOutstanding": 333768747,
         "52Week": "12.53 - 58.15",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.87,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 4617185280,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 4963141120,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 11900092,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 25777565,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11998,7 +12019,8 @@
             "high": 15.05,
             "low": 14.595,
             "close": 14.87,
-            "volume": 11900092
+            "volume": 11900092,
+            "marketCap": 5066609664
         }
     ]
 }

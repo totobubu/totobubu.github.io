@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 19.86,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 19.88,
         "englishName": "Franklin U.S. Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 64411,
-        "AvgVolume": 97350,
+        "Volume": 103225,
+        "AvgVolume": 97484,
         "sharesOutstanding": null,
         "52Week": "19.84 - 20.89",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.86,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 64411,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 97350,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12685,7 +12698,9 @@
             "high": 19.885,
             "low": 19.84,
             "close": 19.85,
-            "volume": 96405
+            "volume": 96405,
+            "amount": 0.062,
+            "yield": 0.0458616298
         },
         {
             "date": "2026-09-02",
@@ -12696,19 +12711,15 @@
             "volume": 64411
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-10-01",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
-            "forecasted": true
-        },
-        {
-            "date": "2026-12-03",
+            "date": "2026-12-01",
             "forecasted": true
         },
         {
@@ -12716,7 +12727,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-01",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]

@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 58.13,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 57.41,
         "englishName": "SLB N.V.",
         "earningsDate": "2026-07-24",
-        "enterpriseValue": 94684782592,
-        "marketCap": 86273245184,
-        "Volume": 13819343,
-        "AvgVolume": 13730425,
+        "enterpriseValue": 96139247616,
+        "marketCap": 85204664320,
+        "Volume": 9143488,
+        "AvgVolume": 13772133,
         "sharesOutstanding": 1484143231,
         "52Week": "31.64 - 60.46",
-        "Yield": 0.019955,
+        "Yield": 0.020206,
         "dividendRate": 1.18,
         "payoutRatio": 0.5659,
         "isin": "AN8068571086",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 58.13,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 94684782592,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 86273245184,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 13819343,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 13730425,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.019955,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -102841,14 +102866,16 @@
             "high": 58.470001,
             "low": 56.299999,
             "close": 58.130001,
-            "volume": 13819343
+            "volume": 13819343,
+            "amount": 0.295,
+            "yield": 0.0256817585
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
-            "date": "2026-12-03",
+            "date": "2027-03-02",
             "forecasted": true
         }
     ]

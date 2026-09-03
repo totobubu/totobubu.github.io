@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 14.94,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 14.9536,
         "englishName": "ATAC Credit Rotation ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1975,
-        "AvgVolume": 7584,
+        "Volume": 3891,
+        "AvgVolume": 7600,
         "sharesOutstanding": null,
         "52Week": "14.94 - 16.24",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.94,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1975,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7584,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10459,30 +10472,32 @@
             "high": 14.953,
             "low": 14.94,
             "close": 14.94,
-            "volume": 1975
-        },
-        {
-            "date": "2026-09-04",
-            "forecasted": true
+            "volume": 1975,
+            "amount": 0.081,
+            "yield": 0.0575804186
         },
         {
             "date": "2026-10-02",
             "forecasted": true
         },
         {
-            "date": "2026-11-04",
+            "date": "2026-11-02",
             "forecasted": true
         },
         {
-            "date": "2026-12-04",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
-            "date": "2027-01-04",
+            "date": "2026-12-31",
             "forecasted": true
         },
         {
-            "date": "2027-02-04",
+            "date": "2027-02-02",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-02",
             "forecasted": true
         }
     ]

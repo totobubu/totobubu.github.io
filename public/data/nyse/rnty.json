@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 47.8625,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 48.2048,
         "englishName": "YieldMax Target 12 Real Estate Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5589,
-        "AvgVolume": 2482,
+        "Volume": 1059,
+        "AvgVolume": 2553,
         "sharesOutstanding": null,
         "52Week": "47.622 - 52.5",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.8625,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5589,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2482,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2838,7 +2851,8 @@
             "high": 48.0849,
             "low": 47.622002,
             "close": 47.862499,
-            "volume": 5589
+            "volume": 5589,
+            "yield": 0.135760164
         },
         {
             "date": "2026-10-02",

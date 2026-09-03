@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 158.76,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 160.98,
         "englishName": "iShares Expanded Tech Sector ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 303836,
-        "AvgVolume": 420311,
-        "sharesOutstanding": null,
+        "Volume": 334887,
+        "AvgVolume": 416309,
+        "sharesOutstanding": 7700000,
         "52Week": "112.6 - 171.48",
-        "Yield": null,
+        "Yield": 0.001273,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642875490",
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 158.76,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 303836,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 420311,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7999,7 +8012,7 @@
             "close": 6.741666793823242,
             "volume": 48000,
             "amount": 0.0003,
-            "yield": 0.000044335,
+            "yield": 4.4335e-5,
             "marketCap": 51910834,
             "amountOriginal": 0.054,
             "amountSplitAdjustments": [

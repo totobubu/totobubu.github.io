@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 27.62,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 28.26,
         "englishName": "Kurv Gold Enhanced Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 156674,
-        "AvgVolume": 119980,
+        "Volume": 181075,
+        "AvgVolume": 121493,
         "sharesOutstanding": null,
         "52Week": "25.55 - 43.44",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.62,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 156674,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 119980,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2381,30 +2394,32 @@
             "high": 27.620001,
             "low": 27.35,
             "close": 27.620001,
-            "volume": 156674
+            "volume": 156674,
+            "amount": 0.35,
+            "yield": 0.1645338208
         },
         {
-            "date": "2026-09-04",
+            "date": "2026-10-02",
             "forecasted": true
         },
         {
-            "date": "2026-10-05",
+            "date": "2026-11-02",
             "forecasted": true
         },
         {
-            "date": "2026-11-05",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
-            "date": "2026-12-04",
+            "date": "2026-12-31",
             "forecasted": true
         },
         {
-            "date": "2027-01-05",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-02-05",
+            "date": "2027-03-02",
             "forecasted": true
         }
     ]

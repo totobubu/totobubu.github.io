@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 21.06,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 19.71,
         "englishName": "Direxion Daily Junior Gold Miners Index Bear 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 916276,
-        "AvgVolume": 590353,
+        "Volume": 809452,
+        "AvgVolume": 593244,
         "sharesOutstanding": null,
         "52Week": "18.95 - 129.2",
         "Yield": null,
@@ -62,7 +62,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.06,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 916276,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 590353,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2515,7 +2528,7 @@
             "close": 3598000,
             "volume": 20,
             "yield": 10696.6292134831,
-            "amountOriginal": 0.000005,
+            "amountOriginal": 5e-6,
             "amountSplitAdjustments": [
                 {
                     "date": "2015-10-01",
@@ -9636,7 +9649,7 @@
             "close": 12912.5,
             "volume": 1418,
             "yield": 0.067255957,
-            "amountOriginal": 0.000056,
+            "amountOriginal": 5.6e-5,
             "amountSplitAdjustments": [
                 {
                     "date": "2020-04-23",

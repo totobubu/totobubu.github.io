@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 478.92,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 472.23,
         "englishName": "Motorola Solutions, Inc.",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 90222166016,
-        "marketCap": 79258288128,
-        "Volume": 1281848,
-        "AvgVolume": 1007960,
+        "enterpriseValue": 88183283712,
+        "marketCap": 78151131136,
+        "Volume": 1006516,
+        "AvgVolume": 1013673,
         "sharesOutstanding": 165493788,
         "52Week": "359.36 - 494.85",
-        "Yield": 0.009856,
+        "Yield": 0.009995,
         "dividendRate": 4.84,
         "payoutRatio": 0.3719,
         "isin": "US6200763075",
@@ -72,7 +72,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 478.92,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 90222166016,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 79258288128,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1281848,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1007960,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.009856,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -614,7 +639,7 @@
             "close": 1.4153900146484375,
             "volume": 29850,
             "amount": 0.0001,
-            "yield": 0.0000701332,
+            "yield": 7.01332e-5,
             "marketCap": 235809487,
             "amountOriginal": 14.92683,
             "amountSplitAdjustments": [

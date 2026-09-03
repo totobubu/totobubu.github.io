@@ -9,24 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 106.86,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 107,
         "englishName": "iShares TIPS Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1700565,
-        "AvgVolume": 1840793,
-        "sharesOutstanding": null,
+        "Volume": 1425504,
+        "AvgVolume": 1850688,
+        "sharesOutstanding": 177700000,
         "52Week": "106.69 - 112.26",
-        "Yield": null,
+        "Yield": 0.011682,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642871762",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 106.86,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1700565,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1840793,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -51712,10 +51725,6 @@
             "volume": 1700565
         },
         {
-            "date": "2026-09-03",
-            "forecasted": true
-        },
-        {
             "date": "2026-10-02",
             "forecasted": true
         },
@@ -51733,6 +51742,10 @@
         },
         {
             "date": "2027-02-03",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-03",
             "forecasted": true
         }
     ]

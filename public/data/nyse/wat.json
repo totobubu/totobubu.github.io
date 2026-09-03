@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 412.2,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 413.56,
         "englishName": "Waters Corporation",
         "earningsDate": "2026-08-04",
-        "enterpriseValue": 44811014144,
-        "marketCap": 40472211456,
-        "Volume": 621465,
-        "AvgVolume": 856907,
+        "enterpriseValue": 45435871232,
+        "marketCap": 40605741056,
+        "Volume": 438277,
+        "AvgVolume": 852163,
         "sharesOutstanding": 98185855,
         "52Week": "282.77 - 426.22",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 412.2,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 44811014144,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 40472211456,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 621465,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 856907,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -69600,7 +69621,8 @@
             "high": 416.579987,
             "low": 404.51001,
             "close": 412.200012,
-            "volume": 621465
+            "volume": 621465,
+            "marketCap": 40605741056
         }
     ]
 }

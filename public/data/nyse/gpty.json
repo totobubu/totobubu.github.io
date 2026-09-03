@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 41.32,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 42.57,
         "englishName": "YieldMax AI & Tech Portfolio Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 48356,
-        "AvgVolume": 53492,
+        "Volume": 57085,
+        "AvgVolume": 53317,
         "sharesOutstanding": null,
         "52Week": "34.25 - 50.64",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.32,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 48356,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 53492,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3535,7 +3548,8 @@
             "high": 41.380001,
             "low": 41.080002,
             "close": 41.32,
-            "volume": 48356
+            "volume": 48356,
+            "yield": 0.3936552252
         },
         {
             "date": "2026-09-09",
@@ -3635,6 +3649,10 @@
         },
         {
             "date": "2027-02-24",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-03",
             "forecasted": true
         }
     ]

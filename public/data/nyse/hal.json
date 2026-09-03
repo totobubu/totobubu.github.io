@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 37.63,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 37.29,
         "englishName": "Halliburton Company",
         "earningsDate": "2026-07-21",
-        "enterpriseValue": 36852199424,
-        "marketCap": 31350695936,
-        "Volume": 11068396,
-        "AvgVolume": 11855487,
-        "sharesOutstanding": 833130367,
+        "enterpriseValue": 37543694336,
+        "marketCap": 31151982592,
+        "Volume": 10102389,
+        "AvgVolume": 11861882,
+        "sharesOutstanding": 835397735,
         "52Week": "21.4 - 43.59",
-        "Yield": 0.018071,
+        "Yield": 0.018235,
         "dividendRate": 0.68,
         "payoutRatio": 0.356,
         "isin": "US4062161017",
@@ -52,7 +52,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37.63,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 36852199424,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 31350695936,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 11068396,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 11855487,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 833130367,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.018071,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -126167,14 +126196,16 @@
             "high": 37.830002,
             "low": 36.4319,
             "close": 37.630001,
-            "volume": 11068396
+            "volume": 11068396,
+            "amount": 0.17,
+            "yield": 0.0232876712
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
-            "date": "2026-12-03",
+            "date": "2027-03-02",
             "forecasted": true
         }
     ]

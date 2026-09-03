@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 25.63,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 26.03,
         "englishName": "YieldMax Ultra Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 379872,
-        "AvgVolume": 497007,
+        "Volume": 467746,
+        "AvgVolume": 493253,
         "sharesOutstanding": null,
         "52Week": "25.31 - 56.9",
         "Yield": null,
@@ -46,7 +46,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.63,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 379872,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 497007,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5806,7 +5819,8 @@
             "high": 25.700001,
             "low": 25.51,
             "close": 25.629999,
-            "volume": 379872
+            "volume": 379872,
+            "yield": 0.6889222691
         },
         {
             "date": "2026-09-09",
@@ -5906,6 +5920,10 @@
         },
         {
             "date": "2027-02-24",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-03",
             "forecasted": true
         }
     ]

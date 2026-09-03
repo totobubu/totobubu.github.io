@@ -9,15 +9,15 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 204.09,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 210.63,
         "englishName": null,
         "earningsDate": "2026-08-12",
-        "enterpriseValue": 56847884288,
-        "marketCap": 55482933248,
-        "Volume": 10712561,
-        "AvgVolume": 21044633,
-        "sharesOutstanding": 238400165,
+        "enterpriseValue": 58095030272,
+        "marketCap": 53478576128,
+        "Volume": 10614751,
+        "AvgVolume": 21033755,
+        "sharesOutstanding": 220406311,
         "52Week": "63.26 - 299.86",
         "Yield": null,
         "dividendRate": null,
@@ -26,7 +26,32 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 204.09,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 56847884288,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 55482933248,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10712561,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 21044633,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 238400165,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3825,7 +3850,8 @@
             "high": 205.210007,
             "low": 195.199997,
             "close": 204.089996,
-            "volume": 10712561
+            "volume": 10712561,
+            "marketCap": 53478576128
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 28.68,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 27.82,
         "englishName": "Hims & Hers Health, Inc.",
         "earningsDate": "2026-08-10",
-        "enterpriseValue": 7340624384,
-        "marketCap": 6691428864,
-        "Volume": 7859395,
-        "AvgVolume": 15428728,
+        "enterpriseValue": 7396619776,
+        "marketCap": 6490779136,
+        "Volume": 12121859,
+        "AvgVolume": 15335020,
         "sharesOutstanding": 224935790,
         "52Week": "13.74 - 65.299",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.68,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 7340624384,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 6691428864,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7859395,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15428728,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15674,7 +15695,8 @@
             "high": 29.375,
             "low": 28.15,
             "close": 28.68,
-            "volume": 7859395
+            "volume": 7859395,
+            "marketCap": 6490779136
         }
     ]
 }

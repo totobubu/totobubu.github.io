@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 39.87,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 39.895,
         "englishName": "Northern Trust High Yield Value-Scored Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 71538,
-        "AvgVolume": 92100,
+        "Volume": 109749,
+        "AvgVolume": 92228,
         "sharesOutstanding": null,
         "52Week": "39.55 - 41.316",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.87,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 71538,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 92100,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16555,7 +16568,9 @@
             "high": 39.970001,
             "low": 39.860001,
             "close": 39.865002,
-            "volume": 63357
+            "volume": 63357,
+            "amount": 0.242,
+            "yield": 0.0804004986
         },
         {
             "date": "2026-09-02",
@@ -16566,19 +16581,15 @@
             "volume": 71538
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-10-01",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
-            "forecasted": true
-        },
-        {
-            "date": "2026-12-03",
+            "date": "2026-12-01",
             "forecasted": true
         },
         {
@@ -16586,7 +16597,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-01",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]

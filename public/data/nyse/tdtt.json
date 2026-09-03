@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 23.53,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 23.55,
         "englishName": "Northern Trust iBoxx 3-Year Target Duration TIPS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 148341,
-        "AvgVolume": 211669,
+        "Volume": 275589,
+        "AvgVolume": 208311,
         "sharesOutstanding": null,
         "52Week": "23.5 - 24.46",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.53,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 148341,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 211669,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30300,10 +30313,6 @@
             "volume": 148341
         },
         {
-            "date": "2026-09-03",
-            "forecasted": true
-        },
-        {
             "date": "2026-10-02",
             "forecasted": true
         },
@@ -30321,6 +30330,10 @@
         },
         {
             "date": "2027-02-03",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-03",
             "forecasted": true
         }
     ]

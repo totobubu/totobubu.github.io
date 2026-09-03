@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 100.48,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 100.5,
         "englishName": "PIMCO Enhanced Short Maturity Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1378293,
-        "AvgVolume": 1497298,
+        "Volume": 1247273,
+        "AvgVolume": 1500396,
         "sharesOutstanding": null,
         "52Week": "100.28 - 100.82",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.48,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1378293,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1497298,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -101,7 +114,7 @@
             "close": 100.16999816894531,
             "volume": 6700,
             "amount": 0.006,
-            "yield": 0.0000599101
+            "yield": 5.99101e-5
         },
         {
             "date": "2009-12-01",
@@ -34209,7 +34222,9 @@
             "high": 100.477997,
             "low": 100.459999,
             "close": 100.459999,
-            "volume": 1690975
+            "volume": 1690975,
+            "amount": 0.335,
+            "yield": 0.0452274306
         },
         {
             "date": "2026-09-02",
@@ -34220,19 +34235,15 @@
             "volume": 1378293
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-10-01",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
-            "forecasted": true
-        },
-        {
-            "date": "2026-12-03",
+            "date": "2026-12-01",
             "forecasted": true
         },
         {
@@ -34240,7 +34251,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-01",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]

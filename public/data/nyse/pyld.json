@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 25.97,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 26.03,
         "englishName": "PIMCO ETF Trust - PIMCO Multisector Bond Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3696144,
-        "AvgVolume": 3734542,
+        "Volume": 3505972,
+        "AvgVolume": 3719011,
         "sharesOutstanding": null,
         "52Week": "25.92 - 27.04",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.97,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3696144,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3734542,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6514,7 +6527,9 @@
             "high": 26.02,
             "low": 25.940001,
             "close": 25.950001,
-            "volume": 5348433
+            "volume": 5348433,
+            "amount": 0.14,
+            "yield": 0.0699922985
         },
         {
             "date": "2026-09-02",
@@ -6525,19 +6540,15 @@
             "volume": 3696144
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-10-01",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
-            "forecasted": true
-        },
-        {
-            "date": "2026-12-03",
+            "date": "2026-12-01",
             "forecasted": true
         },
         {
@@ -6545,7 +6556,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-01",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]

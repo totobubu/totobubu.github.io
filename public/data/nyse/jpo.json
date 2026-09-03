@@ -9,14 +9,14 @@
         "underlying": "JPM",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 14.3652,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 14.5002,
         "englishName": "YieldMax JP Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
-        "marketCap": 249954480,
-        "Volume": 28719,
-        "AvgVolume": 25107,
+        "marketCap": 252303488,
+        "Volume": 17790,
+        "AvgVolume": 25422,
         "sharesOutstanding": 17400000,
         "52Week": "13.26 - 17.49",
         "Yield": null,
@@ -40,7 +40,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.3652,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 249954480,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 28719,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 25107,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6270,7 +6287,8 @@
         },
         {
             "date": "2026-09-03",
-            "expected": true
+            "expected": true,
+            "marketCap": 252303488
         },
         {
             "date": "2026-09-10",

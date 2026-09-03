@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-03 06:45:06 KST",
-        "regularMarketPrice": 50.14,
+        "Update": "2026-09-04 06:44:51 KST",
+        "regularMarketPrice": 50.16,
         "englishName": "AB Ultra Short Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 129527,
-        "AvgVolume": 146950,
+        "Volume": 65298,
+        "AvgVolume": 147050,
         "sharesOutstanding": null,
         "52Week": "50.11 - 50.73",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.14,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 129527,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 146950,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8071,7 +8084,9 @@
             "high": 50.149899,
             "low": 50.119999,
             "close": 50.119999,
-            "volume": 94662
+            "volume": 94662,
+            "amount": 0.159,
+            "yield": 0.0436864144
         },
         {
             "date": "2026-09-02",
@@ -8082,19 +8097,15 @@
             "volume": 129527
         },
         {
-            "date": "2026-09-03",
+            "date": "2026-10-01",
             "forecasted": true
         },
         {
-            "date": "2026-10-02",
+            "date": "2026-10-30",
             "forecasted": true
         },
         {
-            "date": "2026-11-03",
-            "forecasted": true
-        },
-        {
-            "date": "2026-12-03",
+            "date": "2026-12-01",
             "forecasted": true
         },
         {
@@ -8102,7 +8113,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-01",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-01",
             "forecasted": true
         }
     ]
