@@ -9,19 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-05 06:27:31 KST",
-        "regularMarketPrice": 335.31,
-        "englishName": "Alphabet Inc.",
-        "earningsDate": "2026-07-22",
-        "enterpriseValue": 4043288346624,
-        "marketCap": 4100819517440,
-        "Volume": 12195409,
-        "AvgVolume": 20293134,
-        "sharesOutstanding": 5527000000,
-        "52Week": "232.38 - 404.47",
-        "Yield": 0.002535,
-        "dividendRate": 0.88,
-        "payoutRatio": 0.0426,
+        "Update": "2026-09-08 07:12:29 KST",
+        "regularMarketPrice": null,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": null,
+        "AvgVolume": null,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "CA02080M1005",
         "events": {
             "splits": [
@@ -42,32 +42,7 @@
                 }
             ]
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 339.08,
-                "change": "down"
-            },
-            "enterpriseValue": {
-                "value": 3978469310464,
-                "change": "up"
-            },
-            "marketCap": {
-                "value": 4146926190592,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 12505197,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 20687868,
-                "change": "down"
-            },
-            "Yield": {
-                "value": 0.002507,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -49801,14 +49776,16 @@
             "high": 340.179993,
             "low": 333.75,
             "close": 335.309998,
-            "volume": 12195409
+            "volume": 12195409,
+            "amount": 0.22,
+            "yield": 0.0031544348
         },
         {
-            "date": "2026-09-08",
+            "date": "2026-12-04",
             "forecasted": true
         },
         {
-            "date": "2026-12-08",
+            "date": "2027-03-04",
             "forecasted": true
         }
     ]
