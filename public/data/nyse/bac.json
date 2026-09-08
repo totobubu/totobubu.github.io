@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-08 07:12:29 KST",
-        "regularMarketPrice": 62.68,
+        "Update": "2026-09-09 06:41:45 KST",
+        "regularMarketPrice": 62.39,
         "englishName": "Bank of America Corporation",
         "earningsDate": "2026-10-14",
         "enterpriseValue": 384144474112,
-        "marketCap": 438305488896,
-        "Volume": 25881711,
-        "AvgVolume": 32433371,
+        "marketCap": 436277575680,
+        "Volume": 24041748,
+        "AvgVolume": 32467262,
         "sharesOutstanding": 6992748365,
         "52Week": "46.12 - 65.23",
-        "Yield": 0.017869,
+        "Yield": 0.017952,
         "dividendRate": 1.28,
         "payoutRatio": 0.2587,
         "isin": "US0605051046",
@@ -43,13 +43,25 @@
             ]
         },
         "changes": {
-            "enterpriseValue": {
-                "value": 386661842944,
+            "regularMarketPrice": {
+                "value": 62.68,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 438305488896,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 25881711,
                 "change": "down"
             },
             "AvgVolume": {
-                "value": 32627692,
-                "change": "down"
+                "value": 32433371,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.017869,
+                "change": "up"
             }
         }
     },
@@ -122670,14 +122682,16 @@
             "high": 62.919998,
             "low": 61.959999,
             "close": 62.68,
-            "volume": 26587200
+            "volume": 26587200,
+            "amount": 0.32,
+            "yield": 0.0230179024
         },
         {
             "date": "2026-12-04",
             "forecasted": true
         },
         {
-            "date": "2027-03-05",
+            "date": "2027-03-04",
             "forecasted": true
         }
     ]
