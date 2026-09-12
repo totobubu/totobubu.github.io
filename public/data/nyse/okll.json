@@ -24,7 +24,13 @@
         "payoutRatio": null,
         "isin": "US88636V6781",
         "events": {
-            "splits": []
+            "splits": [
+                {
+                    "date": "2026-09-10",
+                    "ratio": "1:5",
+                    "type": "split"
+                }
+            ]
         },
         "changes": {}
     },
@@ -2468,6 +2474,14 @@
             "low": 2.65,
             "close": 2.66,
             "volume": 8282600
+        },
+        {
+            "date": "2026-09-10",
+            "open": 12.58,
+            "high": 12.8,
+            "low": 11.56,
+            "close": 11.64,
+            "volume": 1815000
         }
     ]
 }
