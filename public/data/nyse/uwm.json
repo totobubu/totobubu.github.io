@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 61.28,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 60.86,
         "englishName": "ProShares Ultra Russell2000",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 207525,
-        "AvgVolume": 259577,
+        "Volume": 307483,
+        "AvgVolume": 255074,
         "sharesOutstanding": null,
         "52Week": "40.92 - 68.82",
         "Yield": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 61.28,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 207525,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 259577,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10644,7 +10657,7 @@
             "low": 10.845000267028809,
             "close": 10.914999961853027,
             "volume": 5016000,
-            "yield": 0.0000636943,
+            "yield": 6.36943e-5,
             "amountOriginal": 0.044,
             "amountSplitAdjustments": [
                 {

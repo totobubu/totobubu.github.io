@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 375.2,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 378.05,
         "englishName": "The Travelers Companies, Inc.",
-        "earningsDate": "2026-07-17",
-        "enterpriseValue": 80670834688,
-        "marketCap": 78257348608,
-        "Volume": 1604833,
-        "AvgVolume": 1952272,
+        "earningsDate": "2026-10-16",
+        "enterpriseValue": 82264350720,
+        "marketCap": 78851784704,
+        "Volume": 1348587,
+        "AvgVolume": 1945762,
         "sharesOutstanding": 208575022,
         "52Week": "252.26 - 398.7",
-        "Yield": 0.012127,
+        "Yield": 0.012035,
         "dividendRate": 5,
         "payoutRatio": 0.1223,
         "isin": "US89417E1091",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 375.2,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 80670834688,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 78257348608,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1604833,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1952272,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.012127,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -116080,7 +116105,8 @@
             "high": 370.519989,
             "low": 364.600006,
             "close": 367.559998,
-            "volume": 1244600
+            "volume": 1244600,
+            "yield": 0.0156943393
         },
         {
             "date": "2026-12-10",

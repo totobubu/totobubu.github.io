@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 282.67,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 280.38,
         "englishName": "Garmin Ltd.",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 50055127040,
-        "marketCap": 54514667520,
-        "Volume": 613224,
-        "AvgVolume": 942969,
+        "enterpriseValue": 52074295296,
+        "marketCap": 54073024512,
+        "Volume": 775666,
+        "AvgVolume": 947653,
         "sharesOutstanding": 192856206,
         "52Week": "186.67 - 314.28",
-        "Yield": 0.014858,
+        "Yield": 0.01498,
         "dividendRate": 4.2,
         "payoutRatio": 0.387,
         "isin": "CH0114405324",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 282.67,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 50055127040,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 54514667520,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 613224,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 942969,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.014858,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -58329,11 +58354,15 @@
             "volume": 495200
         },
         {
-            "date": "2026-09-15",
+            "date": "2026-09-11",
+            "amount": 1.05
+        },
+        {
+            "date": "2026-12-11",
             "forecasted": true
         },
         {
-            "date": "2026-12-15",
+            "date": "2027-03-11",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 1633.35,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 1551.99,
         "englishName": "Sandisk Corporation",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 243266338816,
-        "marketCap": 239153479680,
-        "Volume": 9320019,
-        "AvgVolume": 13944679,
+        "enterpriseValue": 234592468992,
+        "marketCap": 227240837120,
+        "Volume": 9544369,
+        "AvgVolume": 13904006,
         "sharesOutstanding": 146419001,
-        "52Week": "82.28 - 2354.39",
+        "52Week": "85.12 - 2354.39",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1633.35,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 243266338816,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 239153479680,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9320019,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 13944679,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3241,7 +3262,8 @@
             "high": 1733.949951,
             "low": 1674,
             "close": 1692.589966,
-            "volume": 8737100
+            "volume": 8737100,
+            "marketCap": 227240837120
         }
     ]
 }

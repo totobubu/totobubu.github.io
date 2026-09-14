@@ -9,14 +9,14 @@
         "underlying": "NFLX",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 7.5,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 7.63,
         "englishName": "YieldMax NFLX Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 52012,
-        "AvgVolume": 65604,
+        "Volume": 32306,
+        "AvgVolume": 65301,
         "sharesOutstanding": null,
         "52Week": "7.0 - 17.01",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7.5,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 52012,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 65604,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6466,7 +6479,8 @@
             "high": 7.42,
             "low": 7.3,
             "close": 7.37,
-            "volume": 12700
+            "volume": 12700,
+            "yield": 0.6294579946
         },
         {
             "date": "2026-09-17",

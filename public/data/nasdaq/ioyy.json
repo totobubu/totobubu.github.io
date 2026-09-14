@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 5.86,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 5.84,
         "englishName": "GraniteShares YieldBOOST IONQ ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 15285,
-        "AvgVolume": 30691,
+        "Volume": 35784,
+        "AvgVolume": 30267,
         "sharesOutstanding": null,
-        "52Week": "5.86 - 25.98",
+        "52Week": "5.8 - 25.98",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.86,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 15285,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 30691,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1945,6 +1958,10 @@
         },
         {
             "date": "2027-03-05",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-12",
             "forecasted": true
         }
     ]

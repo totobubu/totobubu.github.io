@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 38.42,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 38.255,
         "englishName": "Roundhill S&P 500 0DTE Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 154928,
-        "AvgVolume": 155880,
+        "Volume": 112799,
+        "AvgVolume": 155480,
         "sharesOutstanding": null,
         "52Week": "35.87 - 44.81",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 38.42,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 154928,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 155880,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5511,7 +5524,8 @@
             "high": 38.150002,
             "low": 38.009998,
             "close": 38.080002,
-            "volume": 142200
+            "volume": 142200,
+            "yield": 0.3169200127
         },
         {
             "date": "2026-09-17",

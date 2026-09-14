@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 213.46,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 218.09,
         "englishName": "Waste Management, Inc.",
         "earningsDate": "2026-07-28",
-        "enterpriseValue": 108646825984,
-        "marketCap": 85323210752,
-        "Volume": 2511170,
-        "AvgVolume": 2122506,
+        "enterpriseValue": 108123201536,
+        "marketCap": 87173890048,
+        "Volume": 2420574,
+        "AvgVolume": 2113622,
         "sharesOutstanding": 399715184,
         "52Week": "194.11 - 248.13",
-        "Yield": 0.016584,
+        "Yield": 0.016232,
         "dividendRate": 3.78,
         "payoutRatio": 0.5007,
         "isin": "US94106L1098",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 213.46,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 108646825984,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 85323210752,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2511170,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2122506,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.016584,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -86643,11 +86668,15 @@
             "volume": 2164100
         },
         {
-            "date": "2026-12-04",
+            "date": "2026-09-11",
+            "amount": 0.945
+        },
+        {
+            "date": "2026-12-11",
             "forecasted": true
         },
         {
-            "date": "2027-03-05",
+            "date": "2027-03-11",
             "forecasted": true
         }
     ]

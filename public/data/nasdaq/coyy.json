@@ -9,16 +9,16 @@
         "underlying": "COIN",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 15.62,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 15.78,
         "englishName": "GraniteShares YieldBOOST COIN ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 21159,
-        "AvgVolume": 19108,
+        "Volume": 16020,
+        "AvgVolume": 18883,
         "sharesOutstanding": null,
-        "52Week": "15.6 - 119.1",
+        "52Week": "15.58 - 119.1",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -34,16 +34,16 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 15.83,
-                "change": "down"
+                "value": 15.62,
+                "change": "up"
             },
             "Volume": {
-                "value": 24191,
+                "value": 21159,
                 "change": "down"
             },
             "AvgVolume": {
-                "value": 19043,
-                "change": "up"
+                "value": 19108,
+                "change": "down"
             }
         }
     },
@@ -2480,7 +2480,8 @@
         },
         {
             "date": "2026-09-11",
-            "expected": true
+            "expected": true,
+            "amount": 0.191
         },
         {
             "date": "2026-09-18",
@@ -2576,6 +2577,10 @@
         },
         {
             "date": "2027-03-05",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-12",
             "forecasted": true
         }
     ]

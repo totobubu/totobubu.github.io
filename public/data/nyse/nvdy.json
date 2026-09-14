@@ -9,14 +9,14 @@
         "underlying": "NVDA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 12.37,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 12.02,
         "englishName": "YieldMax NVDA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2192045,
-        "AvgVolume": 2174987,
+        "Volume": 3116279,
+        "AvgVolume": 2174132,
         "sharesOutstanding": null,
         "52Week": "11.571 - 17.57",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.37,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2192045,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2174987,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6971,7 +6984,8 @@
             "high": 12.5,
             "low": 12.3,
             "close": 12.35,
-            "volume": 2919100
+            "volume": 2919100,
+            "yield": 0.5870809944
         },
         {
             "date": "2026-09-17",

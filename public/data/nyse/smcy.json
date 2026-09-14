@@ -9,14 +9,14 @@
         "underlying": "SMCI",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 5.43,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 5.06,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2359944,
-        "AvgVolume": 1049038,
+        "Volume": 1881086,
+        "AvgVolume": 1061225,
         "sharesOutstanding": null,
         "52Week": "3.99 - 17.725",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.43,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2359944,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1049038,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4224,7 +4237,8 @@
             "high": 5.305,
             "low": 5.1,
             "close": 5.11,
-            "volume": 878400
+            "volume": 878400,
+            "yield": 1.4167374517
         },
         {
             "date": "2026-09-17",

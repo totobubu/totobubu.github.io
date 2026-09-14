@@ -9,14 +9,14 @@
         "underlying": "QQQ",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 12.22,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 12.19,
         "englishName": "GraniteShares YieldBOOST QQQ ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 15966,
-        "AvgVolume": 9656,
+        "Volume": 2713,
+        "AvgVolume": 9577,
         "sharesOutstanding": null,
         "52Week": "12.06 - 19.35",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.22,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 15966,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9656,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3337,7 +3350,8 @@
         },
         {
             "date": "2026-09-11",
-            "expected": true
+            "expected": true,
+            "amount": 0.057
         },
         {
             "date": "2026-09-18",
@@ -3433,6 +3447,10 @@
         },
         {
             "date": "2027-03-05",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-12",
             "forecasted": true
         }
     ]

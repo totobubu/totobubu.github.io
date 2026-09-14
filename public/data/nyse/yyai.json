@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 0.7349,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 0.731,
         "englishName": "AiRWA Inc.",
         "earningsDate": null,
-        "enterpriseValue": -40297748,
-        "marketCap": 38713,
-        "Volume": 539305,
-        "AvgVolume": 1645610,
+        "enterpriseValue": -40297208,
+        "marketCap": 38507,
+        "Volume": 209385,
+        "AvgVolume": 1654307,
         "sharesOutstanding": 52678,
-        "52Week": "0.711 - 118000.0",
+        "52Week": "0.686 - 118000.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -52,7 +52,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 0.7349,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": -40297748,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 38713,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 539305,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1645610,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11498,7 +11519,8 @@
             "high": 0.812,
             "low": 0.72,
             "close": 0.725,
-            "volume": 366200
+            "volume": 366200,
+            "marketCap": 38507
         }
     ]
 }

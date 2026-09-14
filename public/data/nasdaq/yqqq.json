@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 9.745,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 9.805,
         "englishName": "YieldMax Short N100 Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11439,
-        "AvgVolume": 42814,
+        "Volume": 27262,
+        "AvgVolume": 42375,
         "sharesOutstanding": null,
-        "52Week": "9.58 - 13.23",
+        "52Week": "9.58 - 13.2",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.745,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 11439,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 42814,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4374,7 +4387,8 @@
             "high": 9.77,
             "low": 9.73,
             "close": 9.756,
-            "volume": 24500
+            "volume": 24500,
+            "yield": 0.660698152
         },
         {
             "date": "2026-09-17",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 157.77,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 162.38,
         "englishName": "Reddit, Inc.",
         "earningsDate": "2026-07-30",
-        "enterpriseValue": 27121383424,
-        "marketCap": 30354399232,
-        "Volume": 3129352,
-        "AvgVolume": 5803390,
+        "enterpriseValue": 27588907008,
+        "marketCap": 31241347072,
+        "Volume": 4454477,
+        "AvgVolume": 5762148,
         "sharesOutstanding": 146103200,
         "52Week": "119.27 - 282.95",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 157.77,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 27121383424,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 30354399232,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3129352,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5803390,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5041,7 +5062,8 @@
             "high": 156.949997,
             "low": 144.800003,
             "close": 155.339996,
-            "volume": 5813400
+            "volume": 5813400,
+            "marketCap": 31241347072
         }
     ]
 }

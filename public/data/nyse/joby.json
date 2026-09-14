@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 6.39,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 6.3,
         "englishName": "Joby Aviation, Inc.",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 4725260800,
-        "marketCap": 6320503808,
-        "Volume": 30916456,
-        "AvgVolume": 39059329,
-        "sharesOutstanding": 989124237,
-        "52Week": "6.24 - 19.98",
+        "enterpriseValue": 4804390912,
+        "marketCap": 6261409280,
+        "Volume": 31011886,
+        "AvgVolume": 39205612,
+        "sharesOutstanding": 993874445,
+        "52Week": "6.2 - 19.98",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,32 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 6.39,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 4725260800,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 6320503808,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 30916456,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 39059329,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 989124237,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13069,7 +13094,8 @@
             "high": 6.59,
             "low": 6.25,
             "close": 6.31,
-            "volume": 31391100
+            "volume": 31391100,
+            "marketCap": 6261409280
         }
     ]
 }

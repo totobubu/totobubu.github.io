@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 42.9639,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 42.34,
         "englishName": "Nuveen Growth Opportunities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 17088,
-        "AvgVolume": 133295,
+        "Volume": 8809,
+        "AvgVolume": 133504,
         "sharesOutstanding": null,
         "52Week": "34.28 - 44.83",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.9639,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 17088,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 133295,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -485,7 +498,7 @@
             "close": 25.45400047302246,
             "volume": 100,
             "amount": 0.001,
-            "yield": 0.000038429
+            "yield": 3.8429e-5
         },
         {
             "date": "2021-12-17",

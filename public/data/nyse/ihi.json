@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 50.88,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 51.86,
         "englishName": "iShares U.S. Medical Devices ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1771173,
-        "AvgVolume": 2805696,
+        "Volume": 2502502,
+        "AvgVolume": 2796624,
         "sharesOutstanding": null,
         "52Week": "47.37 - 64.71",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.88,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1771173,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2805696,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -307,7 +320,7 @@
             "close": 7.744999885559082,
             "volume": 25200,
             "amount": 0,
-            "yield": 0.0000217259,
+            "yield": 2.17259e-5,
             "amountOriginal": 0.006012,
             "amountSplitAdjustments": [
                 {

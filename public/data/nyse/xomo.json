@@ -9,14 +9,14 @@
         "underlying": "XOM",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 11.12,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 11.01,
         "englishName": "Yieldmax XOM Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 99324,
-        "AvgVolume": 60375,
+        "Volume": 98927,
+        "AvgVolume": 61279,
         "sharesOutstanding": null,
         "52Week": "10.38 - 14.14",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.12,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 99324,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 60375,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6338,7 +6351,8 @@
             "high": 11.08,
             "low": 10.97,
             "close": 11,
-            "volume": 52800
+            "volume": 52800,
+            "yield": 0.3645126354
         },
         {
             "date": "2026-09-17",

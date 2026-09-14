@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-12 06:34:29 KST",
-        "regularMarketPrice": 28.635,
+        "Update": "2026-09-15 07:24:00 KST",
+        "regularMarketPrice": 28.41,
         "englishName": "Roundhill Nasdaq-100 0DTE Covered Call ETF Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 393686,
-        "AvgVolume": 560437,
+        "Volume": 424324,
+        "AvgVolume": 552951,
         "sharesOutstanding": null,
         "52Week": "26.745 - 36.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.635,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 393686,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 560437,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5511,7 +5524,8 @@
             "high": 28.475,
             "low": 28.27,
             "close": 28.360001,
-            "volume": 367200
+            "volume": 367200,
+            "yield": 0.4634496296
         },
         {
             "date": "2026-09-17",
