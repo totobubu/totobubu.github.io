@@ -9,37 +9,12 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-15 07:24:00 KST",
-        "regularMarketPrice": 42.02,
-        "englishName": "Roundhill Gold Miners Weeklypay ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 78437,
-        "AvgVolume": 47383,
-        "sharesOutstanding": null,
-        "52Week": "32.445 - 77.19",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-09-16 06:55:27 KST",
         "isin": "US77926X4869",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 44.1096,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 35652,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 47369,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -1892,7 +1867,8 @@
         },
         {
             "date": "2026-09-14",
-            "expected": true
+            "expected": true,
+            "amount": 0.462
         },
         {
             "date": "2026-09-21",
@@ -1992,6 +1968,10 @@
         },
         {
             "date": "2027-03-08",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-15",
             "forecasted": true
         }
     ]

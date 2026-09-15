@@ -9,37 +9,12 @@
         "underlying": "MSTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-15 07:24:00 KST",
-        "regularMarketPrice": 4.415,
-        "englishName": "Roundhill MSTR WeeklyPay ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 1687716,
-        "AvgVolume": 682119,
-        "sharesOutstanding": null,
-        "52Week": "2.995 - 37.01",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-09-16 06:55:27 KST",
         "isin": "US77926X5932",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 4.295,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 1909396,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 657643,
-                "change": "up"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -2499,7 +2474,8 @@
         },
         {
             "date": "2026-09-14",
-            "expected": true
+            "expected": true,
+            "amount": 0.094
         },
         {
             "date": "2026-09-21",
@@ -2599,6 +2575,10 @@
         },
         {
             "date": "2027-03-08",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-15",
             "forecasted": true
         }
     ]

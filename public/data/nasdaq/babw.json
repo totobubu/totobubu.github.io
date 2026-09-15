@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-15 07:24:00 KST",
-        "regularMarketPrice": 19.8808,
+        "Update": "2026-09-16 06:55:27 KST",
+        "regularMarketPrice": 19.8977,
         "englishName": "Roundhill BABA WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1369,
-        "AvgVolume": 2635,
+        "Volume": 529,
+        "AvgVolume": 2650,
         "sharesOutstanding": null,
         "52Week": "18.35 - 56.02",
         "Yield": null,
@@ -28,15 +28,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 20.0054,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 1191,
+                "value": 19.8808,
                 "change": "up"
             },
+            "Volume": {
+                "value": 1369,
+                "change": "down"
+            },
             "AvgVolume": {
-                "value": 2629,
+                "value": 2635,
                 "change": "up"
             }
         }
@@ -1935,7 +1935,8 @@
         },
         {
             "date": "2026-09-14",
-            "expected": true
+            "expected": true,
+            "amount": 0.128
         },
         {
             "date": "2026-09-21",
@@ -2035,6 +2036,10 @@
         },
         {
             "date": "2027-03-08",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-15",
             "forecasted": true
         }
     ]
