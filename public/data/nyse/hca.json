@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-17 06:59:48 KST",
-        "regularMarketPrice": 430.43,
+        "Update": "2026-09-18 06:53:50 KST",
+        "regularMarketPrice": 429.04,
         "englishName": "HCA Healthcare, Inc.",
         "earningsDate": "2026-07-24",
-        "enterpriseValue": 145612668928,
-        "marketCap": 93188743168,
-        "Volume": 1369603,
-        "AvgVolume": 1487800,
+        "enterpriseValue": 147043745792,
+        "marketCap": 92887810048,
+        "Volume": 1181844,
+        "AvgVolume": 1486306,
         "sharesOutstanding": 216501500,
         "52Week": "353.99 - 556.52",
-        "Yield": 0.00697,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Yield": 0.006992,
+        "dividendRate": 3.12,
+        "payoutRatio": 0.1006,
         "isin": "US40412C1018",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 430.43,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 145612668928,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 93188743168,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1369603,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1487800,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.00697,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35011,7 +35036,9 @@
             "high": 433.700012,
             "low": 420,
             "close": 430.429993,
-            "volume": 1369600
+            "volume": 1369600,
+            "amount": 0.78,
+            "yield": 0.0089852385
         },
         {
             "date": "2026-12-16",

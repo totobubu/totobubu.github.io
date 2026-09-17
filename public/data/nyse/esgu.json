@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-17 06:59:48 KST",
-        "regularMarketPrice": 164.52,
+        "Update": "2026-09-18 06:53:50 KST",
+        "regularMarketPrice": 166.44,
         "englishName": "iShares ESG Aware MSCI USA ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 230037,
-        "AvgVolume": 385793,
+        "Volume": 370078,
+        "AvgVolume": 382601,
         "sharesOutstanding": null,
         "52Week": "136.82 - 170.85",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 164.52,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 230037,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 385793,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19756,7 +19769,8 @@
             "high": 165.809998,
             "low": 164.970001,
             "close": 165.139999,
-            "volume": 221500
+            "volume": 221500,
+            "yield": 0.0115496017
         },
         {
             "date": "2026-12-15",

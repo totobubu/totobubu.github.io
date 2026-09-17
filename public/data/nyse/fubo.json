@@ -9,19 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-17 06:59:48 KST",
-        "regularMarketPrice": 10.6,
+        "Update": "2026-09-18 06:53:50 KST",
+        "regularMarketPrice": 9.9,
         "englishName": "FuboTV Inc.",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 2327501568,
-        "marketCap": 320165344,
-        "Volume": 949405,
-        "AvgVolume": 1476385,
+        "enterpriseValue": 2318138368,
+        "marketCap": 299022336,
+        "Volume": 1867879,
+        "AvgVolume": 1467108,
         "sharesOutstanding": 30204277,
         "52Week": "7.95 - 56.64",
         "Yield": null,
         "dividendRate": null,
-        "payoutRatio": null,
+        "payoutRatio": 0,
         "isin": "US35953D1046",
         "events": {
             "splits": [
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.6,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 2327501568,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 320165344,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 949405,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1476385,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15153,7 +15174,8 @@
             "high": 11.8,
             "low": 10.69,
             "close": 10.91,
-            "volume": 1784900
+            "volume": 1784900,
+            "marketCap": 299022336
         }
     ]
 }

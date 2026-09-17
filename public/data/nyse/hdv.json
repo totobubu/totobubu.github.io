@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-17 06:59:48 KST",
-        "regularMarketPrice": 28.89,
+        "Update": "2026-09-18 06:53:50 KST",
+        "regularMarketPrice": 28.87,
         "englishName": "iShares Core High Dividend ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2563722,
-        "AvgVolume": 4624816,
+        "Volume": 8558695,
+        "AvgVolume": 4553019,
         "sharesOutstanding": null,
         "52Week": "23.516 - 30.13",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.89,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2563722,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4624816,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31265,14 +31278,16 @@
             "high": 29.200001,
             "low": 28.799999,
             "close": 28.889999,
-            "volume": 2563800
+            "volume": 2563800,
+            "amount": 0.056,
+            "yield": 0.1193072702
         },
         {
-            "date": "2026-11-19",
+            "date": "2026-12-16",
             "forecasted": true
         },
         {
-            "date": "2027-02-19",
+            "date": "2027-03-16",
             "forecasted": true
         }
     ]

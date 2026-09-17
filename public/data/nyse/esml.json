@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-17 06:59:48 KST",
-        "regularMarketPrice": 52.92,
+        "Update": "2026-09-18 06:53:50 KST",
+        "regularMarketPrice": 53.23,
         "englishName": "iShares ESG Aware MSCI USA Small-Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 97716,
-        "AvgVolume": 103451,
+        "Volume": 62380,
+        "AvgVolume": 103287,
         "sharesOutstanding": null,
         "52Week": "42.87 - 56.749",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 52.92,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 97716,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 103451,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16854,7 +16867,8 @@
             "high": 53.435001,
             "low": 53.049999,
             "close": 53.189999,
-            "volume": 73700
+            "volume": 73700,
+            "yield": 0.0121206442
         },
         {
             "date": "2026-12-15",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-17 06:59:48 KST",
-        "regularMarketPrice": 112.88,
+        "Update": "2026-09-18 06:53:50 KST",
+        "regularMarketPrice": 113.53,
         "englishName": "iShares MSCI USA Equal Weighted ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 43580,
-        "AvgVolume": 72993,
+        "Volume": 57067,
+        "AvgVolume": 73256,
         "sharesOutstanding": 4750000,
         "52Week": "98.54 - 119.75",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 112.88,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 43580,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 72993,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36977,7 +36990,8 @@
             "high": 114.389999,
             "low": 113.660004,
             "close": 113.720001,
-            "volume": 67000
+            "volume": 67000,
+            "yield": 0.0179648572
         },
         {
             "date": "2026-09-16",
