@@ -21,7 +21,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--db", type=Path, default=DEFAULT_DB_PATH)
     parser.add_argument("--raw-dir", type=Path, default=Path("var/content-studio/raw"))
     parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--max-sources", type=int, default=3)
+    parser.add_argument("--max-sources", type=int,
+                        help="candidate cap; provider default is used when omitted")
     return parser
 
 
@@ -46,7 +47,8 @@ def main() -> int:
     )
     report = {"provider": adapter.slug, "sources": [], "events": 0, "errors": []}
 
-    for candidate in candidates[: args.max_sources]:
+    max_sources = args.max_sources or getattr(adapter, "default_max_sources", 3)
+    for candidate in candidates[:max_sources]:
         try:
             document = adapter.fetch(candidate)
             raw_path = args.raw_dir / adapter.slug / f"{document.content_sha256}.html"

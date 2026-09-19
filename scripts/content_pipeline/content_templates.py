@@ -5,6 +5,20 @@ from decimal import Decimal
 from html import escape
 
 
+def _short_date(value: str) -> str:
+    """Format ISO dates compactly without silently inventing a missing date."""
+    if len(value) == 10 and value[4] == "-" and value[7] == "-":
+        return value[2:4] + value[5:7] + value[8:10]
+    return value
+
+
+@dataclass(frozen=True)
+class MonthlyDistribution:
+    month: str
+    total: str
+    amounts: tuple[str, ...]
+
+
 @dataclass(frozen=True)
 class ContentEvent:
     id: int
@@ -19,6 +33,8 @@ class ContentEvent:
     official_url: str
     verification_status: str
     previous_distribution: str | None = None
+    previous_distribution_source: str | None = None
+    monthly_distributions: tuple[MonthlyDistribution, ...] = ()
 
     @property
     def amount_display(self) -> str:
@@ -47,13 +63,29 @@ class ContentEvent:
             return f"직전 대비 {change}%"
         return "직전과 동일"
 
+    @property
+    def amount_change_label(self) -> str:
+        if not self.previous_distribution:
+            return "직전 실제 배당 기록 없음"
+        previous = format(Decimal(self.previous_distribution).normalize(), "f")
+        return f"직전 ${previous} → 이번 ${self.amount_display}"
+
+    @property
+    def change_detail_label(self) -> str:
+        """Keep the rate and the per-share dollar change together on visual cards."""
+        if not self.previous_distribution:
+            return "직전 실제 배당 기록 없음"
+        delta = Decimal(self.distribution_per_share) - Decimal(self.previous_distribution)
+        sign = "+" if delta >= 0 else "-"
+        return f"{self.change_label} | {sign} ${format(abs(delta).normalize(), 'f')}"
+
 
 def toss_text(event: ContentEvent) -> str:
     payable = event.payable_date or "공식 원문 확인"
     return "\n".join(
         [
             f"📢 {event.ticker} 배당 발표",
-            f"주당 ${event.amount_display} · {event.change_label}",
+            f"주당 ${event.amount_display} · {event.amount_change_label} · {event.change_label}",
             f"배당락 {event.ex_date} · 지급 {payable}",
             "",
             f"{event.provider_slug.upper()} 공식 발표를 기준으로 정리했습니다.",
@@ -73,6 +105,7 @@ def naver_markdown(event: ContentEvent) -> str:
 ## 핵심 일정
 
 - 주당 배당금: **${event.amount_display} {event.currency}**
+- 직전 실제 배당금: **{event.amount_change_label}**
 - 직전 배당 대비: **{event.change_label}**
 - 선언일: **{event.declared_date}**
 - 배당락일: **{event.ex_date}**
@@ -91,15 +124,33 @@ def naver_markdown(event: ContentEvent) -> str:
 """
 
 
+def _weekly_table(event: ContentEvent) -> str:
+    if not event.monthly_distributions:
+        return ""
+    colors = ("blue", "red", "yellow", "green", "orange")
+    rows = []
+    for item in event.monthly_distributions:
+        pills = "".join(
+            f'<span class="pill {colors[index % len(colors)]}">${escape(amount)}</span>'
+            for index, amount in enumerate(item.amounts)
+        )
+        rows.append(f'<div class="month-row"><strong>{escape(item.month)}</strong><b>${escape(item.total)}</b><div class="pills">{pills}</div></div>')
+    return '<section class="monthly"><p>최근 월별 주배당 합계 <span>예정값 제외</span></p>' + "".join(rows) + "</section>"
+
+
 def _card_html(event: ContentEvent, *, width: int, height: int, variant: str) -> str:
     amount = escape(event.amount_display)
     ticker = escape(event.ticker)
     provider = escape(event.provider_slug.upper())
-    change = escape(event.change_label)
-    ex_date = escape(event.ex_date)
-    payable = escape(event.payable_date or "확인 필요")
+    change = escape(event.change_detail_label)
+    amount_change = escape(event.amount_change_label)
+    declared_date = escape(_short_date(event.declared_date))
+    ex_date = escape(_short_date(event.ex_date))
+    payable = escape(_short_date(event.payable_date) if event.payable_date else "확인 필요")
     compact = variant == "blog"
     eyebrow = "OFFICIAL DISTRIBUTION" if not compact else "DIVIDEND BRIEF"
+    monthly = _weekly_table(event) if not compact else ""
+    has_monthly = bool(monthly)
     return f"""<!doctype html>
 <html lang="ko">
 <head>
@@ -110,25 +161,31 @@ def _card_html(event: ContentEvent, *, width: int, height: int, variant: str) ->
 * {{ box-sizing: border-box; }}
 html, body {{ margin: 0; width: {width}px; height: {height}px; overflow: hidden; }}
 body {{ font-family: Pretendard, "Noto Sans KR", Arial, sans-serif; background: #081321; color: #f7f9fc; }}
-.card {{ position: relative; display: grid; grid-template-rows: auto 1fr auto; width: 100%; height: 100%; padding: {round(width * .065)}px; background: radial-gradient(circle at 90% 4%, #244b68 0, transparent 34%), linear-gradient(145deg, #081321 0%, #10283b 100%); }}
+.card {{ position: relative; display: grid; grid-template-rows: auto 1fr auto; width: 100%; height: 100%; padding: {round(width * (.04 if has_monthly else .055))}px; background: radial-gradient(circle at 90% 4%, #244b68 0, transparent 34%), linear-gradient(145deg, #081321 0%, #10283b 100%); }}
 .card::after {{ content: ""; position: absolute; right: -9%; bottom: -20%; width: 48%; aspect-ratio: 1; border: {max(3, round(width * .006))}px solid rgba(255,190,82,.22); border-radius: 50%; }}
-.top {{ display: flex; justify-content: space-between; align-items: center; font-size: {round(width * .024)}px; font-weight: 800; letter-spacing: .12em; color: #ffbd52; }}
-.provider {{ color: #b9c8d7; letter-spacing: .04em; }}
-.main {{ align-self: center; }}
-.ticker {{ margin: 0 0 {round(height * .025)}px; font-size: {round(width * (.13 if not compact else .095))}px; line-height: .9; letter-spacing: -.05em; }}
-.label {{ margin: 0 0 {round(height * .018)}px; font-size: {round(width * .038)}px; color: #b9c8d7; }}
-.amount {{ margin: 0; color: #fff; font-size: {round(width * (.12 if not compact else .092))}px; font-weight: 900; letter-spacing: -.055em; }}
-.change {{ display: inline-block; margin-top: {round(height * .025)}px; padding: {round(width * .015)}px {round(width * .025)}px; border: 1px solid rgba(255,189,82,.45); border-radius: 999px; color: #ffd78f; font-size: {round(width * .025)}px; font-weight: 800; }}
-.bottom {{ display: grid; grid-template-columns: 1fr 1fr; gap: {round(width * .03)}px; padding-top: {round(height * .035)}px; border-top: 1px solid rgba(255,255,255,.16); }}
-.date span {{ display: block; margin-bottom: {round(height * .008)}px; color: #8fa5b7; font-size: {round(width * .019)}px; }}
-.date strong {{ font-size: {round(width * .027)}px; }}
+.top {{ display: flex; justify-content: space-between; align-items: center; font-size: {round(width * .020)}px; font-weight: 800; letter-spacing: .1em; color: #ffbd52; }}
+.provider {{ color: #b9c8d7; letter-spacing: .02em; font-size: .92em; }}
+.main {{ align-self: {'start' if has_monthly else 'center'}; padding-top: {round(height * (.015 if has_monthly else .0))}px; }}
+.ticker {{ margin: 0 0 {round(height * .014)}px; font-size: {round(width * (.115 if has_monthly else (.13 if not compact else .095)))}px; line-height: .9; letter-spacing: -.05em; }}
+.label {{ margin: 0 0 {round(height * .011)}px; font-size: {round(width * .030)}px; color: #b9c8d7; }}
+.amount {{ margin: 0; color: #fff; font-size: {round(width * (.094 if has_monthly else (.12 if not compact else .092)))}px; font-weight: 900; letter-spacing: -.055em; }}
+.change {{ display: inline-block; margin-top: {round(height * .014)}px; padding: {round(width * .010)}px {round(width * .018)}px; border: 1px solid rgba(255,189,82,.45); border-radius: 999px; color: #ffd78f; font-size: {round(width * .020)}px; font-weight: 800; }}
+.amount-change {{ margin: {round(height * .009)}px 0 0; color: #dce7f2; font-size: {round(width * .020)}px; font-weight: 700; }}
+.monthly {{ margin-top: {round(height * .020)}px; padding: {round(width * .018)}px; border-radius: {round(width * .014)}px; background: rgba(255,255,255,.94); color: #172033; }}
+.monthly > p {{ margin: 0 0 {round(height * .008)}px; font-size: {round(width * .017)}px; font-weight: 900; }} .monthly > p span {{ color: #667085; font-weight: 600; }}
+.month-row {{ display:grid; grid-template-columns: {round(width * .082)}px {round(width * .108)}px 1fr; gap: {round(width * .009)}px; align-items:center; min-height:{round(height * .030)}px; border-top:1px solid #e8ecf1; font-size:{round(width * .016)}px; }}
+.month-row strong {{ color:#344054; }} .month-row b {{ color:#101828; }} .pills {{ display:flex; gap:{round(width * .006)}px; }} .pill {{ flex:1; padding:{round(height * .007)}px {round(width * .006)}px; border-radius:{round(width * .006)}px; color:#fff; text-align:center; font-weight:900; font-size:{round(width * .016)}px; }}
+.blue{{background:#4386ed}}.red{{background:#e3483f}}.yellow{{background:#eab308;color:#172033}}.green{{background:#22a45d}}.orange{{background:#e87918}}
+.bottom {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: {round(width * .015)}px; padding-top: {round(height * (.018 if has_monthly else .035))}px; border-top: 1px solid rgba(255,255,255,.16); }}
+.date span {{ display: block; margin-bottom: {round(height * .005)}px; color: #8fa5b7; font-size: {round(width * .016)}px; }}
+.date strong {{ font-size: {round(width * .022)}px; }}
 </style>
 </head>
 <body>
 <main class="card" data-content-card>
-  <header class="top"><span>{eyebrow}</span><span class="provider">{provider}</span></header>
-  <section class="main"><h1 class="ticker">{ticker}</h1><p class="label">주당 배당금</p><p class="amount">${amount}</p><span class="change">{change}</span></section>
-  <footer class="bottom"><div class="date"><span>배당락일</span><strong>{ex_date}</strong></div><div class="date"><span>지급일</span><strong>{payable}</strong></div></footer>
+  <header class="top"><span>{eyebrow}</span><span class="provider">{provider} · Made by 토또부부</span></header>
+  <section class="main"><h1 class="ticker">{ticker}</h1><p class="label">주당 배당금</p><p class="amount">${amount}</p><p class="amount-change">{amount_change}</p><span class="change">{change}</span>{monthly}</section>
+  <footer class="bottom"><div class="date"><span>배당공시일</span><strong>{declared_date}</strong></div><div class="date"><span>배당락일</span><strong>{ex_date}</strong></div><div class="date"><span>지급일</span><strong>{payable}</strong></div></footer>
 </main>
 </body>
 </html>"""

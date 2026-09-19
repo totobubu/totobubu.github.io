@@ -123,4 +123,29 @@ CREATE TABLE IF NOT EXISTS content_performance (
 CREATE INDEX IF NOT EXISTS idx_content_performance_topic_date
     ON content_performance (topic, published_at DESC);
 
-PRAGMA user_version = 3;
+-- Reconciliation is deliberately separate from the collection ledger.  A
+-- detected difference must never mutate the legacy public data automatically.
+CREATE TABLE IF NOT EXISTS public_data_reconciliation_reviews (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_id INTEGER NOT NULL REFERENCES distribution_events(id) ON DELETE CASCADE,
+    ticker TEXT NOT NULL,
+    ex_date TEXT NOT NULL,
+    data_path TEXT,
+    status TEXT NOT NULL CHECK (status IN (
+        'matched', 'missing_data_file', 'missing_date', 'amount_mismatch',
+        'expected_only', 'needs_review', 'approved', 'rejected', 'applied'
+    )),
+    comparison_json TEXT NOT NULL DEFAULT '{}',
+    proposed_patch_json TEXT NOT NULL DEFAULT '{}',
+    reviewed_by TEXT,
+    reviewed_at TEXT,
+    applied_at TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    UNIQUE (event_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_public_data_reconciliation_status
+    ON public_data_reconciliation_reviews (status, updated_at DESC);
+
+PRAGMA user_version = 4;

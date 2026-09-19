@@ -12,7 +12,7 @@ if __package__ in {None, ""}:
 from scripts.content_pipeline.database import ContentDatabase, DEFAULT_DB_PATH
 
 
-def export_dashboard(db: Path, output: Path, limit: int = 100) -> None:
+def export_dashboard(db: Path, output: Path, limit: int = 60) -> None:
     database = ContentDatabase(db)
     database.initialize()
     snapshot = database.dashboard_snapshot(limit=limit)
@@ -28,7 +28,7 @@ def main() -> int:
         type=Path,
         default=Path("public/content-studio/dashboard.json"),
     )
-    parser.add_argument("--limit", type=int, default=100)
+    parser.add_argument("--limit", type=int, default=60)
     args = parser.parse_args()
 
     export_dashboard(args.db, args.output, args.limit)

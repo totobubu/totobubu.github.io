@@ -13,26 +13,29 @@ class YieldMaxAdapter(OfficialHTTPAdapter):
     slug = "yieldmax"
     display_name = "YieldMax"
     official_homepage = "https://yieldmaxetfs.com/"
-    parser_version = "1"
-    allowed_hosts = ("yieldmaxetfs.com", "globenewswire.com")
-    news_url = "https://yieldmaxetfs.com/news/"
+    parser_version = "2"
+    allowed_hosts = ("yieldmaxetfs.com",)
+    catalog_url = "https://yieldmaxetfs.com/our-etfs/"
+    # Fund history pages contain the official amount plus declaration, ex,
+    # record and payment dates.  GlobeNewswire is not a collection source.
+    default_max_sources = 100
 
     def discover(self):
-        parsed = parse_html(self.request_bytes(self.news_url), self.news_url)
+        parsed = parse_html(self.request_bytes(self.catalog_url), self.catalog_url)
         seen: set[str] = set()
         for url, label in parsed.links:
-            # YieldMax's news page still exposes some GlobeNewswire press links as HTTP.
-            # Fetch only their equivalent HTTPS canonical URL.
-            if url.lower().startswith("http://globenewswire.com/"):
-                url = "https://" + url[len("http://") :]
-            lowered = f"{url} {label}".lower()
-            if "weekly-distributions" not in lowered and "weekly distributions" not in lowered:
+            match = re.search(r"/our-etfs/([a-z0-9.-]+)/?", url, re.IGNORECASE)
+            if not match:
                 continue
             if url in seen:
                 continue
             self.validate_url(url)
             seen.add(url)
-            yield SourceCandidate(url=url, source_type="official_press_release")
+            yield SourceCandidate(
+                url=url,
+                source_type="official_fund_history",
+                metadata={"ticker": match.group(1).upper()},
+            )
 
     def parse(self, document: SourceDocument) -> list[DistributionEvent]:
         parsed = parse_html(document.content, document.source_url)

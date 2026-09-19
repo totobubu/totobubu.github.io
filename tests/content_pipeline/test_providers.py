@@ -1,5 +1,6 @@
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from scripts.content_pipeline.models import SourceDocument
 from scripts.content_pipeline.providers import (
@@ -66,6 +67,18 @@ class ProviderParserTest(unittest.TestCase):
         self.assertEqual(events[0].ticker, "TSLY")
         self.assertEqual(events[0].distribution_per_share, "0.2127")
         self.assertEqual(events[0].roc_percent, "0.00")
+
+    def test_yieldmax_discovers_only_its_official_fund_history_pages(self):
+        catalog = b'''<a href="https://yieldmaxetfs.com/our-etfs/tsly/">TSLY</a>
+        <a href="https://www.globenewswire.com/news-release/example">release</a>
+        <a href="https://yieldmaxetfs.com/our-etfs/nvdy/">NVDY</a>'''
+        with patch.object(YieldMaxAdapter, "request_bytes", return_value=catalog):
+            candidates = list(YieldMaxAdapter().discover())
+        self.assertEqual([candidate.url for candidate in candidates], [
+            "https://yieldmaxetfs.com/our-etfs/tsly/",
+            "https://yieldmaxetfs.com/our-etfs/nvdy/",
+        ])
+        self.assertEqual([candidate.metadata["ticker"] for candidate in candidates], ["TSLY", "NVDY"])
 
     def test_rex_latest_distributions(self):
         events = RexAdapter().parse(
