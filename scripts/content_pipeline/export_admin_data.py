@@ -2,17 +2,23 @@
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 import shutil
 from pathlib import Path
 
 
 DISTRIBUTION_PAGE_SIZE = 200
+PUBLIC_RENDER_EX_DATE_RETENTION = 3
 
 
 def _write(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def _ticker_file_stem(ticker: str) -> str:
+    return re.sub(r"[^a-z0-9._-]", "_", ticker.lower())
 
 
 def export_all(db: Path, bundles: Path, output: Path) -> None:
@@ -32,19 +38,54 @@ def export_all(db: Path, bundles: Path, output: Path) -> None:
         performance = [dict(row) for row in connection.execute("SELECT * FROM content_performance ORDER BY published_at DESC")]
     finally:
         connection.close()
+    # Public artefacts are deliberately much shorter-lived than the ledger.
+    # A weekly fund may have many events while a quarterly fund has few; using
+    # the last three *distinct ex-dates* per ticker treats both fairly without
+    # guessing their distribution cadence.
+    retained_ex_dates: dict[str, set[str]] = {}
+    for event in sorted(events, key=lambda row: (row["ticker"], row["ex_date"]), reverse=True):
+        dates = retained_ex_dates.setdefault(event["ticker"], set())
+        if len(dates) < PUBLIC_RENDER_EX_DATE_RETENTION:
+            dates.add(event["ex_date"])
+
     render_rows = []
     content_rows = []
+    retained_event_ids: set[str] = set()
+    seen_event_ids: set[int] = set()
+    managed_event_ids: set[str] = set()
     for manifest_path in sorted(bundles.glob("*/manifest.json")):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        event_id = manifest.get("eventId")
+        ticker = manifest.get("ticker")
+        ex_date = manifest.get("exDate")
+        if isinstance(event_id, int):
+            managed_event_ids.add(str(event_id))
+        if not isinstance(event_id, int) or not isinstance(ticker, str) or not isinstance(ex_date, str):
+            continue
+        if ex_date not in retained_ex_dates.get(ticker, set()):
+            continue
+        if event_id in seen_event_ids:
+            continue
+        seen_event_ids.add(event_id)
+        retained_event_ids.add(str(event_id))
         files = manifest.get("files", {})
         content_rows.append({"manifest": manifest, "path": str(manifest_path.parent), "files": files})
         for name in files.values():
             source = manifest_path.parent / name
             if source.exists():
-                destination = output / "renders" / str(manifest["eventId"]) / name
+                destination = output / "renders" / str(event_id) / name
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, destination)
-                render_rows.append({"eventId": manifest["eventId"], "ticker": manifest["ticker"], "exDate": manifest.get("exDate"), "name": name, "url": "/content-studio/renders/" + str(manifest["eventId"]) + "/" + name})
+                render_rows.append({"eventId": event_id, "ticker": ticker, "exDate": ex_date, "name": name, "url": "/content-studio/renders/" + str(event_id) + "/" + name})
+
+    # Files under public/ are a generated delivery cache. The full bundle is
+    # retained in var/content-studio/generated and the SQLite ledger, so it is
+    # safe to remove only recognised, no-longer-public event directories.
+    public_renders = output / "renders"
+    if public_renders.exists():
+        for directory in public_renders.iterdir():
+            if directory.is_dir() and directory.name in managed_event_ids and directory.name not in retained_event_ids:
+                shutil.rmtree(directory)
     # Keep the legacy complete export for integrations, but do not make the UI
     # download thousands of rows before it can render a tab.
     provider_events: dict[str, list[dict]] = {}
@@ -69,13 +110,36 @@ def export_all(db: Path, bundles: Path, output: Path) -> None:
                 "pageSize": DISTRIBUTION_PAGE_SIZE,
                 "events": rows[start : start + DISTRIBUTION_PAGE_SIZE],
             })
+    # The list view gets exactly one latest event per ticker. Full history is
+    # fetched only after the editor opens that ticker's detail dialog.
+    ticker_events: dict[str, list[dict]] = {}
+    for event in events:
+        ticker_events.setdefault(event["ticker"], []).append(event)
+    ticker_index = []
+    for ticker, rows in sorted(ticker_events.items()):
+        history = sorted(rows, key=lambda row: (row["ex_date"], row["id"]), reverse=True)
+        latest = history[0]
+        history_url = f"/content-studio/distribution-ticker-{_ticker_file_stem(ticker)}.json"
+        _write(output / history_url.removeprefix("/content-studio/"), {
+            "ticker": ticker,
+            "providerSlug": latest["provider_slug"],
+            "history": history,
+        })
+        ticker_index.append({
+            "ticker": ticker,
+            "providerSlug": latest["provider_slug"],
+            "latest": latest,
+            "historyUrl": history_url,
+            "historyCount": len(history),
+        })
     _write(output / "distribution-index.json", {
         "providers": distribution_providers,
         "recentEvents": events[:100],
+        "tickers": ticker_index,
         "marketData": "not_configured: NAV/price adapter required",
     })
     _write(output / "distributions.json", {"events": events, "marketData": "not_configured: NAV/price adapter required"})
-    _write(output / "content.json", {"bundles": content_rows, "notionEditScope": ["title", "body", "channels", "approval status"]})
+    _write(output / "content.json", {"bundles": content_rows, "retention": {"perTickerDistinctExDates": PUBLIC_RENDER_EX_DATE_RETENTION}, "notionEditScope": ["title", "body", "channels", "approval status"]})
     _write(output / "sources.json", {"providers": providers})
     _write(output / "renders.json", {"renders": render_rows})
     _write(output / "archive.json", {"performance": performance, "reuseCandidates": sorted(performance, key=lambda row: row["views"], reverse=True)[:10]})
