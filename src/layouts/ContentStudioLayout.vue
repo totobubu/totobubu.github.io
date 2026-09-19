@@ -12,7 +12,7 @@
 <template>
     <Toast />
     <ConfirmDialog />
-    <div class="content-studio-shell">
+    <div class="content-studio-shell" :class="{ 'p-dark': isDarkMode }">
         <header class="content-studio-header">
             <router-link to="/" class="content-studio-brand">
                 DIVGROW CONTENT STUDIO
@@ -29,7 +29,10 @@
                 type="button"
                 severity="secondary"
                 :icon="isDarkMode ? 'pi pi-sun' : 'pi pi-moon'"
-                aria-label="화면 테마 전환"
+                :label="isDarkMode ? '라이트 모드' : '다크 모드'"
+                :aria-label="isDarkMode ? '라이트 모드로 전환' : '다크 모드로 전환'"
+                :aria-pressed="isDarkMode"
+                v-tooltip.bottom="isDarkMode ? '라이트 모드로 전환' : '다크 모드로 전환'"
                 @click="toggleDarkMode" />
         </header>
         <main class="content-studio-main">
@@ -82,7 +85,8 @@
         padding: 2rem 0 4rem;
     }
 
-    :global(.p-dark) .content-studio-shell {
+    :global(html.p-dark) .content-studio-shell,
+    .content-studio-shell.p-dark {
         --studio-bg: #09111f;
         --studio-surface: #111c2d;
         --studio-surface-subtle: #17243a;
@@ -95,7 +99,8 @@
         --studio-danger: #ff8a80;
     }
 
-    :global(.p-dark) .content-studio-header {
+    :global(html.p-dark) .content-studio-header,
+    .content-studio-shell.p-dark .content-studio-header {
         border-bottom-color: var(--studio-border);
         background: var(--studio-surface);
     }
