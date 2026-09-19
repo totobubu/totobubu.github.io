@@ -21,6 +21,10 @@ class YieldMaxAdapter(OfficialHTTPAdapter):
         parsed = parse_html(self.request_bytes(self.news_url), self.news_url)
         seen: set[str] = set()
         for url, label in parsed.links:
+            # YieldMax's news page still exposes some GlobeNewswire press links as HTTP.
+            # Fetch only their equivalent HTTPS canonical URL.
+            if url.lower().startswith("http://globenewswire.com/"):
+                url = "https://" + url[len("http://") :]
             lowered = f"{url} {label}".lower()
             if "weekly-distributions" not in lowered and "weekly distributions" not in lowered:
                 continue
