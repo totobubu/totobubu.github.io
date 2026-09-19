@@ -41,7 +41,7 @@ def export_all(db: Path, bundles: Path, output: Path) -> None:
                 destination = output / "renders" / str(manifest["eventId"]) / name
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, destination)
-                render_rows.append({"eventId": manifest["eventId"], "ticker": manifest["ticker"], "name": name, "url": "/content-studio/renders/" + str(manifest["eventId"]) + "/" + name})
+                render_rows.append({"eventId": manifest["eventId"], "ticker": manifest["ticker"], "exDate": manifest.get("exDate"), "name": name, "url": "/content-studio/renders/" + str(manifest["eventId"]) + "/" + name})
     _write(output / "distributions.json", {"events": events, "marketData": "not_configured: NAV/price adapter required"})
     _write(output / "content.json", {"bundles": content_rows, "notionEditScope": ["title", "body", "channels", "approval status"]})
     _write(output / "sources.json", {"providers": providers})
