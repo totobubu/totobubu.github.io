@@ -1,7 +1,9 @@
 """Official distribution source adapters."""
 
 from .base import ProviderAdapter, SourceCandidate
+from .amplify import AmplifyAdapter
 from .defiance import DefianceAdapter
+from .globalx import GlobalXAdapter
 from .jpmorgan import JPMorganAdapter
 from .neos import NeosAdapter
 from .rex import RexAdapter
@@ -10,6 +12,7 @@ from .schwab import SchwabAdapter
 from .yieldmax import YieldMaxAdapter
 
 PROVIDERS = {
+    "amplify": AmplifyAdapter,
     "yieldmax": YieldMaxAdapter,
     "roundhill": RoundhillAdapter,
     "rex": RexAdapter,
@@ -17,11 +20,13 @@ PROVIDERS = {
     "schwab": SchwabAdapter,
     "neos": NeosAdapter,
     "defiance": DefianceAdapter,
+    "globalx": GlobalXAdapter,
 }
 
 __all__ = [
     "ProviderAdapter",
     "SourceCandidate",
+    "AmplifyAdapter",
     "YieldMaxAdapter",
     "RoundhillAdapter",
     "RexAdapter",
@@ -29,5 +34,6 @@ __all__ = [
     "SchwabAdapter",
     "NeosAdapter",
     "DefianceAdapter",
+    "GlobalXAdapter",
     "PROVIDERS",
 ]

@@ -4,7 +4,9 @@ from unittest.mock import patch
 
 from scripts.content_pipeline.models import SourceDocument
 from scripts.content_pipeline.providers import (
+    AmplifyAdapter,
     DefianceAdapter,
+    GlobalXAdapter,
     JPMorganAdapter,
     NeosAdapter,
     RexAdapter,
@@ -28,6 +30,32 @@ def document(provider: str, fixture: str, url: str, **kwargs) -> SourceDocument:
 
 
 class ProviderParserTest(unittest.TestCase):
+    def test_amplify_standard_history(self):
+        events = AmplifyAdapter().parse(
+            document(
+                "amplify",
+                "amplify_history.html",
+                "https://amplifyetfs.com/divo/",
+                metadata={"ticker": "DIVO"},
+            )
+        )
+        self.assertEqual(events[0].ticker, "DIVO")
+        self.assertEqual(events[0].distribution_per_share, "0.18264")
+        self.assertEqual(events[0].payable_date, "2026-01-30")
+
+    def test_global_x_distribution_history_payload(self):
+        events = GlobalXAdapter().parse(
+            document(
+                "globalx",
+                "globalx_history.html",
+                "https://www.globalxetfs.com/funds/qyld",
+                metadata={"ticker": "QYLD"},
+            )
+        )
+        self.assertEqual(events[0].ticker, "QYLD")
+        self.assertEqual(events[0].distribution_per_share, "0.1653")
+        self.assertEqual(events[0].ex_date, "2026-07-20")
+
     def test_yieldmax_press_release(self):
         events = YieldMaxAdapter().parse(
             document(
