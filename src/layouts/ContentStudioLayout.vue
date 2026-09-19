@@ -17,6 +17,13 @@
             <router-link to="/" class="content-studio-brand">
                 DIVGROW CONTENT STUDIO
             </router-link>
+            <nav aria-label="콘텐츠 스튜디오 관리">
+                <router-link to="/distributions">배당</router-link>
+                <router-link to="/content">콘텐츠</router-link>
+                <router-link to="/sources">소스</router-link>
+                <router-link to="/renders">산출물</router-link>
+                <router-link to="/archive">아카이브</router-link>
+            </nav>
             <Button
                 type="button"
                 severity="secondary"
@@ -63,6 +70,10 @@
         letter-spacing: 0.04em;
         text-decoration: none;
     }
+
+    nav { display: flex; flex-wrap: wrap; gap: .75rem; margin-left: auto; margin-right: 1rem; }
+    nav a { color: var(--studio-muted); font-size: .88rem; text-decoration: none; }
+    nav a.router-link-active { color: var(--studio-accent); font-weight: 800; }
 
     .content-studio-main {
         width: min(1200px, calc(100% - 2rem));

@@ -86,6 +86,22 @@ CREATE TABLE IF NOT EXISTS pipeline_runs (
     report_json TEXT NOT NULL DEFAULT '{}'
 );
 
+CREATE TABLE IF NOT EXISTS pipeline_run_steps (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    run_id INTEGER NOT NULL REFERENCES pipeline_runs(id) ON DELETE CASCADE,
+    step_name TEXT NOT NULL,
+    provider_slug TEXT,
+    status TEXT NOT NULL CHECK (status IN ('success', 'warning', 'failed', 'skipped')),
+    retryable INTEGER NOT NULL DEFAULT 0 CHECK (retryable IN (0, 1)),
+    message TEXT NOT NULL DEFAULT '',
+    details_json TEXT NOT NULL DEFAULT '{}',
+    started_at TEXT NOT NULL,
+    finished_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_pipeline_run_steps_run
+    ON pipeline_run_steps (run_id, id);
+
 CREATE TABLE IF NOT EXISTS content_performance (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     platform TEXT NOT NULL,
@@ -107,4 +123,4 @@ CREATE TABLE IF NOT EXISTS content_performance (
 CREATE INDEX IF NOT EXISTS idx_content_performance_topic_date
     ON content_performance (topic, published_at DESC);
 
-PRAGMA user_version = 2;
+PRAGMA user_version = 3;

@@ -12,6 +12,14 @@ if __package__ in {None, ""}:
 from scripts.content_pipeline.database import ContentDatabase, DEFAULT_DB_PATH
 
 
+def export_dashboard(db: Path, output: Path, limit: int = 100) -> None:
+    database = ContentDatabase(db)
+    database.initialize()
+    snapshot = database.dashboard_snapshot(limit=limit)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Export the content studio dashboard snapshot")
     parser.add_argument("--db", type=Path, default=DEFAULT_DB_PATH)
@@ -23,14 +31,7 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=100)
     args = parser.parse_args()
 
-    database = ContentDatabase(args.db)
-    database.initialize()
-    snapshot = database.dashboard_snapshot(limit=args.limit)
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(
-        json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    export_dashboard(args.db, args.output, args.limit)
     print(f"Exported dashboard snapshot: {args.output}")
     return 0
 

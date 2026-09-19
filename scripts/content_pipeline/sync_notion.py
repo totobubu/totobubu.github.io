@@ -16,20 +16,22 @@ def rich_text(value: str) -> list[dict]:
     return [{"type": "text", "text": {"content": value[:2000]}}]
 
 
-def build_properties(record: dict) -> dict:
-    return {
+def build_properties(record: dict, *, include_editable: bool = True) -> dict:
+    properties = {
         "Name": {"title": rich_text(record["title"])},
         "Event Key": {"rich_text": rich_text(record["eventKey"])},
         "Provider": {"select": {"name": record["provider"]}},
         "Ticker": {"rich_text": rich_text(record["ticker"])},
-        "Status": {"select": {"name": record["status"]}},
         "Publish Date": {"date": {"start": record["plannedPublishDate"]}},
         "Ex-Date": {"date": {"start": record["exDate"]}},
-        "Channels": {"multi_select": [{"name": item} for item in record["channels"]]},
         "Verification": {"select": {"name": record["verificationStatus"]}},
         "Official URL": {"url": record["officialUrl"]},
         "Bundle Path": {"rich_text": rich_text(record["bundlePath"])},
     }
+    if include_editable:
+        properties["Status"] = {"select": {"name": record["status"]}}
+        properties["Channels"] = {"multi_select": [{"name": item} for item in record["channels"]]}
+    return properties
 
 
 class NotionClient:
@@ -55,7 +57,7 @@ class NotionClient:
             detail = error.read().decode("utf-8", errors="replace")
             raise RuntimeError(f"Notion API {error.code}: {detail}") from error
 
-    def find_page(self, event_key: str) -> str | None:
+    def find_page(self, event_key: str) -> dict | None:
         result = self.request(
             "POST",
             f"/data_sources/{self.data_source_id}/query",
@@ -67,14 +69,17 @@ class NotionClient:
                 "page_size": 1,
             },
         )
-        return result["results"][0]["id"] if result.get("results") else None
+        return result["results"][0] if result.get("results") else None
 
     def upsert(self, record: dict) -> str:
-        properties = build_properties(record)
-        page_id = self.find_page(record["eventKey"])
-        if page_id:
-            self.request("PATCH", f"/pages/{page_id}", {"properties": properties})
+        page = self.find_page(record["eventKey"])
+        if page:
+            # Preserve editorial fields (Name, Status, Channels and page body) in Notion.
+            properties = build_properties(record, include_editable=False)
+            properties.pop("Name")
+            self.request("PATCH", f"/pages/{page['id']}", {"properties": properties})
             return "updated"
+        properties = build_properties(record)
         self.request(
             "POST",
             "/pages",
@@ -92,9 +97,10 @@ def main() -> int:
         "--calendar", type=Path, default=Path("var/content-studio/content-calendar.json")
     )
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--apply", action="store_true", help="Allow Notion writes after token configuration")
     args = parser.parse_args()
     records = json.loads(args.calendar.read_text(encoding="utf-8"))["records"]
-    if args.dry_run:
+    if args.dry_run or not args.apply:
         print(json.dumps([build_properties(record) for record in records], ensure_ascii=False, indent=2))
         return 0
     token = os.environ.get("NOTION_TOKEN")
