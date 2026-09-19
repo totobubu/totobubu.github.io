@@ -76,7 +76,7 @@ def export_all(db: Path, bundles: Path, output: Path) -> None:
                 destination = output / "renders" / str(event_id) / name
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, destination)
-                render_rows.append({"eventId": event_id, "ticker": ticker, "exDate": ex_date, "name": name, "url": "/content-studio/renders/" + str(event_id) + "/" + name})
+                render_rows.append({"eventId": event_id, "ticker": ticker, "provider": manifest.get("provider", "unknown"), "exDate": ex_date, "name": name, "url": "/content-studio/renders/" + str(event_id) + "/" + name})
 
     # Files under public/ are a generated delivery cache. The full bundle is
     # retained in var/content-studio/generated and the SQLite ledger, so it is
