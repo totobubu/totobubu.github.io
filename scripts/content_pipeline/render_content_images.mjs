@@ -4,10 +4,13 @@ import process from 'node:process';
 import { pathToFileURL } from 'node:url';
 import { chromium } from 'playwright';
 
-const bundle = path.resolve(process.argv[2] || '');
-if (!process.argv[2]) {
-    throw new Error('Usage: node render_content_images.mjs <bundle-directory>');
-}
+const input = process.argv[2];
+if (!input) throw new Error('Usage: node render_content_images.mjs <bundle-directory> | --all <bundle-root>');
+const bundleRoots = input === '--all'
+    ? (await fs.readdir(path.resolve(process.argv[3] || ''), { withFileTypes: true }))
+          .filter((entry) => entry.isDirectory())
+          .map((entry) => path.resolve(process.argv[3], entry.name))
+    : [path.resolve(input)];
 
 const targets = [
     {
@@ -33,21 +36,29 @@ try {
 }
 
 try {
-    for (const target of targets) {
-        await fs.access(path.join(bundle, target.html));
-        const page = await browser.newPage({
-            viewport: { width: target.width, height: target.height },
-            deviceScaleFactor: 1,
-        });
-        await page.goto(pathToFileURL(path.join(bundle, target.html)).href, {
-            waitUntil: 'load',
-        });
-        await page.screenshot({
-            path: path.join(bundle, target.png),
-            clip: { x: 0, y: 0, width: target.width, height: target.height },
-        });
-        await page.close();
-        console.log(path.join(bundle, target.png));
+    for (const bundle of bundleRoots) {
+        for (const target of targets) {
+            await fs.access(path.join(bundle, target.html));
+            try {
+                await fs.access(path.join(bundle, target.png));
+                continue;
+            } catch {
+                // Render only missing PNGs; repeated scheduled runs remain idempotent.
+            }
+            const page = await browser.newPage({
+                viewport: { width: target.width, height: target.height },
+                deviceScaleFactor: 1,
+            });
+            await page.goto(pathToFileURL(path.join(bundle, target.html)).href, {
+                waitUntil: 'load',
+            });
+            await page.screenshot({
+                path: path.join(bundle, target.png),
+                clip: { x: 0, y: 0, width: target.width, height: target.height },
+            });
+            await page.close();
+            console.log(path.join(bundle, target.png));
+        }
     }
 } finally {
     await browser.close();
