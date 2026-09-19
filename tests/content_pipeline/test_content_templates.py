@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.content_pipeline.content_templates import ContentEvent, naver_markdown, toss_text
+from scripts.content_pipeline.content_templates import ContentEvent, MonthlyDistribution, naver_markdown, social_square_html, toss_text
 from scripts.content_pipeline.generate_content import generate_bundle
 
 
@@ -21,11 +21,25 @@ class ContentTemplateTest(unittest.TestCase):
             official_url="https://yieldmaxetfs.com/our-etfs/tsly/",
             verification_status="official",
             previous_distribution="0.200000",
+            monthly_distributions=(
+                MonthlyDistribution("26.09", "0.8244", ("0.2127", "0.2050", "0.1988", "0.2079")),
+            ),
         )
 
     def test_text_templates_include_source_and_change(self):
         self.assertIn("직전 대비 +6.4%", toss_text(self.event))
+        self.assertIn("직전 $0.2 → 이번 $0.2127", toss_text(self.event))
         self.assertIn(self.event.official_url, naver_markdown(self.event))
+
+    def test_weekly_thumbnail_includes_monthly_amount_table(self):
+        html = social_square_html(self.event)
+        self.assertIn("최근 월별 주배당 합계", html)
+        self.assertIn("26.09", html)
+        self.assertIn("$0.8244", html)
+        self.assertIn("Made by 토또부부", html)
+        self.assertIn("배당공시일", html)
+        self.assertIn("260916", html)
+        self.assertIn("직전 대비 +6.4% | + $0.0127", html)
 
     def test_bundle_has_all_publishable_assets(self):
         with tempfile.TemporaryDirectory() as temp_dir:

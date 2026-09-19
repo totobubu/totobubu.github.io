@@ -16,6 +16,7 @@ from scripts.content_pipeline.database import ContentDatabase, DEFAULT_DB_PATH
 from scripts.content_pipeline.export_admin_data import export_all
 from scripts.content_pipeline.export_dashboard import export_dashboard
 from scripts.content_pipeline.generate_content import generate_all_bundles
+from scripts.content_pipeline.reconcile_public_data import export_snapshot as export_reconciliation
 from scripts.content_pipeline.weekly_digest import generate_weekly_digest
 from scripts.content_pipeline.providers import PROVIDERS
 
@@ -40,6 +41,8 @@ def main() -> int:
     parser.add_argument("--raw-dir", type=Path, default=Path("var/content-studio/raw"))
     parser.add_argument("--bundles", type=Path, default=Path("var/content-studio/generated"))
     parser.add_argument("--public-dir", type=Path, default=Path("public/content-studio"))
+    parser.add_argument("--legacy-data-dir", type=Path, default=Path("public/data"),
+                        help="read-only legacy dividend JSON location; reconciliation never writes it")
     parser.add_argument("--providers", nargs="*", choices=sorted(PROVIDERS), default=sorted(PROVIDERS))
     parser.add_argument("--skip-collect", action="store_true")
     parser.add_argument("--week-ending", type=date.fromisoformat, default=date.today())
@@ -68,7 +71,7 @@ def main() -> int:
             database.add_pipeline_step(run_id, "collect", "skipped", message="--skip-collect")
 
         # Verified events only. Existing directory/event identifiers make this idempotent.
-        bundles = generate_all_bundles(args.db, args.bundles)
+        bundles = generate_all_bundles(args.db, args.bundles, args.legacy_data_dir)
         database.add_pipeline_step(run_id, "generate-bundles", "success", details={"count": len(bundles)})
         export_calendar(args.bundles, Path("var/content-studio/content-calendar.json"), Path("var/content-studio/content-calendar.csv"))
         database.add_pipeline_step(run_id, "calendar", "success")
@@ -76,6 +79,10 @@ def main() -> int:
         database.add_pipeline_step(run_id, "weekly", "success")
         export_dashboard(args.db, args.public_dir / "dashboard.json")
         export_all(args.db, args.bundles, args.public_dir)
+        reconciliation = export_reconciliation(args.db, args.legacy_data_dir, args.public_dir / "reconciliation.json", onboard_missing=True)
+        database.add_pipeline_step(run_id, "reconcile-public-data", "warning" if reconciliation["summary"].get("missing_date", 0) or reconciliation["summary"].get("amount_mismatch", 0) else "success",
+                                   message="manual approval required for legacy-data differences",
+                                   details=reconciliation["summary"])
         database.add_pipeline_step(run_id, "exports", "success")
     except Exception as exc:
         failed = True

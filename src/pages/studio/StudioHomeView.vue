@@ -67,6 +67,29 @@
     >([]);
     const isLoading = ref(true);
     const error = ref('');
+    const activeProvider = ref('all');
+
+    const recentProviderTabs = computed(() => [
+        { slug: 'all', label: '전체' },
+        ...dashboard.value.providers
+            .filter((provider) =>
+                dashboard.value.recentEvents.some(
+                    (event) => event.provider_slug === provider.slug
+                )
+            )
+            .map((provider) => ({
+                slug: provider.slug,
+                label: provider.display_name,
+            })),
+    ]);
+
+    const visibleRecentEvents = computed(() =>
+        activeProvider.value === 'all'
+            ? dashboard.value.recentEvents
+            : dashboard.value.recentEvents.filter(
+                  (event) => event.provider_slug === activeProvider.value
+              )
+    );
 
     useHead({
         title: '콘텐츠 스튜디오',
@@ -135,6 +158,14 @@
                 );
             }
             dashboard.value = await response.json();
+            if (
+                activeProvider.value !== 'all' &&
+                !dashboard.value.providers.some(
+                    (provider) => provider.slug === activeProvider.value
+                )
+            ) {
+                activeProvider.value = 'all';
+            }
             if (recommendationResponse.ok) {
                 const payload = await recommendationResponse.json();
                 recommendations.value = payload.recommendations || [];
@@ -191,9 +222,21 @@
                         <p class="panel-kicker">RECENT EVENTS</p>
                         <h2>최근 배당 발표</h2>
                     </div>
-                    <span>{{ dashboard.recentEvents.length }}건</span>
+                    <span>{{ visibleRecentEvents.length }}건</span>
                 </header>
-                <div v-if="dashboard.recentEvents.length" class="table-wrap">
+                <div class="provider-tabs" role="tablist" aria-label="운용사별 최근 배당 발표">
+                    <button
+                        v-for="tab in recentProviderTabs"
+                        :key="tab.slug"
+                        type="button"
+                        role="tab"
+                        :aria-selected="activeProvider === tab.slug"
+                        :class="{ active: activeProvider === tab.slug }"
+                        @click="activeProvider = tab.slug">
+                        {{ tab.label }}
+                    </button>
+                </div>
+                <div v-if="visibleRecentEvents.length" class="table-wrap">
                     <table>
                         <thead>
                             <tr>
@@ -207,7 +250,7 @@
                         </thead>
                         <tbody>
                             <tr
-                                v-for="event in dashboard.recentEvents"
+                                v-for="event in visibleRecentEvents"
                                 :key="event.id">
                                 <td>{{ event.provider_slug }}</td>
                                 <td>
@@ -429,6 +472,33 @@
 
     .table-wrap {
         overflow-x: auto;
+    }
+
+    .provider-tabs {
+        display: flex;
+        gap: 0.45rem;
+        overflow-x: auto;
+        margin: -0.2rem 0 0.85rem;
+        padding-bottom: 0.2rem;
+    }
+
+    .provider-tabs button {
+        flex: 0 0 auto;
+        border: 1px solid var(--studio-border);
+        border-radius: 999px;
+        background: var(--studio-surface-subtle);
+        color: var(--studio-muted);
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.8rem;
+        padding: 0.4rem 0.7rem;
+    }
+
+    .provider-tabs button.active {
+        border-color: var(--studio-accent);
+        background: color-mix(in srgb, var(--studio-accent) 15%, transparent);
+        color: var(--studio-accent);
+        font-weight: 800;
     }
 
     table {

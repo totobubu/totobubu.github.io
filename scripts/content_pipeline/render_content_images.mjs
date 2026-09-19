@@ -6,6 +6,7 @@ import { chromium } from 'playwright';
 
 const input = process.argv[2];
 if (!input) throw new Error('Usage: node render_content_images.mjs <bundle-directory> | --all <bundle-root>');
+const force = process.argv.includes('--force');
 const bundleRoots = input === '--all'
     ? (await fs.readdir(path.resolve(process.argv[3] || ''), { withFileTypes: true }))
           .filter((entry) => entry.isDirectory())
@@ -41,7 +42,7 @@ try {
             await fs.access(path.join(bundle, target.html));
             try {
                 await fs.access(path.join(bundle, target.png));
-                continue;
+                if (!force) continue;
             } catch {
                 // Render only missing PNGs; repeated scheduled runs remain idempotent.
             }
