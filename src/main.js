@@ -5,8 +5,7 @@ import { createHead } from '@vueuse/head';
 
 import App from './App.vue';
 import router from './router';
-import './store/auth';
-import { isRecentlyAuthenticated } from './store/auth';
+import { isLegacyPortfolioEnabled } from './config/appMode';
 import { initSentry } from './utils/sentry';
 
 import PrimeVue from 'primevue/config';
@@ -75,7 +74,9 @@ app.use(ToastService);
 app.use(ConfirmationService);
 app.directive('tooltip', Tooltip);
 
-router.afterEach(() => {
+router.afterEach(async () => {
+    if (!isLegacyPortfolioEnabled) return;
+    const { isRecentlyAuthenticated } = await import('./store/auth');
     isRecentlyAuthenticated.value = false;
 });
 
