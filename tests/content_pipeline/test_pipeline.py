@@ -28,6 +28,9 @@ class PipelineTest(unittest.TestCase):
             index = json.loads((root / "public/distribution-index.json").read_text())
             self.assertEqual(index["providers"][0]["slug"], "yieldmax")
             self.assertTrue((root / "public/distribution-yieldmax-1.json").exists())
+            renders = json.loads((root / "public/renders.json").read_text())
+            self.assertEqual(renders["renders"][0]["verificationStatus"], "official")
+            self.assertEqual(renders["renders"][0]["officialUrl"], "https://yieldmaxetfs.com/a")
 
     def test_legacy_public_data_is_used_when_sqlite_has_no_previous_event(self):
         with tempfile.TemporaryDirectory() as directory:

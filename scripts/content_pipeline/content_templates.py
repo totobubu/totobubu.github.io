@@ -75,7 +75,8 @@ class ContentEvent:
         """Keep the rate and the per-share dollar change together on visual cards."""
         if not self.previous_distribution:
             return "직전 실제 배당 기록 없음"
-        delta = Decimal(self.distribution_per_share) - Decimal(self.previous_distribution)
+        delta = Decimal(self.distribution_per_share) - \
+            Decimal(self.previous_distribution)
         sign = "+" if delta >= 0 else "-"
         return f"{self.change_label} | {sign} ${format(abs(delta).normalize(), 'f')}"
 
@@ -134,7 +135,8 @@ def _weekly_table(event: ContentEvent) -> str:
             f'<span class="pill {colors[index % len(colors)]}">${escape(amount)}</span>'
             for index, amount in enumerate(item.amounts)
         )
-        rows.append(f'<div class="month-row"><strong>{escape(item.month)}</strong><b>${escape(item.total)}</b><div class="pills">{pills}</div></div>')
+        rows.append(
+            f'<div class="month-row"><strong>{escape(item.month)}</strong><b>${escape(item.total)}</b><div class="pills">{pills}</div></div>')
     return '<section class="monthly">' + "".join(rows) + "</section>"
 
 
@@ -146,7 +148,8 @@ def _card_html(event: ContentEvent, *, width: int, height: int, variant: str) ->
     amount_change = escape(event.amount_change_label)
     declared_date = escape(_short_date(event.declared_date))
     ex_date = escape(_short_date(event.ex_date))
-    payable = escape(_short_date(event.payable_date) if event.payable_date else "확인 필요")
+    payable = escape(_short_date(event.payable_date)
+                     if event.payable_date else "확인 필요")
     compact = variant == "blog"
     eyebrow = "OFFICIAL DISTRIBUTION" if not compact else "DIVIDEND BRIEF"
     monthly = _weekly_table(event) if not compact else ""
@@ -167,26 +170,43 @@ body {{ font-family: Pretendard, "Noto Sans KR", Arial, sans-serif; background: 
 .provider {{ color: #ffbd52; letter-spacing: .04em; }} .byline {{ color: #b9c8d7; letter-spacing: .02em; font-size: .9em; }}
 .main {{ width:100%; align-self:stretch; padding-top: {round(height * (.006 if has_monthly else .0))}px; }}
 .headline {{ display:flex; align-items:end; justify-content:space-between; gap:{round(width*.025)}px; }}
-.ticker {{ margin: 0; font-size: {round(width * (.122 if has_monthly else (.13 if not compact else .095)))}px; line-height: .9; letter-spacing: -.05em; }}
+.ticker {{ margin: 0; font-size: {round(width * (.150 if has_monthly else (.13 if not compact else .095)))}px; line-height: .9; letter-spacing: -.05em; }}
 .amount-block {{ text-align:right; }}
 .label {{ margin: 0 0 {round(height * .007)}px; font-size: {round(width * .022)}px; color: #b9c8d7; }}
-.amount {{ margin: 0; color: #fff; font-size: {round(width * (.086 if has_monthly else (.10 if not compact else .082)))}px; font-weight: 900; letter-spacing: -.055em; white-space:nowrap; }}
+.amount {{ margin: 0; color: #fff; font-size: {round(width * (.120 if has_monthly else (.10 if not compact else .082)))}px; font-weight: 900; letter-spacing: -.055em; white-space:nowrap; }}
 .change {{ display: inline-block; margin-top: {round(height * .010)}px; padding: {round(width * .008)}px {round(width * .014)}px; border: 1px solid rgba(255,189,82,.45); border-radius: 999px; color: #ffd78f; font-size: {round(width * .018)}px; font-weight: 800; }}
 .amount-change {{ margin: {round(height * .010)}px 0 0; color: #dce7f2; font-size: {round(width * .018)}px; font-weight: 700; }}
-.monthly {{ margin-top: {round(height * .014)}px; padding: {round(width * .015)}px; border-radius: {round(width * .014)}px; background: rgba(255,255,255,.94); color: #172033; }}
+.monthly {{ margin-top: {round(height * .035)}px; padding: {round(width * .015)}px; border-radius: {round(width * .014)}px; background: rgba(255,255,255,.94); color: #172033; }}
 .month-row {{ display:grid; grid-template-columns: {round(width * .082)}px {round(width * .108)}px 1fr; gap: {round(width * .009)}px; align-items:center; min-height:{round(height * .030)}px; border-top:1px solid #e8ecf1; font-size:{round(width * .016)}px; }}
 .month-row strong {{ color:#344054; }} .month-row b {{ color:#101828; }} .pills {{ display:flex; gap:{round(width * .006)}px; }} .pill {{ flex:1; padding:{round(height * .007)}px {round(width * .006)}px; border-radius:{round(width * .006)}px; color:#fff; text-align:center; font-weight:900; font-size:{round(width * .016)}px; }}
 .blue{{background:#4386ed}}.red{{background:#e3483f}}.yellow{{background:#eab308;color:#172033}}.green{{background:#22a45d}}.orange{{background:#e87918}}
 .bottom {{ width:100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: {round(width * .015)}px; padding-top: {round(height * (.018 if has_monthly else .035))}px; border-top: 1px solid rgba(255,255,255,.16); }}
 .date span {{ display: block; margin-bottom: {round(height * .005)}px; color: #8fa5b7; font-size: {round(width * .018)}px; }}
-.date strong {{ font-size: {round(width * .027)}px; }}
+.date strong {{ font-size: {round(width * .040)}px; }}
 </style>
 </head>
 <body>
 <main class="card" data-content-card>
-  <header class="top"><span class="provider">{provider}</span><span class="byline">Made by 토또부부</span></header>
-  <section class="main"><div class="headline"><h1 class="ticker">{ticker}</h1><div class="amount-block"><p class="label">주당 배당금</p><p class="amount">${amount}</p></div></div><p class="amount-change">{amount_change}</p><span class="change">{change}</span>{monthly}</section>
-  <footer class="bottom"><div class="date"><span>배당공시일</span><strong>{declared_date}</strong></div><div class="date"><span>배당락일</span><strong>{ex_date}</strong></div><div class="date"><span>지급일</span><strong>{payable}</strong></div></footer>
+  <header class="top">
+	<span class="provider">{ex_date} {provider}</span>
+	<span class="byline">Made by 토또부부</span>
+  </header>
+  <section class="main">
+	<div class="headline">
+		<h1 class="ticker">{ticker}</h1>
+	</div>
+	<div class="amount-block">
+		<p class="amount">${amount}</p>
+		<p class="amount-change">{amount_change}</p>
+		<span class="change">{change}</span>
+	</div>
+  </section>
+	{monthly}
+	<footer class="bottom">
+		<div class="date"><span>배당공시일</span><strong>{declared_date}</strong></div>
+		<div class="date"><span>배당락일</span><strong>{ex_date}</strong></div>
+		<div class="date"><span>지급일</span><strong>{payable}</strong></div>
+	</footer>
 </main>
 </body>
 </html>"""
