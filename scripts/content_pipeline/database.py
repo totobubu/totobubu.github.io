@@ -265,3 +265,32 @@ class ContentDatabase:
                 ),
             )
             return int(cursor.lastrowid)
+
+    def start_pipeline_run(self) -> int:
+        with self.connect() as connection:
+            cursor = connection.execute(
+                "INSERT INTO pipeline_runs (started_at, status) VALUES (?, 'running')",
+                (utc_now_iso(),),
+            )
+            return int(cursor.lastrowid)
+
+    def finish_pipeline_run(self, run_id: int, status: str, report: dict) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                "UPDATE pipeline_runs SET finished_at = ?, status = ?, report_json = ? WHERE id = ?",
+                (utc_now_iso(), status, json.dumps(report, ensure_ascii=False, sort_keys=True), run_id),
+            )
+
+    def add_pipeline_step(
+        self, run_id: int, step_name: str, status: str, *, provider_slug: str | None = None,
+        retryable: bool = False, message: str = "", details: dict | None = None,
+    ) -> None:
+        now = utc_now_iso()
+        with self.connect() as connection:
+            connection.execute(
+                """INSERT INTO pipeline_run_steps
+                (run_id, step_name, provider_slug, status, retryable, message, details_json, started_at, finished_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (run_id, step_name, provider_slug, status, int(retryable), message,
+                 json.dumps(details or {}, ensure_ascii=False, sort_keys=True), now, now),
+            )

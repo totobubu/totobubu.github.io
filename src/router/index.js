@@ -18,6 +18,7 @@ const ContactView = () => import('../pages/ContactView.vue');
 const NotFound = () => import('../pages/NotFound.vue');
 const ThumbnailGenerator = () => import('../pages/ThumbnailGenerator.vue');
 const StudioHomeView = () => import('../pages/studio/StudioHomeView.vue');
+const StudioDataView = () => import('../pages/studio/StudioDataView.vue');
 
 const getCurrentUser = async () => {
     const [{ auth }, { onAuthStateChanged }] = await Promise.all([
@@ -39,6 +40,11 @@ const getCurrentUser = async () => {
 
 const contentStudioRoutes = [
     { path: '/', name: 'studio-home', component: StudioHomeView },
+    { path: '/distributions', name: 'studio-distributions', component: StudioDataView, meta: { kind: 'distributions' } },
+    { path: '/content', name: 'studio-content', component: StudioDataView, meta: { kind: 'content' } },
+    { path: '/sources', name: 'studio-sources', component: StudioDataView, meta: { kind: 'sources' } },
+    { path: '/renders', name: 'studio-renders', component: StudioDataView, meta: { kind: 'renders' } },
+    { path: '/archive', name: 'studio-archive', component: StudioDataView, meta: { kind: 'archive' } },
     { path: '/:pathMatch(.*)*', redirect: '/' },
 ];
 

@@ -39,6 +39,9 @@
         "content:calendar": "python scripts/content_pipeline/content_calendar.py",
         "content:notion:dry": "python scripts/content_pipeline/sync_notion.py --dry-run",
         "content:notion": "python scripts/content_pipeline/sync_notion.py",
+        "content:notion:apply": "python scripts/content_pipeline/sync_notion.py --apply",
+        "content:run": "python scripts/content_pipeline/pipeline.py",
+        "content:schedule:install": "powershell -ExecutionPolicy Bypass -File scripts/content_pipeline/install-schedule.ps1",
         "content:weekly": "python scripts/content_pipeline/weekly_digest.py",
         "content:performance": "python scripts/content_pipeline/performance.py import",
         "content:recommend": "python scripts/content_pipeline/performance.py recommend"
@@ -93,7 +96,7 @@
         "globals": "^16.3.0",
         "nodemon": "^3.1.10",
         "npm-run-all": "^4.1.5",
-        "oxlint": "~1.12.0",
+        "oxlint": "~1.83.0",
         "prettier": "3.6.2",
         "sass": "^1.90.0",
         "sass-embedded": "^1.90.0",

@@ -137,6 +137,17 @@ def build_youtube_script(events: list[dict], start: date, end: date) -> str:
     return "\n".join(intro + body + outro) + "\n"
 
 
+def build_shorts_script(events: list[dict], start: date, end: date) -> str:
+    highlights = sorted(events, key=lambda item: abs(item["changePercent"] or 0), reverse=True)[:3]
+    lines = ["# 유튜브 쇼츠 대본 (30~60초)", "", "## 사실 데이터"]
+    for event in highlights:
+        lines.append(f"- {event['ticker']}: 주당 ${event['distribution_per_share']}, {change_text(event)}, 공식 원문 {event['official_url']}")
+    lines += ["", "## 내레이션", f"이번 주 공식 배당 발표 {len(events)}건 중 핵심만 짚어보겠습니다."]
+    lines += [f"{event['ticker']}는 {change_text(event)}입니다. 배당락일은 {event['ex_date']}입니다." for event in highlights]
+    lines += ["배당금만으로 판단하지 말고 기준가와 ROC, 총수익률을 함께 확인하세요. 이 콘텐츠는 투자 권유가 아닙니다."]
+    return "\n".join(lines) + "\n"
+
+
 def generate_weekly_digest(database_path: Path, week_ending: date, output_root: Path) -> Path:
     start = week_ending - timedelta(days=6)
     events = load_week(database_path, start, week_ending)
@@ -161,6 +172,9 @@ def generate_weekly_digest(database_path: Path, week_ending: date, output_root: 
     )
     (output / "youtube-script.md").write_text(
         build_youtube_script(events, start, week_ending), encoding="utf-8"
+    )
+    (output / "youtube-shorts-script.md").write_text(
+        build_shorts_script(events, start, week_ending), encoding="utf-8"
     )
     return output
 

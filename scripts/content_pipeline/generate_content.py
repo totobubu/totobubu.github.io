@@ -110,6 +110,18 @@ def generate_bundle(event: ContentEvent, output_root: Path) -> Path:
     return bundle_dir
 
 
+def generate_all_bundles(database_path: Path, output_root: Path) -> list[Path]:
+    """Generate once per verified ledger event; directory naming is the idempotency key."""
+    connection = sqlite3.connect(database_path)
+    try:
+        event_ids = [row[0] for row in connection.execute(
+            "SELECT id FROM distribution_events WHERE verification_status IN ('official', 'cross_checked') ORDER BY id"
+        )]
+    finally:
+        connection.close()
+    return [generate_bundle(load_event(database_path, event_id, False), output_root) for event_id in event_ids]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate a verified distribution content bundle")
     parser.add_argument("--db", type=Path, default=DEFAULT_DB_PATH)
