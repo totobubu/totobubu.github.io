@@ -274,6 +274,18 @@ class ContentDatabase:
             )
             return int(cursor.lastrowid)
 
+    def recover_interrupted_pipeline_runs(self) -> int:
+        """Close runs left running by a terminated local process before the next run."""
+        with self.connect() as connection:
+            cursor = connection.execute(
+                """UPDATE pipeline_runs
+                SET finished_at = ?, status = 'failed',
+                    report_json = '{"reason":"interrupted before completion","retryable":true}'
+                WHERE status = 'running'""",
+                (utc_now_iso(),),
+            )
+            return cursor.rowcount
+
     def finish_pipeline_run(self, run_id: int, status: str, report: dict) -> None:
         with self.connect() as connection:
             connection.execute(

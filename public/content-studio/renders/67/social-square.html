@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARMW 배당 카드</title>
+<style>
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1080px; height: 1080px; overflow: hidden; }
+body { font-family: Pretendard, "Noto Sans KR", Arial, sans-serif; background: #081321; color: #f7f9fc; }
+.card { position: relative; display: grid; grid-template-rows: auto 1fr auto; width: 100%; height: 100%; padding: 70px; background: radial-gradient(circle at 90% 4%, #244b68 0, transparent 34%), linear-gradient(145deg, #081321 0%, #10283b 100%); }
+.card::after { content: ""; position: absolute; right: -9%; bottom: -20%; width: 48%; aspect-ratio: 1; border: 6px solid rgba(255,190,82,.22); border-radius: 50%; }
+.top { display: flex; justify-content: space-between; align-items: center; font-size: 26px; font-weight: 800; letter-spacing: .12em; color: #ffbd52; }
+.provider { color: #b9c8d7; letter-spacing: .04em; }
+.main { align-self: center; }
+.ticker { margin: 0 0 27px; font-size: 140px; line-height: .9; letter-spacing: -.05em; }
+.label { margin: 0 0 19px; font-size: 41px; color: #b9c8d7; }
+.amount { margin: 0; color: #fff; font-size: 130px; font-weight: 900; letter-spacing: -.055em; }
+.change { display: inline-block; margin-top: 27px; padding: 16px 27px; border: 1px solid rgba(255,189,82,.45); border-radius: 999px; color: #ffd78f; font-size: 27px; font-weight: 800; }
+.bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding-top: 38px; border-top: 1px solid rgba(255,255,255,.16); }
+.date span { display: block; margin-bottom: 9px; color: #8fa5b7; font-size: 21px; }
+.date strong { font-size: 29px; }
+</style>
+</head>
+<body>
+<main class="card" data-content-card>
+  <header class="top"><span>OFFICIAL DISTRIBUTION</span><span class="provider">ROUNDHILL</span></header>
+  <section class="main"><h1 class="ticker">ARMW</h1><p class="label">주당 배당금</p><p class="amount">$0.66741</p><span class="change">이전 기록 없음</span></section>
+  <footer class="bottom"><div class="date"><span>배당락일</span><strong>2026-09-21</strong></div><div class="date"><span>지급일</span><strong>2026-09-22</strong></div></footer>
+</main>
+</body>
+</html>

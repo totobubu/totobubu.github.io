@@ -47,8 +47,9 @@ def main() -> int:
 
     database = ContentDatabase(args.db)
     database.initialize()
+    recovered = database.recover_interrupted_pipeline_runs()
     run_id = database.start_pipeline_run()
-    report: dict = {"runId": run_id, "providers": {}, "steps": []}
+    report: dict = {"runId": run_id, "recoveredInterruptedRuns": recovered, "providers": {}, "steps": []}
     failed = False
     try:
         if not args.skip_collect:
