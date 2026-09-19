@@ -46,6 +46,21 @@ class PipelineTest(unittest.TestCase):
             self.assertEqual(loaded.previous_distribution, "0.2")
             self.assertEqual(loaded.previous_distribution_source, "public-data")
 
+    def test_public_renders_keep_three_distinct_ex_dates_per_ticker(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); db = ContentDatabase(root / "ledger.sqlite"); db.initialize()
+            db.upsert_provider("yieldmax", "YieldMax", "https://yieldmaxetfs.com")
+            source = db.add_source_document(SourceDocument("yieldmax", "https://yieldmaxetfs.com/official", "html", b"official"))
+            for index, ex_date in enumerate(("2026-01-10", "2026-02-10", "2026-03-10", "2026-04-10"), start=1):
+                db.upsert_distribution_event(DistributionEvent(
+                    provider_slug="yieldmax", ticker="TSLY", distribution_per_share="0.2",
+                    declared_date=ex_date, ex_date=ex_date, official_url="https://yieldmaxetfs.com/official"), source)
+            generate_all_bundles(root / "ledger.sqlite", root / "bundles")
+            export_all(root / "ledger.sqlite", root / "bundles", root / "public")
+            payload = json.loads((root / "public/content.json").read_text(encoding="utf-8"))
+            self.assertEqual(len(payload["bundles"]), 3)
+            self.assertEqual({item["manifest"]["exDate"] for item in payload["bundles"]}, {"2026-02-10", "2026-03-10", "2026-04-10"})
+
     def test_refresh_existing_bundle_uses_stable_ticker_and_declared_date_not_stale_id(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory); db = ContentDatabase(root / "ledger.sqlite"); db.initialize()
