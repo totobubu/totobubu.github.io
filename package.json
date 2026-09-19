@@ -31,7 +31,17 @@
         "format:nav.json": "prettier --write \"public/nav.json\" --log-level=warn",
         "format:public": "prettier --write \"public/*.json\" --log-level=warn",
         "format": "prettier --write src/ --log-level=warn",
-        "data:sort-keys": "node tasks/sortDataKeys.js"
+        "data:sort-keys": "node tasks/sortDataKeys.js",
+        "content:init": "python scripts/content_pipeline/manage.py init-db",
+        "content:dashboard": "python scripts/content_pipeline/export_dashboard.py",
+        "content:generate": "python scripts/content_pipeline/generate_content.py",
+        "content:images": "node scripts/content_pipeline/render_content_images.mjs",
+        "content:calendar": "python scripts/content_pipeline/content_calendar.py",
+        "content:notion:dry": "python scripts/content_pipeline/sync_notion.py --dry-run",
+        "content:notion": "python scripts/content_pipeline/sync_notion.py",
+        "content:weekly": "python scripts/content_pipeline/weekly_digest.py",
+        "content:performance": "python scripts/content_pipeline/performance.py import",
+        "content:recommend": "python scripts/content_pipeline/performance.py recommend"
     },
     "dependencies": {
         "@capacitor/android": "^8.3.1",

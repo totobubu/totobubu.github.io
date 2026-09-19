@@ -68,3 +68,12 @@ nul
 firebase-service-account-key.json
 backups/*/*/*/*.json
 backups/*/*.json
+
+# Content Studio runtime data
+var/content-studio/*.sqlite
+var/content-studio/*.sqlite-*
+var/content-studio/raw/
+var/content-studio/generated/
+var/content-studio/weekly/
+var/content-studio/content-calendar.json
+var/content-studio/content-calendar.csv
