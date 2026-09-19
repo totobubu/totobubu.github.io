@@ -33,7 +33,7 @@ class ContentTemplateTest(unittest.TestCase):
 
     def test_weekly_thumbnail_includes_monthly_amount_table(self):
         html = social_square_html(self.event)
-        self.assertIn("최근 월별 주배당 합계", html)
+        self.assertNotIn("최근 월별 주배당 합계", html)
         self.assertIn("26.09", html)
         self.assertIn("$0.8244", html)
         self.assertIn("Made by 토또부부", html)

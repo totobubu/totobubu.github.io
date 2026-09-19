@@ -135,7 +135,7 @@ def _weekly_table(event: ContentEvent) -> str:
             for index, amount in enumerate(item.amounts)
         )
         rows.append(f'<div class="month-row"><strong>{escape(item.month)}</strong><b>${escape(item.total)}</b><div class="pills">{pills}</div></div>')
-    return '<section class="monthly"><p>최근 월별 주배당 합계 <span>예정값 제외</span></p>' + "".join(rows) + "</section>"
+    return '<section class="monthly">' + "".join(rows) + "</section>"
 
 
 def _card_html(event: ContentEvent, *, width: int, height: int, variant: str) -> str:
@@ -161,30 +161,31 @@ def _card_html(event: ContentEvent, *, width: int, height: int, variant: str) ->
 * {{ box-sizing: border-box; }}
 html, body {{ margin: 0; width: {width}px; height: {height}px; overflow: hidden; }}
 body {{ font-family: Pretendard, "Noto Sans KR", Arial, sans-serif; background: #081321; color: #f7f9fc; }}
-.card {{ position: relative; display: grid; grid-template-rows: auto 1fr auto; width: 100%; height: 100%; padding: {round(width * (.04 if has_monthly else .055))}px; background: radial-gradient(circle at 90% 4%, #244b68 0, transparent 34%), linear-gradient(145deg, #081321 0%, #10283b 100%); }}
+.card {{ position: relative; display: flex; flex-direction: column; justify-content: space-between; width: 100%; height: 100%; padding: {round(width * (.04 if has_monthly else .055))}px; background: radial-gradient(circle at 90% 4%, #244b68 0, transparent 34%), linear-gradient(145deg, #081321 0%, #10283b 100%); }}
 .card::after {{ content: ""; position: absolute; right: -9%; bottom: -20%; width: 48%; aspect-ratio: 1; border: {max(3, round(width * .006))}px solid rgba(255,190,82,.22); border-radius: 50%; }}
-.top {{ display: flex; justify-content: space-between; align-items: center; font-size: {round(width * .020)}px; font-weight: 800; letter-spacing: .1em; color: #ffbd52; }}
-.provider {{ color: #b9c8d7; letter-spacing: .02em; font-size: .92em; }}
-.main {{ align-self: {'start' if has_monthly else 'center'}; padding-top: {round(height * (.015 if has_monthly else .0))}px; }}
-.ticker {{ margin: 0 0 {round(height * .014)}px; font-size: {round(width * (.115 if has_monthly else (.13 if not compact else .095)))}px; line-height: .9; letter-spacing: -.05em; }}
-.label {{ margin: 0 0 {round(height * .011)}px; font-size: {round(width * .030)}px; color: #b9c8d7; }}
-.amount {{ margin: 0; color: #fff; font-size: {round(width * (.094 if has_monthly else (.12 if not compact else .092)))}px; font-weight: 900; letter-spacing: -.055em; }}
-.change {{ display: inline-block; margin-top: {round(height * .014)}px; padding: {round(width * .010)}px {round(width * .018)}px; border: 1px solid rgba(255,189,82,.45); border-radius: 999px; color: #ffd78f; font-size: {round(width * .020)}px; font-weight: 800; }}
-.amount-change {{ margin: {round(height * .009)}px 0 0; color: #dce7f2; font-size: {round(width * .020)}px; font-weight: 700; }}
-.monthly {{ margin-top: {round(height * .020)}px; padding: {round(width * .018)}px; border-radius: {round(width * .014)}px; background: rgba(255,255,255,.94); color: #172033; }}
-.monthly > p {{ margin: 0 0 {round(height * .008)}px; font-size: {round(width * .017)}px; font-weight: 900; }} .monthly > p span {{ color: #667085; font-weight: 600; }}
+.top {{ display: flex; justify-content: space-between; align-items: center; font-size: {round(width * .022)}px; font-weight: 800; letter-spacing: .08em; color: #ffbd52; }}
+.provider {{ color: #ffbd52; letter-spacing: .04em; }} .byline {{ color: #b9c8d7; letter-spacing: .02em; font-size: .9em; }}
+.main {{ width:100%; align-self:stretch; padding-top: {round(height * (.006 if has_monthly else .0))}px; }}
+.headline {{ display:flex; align-items:end; justify-content:space-between; gap:{round(width*.025)}px; }}
+.ticker {{ margin: 0; font-size: {round(width * (.122 if has_monthly else (.13 if not compact else .095)))}px; line-height: .9; letter-spacing: -.05em; }}
+.amount-block {{ text-align:right; }}
+.label {{ margin: 0 0 {round(height * .007)}px; font-size: {round(width * .022)}px; color: #b9c8d7; }}
+.amount {{ margin: 0; color: #fff; font-size: {round(width * (.086 if has_monthly else (.10 if not compact else .082)))}px; font-weight: 900; letter-spacing: -.055em; white-space:nowrap; }}
+.change {{ display: inline-block; margin-top: {round(height * .010)}px; padding: {round(width * .008)}px {round(width * .014)}px; border: 1px solid rgba(255,189,82,.45); border-radius: 999px; color: #ffd78f; font-size: {round(width * .018)}px; font-weight: 800; }}
+.amount-change {{ margin: {round(height * .010)}px 0 0; color: #dce7f2; font-size: {round(width * .018)}px; font-weight: 700; }}
+.monthly {{ margin-top: {round(height * .014)}px; padding: {round(width * .015)}px; border-radius: {round(width * .014)}px; background: rgba(255,255,255,.94); color: #172033; }}
 .month-row {{ display:grid; grid-template-columns: {round(width * .082)}px {round(width * .108)}px 1fr; gap: {round(width * .009)}px; align-items:center; min-height:{round(height * .030)}px; border-top:1px solid #e8ecf1; font-size:{round(width * .016)}px; }}
 .month-row strong {{ color:#344054; }} .month-row b {{ color:#101828; }} .pills {{ display:flex; gap:{round(width * .006)}px; }} .pill {{ flex:1; padding:{round(height * .007)}px {round(width * .006)}px; border-radius:{round(width * .006)}px; color:#fff; text-align:center; font-weight:900; font-size:{round(width * .016)}px; }}
 .blue{{background:#4386ed}}.red{{background:#e3483f}}.yellow{{background:#eab308;color:#172033}}.green{{background:#22a45d}}.orange{{background:#e87918}}
-.bottom {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: {round(width * .015)}px; padding-top: {round(height * (.018 if has_monthly else .035))}px; border-top: 1px solid rgba(255,255,255,.16); }}
-.date span {{ display: block; margin-bottom: {round(height * .005)}px; color: #8fa5b7; font-size: {round(width * .016)}px; }}
-.date strong {{ font-size: {round(width * .022)}px; }}
+.bottom {{ width:100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: {round(width * .015)}px; padding-top: {round(height * (.018 if has_monthly else .035))}px; border-top: 1px solid rgba(255,255,255,.16); }}
+.date span {{ display: block; margin-bottom: {round(height * .005)}px; color: #8fa5b7; font-size: {round(width * .018)}px; }}
+.date strong {{ font-size: {round(width * .027)}px; }}
 </style>
 </head>
 <body>
 <main class="card" data-content-card>
-  <header class="top"><span>{eyebrow}</span><span class="provider">{provider} · Made by 토또부부</span></header>
-  <section class="main"><h1 class="ticker">{ticker}</h1><p class="label">주당 배당금</p><p class="amount">${amount}</p><p class="amount-change">{amount_change}</p><span class="change">{change}</span>{monthly}</section>
+  <header class="top"><span class="provider">{provider}</span><span class="byline">Made by 토또부부</span></header>
+  <section class="main"><div class="headline"><h1 class="ticker">{ticker}</h1><div class="amount-block"><p class="label">주당 배당금</p><p class="amount">${amount}</p></div></div><p class="amount-change">{amount_change}</p><span class="change">{change}</span>{monthly}</section>
   <footer class="bottom"><div class="date"><span>배당공시일</span><strong>{declared_date}</strong></div><div class="date"><span>배당락일</span><strong>{ex_date}</strong></div><div class="date"><span>지급일</span><strong>{payable}</strong></div></footer>
 </main>
 </body>
