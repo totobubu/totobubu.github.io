@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 49.125,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 49.15,
         "englishName": "First Trust Low Duration Opportunities ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 383868,
-        "AvgVolume": 507035,
+        "Volume": 449488,
+        "AvgVolume": 505080,
         "sharesOutstanding": null,
         "52Week": "47.87 - 51.98",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.125,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 383868,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 507035,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24174,10 +24187,6 @@
             "volume": 432700
         },
         {
-            "date": "2026-09-21",
-            "forecasted": true
-        },
-        {
             "date": "2026-10-21",
             "forecasted": true
         },
@@ -24195,6 +24204,10 @@
         },
         {
             "date": "2027-02-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

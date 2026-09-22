@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 279.134,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 282.433,
         "englishName": "Northern Trust Morningstar US Market Factors Tilt ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 18657,
-        "AvgVolume": 4291,
+        "Volume": 3835,
+        "AvgVolume": 4520,
         "sharesOutstanding": null,
         "52Week": "234.94 - 287.68",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 279.134,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 18657,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4291,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30273,7 +30286,9 @@
             "high": 279.130005,
             "low": 278.420013,
             "close": 279.130005,
-            "volume": 18700
+            "volume": 18700,
+            "amount": 0.736,
+            "yield": 0.0133251915
         },
         {
             "date": "2026-12-18",

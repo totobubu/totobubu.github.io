@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
+        "Update": "2026-09-22 07:39:05 KST",
         "regularMarketPrice": 88.84,
         "englishName": "Solventum Corporation",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 19791683584,
+        "enterpriseValue": 20014675968,
         "marketCap": 15122675712,
-        "Volume": 2316482,
-        "AvgVolume": 1124341,
+        "Volume": 658587,
+        "AvgVolume": 1143292,
         "sharesOutstanding": 170223729,
         "52Week": "62.38 - 94.16",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "enterpriseValue": {
+                "value": 19791683584,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2316482,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1124341,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5461,7 +5474,8 @@
             "high": 89.160004,
             "low": 87.300003,
             "close": 87.529999,
-            "volume": 1042800
+            "volume": 1042800,
+            "marketCap": 15122675712
         }
     ]
 }

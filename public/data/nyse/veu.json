@@ -9,24 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 83.86,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 85.09,
         "englishName": "Vanguard FTSE All-World ex-US Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1646252,
-        "AvgVolume": 2547387,
-        "sharesOutstanding": 462657984,
+        "Volume": 2379791,
+        "AvgVolume": 2533158,
+        "sharesOutstanding": null,
         "52Week": "70.09 - 86.52",
-        "Yield": 0.014441,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US9220427754",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 83.86,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1646252,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2547387,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44164,7 +44177,9 @@
             "high": 83.910004,
             "low": 83.510002,
             "close": 83.860001,
-            "volume": 1651000
+            "volume": 1651000,
+            "amount": 0.197,
+            "yield": 0.0276265514
         },
         {
             "date": "2026-12-18",

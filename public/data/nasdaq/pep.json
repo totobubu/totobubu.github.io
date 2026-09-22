@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 129.75,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 129.59,
         "englishName": "PepsiCo, Inc.",
         "earningsDate": "2026-10-08",
-        "enterpriseValue": 225101398016,
-        "marketCap": 177238507520,
-        "Volume": 23439348,
-        "AvgVolume": 8124903,
+        "enterpriseValue": 219764686848,
+        "marketCap": 177019928576,
+        "Volume": 11602676,
+        "AvgVolume": 8369203,
         "sharesOutstanding": 1366000000,
-        "52Week": "129.55 - 171.48",
-        "Yield": 0.044301,
+        "52Week": "127.98 - 171.48",
+        "Yield": 0.044355,
         "dividendRate": 5.92,
         "payoutRatio": 0.7533,
         "isin": "US7134481081",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 129.75,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 225101398016,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 177238507520,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 23439348,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8124903,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.044301,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -76,7 +101,7 @@
             "close": 1.5740740299224854,
             "volume": 469800,
             "amount": 0.0001,
-            "yield": 0.0000626087,
+            "yield": 6.26087e-5,
             "marketCap": 2152294576,
             "amountOriginal": 13.50108,
             "amountSplitAdjustments": [

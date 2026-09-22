@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 85.88,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 87.15,
         "englishName": "Vanguard Total International Stock Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4794688,
-        "AvgVolume": 5354467,
+        "Volume": 4905852,
+        "AvgVolume": 5345628,
         "sharesOutstanding": null,
         "52Week": "72.08 - 88.62",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 85.88,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4794688,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5354467,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31605,7 +31618,9 @@
             "high": 85.919998,
             "low": 85.5,
             "close": 85.879997,
-            "volume": 4797600
+            "volume": 4797600,
+            "amount": 0.156,
+            "yield": 0.027324633
         },
         {
             "date": "2026-12-18",

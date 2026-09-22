@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 81.71,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 83.12,
         "englishName": "Vanguard ESG International Stock ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 131335,
-        "AvgVolume": 171061,
+        "Volume": 190166,
+        "AvgVolume": 170430,
         "sharesOutstanding": null,
         "52Week": "67.88 - 85.16",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 81.71,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 131335,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 171061,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16157,6 +16170,10 @@
             "low": 82.339996,
             "close": 82.400002,
             "volume": 158000
+        },
+        {
+            "date": "2026-09-18",
+            "amount": 0.469
         },
         {
             "date": "2026-12-18",

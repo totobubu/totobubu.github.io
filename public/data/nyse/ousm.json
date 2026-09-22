@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 47.11,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 46.98,
         "englishName": "ALPS O'Shares U.S. Small-Cap Quality Dividend ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 44484,
-        "AvgVolume": 61743,
+        "Volume": 41518,
+        "AvgVolume": 61469,
         "sharesOutstanding": null,
         "52Week": "42.081 - 50.36",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.11,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 44484,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 61743,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -19786,7 +19799,8 @@
             "high": 47.68,
             "low": 47.279999,
             "close": 47.279999,
-            "volume": 15600
+            "volume": 15600,
+            "yield": 0.0223364094
         },
         {
             "date": "2026-10-16",

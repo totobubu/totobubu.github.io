@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 82.96,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 83.6,
         "englishName": "International Flavors & Fragrances Inc.",
         "earningsDate": "2026-08-04",
-        "enterpriseValue": 27407783936,
-        "marketCap": 21179975680,
-        "Volume": 3699393,
-        "AvgVolume": 1722638,
-        "sharesOutstanding": 255303473,
+        "enterpriseValue": 26910240768,
+        "marketCap": 21330536448,
+        "Volume": 1606164,
+        "AvgVolume": 1754423,
+        "sharesOutstanding": 255149963,
         "52Week": "59.14 - 89.32",
-        "Yield": 0.019286,
+        "Yield": 0.019139,
         "dividendRate": 1.6,
         "payoutRatio": 0.4954,
         "isin": "US4595061015",
@@ -37,7 +37,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 82.96,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 27407783936,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21179975680,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3699393,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1722638,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 255303473,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.019286,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -118478,7 +118507,9 @@
             "high": 84.019997,
             "low": 82.699997,
             "close": 82.959999,
-            "volume": 3699393
+            "volume": 3699393,
+            "amount": 0.4,
+            "yield": 0.0237953591
         },
         {
             "date": "2026-12-18",

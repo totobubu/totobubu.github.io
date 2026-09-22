@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 206.77,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 209.7,
         "englishName": "iShares MSCI World ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 272788,
-        "AvgVolume": 526041,
+        "Volume": 236354,
+        "AvgVolume": 522022,
         "sharesOutstanding": 6900000,
         "52Week": "174.24 - 211.94",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 206.77,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 272788,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 526041,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33089,10 +33102,6 @@
             "low": 205.869995,
             "close": 206.770004,
             "volume": 272800
-        },
-        {
-            "date": "2026-09-21",
-            "forecasted": true
         },
         {
             "date": "2026-09-28",

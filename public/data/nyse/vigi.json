@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 96.04,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 96.65,
         "englishName": "Vanguard International Dividend Appreciation Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 188567,
-        "AvgVolume": 247601,
+        "Volume": 238166,
+        "AvgVolume": 246665,
         "sharesOutstanding": null,
         "52Week": "85.23 - 99.99",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 96.04,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 188567,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 247601,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21326,6 +21339,10 @@
             "low": 97.195,
             "close": 97.25,
             "volume": 198500
+        },
+        {
+            "date": "2026-09-18",
+            "amount": 0.458
         },
         {
             "date": "2026-12-18",

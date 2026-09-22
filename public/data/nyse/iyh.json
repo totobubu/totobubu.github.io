@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 71.17,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 71.61,
         "englishName": "iShares U.S. Healthcare ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 313322,
-        "AvgVolume": 704646,
-        "sharesOutstanding": 11000000,
+        "Volume": 392027,
+        "AvgVolume": 698434,
+        "sharesOutstanding": null,
         "52Week": "56.44 - 74.59",
-        "Yield": 0.040888,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642877629",
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 71.17,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 313322,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 704646,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -241,7 +254,7 @@
             "close": 12.731249809265137,
             "volume": 37000,
             "amount": 0,
-            "yield": 0.0000153772,
+            "yield": 1.53772e-5,
             "marketCap": 140043747,
             "amountOriginal": 0.005,
             "amountSplitAdjustments": [

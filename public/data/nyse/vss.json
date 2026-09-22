@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 157.4,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 159.02,
         "englishName": "Vanguard FTSE All-World ex-US Small-Cap Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 142072,
-        "AvgVolume": 214850,
+        "Volume": 139871,
+        "AvgVolume": 213695,
         "sharesOutstanding": null,
         "52Week": "136.63 - 162.91",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 157.4,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 142072,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 214850,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35253,7 +35266,9 @@
             "high": 157.559998,
             "low": 156.770004,
             "close": 157.399994,
-            "volume": 142100
+            "volume": 142100,
+            "amount": 0.295,
+            "yield": 0.0335092508
         },
         {
             "date": "2026-12-18",

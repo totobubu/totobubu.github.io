@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 26.8,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 26.99,
         "englishName": "Roundhill Russell 2000 0DTE Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 125725,
-        "AvgVolume": 102206,
+        "Volume": 239811,
+        "AvgVolume": 102631,
         "sharesOutstanding": null,
         "52Week": "26.35 - 34.2",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.8,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 125725,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 102206,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4425,7 +4438,8 @@
             "high": 27.17,
             "low": 26.940001,
             "close": 26.940001,
-            "volume": 62800
+            "volume": 62800,
+            "yield": 0.4426331777
         },
         {
             "date": "2026-09-24",

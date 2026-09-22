@@ -9,14 +9,14 @@
         "underlying": "TSLA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 20.42,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 20.458,
         "englishName": "GraniteShares YieldBOOST TSLA ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 16283,
-        "AvgVolume": 32348,
+        "Volume": 27524,
+        "AvgVolume": 32093,
         "sharesOutstanding": null,
         "52Week": "19.9 - 70.08",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.42,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 16283,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 32348,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3864,6 +3877,10 @@
         },
         {
             "date": "2027-03-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

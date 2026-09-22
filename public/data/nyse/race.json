@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 406.69,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 416.13,
         "englishName": "Ferrari N.V.",
         "earningsDate": "2026-11-03",
-        "enterpriseValue": 74569809920,
-        "marketCap": 71418724352,
-        "Volume": 573637,
-        "AvgVolume": 447716,
+        "enterpriseValue": 73283862528,
+        "marketCap": 73076482048,
+        "Volume": 295886,
+        "AvgVolume": 449765,
         "sharesOutstanding": 175609741,
         "52Week": "312.51 - 504.49",
-        "Yield": 0.008889,
+        "Yield": 0.008687,
         "dividendRate": 4.23,
         "payoutRatio": 0.3896,
         "isin": "NL0011585146",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 406.69,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 74569809920,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 71418724352,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 573637,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 447716,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.008889,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22017,7 +22042,8 @@
             "high": 416.579987,
             "low": 410.970001,
             "close": 414,
-            "volume": 343400
+            "volume": 343400,
+            "marketCap": 73076482048
         }
     ]
 }

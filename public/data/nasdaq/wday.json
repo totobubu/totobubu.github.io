@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 193.87,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 191.92,
         "englishName": "Workday, Inc.",
         "earningsDate": "2026-08-27",
-        "enterpriseValue": 48395481088,
-        "marketCap": 46722670592,
-        "Volume": 7799763,
-        "AvgVolume": 4437330,
+        "enterpriseValue": 47091671040,
+        "marketCap": 46252720128,
+        "Volume": 2023282,
+        "AvgVolume": 4490839,
         "sharesOutstanding": 196000000,
         "52Week": "110.36 - 249.85",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 193.87,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 48395481088,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 46722670592,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7799763,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4437330,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -31372,7 +31393,8 @@
             "high": 201,
             "low": 183.610001,
             "close": 199.279999,
-            "volume": 4250900
+            "volume": 4250900,
+            "marketCap": 46252720128
         }
     ]
 }

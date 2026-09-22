@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 71.38,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 72.3,
         "englishName": "Vanguard FTSE Developed Markets Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7433680,
-        "AvgVolume": 10389974,
+        "Volume": 10272310,
+        "AvgVolume": 10343053,
         "sharesOutstanding": null,
         "52Week": "58.82 - 74.04",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 71.38,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7433680,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 10389974,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38703,7 +38716,9 @@
             "high": 71.440002,
             "low": 71.050003,
             "close": 71.379997,
-            "volume": 7434000
+            "volume": 7434000,
+            "amount": 0.178,
+            "yield": 0.0279086082
         },
         {
             "date": "2026-12-18",

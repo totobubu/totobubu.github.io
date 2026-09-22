@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 158.55,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 160.89,
         "englishName": "Vanguard Total World Stock Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3029174,
-        "AvgVolume": 2416533,
+        "Volume": 2516527,
+        "AvgVolume": 2426285,
         "sharesOutstanding": null,
         "52Week": "133.65 - 162.71",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 158.55,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3029174,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2416533,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36835,7 +36848,9 @@
             "high": 158.630005,
             "low": 157.889999,
             "close": 158.550003,
-            "volume": 3030900
+            "volume": 3030900,
+            "amount": 0.408,
+            "yield": 0.0182328458
         },
         {
             "date": "2026-12-18",

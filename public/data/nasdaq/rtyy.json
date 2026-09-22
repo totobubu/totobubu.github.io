@@ -9,14 +9,14 @@
         "underlying": "RIOT",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 8.32,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 8.325,
         "englishName": "GraniteShares YieldBOOST RIOT ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 121539,
-        "AvgVolume": 23503,
+        "Volume": 16331,
+        "AvgVolume": 25058,
         "sharesOutstanding": null,
         "52Week": "8.25 - 25.4",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.32,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 121539,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 23503,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1722,7 +1735,8 @@
         },
         {
             "date": "2026-09-18",
-            "expected": true
+            "expected": true,
+            "amount": 0.147
         },
         {
             "date": "2026-09-25",
@@ -1818,6 +1832,10 @@
         },
         {
             "date": "2027-03-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

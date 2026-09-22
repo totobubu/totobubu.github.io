@@ -9,14 +9,14 @@
         "underlying": "RGTI",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 5.76,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 5.83,
         "englishName": "GraniteShares YieldBOOST RGTI ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6725,
-        "AvgVolume": 19948,
+        "Volume": 12761,
+        "AvgVolume": 19741,
         "sharesOutstanding": null,
         "52Week": "5.683 - 25.015",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.76,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6725,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 19948,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1768,7 +1781,8 @@
         },
         {
             "date": "2026-09-18",
-            "expected": true
+            "expected": true,
+            "amount": 0.096
         },
         {
             "date": "2026-09-25",
@@ -1864,6 +1878,10 @@
         },
         {
             "date": "2027-03-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

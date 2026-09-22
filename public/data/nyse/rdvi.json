@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 28.34,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 28.57,
         "englishName": "FT Vest Rising Dividend Achievers Target Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1632635,
-        "AvgVolume": 863979,
+        "Volume": 1538636,
+        "AvgVolume": 876179,
         "sharesOutstanding": null,
         "52Week": "24.77 - 30.085",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.34,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1632635,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 863979,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7962,10 +7975,6 @@
             "volume": 667000
         },
         {
-            "date": "2026-09-21",
-            "forecasted": true
-        },
-        {
             "date": "2026-10-21",
             "forecasted": true
         },
@@ -7983,6 +7992,10 @@
         },
         {
             "date": "2027-02-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

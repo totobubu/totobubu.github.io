@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 24.32,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 24.36,
         "englishName": "First Trust Smith Unconstrained Plus Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 403942,
-        "AvgVolume": 513566,
+        "Volume": 468276,
+        "AvgVolume": 511825,
         "sharesOutstanding": null,
         "52Week": "23.72 - 25.625",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.32,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 403942,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 513566,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16890,10 +16903,6 @@
             "volume": 514700
         },
         {
-            "date": "2026-09-21",
-            "forecasted": true
-        },
-        {
             "date": "2026-10-21",
             "forecasted": true
         },
@@ -16911,6 +16920,10 @@
         },
         {
             "date": "2027-02-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

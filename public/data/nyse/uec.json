@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 9.81,
+        "Update": "2026-09-22 07:39:05 KST",
+        "regularMarketPrice": 10.08,
         "englishName": "Uranium Energy Corp.",
         "earningsDate": null,
-        "enterpriseValue": 4521968128,
-        "marketCap": 4854697984,
-        "Volume": 17552611,
-        "AvgVolume": 8219912,
+        "enterpriseValue": 4368558080,
+        "marketCap": 4988313088,
+        "Volume": 8187481,
+        "AvgVolume": 8369952,
         "sharesOutstanding": 494872366,
         "52Week": "8.91 - 20.34",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.81,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 4521968128,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 4854697984,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 17552611,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8219912,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39238,7 +39259,8 @@
             "high": 10.37,
             "low": 9.6,
             "close": 9.81,
-            "volume": 17672400
+            "volume": 17672400,
+            "marketCap": 4988313088
         }
     ]
 }
