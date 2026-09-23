@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-23 06:58:08 KST",
-        "regularMarketPrice": 10.36,
+        "Update": "2026-09-24 07:01:01 KST",
+        "regularMarketPrice": 10.12,
         "englishName": "BYD Company Limited",
         "earningsDate": "2026-08-28",
         "enterpriseValue": 103899652096,
-        "marketCap": 94454161408,
-        "Volume": 324987,
-        "AvgVolume": 1273414,
+        "marketCap": 92266037248,
+        "Volume": 185789,
+        "AvgVolume": 1251319,
         "sharesOutstanding": 3683400000,
         "52Week": "9.21 - 14.58",
-        "Yield": 0.034556,
+        "Yield": 0.035375,
         "dividendRate": 0.05,
         "payoutRatio": 0.1105,
         "isin": "US05606L1008",
@@ -38,13 +38,25 @@
             ]
         },
         "changes": {
+            "regularMarketPrice": {
+                "value": 10.36,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 94454161408,
+                "change": "down"
+            },
             "Volume": {
-                "value": 181500,
-                "change": "up"
+                "value": 324987,
+                "change": "down"
             },
             "AvgVolume": {
-                "value": 1302631,
+                "value": 1273414,
                 "change": "down"
+            },
+            "Yield": {
+                "value": 0.034556,
+                "change": "up"
             }
         }
     },
@@ -28357,7 +28369,7 @@
             "close": 13.046667098999023,
             "volume": 1324800,
             "amount": 0.0009,
-            "yield": 0.0000690537,
+            "yield": 6.90537e-5,
             "marketCap": 48056093592,
             "amountOriginal": 0.198,
             "amountSplitAdjustments": [
@@ -37913,7 +37925,8 @@
             "high": 10.43,
             "low": 10.32,
             "close": 10.36,
-            "volume": 324987
+            "volume": 324987,
+            "marketCap": 92266037248
         }
     ]
 }
