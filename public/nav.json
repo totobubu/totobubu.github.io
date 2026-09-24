@@ -10028,7 +10028,7 @@
             "logo": "logos/company/company-rex.png",
             "dataPaths": ["data/nasdaq/fepi.json"],
             "periods": ["1Y", "2Y"],
-            "group": "JJA"
+            "group": "JAS"
         },
         {
             "symbol": "FESM",
@@ -10733,7 +10733,7 @@
             "company": "Schwab",
             "ipoDate": "2013-08-15",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "JSD",
             "sharesOutstanding": false,
             "isin": "US8085247638",
             "market": "NYSE",
@@ -10813,7 +10813,7 @@
             "company": "Schwab",
             "ipoDate": "2013-08-15",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "JSD",
             "sharesOutstanding": false,
             "isin": "US8085247711",
             "market": "NYSE",
@@ -11876,7 +11876,9 @@
             "koName": "글로벌파운드리",
             "logo": "logos/nasdaq/gfs.svg",
             "dataPaths": ["data/nasdaq/gfs.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "JS"
         },
         {
             "symbol": "GGLL",
@@ -18086,8 +18088,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/lmtl.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "LMTS",
@@ -20280,7 +20282,7 @@
             "koName": "네오스 MSCI EAFE 하이 인컴 ETF",
             "logo": null,
             "dataPaths": ["data/nyse/nihi.json"],
-            "periods": [],
+            "periods": ["1Y"],
             "group": "SON"
         },
         {
@@ -24779,7 +24781,7 @@
             "company": "ProShares",
             "ipoDate": "2007-01-25",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "JSD",
             "sharesOutstanding": false,
             "isin": "US74348A2107",
             "market": "NYSE",
@@ -24963,7 +24965,7 @@
             "company": "Schwab",
             "ipoDate": "2009-11-03",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "JSD",
             "sharesOutstanding": false,
             "isin": "US8085241029",
             "market": "NYSE",
@@ -25041,7 +25043,7 @@
             "symbol": "SCHG",
             "company": "Schwab",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "JSD",
             "ipoDate": "2010-01-04",
             "sharesOutstanding": false,
             "isin": "US8085243009",
@@ -25201,7 +25203,7 @@
             "company": "Schwab",
             "ipoDate": "2009-12-15",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "JSD",
             "sharesOutstanding": false,
             "isin": "US8085244098",
             "market": "NYSE",
@@ -25232,7 +25234,7 @@
             "company": "Schwab",
             "ipoDate": "2009-11-03",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "JSD",
             "sharesOutstanding": false,
             "isin": "US8085242019",
             "market": "NYSE",
@@ -25661,7 +25663,7 @@
             "company": "ProShares",
             "ipoDate": "2006-06-21",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "MSD",
             "sharesOutstanding": false,
             "isin": "US74349Y7537",
             "market": "NYSE",
@@ -25774,8 +25776,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/shpu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "SHRT",
@@ -28005,8 +28007,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/tbxu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TCAF",
@@ -28296,8 +28298,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/texu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TFC",
@@ -29344,8 +29346,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/tsxd.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TSXU",
@@ -29360,8 +29362,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/tsxu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TSYW",
@@ -29449,8 +29451,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/ttxd.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TTXU",
@@ -29465,8 +29467,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/ttxu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TXN",
@@ -31172,7 +31174,7 @@
             "company": "Vanguard",
             "ipoDate": "2010-09-22",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "MJS",
             "sharesOutstanding": false,
             "isin": "US92206C7305",
             "market": "NYSE",
@@ -31188,7 +31190,7 @@
             "company": "Vanguard",
             "ipoDate": "2010-09-22",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "MJS",
             "sharesOutstanding": false,
             "isin": "US92206C6802",
             "market": "NYSE",
@@ -31204,7 +31206,7 @@
             "company": "Vanguard",
             "ipoDate": "2010-09-22",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "MJS",
             "sharesOutstanding": false,
             "isin": "US92206C7149",
             "market": "NYSE",
@@ -31346,7 +31348,7 @@
             "company": "Vanguard",
             "ipoDate": "2004-01-30",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "MJS",
             "sharesOutstanding": false,
             "isin": "US92204A8760",
             "market": "NYSE",
@@ -31608,7 +31610,7 @@
             "company": "Vanguard",
             "ipoDate": "2010-09-22",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "MJS",
             "sharesOutstanding": false,
             "isin": "US92206C5994",
             "market": "NYSE",
