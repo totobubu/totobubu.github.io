@@ -9,7 +9,7 @@ permissions:
     contents: write
 
 concurrency:
-    group: update-info-data-v2-us
+    group: repository-generated-data-write
     cancel-in-progress: false
 
 env:
@@ -63,6 +63,11 @@ jobs:
                   echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
                   echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
 
+            - name: Refuse a stale scheduled checkout
+              run: |
+                  git fetch origin main
+                  git merge-base --is-ancestor HEAD origin/main
+
             - name: Update exchange rate data
               run: node scripts/exchange/fetch_all_exchange_rates.js
 
@@ -115,7 +120,10 @@ jobs:
             - name: Format changed files only
               run: npm run format:changed
 
-            - name: Upload changed files to R2 (Git-based, fast)
+            - name: Compact JSON without trimming history
+              run: python scripts/data_pipeline/compact_history.py --apply
+
+            - name: Upload compacted files to R2 (Git-based, fast)
               env:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
               run: python scripts/cloud/upload_changed_to_r2.py
@@ -126,7 +134,7 @@ jobs:
             - name: Check for file changes
               id: git_status
               run: |
-                  if [[ -n "$(git status --porcelain)" ]]; then
+                  if [[ -n "$(git status --porcelain public/data/ public/calendar/ public/nav.json public/exchange-rates.json public/missing-logos.json)" ]]; then
                     echo "changes=true" >> $GITHUB_OUTPUT
                   else
                     echo "changes=false" >> $GITHUB_OUTPUT
@@ -140,17 +148,8 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-                  git add .
+                  git add public/data/ public/calendar/ public/nav.json public/exchange-rates.json public/missing-logos.json
                   git commit -m "ℹ️ Auto: Update info data v2 (US)"
-                  for attempt in 1 2 3; do
-                    if git push origin main; then
-                      echo "✅ Push succeeded"
-                      break
-                    fi
-                    if [ $attempt -eq 3 ]; then
-                      echo "❌ Push failed after 3 attempts"
-                      exit 1
-                    fi
-                    git pull --rebase origin main
-                    sleep 5
-                  done
+                  # Do not rebase auto-generated data over a concurrent human change.
+                  # A later scheduled run regenerates from the new main instead.
+                  git push origin HEAD:main

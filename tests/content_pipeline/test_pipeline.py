@@ -24,13 +24,20 @@ class PipelineTest(unittest.TestCase):
             self.assertEqual(generate_all_bundles(root / "ledger.sqlite", root / "bundles"), bundles)
             export_calendar(root / "bundles", root / "calendar.json", root / "calendar.csv")
             export_all(root / "ledger.sqlite", root / "bundles", root / "public")
-            self.assertEqual(json.loads((root / "public/distributions.json").read_text())["events"][0]["ticker"], "TSLY")
+            self.assertFalse((root / "public/distributions.json").exists())
             index = json.loads((root / "public/distribution-index.json").read_text())
             self.assertEqual(index["providers"][0]["slug"], "yieldmax")
-            self.assertTrue((root / "public/distribution-yieldmax-1.json").exists())
+            self.assertFalse((root / "public/distribution-yieldmax-1.json").exists())
             renders = json.loads((root / "public/renders.json").read_text())
             self.assertEqual(renders["renders"][0]["verificationStatus"], "official")
             self.assertEqual(renders["renders"][0]["officialUrl"], "https://yieldmaxetfs.com/a")
+            export_all(root / "ledger.sqlite", root / "bundles", root / "public", legacy_exports=True)
+            self.assertTrue((root / "public/distributions.json").exists())
+            export_all(root / "ledger.sqlite", root / "bundles", root / "public")
+            self.assertFalse((root / "public/distributions.json").exists())
+            history = json.loads((root / "public/distribution-ticker-tsly.json").read_text())
+            self.assertEqual(len(history['history']), 1)
+            self.assertNotIn('event_key', history['history'][0])
 
     def test_legacy_public_data_is_used_when_sqlite_has_no_previous_event(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -7,6 +7,10 @@ permissions:
     contents: write
     id-token: write
 
+concurrency:
+    group: repository-generated-data-write
+    cancel-in-progress: false
+
 jobs:
     regenerate-data:
         runs-on: ubuntu-latest
@@ -51,6 +55,11 @@ jobs:
             - name: Install Node deps
               run: npm ci --no-audit --no-fund
 
+            - name: Refuse a stale manual checkout
+              run: |
+                  git fetch origin main
+                  git merge-base --is-ancestor HEAD origin/main
+
             # 1. Nav 재생성 (가장 먼저 실행되어야 함)
             - name: Generate nav
               run: npm run generate-nav
@@ -67,7 +76,6 @@ jobs:
               run: |
                   npm run format:calendar &
                   npm run format:nav.json &
-                  npm run format:public &
                   wait
 
             # 변경사항 확인
@@ -100,4 +108,4 @@ jobs:
               run: |
                   git add public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/
                   git commit -m "chore: regenerate calendar, nav, and sidebar data [skip ci]" || echo "커밋 실패 또는 변경사항 없음"
-                  git push || echo "푸시 실패"
+                  git push origin HEAD:main

@@ -11,7 +11,7 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.content_pipeline.database import ContentDatabase, DEFAULT_DB_PATH
-from scripts.content_pipeline.providers import PROVIDERS, SourceCandidate
+from scripts.content_pipeline.providers import NoDataError, PROVIDERS, SourceCandidate
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -45,7 +45,13 @@ def main() -> int:
         if args.url
         else list(adapter.discover())
     )
-    report = {"provider": adapter.slug, "sources": [], "events": 0, "errors": []}
+    report = {
+        "provider": adapter.slug,
+        "sources": [],
+        "events": 0,
+        "noData": [],
+        "errors": [],
+    }
 
     max_sources = args.max_sources or getattr(adapter, "default_max_sources", 3)
     for candidate in candidates[:max_sources]:
@@ -72,11 +78,21 @@ def main() -> int:
                 }
             )
             report["events"] += len(events)
+        except NoDataError as exc:
+            report["noData"].append({"url": candidate.url, "message": str(exc)})
         except Exception as exc:
             report["errors"].append({"url": candidate.url, "error": str(exc)})
 
+    if report["errors"] and report["sources"]:
+        report["status"] = "partial"
+    elif report["errors"]:
+        report["status"] = "failed"
+    elif report["sources"]:
+        report["status"] = "success"
+    else:
+        report["status"] = "no_change"
     print(json.dumps(report, ensure_ascii=False, indent=2))
-    return 1 if report["errors"] else 0
+    return 1 if report["status"] == "failed" else 0
 
 
 if __name__ == "__main__":

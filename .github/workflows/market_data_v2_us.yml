@@ -15,7 +15,9 @@ permissions:
     contents: write
 
 concurrency:
-    group: market-data-v2-us
+    # Every workflow which writes generated repository data must share this lock.
+    # Do not let a price refresh rebase over an info/dividend refresh.
+    group: repository-generated-data-write
     cancel-in-progress: false
 
 env:
@@ -68,6 +70,11 @@ jobs:
                   echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
                   echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
 
+            - name: Refuse a stale scheduled checkout
+              run: |
+                  git fetch origin main
+                  git merge-base --is-ancestor HEAD origin/main
+
             - name: Update historical price data (US only)
               if: inputs.skip_price_update != 'true'
               env:
@@ -82,7 +89,11 @@ jobs:
             - name: Format changed files only
               run: npm run format:changed
 
-            - name: Upload changed files to R2 (Git-based, fast)
+            - name: Compact JSON without trimming history
+              # Compaction follows formatting so daily updates stay small.
+              run: python scripts/data_pipeline/compact_history.py --apply
+
+            - name: Upload compacted files to R2 (Git-based, fast)
               env:
                   GITHUB_EVENT_NAME: ${{ github.event_name }}
               run: python scripts/cloud/upload_changed_to_r2.py
@@ -93,7 +104,7 @@ jobs:
             - name: Check for changes
               id: git_status
               run: |
-                  if [[ -n "$(git status --porcelain)" ]]; then
+                  if [[ -n "$(git status --porcelain public/data/ public/sidebar-tickers.json public/sidebar/)" ]]; then
                     echo "changes=true" >> $GITHUB_OUTPUT
                   else
                     echo "changes=false" >> $GITHUB_OUTPUT
@@ -104,17 +115,9 @@ jobs:
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                  git add .
+                  git add public/data/ public/sidebar-tickers.json public/sidebar/
                   git commit -m "📈 Auto: Update US market data v2"
-                  for attempt in 1 2 3; do
-                    if git push; then
-                      echo "✅ Push succeeded"
-                      break
-                    fi
-                    if [ $attempt -eq 3 ]; then
-                      echo "❌ Push failed after 3 attempts"
-                      exit 1
-                    fi
-                    git pull --rebase origin main
-                    sleep 5
-                  done
+                  # A non-fast-forward push means a human/code change arrived while
+                  # this long job ran. Never rebase generated history automatically;
+                  # the next scheduled run starts from the new main and regenerates it.
+                  git push origin HEAD:main

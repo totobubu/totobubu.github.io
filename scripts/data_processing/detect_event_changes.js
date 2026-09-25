@@ -351,8 +351,8 @@ function inferSplitType(ratioStr) {
     if (!ratioStr) return 'split';
     const [num, denom] = ratioStr.split(':').map(Number);
     if (!num || !denom) return 'split';
-    if (num > denom) return 'reverse-split';
-    if (num < denom) return 'split';
+    if (num < denom) return 'reverse-split';
+    if (num > denom) return 'split';
     return 'split';
 }
 

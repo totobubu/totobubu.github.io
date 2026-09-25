@@ -6,7 +6,7 @@ from urllib.parse import parse_qs, urlencode, urlparse
 
 from ..html_tables import column_index, find_table, parse_html
 from ..models import DistributionEvent, SourceDocument
-from .base import SourceCandidate
+from .base import NoDataError, SourceCandidate
 from .http import OfficialHTTPAdapter
 from .parsing import parse_date
 
@@ -84,5 +84,5 @@ class RoundhillAdapter(OfficialHTTPAdapter):
                 )
             )
         if not events:
-            raise ValueError("Cboe notice contained no tracked Roundhill rows")
+            raise NoDataError("Cboe notice contained no tracked Roundhill rows")
         return events

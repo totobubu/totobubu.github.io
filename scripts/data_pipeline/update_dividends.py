@@ -14,6 +14,8 @@ NAV_FILE_PATH = os.path.join(PUBLIC_DIR, "nav.json")
 
 # 공통 유틸리티 import
 import sys
+sys.path.insert(0, ROOT_DIR)
+from scripts.data_pipeline.history_policy import dividend_refresh_start, merge_yahoo_dividend
 sys.path.insert(0, os.path.join(ROOT_DIR, "scripts", "utils"))
 from data_file_path import get_data_file_path, find_existing_data_file
 
@@ -31,7 +33,7 @@ def get_last_dividend_date(file_path):
         dividend_dates = [
             item["date"]
             for item in backtest_data
-            if "amount" in item or "amountFixed" in item
+            if ("amount" in item or "amountFixed" in item) and not item.get("forecasted") and not item.get("expected")
         ]
 
         if dividend_dates:
@@ -96,14 +98,7 @@ def main():
             last_div_date_str = get_last_dividend_date(file_path)
 
             # 2. 다운로드 시작일 설정
-            if last_div_date_str:
-                start_date = datetime.strptime(
-                    last_div_date_str, "%Y-%m-%d"
-                ) + timedelta(days=1)
-                start_date_str = start_date.strftime("%Y-%m-%d")
-            else:
-                # 데이터가 아예 없는 경우, IPO 날짜나 기본값 사용
-                start_date_str = ticker_info.get("ipoDate", "1990-01-01")
+            start_date_str = dividend_refresh_start(last_div_date_str, ticker_info.get("ipoDate"))
 
             # 이미 최신이면 건너뛰기
             if (
@@ -153,7 +148,7 @@ def main():
                     backtest_map[date_str] = {"date": date_str}
 
                 # 항상 최신 yfinance 값으로 'amount' 필드를 업데이트
-                backtest_map[date_str]["amount"] = new_amount
+                merge_yahoo_dividend(backtest_map[date_str], new_amount, symbol)
 
             final_backtest_data = sorted(backtest_map.values(), key=lambda x: x["date"])
 
@@ -163,7 +158,7 @@ def main():
             ):
                 existing_data["backtestData"] = final_backtest_data
                 with open(file_path, "w", encoding="utf-8") as f:
-                    json.dump(existing_data, f, indent=4, ensure_ascii=False)
+                    json.dump(existing_data, f, separators=(",", ":"), ensure_ascii=False)
                 updated_count += 1
 
 

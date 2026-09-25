@@ -19,6 +19,7 @@ from scripts.content_pipeline.generate_content import generate_all_bundles
 from scripts.content_pipeline.reconcile_public_data import export_snapshot as export_reconciliation
 from scripts.content_pipeline.weekly_digest import generate_weekly_digest
 from scripts.content_pipeline.providers import PROVIDERS
+from scripts.data_pipeline.register_history import register as register_history
 
 
 def run_collect(provider: str, db: Path, raw_dir: Path) -> dict:
@@ -77,6 +78,8 @@ def main() -> int:
         database.add_pipeline_step(run_id, "calendar", "success")
         generate_weekly_digest(args.db, args.week_ending, Path("var/content-studio/weekly"))
         database.add_pipeline_step(run_id, "weekly", "success")
+        history_report = register_history(args.legacy_data_dir, args.db)
+        database.add_pipeline_step(run_id, "register-history", "success", details=history_report)
         export_dashboard(args.db, args.public_dir / "dashboard.json")
         export_all(args.db, args.bundles, args.public_dir)
         reconciliation = export_reconciliation(args.db, args.legacy_data_dir, args.public_dir / "reconciliation.json", onboard_missing=True)

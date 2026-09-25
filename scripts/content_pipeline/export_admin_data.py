@@ -5,6 +5,7 @@ import json
 import re
 import sqlite3
 import shutil
+from decimal import Decimal
 from pathlib import Path
 
 
@@ -14,14 +15,14 @@ PUBLIC_RENDER_EX_DATE_RETENTION = 3
 
 def _write(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
 
 
 def _ticker_file_stem(ticker: str) -> str:
     return re.sub(r"[^a-z0-9._-]", "_", ticker.lower())
 
 
-def export_all(db: Path, bundles: Path, output: Path) -> None:
+def export_all(db: Path, bundles: Path, output: Path, *, legacy_exports: bool = False) -> None:
     connection = sqlite3.connect(db)
     connection.row_factory = sqlite3.Row
     try:
@@ -36,8 +37,39 @@ def export_all(db: Path, bundles: Path, output: Path) -> None:
             (SELECT prs.message FROM pipeline_run_steps prs WHERE prs.provider_slug=p.slug ORDER BY prs.id DESC LIMIT 1) last_message
             FROM providers p LEFT JOIN source_documents s ON s.provider_slug=p.slug GROUP BY p.slug ORDER BY p.display_name""")]
         performance = [dict(row) for row in connection.execute("SELECT * FROM content_performance ORDER BY published_at DESC")]
+        boundaries: dict[str, set[str]] = {}
+        for row in connection.execute('''
+            SELECT h.symbol, a.effective_date FROM corporate_action_observations a
+            JOIN history_sources h ON h.listing_key=a.listing_key
+            UNION SELECT h.symbol, f.effective_date FROM frequency_regime_observations f
+            JOIN history_sources h ON h.listing_key=f.listing_key'''):
+            boundaries.setdefault(row['symbol'], set()).add(row['effective_date'])
     finally:
         connection.close()
+    # Raw provenance remains in SQLite. Public screens need only these fields.
+    public_fields = {'id', 'provider_slug', 'ticker', 'distribution_per_share', 'currency',
+                     'declared_date', 'ex_date', 'record_date', 'payable_date', 'frequency',
+                     'roc_percent', 'official_url', 'verification_status',
+                     'previous_amount', 'average4', 'average12'}
+    events = [{key: value for key, value in event.items() if key in public_fields} for event in events]
+    # A change across different share bases or payout cadences is not growth.
+    comparable: dict[str, list[dict]] = {}
+    for event in sorted(events, key=lambda e: (e['ex_date'], e['id'])):
+        history = comparable.setdefault(event['ticker'], [])
+        event['comparisonBasis'] = 'provider_published'
+        if history:
+            previous = history[-1]
+            changed = (previous.get('frequency') != event.get('frequency') or
+                       any(previous['ex_date'] < d <= event['ex_date'] for d in boundaries.get(event['ticker'], set())))
+            if changed:
+                history.clear()
+                event['comparisonBasis'] = 'corporate_action_or_frequency_change'
+        event['previous_amount'] = history[-1]['distribution_per_share'] if history else None
+        history.append(event)
+        for window in (4, 12):
+            sample = history[-window:]
+            # Round only derived display metrics, never original distributions.
+            event[f'average{window}'] = float(sum(Decimal(e['distribution_per_share']) for e in sample) / len(sample))
     # Public artefacts are deliberately much shorter-lived than the ledger.
     # A weekly fund may have many events while a quarterly fund has few; using
     # the last three *distinct ex-dates* per ticker treats both fairly without
@@ -111,7 +143,7 @@ def export_all(db: Path, bundles: Path, output: Path) -> None:
             "pageCount": page_count,
             "latestExDate": rows[0].get("ex_date"),
         })
-        for page in range(page_count):
+        for page in range(page_count) if legacy_exports else []:
             start = page * DISTRIBUTION_PAGE_SIZE
             _write(output / f"distribution-{slug}-{page + 1}.json", {
                 "provider": distribution_providers[-1],
@@ -147,7 +179,21 @@ def export_all(db: Path, bundles: Path, output: Path) -> None:
         "tickers": ticker_index,
         "marketData": "not_configured: NAV/price adapter required",
     })
-    _write(output / "distributions.json", {"events": events, "marketData": "not_configured: NAV/price adapter required"})
+    if legacy_exports:
+        _write(output / "distributions.json", {"events": events, "marketData": "not_configured: NAV/price adapter required"})
+    else:
+        # Remove only recognised obsolete generated copies whose event IDs
+        # still exist in the ledger and in the newly emitted ticker shards.
+        event_ids = {event['id'] for event in events}
+        obsolete = [output / 'distributions.json']
+        for slug in provider_events:
+            obsolete.extend(path for path in output.glob(f'distribution-{slug}-*.json')
+                            if re.fullmatch(r'distribution-' + re.escape(slug) + r'-\d+\.json', path.name))
+        for path in obsolete:
+            if path.exists():
+                old = json.loads(path.read_text(encoding='utf-8'))
+                if isinstance(old.get('events'), list) and all(row.get('id') in event_ids for row in old['events']):
+                    path.unlink()
     _write(output / "content.json", {"bundles": content_rows, "retention": {"perTickerDistinctExDates": PUBLIC_RENDER_EX_DATE_RETENTION}, "notionEditScope": ["title", "body", "channels", "approval status"]})
     _write(output / "sources.json", {"providers": providers})
     _write(output / "renders.json", {"renders": render_rows})

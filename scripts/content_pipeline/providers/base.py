@@ -7,6 +7,10 @@ from typing import Any, Iterable
 from ..models import DistributionEvent, SourceDocument
 
 
+class NoDataError(ValueError):
+    """The official source responded normally but had no matching announcement."""
+
+
 @dataclass(frozen=True)
 class SourceCandidate:
     url: str

@@ -2,6 +2,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import axios from 'axios';
+import { mergeSplits } from '../lib/corporateActions.js';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 const NAV_FILE_PATH = path.join(PUBLIC_DIR, 'nav.json');
@@ -345,7 +346,7 @@ async function fetchSplitEvents(symbol, fromDate, retryCount = 0) {
                 }
                 const ratio = `${numerator}:${denominator}`;
                 const type =
-                    numerator > denominator ? 'reverse-split' : 'split';
+                    numerator < denominator ? 'reverse-split' : 'split';
                 return {
                     date: new Date(event.date * 1000)
                         .toISOString()
@@ -603,9 +604,7 @@ async function fetchAndMergePriceData(ticker) {
             }
         });
 
-        const finalSplits = Array.from(splitMap.values()).sort((a, b) =>
-            a.date.localeCompare(b.date)
-        );
+        const finalSplits = mergeSplits(existingSplits, splitEvents);
 
         const splitsChanged = JSON.stringify(finalSplits) !== oldSplitsStr;
 

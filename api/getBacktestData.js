@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { eventValues } from '../lib/yahooChartEvents.js';
 import { createApiHandler } from './_utils/api-handler.js';
 
 const YF_HEADERS = {
@@ -23,7 +24,7 @@ async function getBacktestDataHandler(req, res) {
 
     const resultsPromises = symbolArray.map(async (symbol) => {
         try {
-            const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol.toUpperCase()}?period1=${period1}&period2=${period2}&interval=1d&events=history,div,split`;
+            const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol.toUpperCase()}?period1=${period1}&period2=${period2}&interval=1d&events=history,div,splits`;
             const { data } = await axios.get(url, { headers: YF_HEADERS });
 
             if (data.chart.error)
@@ -53,18 +54,14 @@ async function getBacktestDataHandler(req, res) {
                     close: quotes.close[i],
                 }))
                 .filter((p) => p.open != null && p.close != null);
-            const dividends = Array.isArray(events.dividends)
-                ? events.dividends.map((d) => ({
+            const dividends = eventValues(events.dividends).map((d) => ({
                       date: formatDate(d.date),
                       amount: d.amount,
-                  }))
-                : [];
-            const splits = Array.isArray(events.splits)
-                ? events.splits.map((s) => ({
+                  }));
+            const splits = eventValues(events.splits).map((s) => ({
                       date: formatDate(s.date),
                       ratio: `${s.numerator}:${s.denominator}`,
-                  }))
-                : [];
+                  }));
             const firstTradeDate = result.meta.firstTradeTime
                 ? formatDate(result.meta.firstTradeTime)
                 : null;
@@ -72,6 +69,8 @@ async function getBacktestDataHandler(req, res) {
             return {
                 symbol: symbol.toUpperCase(),
                 firstTradeDate,
+                priceBasis: 'split_adjusted',
+                dividendBasis: 'split_adjusted',
                 prices,
                 dividends,
                 splits,

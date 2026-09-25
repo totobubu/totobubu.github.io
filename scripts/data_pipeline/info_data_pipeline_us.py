@@ -58,6 +58,7 @@ from scripts.utils import (
     should_skip_update_timestamp,
     get_data_file_path,
 )
+from scripts.data_pipeline.history_policy import dividend_refresh_start, merge_yahoo_dividend
 
 # 경로 설정
 NAV_FILE_PATH = PUBLIC_DIR / "nav.json"
@@ -174,7 +175,7 @@ def get_last_dividend_date(file_path):
         dividend_dates = [
             item["date"]
             for item in backtest_data
-            if "amount" in item or "amountFixed" in item
+            if ("amount" in item or "amountFixed" in item) and not item.get("forecasted") and not item.get("expected")
         ]
         if dividend_dates:
             return max(dividend_dates)
@@ -207,13 +208,7 @@ def update_dividends():
             last_div_date_str = get_last_dividend_date(file_path)
 
             # 다운로드 시작일 설정
-            if last_div_date_str:
-                start_date = datetime.strptime(
-                    last_div_date_str, "%Y-%m-%d"
-                ) + timedelta(days=1)
-                start_date_str = start_date.strftime("%Y-%m-%d")
-            else:
-                start_date_str = ticker_meta.get("ipoDate", "1990-01-01")
+            start_date_str = dividend_refresh_start(last_div_date_str, ticker_meta.get("ipoDate"))
 
             # 이미 최신이면 건너뛰기
             if (
@@ -242,7 +237,7 @@ def update_dividends():
                 if date_str not in backtest_map:
                     backtest_map[date_str] = {"date": date_str}
 
-                backtest_map[date_str]["amount"] = new_amount
+                merge_yahoo_dividend(backtest_map[date_str], new_amount, symbol)
 
             final_backtest_data = sorted(backtest_map.values(), key=lambda x: x["date"])
 

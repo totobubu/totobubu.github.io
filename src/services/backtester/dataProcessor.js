@@ -17,16 +17,16 @@ export function processSymbolData(symbolData) {
         symbolData.splits.forEach((split) => {
             const splitDate = new Date(split.date);
             const [numerator, denominator] = split.ratio.split(':').map(Number);
-            if (!denominator) return;
+            if (!(numerator > 0) || !(denominator > 0) || !Number.isFinite(numerator / denominator)) return;
             const ratio = numerator / denominator;
             prices.forEach((price) => {
-                if (new Date(price.date) < splitDate) {
+                if (symbolData.priceBasis !== 'split_adjusted' && new Date(price.date) < splitDate) {
                     price.open /= ratio;
                     price.close /= ratio;
                 }
             });
             dividends.forEach((div) => {
-                if (new Date(div.date) < splitDate) {
+                if (symbolData.dividendBasis !== 'split_adjusted' && new Date(div.date) < splitDate) {
                     div.amount /= ratio;
                 }
             });

@@ -3,9 +3,18 @@ name: Build and Deploy
 on:
     push:
         branches: [main]
+        # Generated market data is served from R2.  It does not require a Pages build.
+        paths-ignore:
+            - 'public/data/**'
+            - 'public/calendar/**'
+            - 'public/sidebar/**'
+            - 'public/sidebar-tickers.json'
+            - 'public/nav.json'
+            - 'public/exchange-rates.json'
+            - 'public/missing-logos.json'
 
 permissions:
-    contents: write
+    contents: read
     pages: write
     id-token: write
 

@@ -153,7 +153,7 @@ def scan(db_path: Path, data_dir: Path, *, onboard_missing: bool = True) -> dict
 def export_snapshot(db_path: Path, data_dir: Path, output: Path, *, onboard_missing: bool = True) -> dict[str, Any]:
     result = scan(db_path, data_dir, onboard_missing=onboard_missing)
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output.write_text(json.dumps(result, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     return result
 
 

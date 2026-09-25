@@ -1,4 +1,6 @@
 import tempfile
+from dataclasses import replace
+import json
 import unittest
 from pathlib import Path
 
@@ -54,6 +56,14 @@ class ContentDatabaseTest(unittest.TestCase):
             self.assertEqual(snapshot["counts"]["distribution_events"], 1)
             self.assertEqual(snapshot["recentEvents"][0]["ticker"], "TSLY")
             self.assertEqual(snapshot["providers"][0]["event_count"], 1)
+            # A correction keeps exact old decimals and its source link.
+            corrected = replace(event, distribution_per_share="0.212701")
+            database.upsert_distribution_event(corrected, source_id)
+            database.upsert_distribution_event(corrected, source_id)
+            with database.connect() as connection:
+                revisions = connection.execute("SELECT snapshot_json FROM distribution_event_revisions").fetchall()
+            self.assertEqual(len(revisions), 1)
+            self.assertEqual(json.loads(revisions[0][0])["distribution_per_share"], "0.212700")
 
     def test_invalid_event_is_rejected(self):
         with self.assertRaises(ValueError):

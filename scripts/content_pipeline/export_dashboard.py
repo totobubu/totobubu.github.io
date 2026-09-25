@@ -17,7 +17,7 @@ def export_dashboard(db: Path, output: Path, limit: int = 60) -> None:
     database.initialize()
     snapshot = database.dashboard_snapshot(limit=limit)
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output.write_text(json.dumps(snapshot, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
 
 
 def main() -> int:

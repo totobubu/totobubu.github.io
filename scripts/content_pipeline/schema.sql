@@ -148,4 +148,74 @@ CREATE TABLE IF NOT EXISTS public_data_reconciliation_reviews (
 CREATE INDEX IF NOT EXISTS idx_public_data_reconciliation_status
     ON public_data_reconciliation_reviews (status, updated_at DESC);
 
-PRAGMA user_version = 4;
+-- Keep the previous official values when a source corrects an existing event.
+CREATE TABLE IF NOT EXISTS distribution_event_revisions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_id INTEGER NOT NULL REFERENCES distribution_events(id),
+    superseded_at TEXT NOT NULL,
+    snapshot_json TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_distribution_revisions_event
+    ON distribution_event_revisions(event_id, id);
+CREATE TRIGGER IF NOT EXISTS preserve_distribution_revision
+BEFORE UPDATE ON distribution_events
+WHEN OLD.distribution_per_share IS NOT NEW.distribution_per_share
+ OR OLD.record_date IS NOT NEW.record_date
+ OR OLD.payable_date IS NOT NEW.payable_date
+ OR OLD.frequency IS NOT NEW.frequency
+ OR OLD.currency IS NOT NEW.currency
+ OR OLD.roc_percent IS NOT NEW.roc_percent
+ OR OLD.source_document_id IS NOT NEW.source_document_id
+ OR OLD.verification_status IS NOT NEW.verification_status
+BEGIN
+    INSERT INTO distribution_event_revisions(event_id, superseded_at, snapshot_json)
+    VALUES(OLD.id, strftime('%Y-%m-%dT%H:%M:%fZ','now'), json_object(
+        'provider_slug', OLD.provider_slug, 'ticker', OLD.ticker,
+        'distribution_per_share', OLD.distribution_per_share,
+        'currency', OLD.currency, 'declared_date', OLD.declared_date,
+        'ex_date', OLD.ex_date, 'record_date', OLD.record_date,
+        'payable_date', OLD.payable_date, 'frequency', OLD.frequency,
+        'roc_percent', OLD.roc_percent, 'source_document_id', OLD.source_document_id,
+        'official_url', OLD.official_url, 'verification_status', OLD.verification_status,
+        'updated_at', OLD.updated_at));
+END;
+
+-- Register legacy history in the same ledger without copying millions of bars.
+-- listing_key is stable for this migration; ticker alone is not an identity.
+CREATE TABLE IF NOT EXISTS history_sources (
+    listing_key TEXT PRIMARY KEY,
+    symbol TEXT NOT NULL,
+    isin TEXT,
+    currency TEXT,
+    source_path TEXT NOT NULL UNIQUE,
+    content_sha256 TEXT NOT NULL,
+    row_count INTEGER NOT NULL,
+    first_price_date TEXT,
+    last_price_date TEXT,
+    first_dividend_date TEXT,
+    last_dividend_date TEXT,
+    price_basis TEXT NOT NULL DEFAULT 'legacy_unknown',
+    registered_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS corporate_action_observations (
+    listing_key TEXT NOT NULL REFERENCES history_sources(listing_key),
+    effective_date TEXT NOT NULL,
+    raw_ratio TEXT NOT NULL,
+    new_shares TEXT NOT NULL,
+    old_shares TEXT NOT NULL,
+    action_type TEXT NOT NULL,
+    verification_status TEXT NOT NULL DEFAULT 'legacy_unverified',
+    source_sha256 TEXT NOT NULL,
+    PRIMARY KEY(listing_key, effective_date, raw_ratio)
+);
+CREATE TABLE IF NOT EXISTS frequency_regime_observations (
+    listing_key TEXT NOT NULL REFERENCES history_sources(listing_key),
+    effective_date TEXT NOT NULL,
+    previous_frequency TEXT,
+    next_frequency TEXT NOT NULL,
+    verification_status TEXT NOT NULL DEFAULT 'legacy_unverified',
+    source_sha256 TEXT NOT NULL,
+    PRIMARY KEY(listing_key, effective_date, next_frequency)
+);
+
+PRAGMA user_version = 6;
