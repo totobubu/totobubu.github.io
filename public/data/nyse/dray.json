@@ -9,19 +9,7 @@
         "underlying": "DKNG",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-25 07:12:08 KST",
-        "regularMarketPrice": 12.5,
-        "englishName": "YieldMax DKNG Option Income Strategy ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 4563,
-        "AvgVolume": 7763,
-        "sharesOutstanding": null,
-        "52Week": "12.18 - 46.78",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-09-26 07:04:18 KST",
         "isin": "US88636R3057",
         "events": {
             "frequencyChanges": [
@@ -33,20 +21,7 @@
             ],
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 12.5632,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 9624,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 7838,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -2610,7 +2585,9 @@
             "high": 12.56,
             "low": 12.18,
             "close": 12.5,
-            "volume": 4563
+            "volume": 4563,
+            "amount": 0.101,
+            "yield": 1.1348717949
         },
         {
             "date": "2026-10-01",
@@ -2710,6 +2687,10 @@
         },
         {
             "date": "2027-03-18",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-25",
             "forecasted": true
         }
     ]
