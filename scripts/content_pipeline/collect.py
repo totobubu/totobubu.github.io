@@ -60,8 +60,9 @@ def main() -> int:
         candidates = list(adapter.discover_for_ex_date(args.ex_date))
     else:
         candidates = list(adapter.discover())
+    seed_candidates = list(adapter.catalog_seed())
     if database:
-        for candidate in candidates:
+        for candidate in [*seed_candidates, *candidates]:
             for ticker in candidate_tickers(candidate):
                 database.upsert_provider_fund(
                     adapter.slug, ticker, candidate.url, candidate.source_type
@@ -70,7 +71,9 @@ def main() -> int:
         "provider": adapter.slug,
         "sources": [],
         "events": 0,
-        "catalogTickers": [],
+        "catalogTickers": sorted({
+            ticker for candidate in seed_candidates for ticker in candidate_tickers(candidate)
+        }),
         "noData": [],
         "errors": [],
     }

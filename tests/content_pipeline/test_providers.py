@@ -181,6 +181,9 @@ class ProviderParserTest(unittest.TestCase):
         ))
         self.assertEqual([item.metadata["ticker"] for item in funds], ["SCHB", "SCHD", "SGVT"])
         self.assertEqual(funds[0].url, "https://www.schwabassetmanagement.com/products/schb")
+        seed = list(adapter.catalog_seed())
+        self.assertEqual(len(seed), 34)
+        self.assertIn("SCUS", {item.metadata["ticker"] for item in seed})
 
     def test_defiance_latest_card_requires_date_review(self):
         events = DefianceAdapter().parse(
