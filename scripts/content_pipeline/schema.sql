@@ -216,6 +216,16 @@ CREATE TABLE IF NOT EXISTS public_data_reconciliation_reviews (
 CREATE INDEX IF NOT EXISTS idx_public_data_reconciliation_status
     ON public_data_reconciliation_reviews (status, updated_at DESC);
 
+-- A later scan may refresh unresolved proposals, but it must not erase the
+-- reviewer, reason, or before/after hashes recorded by a terminal decision.
+CREATE TRIGGER IF NOT EXISTS preserve_terminal_reconciliation_review
+BEFORE UPDATE OF comparison_json ON public_data_reconciliation_reviews
+WHEN OLD.status IN ('approved', 'rejected', 'applied')
+  AND NEW.comparison_json <> OLD.comparison_json
+BEGIN
+    SELECT RAISE(IGNORE);
+END;
+
 -- Keep the previous official values when a source corrects an existing event.
 CREATE TABLE IF NOT EXISTS distribution_event_revisions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

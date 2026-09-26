@@ -4,7 +4,7 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { runRefresh, type RefreshInput, type RefreshStatus } from '@/services/contentRefresh';
 
-type Provider = { slug: string; displayName: string; eventCount: number; catalogTickerCount: number; collectedTickerCount: number };
+type Provider = { slug: string; displayName: string; eventCount: number; catalogTickerCount: number; collectedTickerCount: number; lastAttemptStatus: string | null; lastAttemptMessage: string | null; lastFetchMode: string | null; lastAttemptAt: string | null };
 type ProviderFund = { provider_slug: string; ticker: string; official_url: string | null; source_type: string; coverage_status: 'collected' | 'catalog_only' };
 type DistributionIndex = { tickers?: Array<{ ticker: string; providerSlug?: string }> };
 type Dashboard = {
@@ -15,6 +15,10 @@ type Dashboard = {
         event_count: number;
         catalog_ticker_count?: number;
         collected_ticker_count?: number;
+        last_attempt_status?: string | null;
+        last_attempt_message?: string | null;
+        last_fetch_mode?: string | null;
+        last_attempt_at?: string | null;
     }>;
     providerFunds?: ProviderFund[];
 };
@@ -29,10 +33,28 @@ const isRunning = ref(false);
 const status = ref<RefreshStatus | null>(null);
 const message = ref('');
 const error = ref('');
+const coverageQuery = ref('');
 
 const tickerNormalized = computed(() => ticker.value.trim().toUpperCase());
 const tickerIsKnown = computed(() => knownTickers.value.has(tickerNormalized.value));
 const coverageGaps = computed(() => providerFunds.value.filter((item) => item.coverage_status === 'catalog_only'));
+const filteredCoverageGaps = computed(() => coverageGaps.value.filter((item) => item.ticker.includes(coverageQuery.value.trim().toUpperCase())));
+const visibleCoverageGaps = computed(() => filteredCoverageGaps.value.slice(0, 120));
+const selectedProvider = computed(() => providers.value.find((item) => item.slug === provider.value) || null);
+const singleRequestProviders = new Set(['defiance', 'ishares', 'rex', 'schwab', 'statestreet']);
+function estimatedRequests(item: Provider) {
+    if (singleRequestProviders.has(item.slug)) return 1;
+    if (item.slug === 'amplify') return 3;
+    if (item.slug === 'globalx') return 6;
+    if (item.slug === 'jpmorgan') return 2;
+    if (item.slug === 'neos') return 3;
+    if (item.slug === 'roundhill') return 3;
+    return Math.max(1, item.catalogTickerCount || item.collectedTickerCount);
+}
+const allRequestEstimate = computed(() => providers.value.reduce((sum, item) => sum + estimatedRequests(item), 0));
+const selectedRequestEstimate = computed(() => selectedProvider.value ? estimatedRequests(selectedProvider.value) : 0);
+const isBlocked = (item: Provider | null) => !!item && ['blocked', 'challenge_detected', 'rate_limited'].includes(item.lastAttemptStatus || '');
+const formatTimestamp = (value: string | null) => value ? new Intl.DateTimeFormat('ko-KR', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value)) : '기록 없음';
 
 async function loadIndex() {
     const [indexResponse, dashboardResponse] = await Promise.all([
@@ -58,6 +80,10 @@ async function loadIndex() {
             eventCount: item.event_count,
             catalogTickerCount: item.catalog_ticker_count || indexedTickerCounts.get(item.slug) || 0,
             collectedTickerCount: item.collected_ticker_count || indexedTickerCounts.get(item.slug) || 0,
+            lastAttemptStatus: item.last_attempt_status || null,
+            lastAttemptMessage: item.last_attempt_message || null,
+            lastFetchMode: item.last_fetch_mode || null,
+            lastAttemptAt: item.last_attempt_at || null,
         }));
     providerFunds.value = dashboard.providerFunds || [];
     knownTickers.value = new Set([
@@ -106,7 +132,8 @@ onMounted(() => loadIndex().catch((reason) => {
             <article>
                 <h2>전체</h2>
                 <p>등록된 모든 운용사의 공식 소스를 순차 수집합니다.</p>
-                <Button label="전체 수집" :loading="isRunning" @click="execute({ scope: 'all' }, '전체')" />
+                <small>현재 어댑터 기준 최대 약 {{ allRequestEstimate }}회 공식 요청</small>
+                <Button :label="`전체 수집 · 약 ${allRequestEstimate}회`" :loading="isRunning" @click="execute({ scope: 'all' }, '전체')" />
             </article>
 
             <article>
@@ -117,7 +144,13 @@ onMounted(() => loadIndex().catch((reason) => {
                         {{ item.displayName }} · 공식 종목 {{ item.catalogTickerCount }} / 수집 {{ item.collectedTickerCount }}
                     </option>
                 </select>
-                <Button label="운용사 수집" :disabled="!provider" :loading="isRunning"
+                <div v-if="selectedProvider" class="health" :class="{ blocked: isBlocked(selectedProvider) }">
+                    <strong>{{ selectedProvider.lastAttemptStatus || '수집 이력 없음' }}</strong>
+                    <span>{{ selectedProvider.lastFetchMode || '방식 미확인' }} · {{ formatTimestamp(selectedProvider.lastAttemptAt) }}</span>
+                    <small v-if="selectedProvider.lastAttemptMessage">{{ selectedProvider.lastAttemptMessage }}</small>
+                </div>
+                <small>현재 어댑터 기준 최대 약 {{ selectedRequestEstimate }}회 공식 요청</small>
+                <Button :label="`운용사 수집 · 약 ${selectedRequestEstimate}회`" :disabled="!provider" :loading="isRunning"
                     @click="execute({ scope: 'provider', provider }, `운용사 ${provider}`)" />
             </article>
 
@@ -146,7 +179,9 @@ onMounted(() => loadIndex().catch((reason) => {
                 <span>후보는 자동으로 검증 데이터가 되지 않습니다. 공식 배당 행을 실제 파싱한 뒤에만 수집 완료로 바뀝니다.</span>
             </div>
             <div v-if="coverageGaps.length" class="gap-list">
-                <a v-for="fund in coverageGaps" :key="`${fund.provider_slug}:${fund.ticker}`"
+                <InputText v-model="coverageQuery" class="coverage-search" placeholder="카탈로그 티커 검색" aria-label="카탈로그 티커 검색" />
+                <p class="coverage-count">{{ filteredCoverageGaps.length.toLocaleString() }}개 중 최대 120개 표시</p>
+                <a v-for="fund in visibleCoverageGaps" :key="`${fund.provider_slug}:${fund.ticker}`"
                     :href="fund.official_url || undefined" target="_blank" rel="noreferrer">
                     <strong>{{ fund.ticker }}</strong><span>{{ fund.provider_slug }} · {{ fund.source_type }}</span>
                 </a>
@@ -162,5 +197,5 @@ onMounted(() => loadIndex().catch((reason) => {
 </template>
 
 <style scoped>
-.collection-view{display:grid;gap:1.25rem}.collection-view>header p,.coverage>div>p{margin:0 0 .4rem;color:var(--studio-accent);font-size:.75rem;font-weight:800;letter-spacing:.1em}h1{margin:.2rem 0 .5rem;font-size:clamp(2rem,5vw,3.5rem)}header span,article p,small,aside span,.coverage>div>span,.gap-list span{color:var(--studio-muted)}.control-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.control-grid article{display:grid;align-content:start;gap:.8rem;padding:1.25rem;border:1px solid var(--studio-border);border-radius:1rem;background:var(--studio-surface)}h2,p{margin:0}select,input{width:100%;min-height:2.65rem;padding:.65rem;border:1px solid var(--studio-border);border-radius:.5rem;background:var(--studio-surface-subtle);color:inherit}.notice,aside,.coverage{padding:1rem;border:1px solid var(--studio-border);border-radius:.75rem;background:var(--studio-surface)}.notice.error{color:var(--studio-danger)}aside{display:flex;gap:.75rem;flex-wrap:wrap}.coverage{display:grid;gap:1rem}.gap-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(12rem,1fr));gap:.5rem}.gap-list a{display:grid;gap:.2rem;padding:.7rem;border:1px solid var(--studio-border);border-radius:.5rem;color:inherit;text-decoration:none}.gap-list a:hover{border-color:var(--studio-accent)}@media(max-width:720px){.control-grid{grid-template-columns:1fr}}
+.collection-view{display:grid;gap:1.25rem}.collection-view>header p,.coverage>div>p{margin:0 0 .4rem;color:var(--studio-accent);font-size:.75rem;font-weight:800;letter-spacing:.1em}h1{margin:.2rem 0 .5rem;font-size:clamp(2rem,5vw,3.5rem)}header span,article p,small,aside span,.coverage>div>span,.gap-list span{color:var(--studio-muted)}.control-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.control-grid article{display:grid;align-content:start;gap:.8rem;padding:1.25rem;border:1px solid var(--studio-border);border-radius:1rem;background:var(--studio-surface)}h2,p{margin:0}select,input{width:100%;min-height:2.65rem;padding:.65rem;border:1px solid var(--studio-border);border-radius:.5rem;background:var(--studio-surface-subtle);color:inherit}.notice,aside,.coverage{padding:1rem;border:1px solid var(--studio-border);border-radius:.75rem;background:var(--studio-surface)}.notice.error{color:var(--studio-danger)}aside{display:flex;gap:.75rem;flex-wrap:wrap}.health{display:grid;gap:.2rem;padding:.65rem;border:1px solid var(--studio-border);border-radius:.5rem}.health.blocked{border-color:var(--studio-danger)}.health span{color:var(--studio-muted);font-size:.78rem}.coverage{display:grid;gap:1rem}.gap-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(12rem,1fr));gap:.5rem}.coverage-search,.coverage-count{grid-column:1/-1}.coverage-count{color:var(--studio-muted);font-size:.8rem}.gap-list a{display:grid;gap:.2rem;padding:.7rem;border:1px solid var(--studio-border);border-radius:.5rem;color:inherit;text-decoration:none}.gap-list a:hover{border-color:var(--studio-accent)}@media(max-width:720px){.control-grid{grid-template-columns:1fr}}
 </style>

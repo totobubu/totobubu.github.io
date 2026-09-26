@@ -1,6 +1,6 @@
 """Compare official SQLite events with legacy ``public/data`` records.
 
-This tool is intentionally approval-gated: scanning only records a comparison;
+This tool is intentionally review-gated: scanning only records a comparison;
 it never writes a ticker JSON file.  A reviewer must explicitly select a
 review id and action before a proposed patch can be applied.
 """
@@ -319,17 +319,76 @@ def apply_review(db_path: Path, review_id: int, reviewer: str, action: str) -> d
     return {"reviewId": review_id, "status": "applied", "action": action, "path": str(path), "reviewer": reviewer.strip()}
 
 
+def reject_review(db_path: Path, review_id: int, reviewer: str, reason: str) -> dict[str, Any]:
+    """Reject one unresolved proposal without modifying the legacy ticker file."""
+    if not reviewer.strip():
+        raise ValueError("--reviewer is required for a rejection")
+    if not reason.strip():
+        raise ValueError("--reason is required for a rejection")
+    connection = sqlite3.connect(db_path)
+    try:
+        connection.row_factory = sqlite3.Row
+        review = connection.execute(
+            "SELECT * FROM public_data_reconciliation_reviews WHERE id=?", (review_id,)
+        ).fetchone()
+        if review is None:
+            raise ValueError(f"review {review_id} not found")
+        if review["status"] not in REVIEWABLE:
+            raise ValueError(
+                f"review {review_id} is {review['status']}; only unresolved differences can be rejected"
+            )
+        comparison = json.loads(review["comparison_json"])
+        stamp = now()
+        comparison["rejection"] = {
+            "reason": reason.strip(),
+            "reviewer": reviewer.strip(),
+            "reviewedAt": stamp,
+        }
+        connection.execute(
+            """
+            UPDATE public_data_reconciliation_reviews
+            SET status='rejected', reviewed_by=?, reviewed_at=?, updated_at=?,
+                comparison_json=?
+            WHERE id=?
+            """,
+            (reviewer.strip(), stamp, stamp, _json(comparison), review_id),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+    return {
+        "reviewId": review_id,
+        "status": "rejected",
+        "reviewer": reviewer.strip(),
+        "reason": reason.strip(),
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Reconcile official Content Studio events with public/data ticker JSON")
     parser.add_argument("--db", type=Path, default=DEFAULT_DB_PATH)
     parser.add_argument("--data-dir", type=Path, default=Path("public/data"))
     parser.add_argument("--output", type=Path, default=Path("public/content-studio/reconciliation.json"))
     parser.add_argument("--apply-review", type=int)
+    parser.add_argument("--reject-review", type=int)
     parser.add_argument("--reviewer")
     parser.add_argument("--action", choices=("append", "replace"))
+    parser.add_argument("--reason")
     parser.add_argument("--skip-onboard-missing", action="store_true",
                         help="do not run the established new-ticker workflow for absent official ticker JSON files")
     args = parser.parse_args()
+    if args.apply_review is not None and args.reject_review is not None:
+        parser.error("select either --apply-review or --reject-review")
+    if args.reject_review is not None:
+        if not args.reviewer or not args.reason:
+            parser.error("--reject-review requires --reviewer and --reason")
+        print(json.dumps(
+            reject_review(args.db, args.reject_review, args.reviewer, args.reason),
+            ensure_ascii=False,
+            indent=2,
+        ))
+        export_snapshot(args.db, args.data_dir, args.output, onboard_missing=not args.skip_onboard_missing)
+        return 0
     if args.apply_review is not None:
         if not args.reviewer or not args.action:
             parser.error("--apply-review requires --reviewer and --action")

@@ -7,11 +7,13 @@ export const PROVIDERS = new Set([
     'amplify',
     'defiance',
     'globalx',
+    'ishares',
     'jpmorgan',
     'neos',
     'rex',
     'roundhill',
     'schwab',
+    'statestreet',
     'yieldmax',
 ]);
 export const ACTIVE_STATUSES = new Set([
@@ -65,7 +67,15 @@ export async function validateRefreshInput(body = {}) {
     if (scope === 'ticker') {
         const ticker = String(body.ticker || '').trim().toUpperCase();
         const index = await readJson('public/content-studio/distribution-index.json');
-        if (!Array.isArray(index.tickers) || !index.tickers.some((row) => row.ticker === ticker)) {
+        const knownDistribution = Array.isArray(index.tickers)
+            && index.tickers.some((row) => row.ticker === ticker);
+        let knownCatalogFund = false;
+        if (!knownDistribution) {
+            const dashboard = await readJson('public/content-studio/dashboard.json');
+            knownCatalogFund = Array.isArray(dashboard.providerFunds)
+                && dashboard.providerFunds.some((row) => row.ticker === ticker);
+        }
+        if (!knownDistribution && !knownCatalogFund) {
             throw new TypeError('ticker is not present in the official distribution index');
         }
         return { scope, ticker };
