@@ -5,6 +5,7 @@ import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator
+from decimal import Decimal
 
 from .models import DistributionEvent, SourceDocument, utc_now_iso
 
@@ -167,7 +168,8 @@ class ContentDatabase:
             return int(cursor.lastrowid)
 
     def upsert_distribution_event(
-        self, event: DistributionEvent, source_document_id: int
+        self, event: DistributionEvent, source_document_id: int,
+        *, source_class: str | None = None,
     ) -> int:
         self.upsert_provider_fund(
             event.provider_slug,
@@ -223,6 +225,85 @@ class ContentDatabase:
                 "SELECT id FROM distribution_events WHERE event_key = ?",
                 (event.event_key,),
             ).fetchone()
+            event_id = int(row["id"])
+            source = connection.execute(
+                "SELECT content_sha256 FROM source_documents WHERE id = ?",
+                (source_document_id,),
+            ).fetchone()
+            resolved_class = source_class or (
+                "exchange_official" if event.verification_status == "cross_checked"
+                else "issuer_official"
+            )
+            observation_status = {
+                "official": "official",
+                "cross_checked": "cross_checked",
+                "needs_review": "needs_review",
+            }.get(event.verification_status, "needs_review")
+            raw_amount = str(event.distribution_per_share)
+            connection.execute(
+                """
+                INSERT INTO distribution_observations (
+                    canonical_event_id, ticker, ex_date, amount_raw,
+                    amount_normalized, currency, declared_date, record_date,
+                    payable_date, source_class, source_provider, source_url,
+                    content_sha256, precision_digits, verification_status,
+                    raw_json, observed_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '{}', ?)
+                ON CONFLICT(source_provider, ticker, ex_date, amount_raw, source_url)
+                DO UPDATE SET canonical_event_id = excluded.canonical_event_id,
+                              content_sha256 = excluded.content_sha256,
+                              observed_at = excluded.observed_at
+                """,
+                (
+                    event_id, event.ticker, event.ex_date, raw_amount,
+                    format(Decimal(raw_amount), "f"), event.currency,
+                    event.declared_date, event.record_date, event.payable_date,
+                    resolved_class, event.provider_slug, event.official_url,
+                    source["content_sha256"] if source else None,
+                    len(raw_amount.partition(".")[2]), observation_status,
+                    event.collected_at,
+                ),
+            )
+            return event_id
+
+    def add_distribution_observation(self, observation: dict) -> int:
+        """Store a non-canonical source observation without publishing it."""
+        raw_amount = str(observation["amount_raw"])
+        with self.connect() as connection:
+            connection.execute(
+                """
+                INSERT INTO distribution_observations (
+                    canonical_event_id, ticker, ex_date, amount_raw,
+                    amount_normalized, currency, declared_date, record_date,
+                    payable_date, source_class, source_provider, source_url,
+                    content_sha256, precision_digits, verification_status,
+                    raw_json, observed_at
+                ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(source_provider, ticker, ex_date, amount_raw, source_url)
+                DO UPDATE SET raw_json=excluded.raw_json, observed_at=excluded.observed_at
+                """,
+                (
+                    str(observation["ticker"]).upper(), observation["ex_date"],
+                    raw_amount, format(Decimal(raw_amount), "f"),
+                    observation.get("currency", "USD"), observation.get("declared_date"),
+                    observation.get("record_date"), observation.get("payable_date"),
+                    observation["source_class"], observation["source_provider"],
+                    observation["source_url"], observation.get("content_sha256"),
+                    len(raw_amount.partition(".")[2]),
+                    observation.get("verification_status", "third_party_only"),
+                    json.dumps(observation.get("raw", {}), ensure_ascii=False, sort_keys=True),
+                    observation.get("observed_at", utc_now_iso()),
+                ),
+            )
+            row = connection.execute(
+                """SELECT id FROM distribution_observations
+                   WHERE source_provider=? AND ticker=? AND ex_date=?
+                     AND amount_raw=? AND source_url=?""",
+                (
+                    observation["source_provider"], str(observation["ticker"]).upper(),
+                    observation["ex_date"], raw_amount, observation["source_url"],
+                ),
+            ).fetchone()
             return int(row["id"])
 
     def summary(self) -> dict[str, int]:
@@ -232,6 +313,7 @@ class ContentDatabase:
             "source_documents",
             "collection_attempts",
             "distribution_events",
+            "distribution_observations",
             "validation_findings",
             "pipeline_runs",
             "content_performance",

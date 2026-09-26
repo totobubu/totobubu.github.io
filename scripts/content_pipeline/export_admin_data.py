@@ -27,7 +27,14 @@ def export_all(db: Path, bundles: Path, output: Path, *, legacy_exports: bool = 
     connection.row_factory = sqlite3.Row
     try:
         events = [dict(row) for row in connection.execute("""
-            SELECT e.*, LAG(distribution_per_share) OVER (PARTITION BY ticker ORDER BY ex_date) AS previous_amount,
+            SELECT e.*,
+            (SELECT o.source_class FROM distribution_observations o
+             WHERE o.canonical_event_id=e.id ORDER BY o.id DESC LIMIT 1) AS source_class,
+            (SELECT o.source_provider FROM distribution_observations o
+             WHERE o.canonical_event_id=e.id ORDER BY o.id DESC LIMIT 1) AS source_provider,
+            (SELECT o.precision_digits FROM distribution_observations o
+             WHERE o.canonical_event_id=e.id ORDER BY o.id DESC LIMIT 1) AS precision_digits,
+            LAG(distribution_per_share) OVER (PARTITION BY ticker ORDER BY ex_date) AS previous_amount,
             AVG(CAST(distribution_per_share AS REAL)) OVER (PARTITION BY ticker ORDER BY ex_date ROWS BETWEEN 3 PRECEDING AND CURRENT ROW) AS average4,
             AVG(CAST(distribution_per_share AS REAL)) OVER (PARTITION BY ticker ORDER BY ex_date ROWS BETWEEN 11 PRECEDING AND CURRENT ROW) AS average12
             FROM distribution_events e ORDER BY declared_date DESC, id DESC""")]
@@ -50,6 +57,7 @@ def export_all(db: Path, bundles: Path, output: Path, *, legacy_exports: bool = 
     public_fields = {'id', 'provider_slug', 'ticker', 'distribution_per_share', 'currency',
                      'declared_date', 'ex_date', 'record_date', 'payable_date', 'frequency',
                      'roc_percent', 'official_url', 'verification_status',
+                     'source_class', 'source_provider', 'precision_digits',
                      'previous_amount', 'average4', 'average12'}
     events = [{key: value for key, value in event.items() if key in public_fields} for event in events]
     # A change across different share bases or payout cadences is not growth.

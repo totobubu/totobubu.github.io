@@ -93,6 +93,39 @@ CREATE INDEX IF NOT EXISTS idx_distribution_events_ticker_ex_date
 CREATE INDEX IF NOT EXISTS idx_distribution_events_provider_declared
     ON distribution_events (provider_slug, declared_date DESC);
 
+-- Every reported amount remains an immutable observation. Third-party values
+-- are never promoted into distribution_events without an explicit review.
+CREATE TABLE IF NOT EXISTS distribution_observations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    canonical_event_id INTEGER REFERENCES distribution_events(id) ON DELETE SET NULL,
+    ticker TEXT NOT NULL,
+    ex_date TEXT NOT NULL,
+    amount_raw TEXT NOT NULL,
+    amount_normalized TEXT NOT NULL,
+    currency TEXT NOT NULL DEFAULT 'USD',
+    declared_date TEXT,
+    record_date TEXT,
+    payable_date TEXT,
+    source_class TEXT NOT NULL CHECK (source_class IN (
+        'issuer_official', 'exchange_official', 'market_infrastructure',
+        'licensed_vendor', 'public_aggregator', 'manual'
+    )),
+    source_provider TEXT NOT NULL,
+    source_url TEXT NOT NULL,
+    content_sha256 TEXT,
+    precision_digits INTEGER NOT NULL DEFAULT 0,
+    verification_status TEXT NOT NULL CHECK (verification_status IN (
+        'official', 'market_confirmed', 'cross_checked', 'third_party_only',
+        'conflicting', 'needs_review', 'rejected'
+    )),
+    raw_json TEXT NOT NULL DEFAULT '{}',
+    observed_at TEXT NOT NULL,
+    UNIQUE (source_provider, ticker, ex_date, amount_raw, source_url)
+);
+
+CREATE INDEX IF NOT EXISTS idx_distribution_observations_ticker_date
+    ON distribution_observations (ticker, ex_date DESC, source_class);
+
 CREATE TABLE IF NOT EXISTS validation_findings (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     source_document_id INTEGER NOT NULL REFERENCES source_documents(id),
@@ -253,4 +286,4 @@ CREATE TABLE IF NOT EXISTS frequency_regime_observations (
     PRIMARY KEY(listing_key, effective_date, next_frequency)
 );
 
-PRAGMA user_version = 8;
+PRAGMA user_version = 9;

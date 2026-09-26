@@ -32,9 +32,23 @@ class ContentEvent:
     payable_date: str | None
     official_url: str
     verification_status: str
+    source_class: str = "issuer_official"
+    source_provider: str | None = None
+    precision_digits: int | None = None
     previous_distribution: str | None = None
     previous_distribution_source: str | None = None
     monthly_distributions: tuple[MonthlyDistribution, ...] = ()
+
+    @property
+    def source_label(self) -> str:
+        return {
+            "issuer_official": "운용사 공식",
+            "exchange_official": "거래소 확인",
+            "market_infrastructure": "시장 인프라 확인",
+            "licensed_vendor": "외부 데이터 서비스",
+            "public_aggregator": "공개 집계 서비스",
+            "manual": "수동 확인",
+        }.get(self.source_class, "출처 확인 필요")
 
     @property
     def amount_display(self) -> str:
@@ -89,7 +103,7 @@ def toss_text(event: ContentEvent) -> str:
             f"주당 ${event.amount_display} · {event.amount_change_label} · {event.change_label}",
             f"배당락 {event.ex_date} · 지급 {payable}",
             "",
-            f"{event.provider_slug.upper()} 공식 발표를 기준으로 정리했습니다.",
+            f"출처 등급: {event.source_label} · {event.source_provider or event.provider_slug.upper()}",
             "투자 판단과 세금 적용은 개인 상황에 따라 달라질 수 있습니다.",
             f"원문: {event.official_url}",
         ]
@@ -112,16 +126,18 @@ def naver_markdown(event: ContentEvent) -> str:
 - 배당락일: **{event.ex_date}**
 - 지급일: **{payable}**
 - 검증 상태: **{event.verification_status}**
+- 출처 등급: **{event.source_label}**
+- 출처 제공자: **{event.source_provider or event.provider_slug.upper()}**
 
 ## 한 줄 해석
 
 이번 발표는 직전 지급 기록과 비교해 `{event.change_label}`입니다. 배당금만으로 수익성을 판단하지 말고 기준가 변동, 총수익률, ROC 여부와 세금을 함께 확인하는 편이 좋습니다.
 
-## 공식 출처
+## 원문 출처
 
 {event.official_url}
 
-> 이 글은 공식 발표를 빠르게 정리한 정보성 콘텐츠이며 투자 권유가 아닙니다. 실제 매매 전 운용사 원문을 다시 확인하세요.
+> 출처 등급을 함께 확인하세요. 외부 서비스 자료는 운용사 공식 발표가 아니며 투자 권유가 아닙니다.
 """
 
 
