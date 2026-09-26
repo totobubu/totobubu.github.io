@@ -9,7 +9,19 @@
         "underlying": "META",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 9.05,
+        "englishName": "YieldMax META Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 131414,
+        "AvgVolume": 157020,
+        "sharesOutstanding": null,
+        "52Week": "7.93 - 16.59",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634T8163",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.18,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 100094,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 159048,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6570,49 +6595,11 @@
             "high": 9.185,
             "low": 9.041,
             "close": 9.18,
-            "volume": 100100,
-            "yield": 0.4883877996
-        },
-        {
-            "date": "2026-09-18",
-            "open": 9.24,
-            "high": 9.24,
-            "low": 9,
-            "close": 9.05,
-            "volume": 131400
-        },
-        {
-            "date": "2026-09-21",
-            "open": 9.18,
-            "high": 10.02,
-            "low": 9.18,
-            "close": 9.88,
-            "volume": 252100
-        },
-        {
-            "date": "2026-09-22",
-            "open": 9.77,
-            "high": 10.068,
-            "low": 9.7,
-            "close": 9.83,
-            "volume": 319970
-        },
-        {
-            "date": "2026-09-23",
-            "open": 9.92,
-            "high": 10.135,
-            "low": 9.88,
-            "close": 9.89,
-            "volume": 150866
+            "volume": 100100
         },
         {
             "date": "2026-09-24",
-            "expected": true,
-            "open": 9.85,
-            "high": 10.2299,
-            "low": 9.905,
-            "close": 10.22,
-            "volume": 355186
+            "expected": true
         },
         {
             "date": "2026-10-01",
@@ -6712,10 +6699,6 @@
         },
         {
             "date": "2027-03-18",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-25",
             "forecasted": true
         }
     ]

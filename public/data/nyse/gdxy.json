@@ -9,7 +9,19 @@
         "underlying": "GDX",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 10.89,
+        "englishName": "YieldMax Gold Miners Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 708460,
+        "AvgVolume": 697788,
+        "sharesOutstanding": null,
+        "52Week": "9.27 - 18.89",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88634T8817",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,16 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "Volume": {
+                "value": 633353,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 696135,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4887,49 +4908,11 @@
             "high": 10.995,
             "low": 10.75,
             "close": 10.89,
-            "volume": 633600,
-            "yield": 0.7535120148
-        },
-        {
-            "date": "2026-09-18",
-            "open": 10.85,
-            "high": 10.925,
-            "low": 10.75,
-            "close": 10.89,
-            "volume": 709200
-        },
-        {
-            "date": "2026-09-21",
-            "open": 10.89,
-            "high": 10.94,
-            "low": 10.73,
-            "close": 10.79,
-            "volume": 749500
-        },
-        {
-            "date": "2026-09-22",
-            "open": 10.84,
-            "high": 11.15,
-            "low": 10.82,
-            "close": 11.11,
-            "volume": 652136
-        },
-        {
-            "date": "2026-09-23",
-            "open": 10.9,
-            "high": 10.9,
-            "low": 10.67,
-            "close": 10.76,
-            "volume": 1077722
+            "volume": 633600
         },
         {
             "date": "2026-09-24",
-            "expected": true,
-            "open": 10.57,
-            "high": 10.58,
-            "low": 10.33,
-            "close": 10.5,
-            "volume": 737663
+            "expected": true
         },
         {
             "date": "2026-10-01",
@@ -5029,10 +5012,6 @@
         },
         {
             "date": "2027-03-18",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-25",
             "forecasted": true
         }
     ]

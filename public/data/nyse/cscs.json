@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 13.95,
+        "englishName": "Direxion Daily CSCO Bear 1X Shares",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 405,
+        "AvgVolume": 12212,
+        "sharesOutstanding": null,
+        "52Week": "12.08 - 25.14",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US25461A2621",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.86,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 15122,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12080,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2506,53 +2531,11 @@
             "volume": 15100
         },
         {
-            "date": "2026-09-18",
-            "open": 13.97,
-            "high": 13.97,
-            "low": 13.94,
-            "close": 13.95,
-            "volume": 600
-        },
-        {
-            "date": "2026-09-21",
-            "open": 13.9,
-            "high": 13.97,
-            "low": 13.72,
-            "close": 13.743,
-            "volume": 2400
-        },
-        {
-            "date": "2026-09-22",
-            "open": 13.81,
-            "high": 14.3599,
-            "low": 13.81,
-            "close": 14.22,
-            "volume": 1851,
-            "amount": 0.11,
-            "yield": 0.0522809558
-        },
-        {
             "date": "2026-09-23",
-            "open": 14.26,
-            "high": 14.26,
-            "low": 14.22,
-            "close": 14.22,
-            "volume": 1698
-        },
-        {
-            "date": "2026-09-24",
-            "open": 14.37,
-            "high": 14.37,
-            "low": 14.175,
-            "close": 14.175,
-            "volume": 1513
-        },
-        {
-            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2027-03-22",
+            "date": "2026-12-23",
             "forecasted": true
         }
     ]

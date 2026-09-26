@@ -9,12 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 64.45,
+        "englishName": "Fox Corporation",
+        "earningsDate": "2026-08-06",
+        "enterpriseValue": 30817865728,
+        "marketCap": 27097194496,
+        "Volume": 13252393,
+        "AvgVolume": 5700554,
+        "sharesOutstanding": 200188712,
+        "52Week": "48.34 - 76.39",
+        "Yield": 0.008689,
+        "dividendRate": 0.58,
+        "payoutRatio": 0.1458,
         "isin": "US35137L1052",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 64.98,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 31313053696,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 27320029184,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4172545,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 6025106,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.008618,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16955,50 +16992,7 @@
             "high": 66.275002,
             "low": 64.875,
             "close": 64.980003,
-            "volume": 4197300,
-            "marketCap": 27320233984
-        },
-        {
-            "date": "2026-09-18",
-            "open": 64.410004,
-            "high": 64.900002,
-            "low": 63.57,
-            "close": 64.449997,
-            "volume": 13252400
-        },
-        {
-            "date": "2026-09-21",
-            "open": 64.790001,
-            "high": 65.739998,
-            "low": 64.510002,
-            "close": 64.790001,
-            "volume": 6039200,
-            "marketCap": 27092531200
-        },
-        {
-            "date": "2026-09-22",
-            "open": 65.099998,
-            "high": 65.385002,
-            "low": 63.900002,
-            "close": 64.25,
-            "volume": 4986205
-        },
-        {
-            "date": "2026-09-23",
-            "open": 64.035004,
-            "high": 64.110001,
-            "low": 63.09,
-            "close": 63.959999,
-            "volume": 4652069,
-            "marketCap": 26919645184
-        },
-        {
-            "date": "2026-09-24",
-            "open": 63.799999,
-            "high": 64.315002,
-            "low": 63.279999,
-            "close": 63.84,
-            "volume": 4082348
+            "volume": 4197300
         }
     ]
 }

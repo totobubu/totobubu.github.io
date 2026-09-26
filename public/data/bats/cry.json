@@ -9,12 +9,37 @@
         "underlying": "CRCL",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 16.915,
+        "englishName": "GraniteShares YieldBOOST CRCL ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 4702,
+        "AvgVolume": 9479,
+        "sharesOutstanding": null,
+        "52Week": "16.81 - 25.93",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US38747T6661",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.851,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 15638,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9298,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -844,46 +869,8 @@
             "volume": 15800
         },
         {
-            "date": "2026-09-18",
-            "amount": 0.266,
-            "open": 16.870001,
-            "high": 16.940001,
-            "low": 16.82,
-            "close": 16.92,
-            "volume": 4700,
-            "yield": 0.3865441383
-        },
-        {
-            "date": "2026-09-21",
-            "open": 17.280001,
-            "high": 17.379999,
-            "low": 16.93,
-            "close": 16.93,
-            "volume": 5900
-        },
-        {
-            "date": "2026-09-22",
-            "open": 16.84,
-            "high": 16.879999,
-            "low": 16.750099,
-            "close": 16.855,
-            "volume": 5528
-        },
-        {
-            "date": "2026-09-23",
-            "open": 16.968,
-            "high": 16.968,
-            "low": 16.690001,
-            "close": 16.7169,
-            "volume": 13351
-        },
-        {
-            "date": "2026-09-24",
-            "open": 16.92,
-            "high": 16.92,
-            "low": 16.6999,
-            "close": 16.795099,
-            "volume": 15649
+            "date": "2026-09-25",
+            "forecasted": true
         },
         {
             "date": "2026-10-02",
@@ -979,10 +966,6 @@
         },
         {
             "date": "2027-03-12",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-19",
             "forecasted": true
         }
     ]

@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 39.45,
+        "englishName": "iShares MSCI Chile ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 188839,
+        "AvgVolume": 437946,
+        "sharesOutstanding": 8850000,
+        "52Week": "31.48 - 47.85",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US4642866408",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.6,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 397349,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 452150,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42506,35 +42531,7 @@
         },
         {
             "date": "2026-09-21",
-            "open": 39.389999,
-            "high": 39.98,
-            "low": 39.27,
-            "close": 39.959999,
-            "volume": 208700
-        },
-        {
-            "date": "2026-09-22",
-            "open": 40.080002,
-            "high": 40.580002,
-            "low": 39.900002,
-            "close": 40.25,
-            "volume": 433093
-        },
-        {
-            "date": "2026-09-23",
-            "open": 39.77,
-            "high": 39.889999,
-            "low": 39.540001,
-            "close": 39.580002,
-            "volume": 170621
-        },
-        {
-            "date": "2026-09-24",
-            "open": 39.220001,
-            "high": 39.5,
-            "low": 38.869999,
-            "close": 38.970001,
-            "volume": 260007
+            "forecasted": true
         },
         {
             "date": "2026-09-28",
@@ -42634,10 +42631,6 @@
         },
         {
             "date": "2027-03-15",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-22",
             "forecasted": true
         }
     ]

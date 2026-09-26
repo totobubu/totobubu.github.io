@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 66.67,
+        "englishName": "YieldMax Semiconductor Portfolio Option Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 371673,
+        "AvgVolume": 660301,
+        "sharesOutstanding": null,
+        "52Week": "50.85 - 89.86",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R6936",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.44,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 528567,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 662504,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3160,47 +3185,8 @@
             "volume": 532500
         },
         {
-            "date": "2026-09-18",
-            "open": 65.669998,
-            "high": 66.669998,
-            "low": 65.599998,
-            "close": 66.669998,
-            "volume": 374800
-        },
-        {
-            "date": "2026-09-21",
-            "open": 67.839996,
-            "high": 69.964996,
-            "low": 67.574997,
-            "close": 69.75,
-            "volume": 816500
-        },
-        {
-            "date": "2026-09-22",
-            "open": 68.959999,
-            "high": 71.199997,
-            "low": 68.959999,
-            "close": 71.190002,
-            "volume": 1060309
-        },
-        {
             "date": "2026-09-23",
-            "expected": true,
-            "open": 70.010002,
-            "high": 70.335999,
-            "low": 68.889999,
-            "close": 69.860001,
-            "volume": 508653,
-            "amount": 0.526,
-            "yield": 0.3969032882
-        },
-        {
-            "date": "2026-09-24",
-            "open": 69,
-            "high": 69.779999,
-            "low": 68.599998,
-            "close": 69.639999,
-            "volume": 477124
+            "expected": true
         },
         {
             "date": "2026-09-30",
@@ -3300,10 +3286,6 @@
         },
         {
             "date": "2027-03-17",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-24",
             "forecasted": true
         }
     ]

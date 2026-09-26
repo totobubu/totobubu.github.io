@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 18.6,
+        "englishName": "First Trust Limited Duration Investment Grade Corporate ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 501528,
+        "AvgVolume": 362253,
+        "sharesOutstanding": null,
+        "52Week": "18.561 - 19.33",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US33738D8048",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.63,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 185768,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 365940,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -9820,44 +9845,8 @@
             "volume": 185800
         },
         {
-            "date": "2026-09-18",
-            "open": 18.6,
-            "high": 18.6,
-            "low": 18.58,
-            "close": 18.6,
-            "volume": 501500
-        },
-        {
             "date": "2026-09-21",
-            "open": 18.610001,
-            "high": 18.610001,
-            "low": 18.6,
-            "close": 18.6,
-            "volume": 210900
-        },
-        {
-            "date": "2026-09-22",
-            "open": 18.620001,
-            "high": 18.620001,
-            "low": 18.6,
-            "close": 18.620001,
-            "volume": 204033
-        },
-        {
-            "date": "2026-09-23",
-            "open": 18.6,
-            "high": 18.6,
-            "low": 18.490101,
-            "close": 18.51,
-            "volume": 193170
-        },
-        {
-            "date": "2026-09-24",
-            "open": 18.440001,
-            "high": 18.450001,
-            "low": 18.400101,
-            "close": 18.41,
-            "volume": 251033
+            "forecasted": true
         },
         {
             "date": "2026-10-21",
@@ -9877,10 +9866,6 @@
         },
         {
             "date": "2027-02-19",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-19",
             "forecasted": true
         }
     ]

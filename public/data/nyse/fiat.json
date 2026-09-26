@@ -9,7 +9,19 @@
         "underlying": "COIN",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 15.11,
+        "englishName": "YieldMax Short COIN Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 113855,
+        "AvgVolume": 63183,
+        "sharesOutstanding": null,
+        "52Week": "14.96 - 36.11",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J4774",
         "events": {
             "frequencyChanges": [
@@ -27,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.82,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 18007,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 63977,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4795,49 +4820,11 @@
             "high": 17.33,
             "low": 16.82,
             "close": 16.82,
-            "volume": 18000,
-            "yield": 0.8869130692
-        },
-        {
-            "date": "2026-09-18",
-            "open": 16.559999,
-            "high": 16.559999,
-            "low": 14.96,
-            "close": 15.11,
-            "volume": 114600
-        },
-        {
-            "date": "2026-09-21",
-            "open": 14.3,
-            "high": 14.63,
-            "low": 14.14,
-            "close": 14.61,
-            "volume": 117000
-        },
-        {
-            "date": "2026-09-22",
-            "open": 14.7,
-            "high": 14.9097,
-            "low": 14.5,
-            "close": 14.66,
-            "volume": 33725
-        },
-        {
-            "date": "2026-09-23",
-            "open": 14.66,
-            "high": 15.0018,
-            "low": 14.5,
-            "close": 14.9,
-            "volume": 52334
+            "volume": 18000
         },
         {
             "date": "2026-09-24",
-            "expected": true,
-            "open": 14.83,
-            "high": 15.04,
-            "low": 14.4014,
-            "close": 14.68,
-            "volume": 29021
+            "expected": true
         },
         {
             "date": "2026-10-01",
@@ -4937,10 +4924,6 @@
         },
         {
             "date": "2027-03-18",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-25",
             "forecasted": true
         }
     ]

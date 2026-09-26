@@ -9,12 +9,37 @@
         "underlying": "GME",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 25.0357,
+        "englishName": "Yieldmax Gme Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1023,
+        "AvgVolume": 1351,
+        "sharesOutstanding": null,
+        "52Week": "22.645 - 56.15",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636V4620",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.2925,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2827,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1309,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2209,51 +2234,11 @@
             "high": 25.292999,
             "low": 24.790001,
             "close": 25.292999,
-            "volume": 2800,
-            "yield": 0.7329890789
-        },
-        {
-            "date": "2026-09-18",
-            "open": 25.049999,
-            "high": 25.110001,
-            "low": 25.035999,
-            "close": 25.035999,
-            "volume": 1000
-        },
-        {
-            "date": "2026-09-21",
-            "open": 25.299999,
-            "high": 25.299999,
-            "low": 25.139999,
-            "close": 25.139999,
-            "volume": 1100
-        },
-        {
-            "date": "2026-09-22",
-            "open": 25.709999,
-            "high": 26.085199,
-            "low": 25.790001,
-            "close": 26.085199,
-            "volume": 2118
-        },
-        {
-            "date": "2026-09-23",
-            "open": 26.200001,
-            "high": 26.59,
-            "low": 26.2076,
-            "close": 26.2076,
-            "volume": 5116
+            "volume": 2800
         },
         {
             "date": "2026-09-24",
-            "expected": true,
-            "open": 25.530001,
-            "high": 26.5441,
-            "low": 25.459999,
-            "close": 26.5441,
-            "volume": 2703,
-            "amount": 0.353,
-            "yield": 0.7255698893
+            "expected": true
         },
         {
             "date": "2026-10-01",
@@ -2353,10 +2338,6 @@
         },
         {
             "date": "2027-03-18",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-25",
             "forecasted": true
         }
     ]

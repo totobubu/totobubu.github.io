@@ -9,7 +9,19 @@
         "underlying": "TSLA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 19.4372,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 9775,
+        "AvgVolume": 14524,
+        "sharesOutstanding": null,
+        "52Week": "18.49 - 32.5",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J5193",
         "events": {
             "frequencyChanges": [
@@ -27,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.3159,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3134,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 15620,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5207,49 +5232,11 @@
             "high": 19.459999,
             "low": 19.059999,
             "close": 19.316,
-            "volume": 3100,
-            "yield": 0.5757772319
-        },
-        {
-            "date": "2026-09-18",
-            "open": 19.136,
-            "high": 19.58,
-            "low": 19.136,
-            "close": 19.437,
-            "volume": 9800
-        },
-        {
-            "date": "2026-09-21",
-            "open": 18.98,
-            "high": 19.131001,
-            "low": 18.9,
-            "close": 18.950001,
-            "volume": 17900
-        },
-        {
-            "date": "2026-09-22",
-            "open": 18.98,
-            "high": 19.139999,
-            "low": 18.832199,
-            "close": 18.832199,
-            "volume": 5962
-        },
-        {
-            "date": "2026-09-23",
-            "open": 18.75,
-            "high": 18.870001,
-            "low": 18.495001,
-            "close": 18.806601,
-            "volume": 7822
+            "volume": 3100
         },
         {
             "date": "2026-09-24",
-            "expected": true,
-            "open": 18.73,
-            "high": 18.9436,
-            "low": 18.530001,
-            "close": 18.7404,
-            "volume": 13591
+            "expected": true
         },
         {
             "date": "2026-10-01",
@@ -5349,10 +5336,6 @@
         },
         {
             "date": "2027-03-18",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-25",
             "forecasted": true
         }
     ]

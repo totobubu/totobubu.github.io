@@ -9,12 +9,37 @@
         "underlying": "BRK.B",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 38.89,
+        "englishName": "Roundhill BRKB WeeklyPay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 5033,
+        "AvgVolume": 3562,
+        "sharesOutstanding": null,
+        "52Week": "37.425 - 47.869",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X6278",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 39.0385,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1837,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3580,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2722,46 +2747,8 @@
             "volume": 1800
         },
         {
-            "date": "2026-09-18",
-            "open": 38.755001,
-            "high": 39.044998,
-            "low": 38.755001,
-            "close": 38.889999,
-            "volume": 5000
-        },
-        {
             "date": "2026-09-21",
-            "amountFixed": 0.132507,
-            "open": 38.599998,
-            "high": 38.689999,
-            "low": 38.285,
-            "close": 38.285,
-            "volume": 2400,
-            "yield": 0.2090610989
-        },
-        {
-            "date": "2026-09-22",
-            "open": 38.349998,
-            "high": 38.389999,
-            "low": 38.299999,
-            "close": 38.337399,
-            "volume": 1286
-        },
-        {
-            "date": "2026-09-23",
-            "open": 38.689999,
-            "high": 38.909,
-            "low": 38.689999,
-            "close": 38.745602,
-            "volume": 1420
-        },
-        {
-            "date": "2026-09-24",
-            "open": 38.700001,
-            "high": 38.740002,
-            "low": 38.536098,
-            "close": 38.536098,
-            "volume": 1720
+            "amountFixed": 0.132507
         },
         {
             "date": "2026-09-28",
@@ -2861,10 +2848,6 @@
         },
         {
             "date": "2027-03-15",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-22",
             "forecasted": true
         }
     ]

@@ -9,7 +9,19 @@
         "underlying": "CVNA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 18.2707,
+        "englishName": "YieldMax CVNA Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 31123,
+        "AvgVolume": 21254,
+        "sharesOutstanding": null,
+        "52Week": "17.96 - 43.18",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R2067",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.4982,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 18195,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 21467,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3466,49 +3491,11 @@
             "high": 18.895,
             "low": 18.469999,
             "close": 18.497999,
-            "volume": 18400,
-            "yield": 1.192088094
-        },
-        {
-            "date": "2026-09-18",
-            "open": 18.459999,
-            "high": 18.68,
-            "low": 18.200001,
-            "close": 18.271,
-            "volume": 31600
-        },
-        {
-            "date": "2026-09-21",
-            "open": 18.610001,
-            "high": 18.891001,
-            "low": 18.42,
-            "close": 18.809999,
-            "volume": 52500
-        },
-        {
-            "date": "2026-09-22",
-            "open": 18.91,
-            "high": 18.92,
-            "low": 18.473,
-            "close": 18.473,
-            "volume": 19670
-        },
-        {
-            "date": "2026-09-23",
-            "open": 18.43,
-            "high": 18.2862,
-            "low": 17.652,
-            "close": 18.18,
-            "volume": 25552
+            "volume": 18400
         },
         {
             "date": "2026-09-24",
-            "expected": true,
-            "open": 17.68,
-            "high": 17.99,
-            "low": 17.5,
-            "close": 17.952101,
-            "volume": 17452
+            "expected": true
         },
         {
             "date": "2026-10-01",
@@ -3608,10 +3595,6 @@
         },
         {
             "date": "2027-03-18",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-25",
             "forecasted": true
         }
     ]

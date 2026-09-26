@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 20.83,
+        "englishName": "Direxion Daily CSI 300 China A Share Bull 2X Shares",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 10734,
+        "AvgVolume": 100895,
+        "sharesOutstanding": null,
+        "52Week": "18.64 - 26.1",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US25490K8696",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.43,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 23562,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 102124,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6425,7 +6450,7 @@
             "low": 23.270000457763672,
             "close": 23.360000610351562,
             "volume": 250000,
-            "yield": 8.51064e-5
+            "yield": 0.0000851064
         },
         {
             "date": "2018-06-20",
@@ -23056,53 +23081,11 @@
             "volume": 23600
         },
         {
-            "date": "2026-09-18",
-            "open": 20.860001,
-            "high": 20.860001,
-            "low": 20.690001,
-            "close": 20.83,
-            "volume": 10700
-        },
-        {
-            "date": "2026-09-21",
-            "open": 21.280001,
-            "high": 21.48,
-            "low": 21.17,
-            "close": 21.440001,
-            "volume": 76500
-        },
-        {
-            "date": "2026-09-22",
-            "open": 21.245001,
-            "high": 21.325001,
-            "low": 21.139999,
-            "close": 21.27,
-            "volume": 15449,
-            "amount": 0.111,
-            "yield": 0.026406212
-        },
-        {
             "date": "2026-09-23",
-            "open": 20.73,
-            "high": 20.725,
-            "low": 20.530001,
-            "close": 20.530001,
-            "volume": 41620
-        },
-        {
-            "date": "2026-09-24",
-            "open": 20.25,
-            "high": 20.1889,
-            "low": 19.9389,
-            "close": 20.030001,
-            "volume": 49164
-        },
-        {
-            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2027-03-22",
+            "date": "2026-12-23",
             "forecasted": true
         }
     ]

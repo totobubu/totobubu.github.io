@@ -1,19 +1,8 @@
 <!-- src\App.vue -->
 <script setup>
-    import { computed, defineAsyncComponent } from 'vue';
     import { useHead } from '@vueuse/head';
+    import Layout from './layouts/Layout.vue';
     import ErrorBoundary from './components/ErrorBoundary.vue';
-    import { isLegacyPortfolioEnabled } from '@/config/appMode';
-
-    const LegacyLayout = defineAsyncComponent(
-        () => import('./layouts/Layout.vue')
-    );
-    const ContentStudioLayout = defineAsyncComponent(
-        () => import('./layouts/ContentStudioLayout.vue')
-    );
-    const activeLayout = computed(() =>
-        isLegacyPortfolioEnabled ? LegacyLayout : ContentStudioLayout
-    );
 
     useHead({
         // %s는 각 페이지 컴포넌트에서 설정한 title 값으로 대체됩니다.
@@ -23,6 +12,6 @@
 
 <template>
     <ErrorBoundary>
-        <component :is="activeLayout" />
+        <Layout />
     </ErrorBoundary>
 </template>

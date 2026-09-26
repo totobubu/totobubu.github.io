@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 45.71,
+        "englishName": "Direxion Daily S&P Oil & Gas Exp. & Prod. Bull 2X Shares",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 440006,
+        "AvgVolume": 775320,
+        "sharesOutstanding": null,
+        "52Week": "20.805 - 50.775",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US25460G5009",
         "events": {
             "splits": [
@@ -40,7 +52,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.68,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 326797,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 783754,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6785,7 +6810,7 @@
             "close": 4059,
             "volume": 6539,
             "yield": 0.0219726562,
-            "amountOriginal": 9e-5,
+            "amountOriginal": 0.00009,
             "amountSplitAdjustments": [
                 {
                     "date": "2019-11-22",
@@ -7320,7 +7345,7 @@
             "close": 808,
             "volume": 81110,
             "yield": 0.1775956284,
-            "amountOriginal": 4e-5,
+            "amountOriginal": 0.00004,
             "amountSplitAdjustments": [
                 {
                     "date": "2019-11-22",
@@ -23059,53 +23084,11 @@
             "volume": 327200
         },
         {
-            "date": "2026-09-18",
-            "open": 46.720001,
-            "high": 46.860001,
-            "low": 45.639999,
-            "close": 45.709999,
-            "volume": 441200
-        },
-        {
-            "date": "2026-09-21",
-            "open": 44.610001,
-            "high": 45.189999,
-            "low": 42.970001,
-            "close": 43.139999,
-            "volume": 541600
-        },
-        {
-            "date": "2026-09-22",
-            "open": 41.669998,
-            "high": 43.394901,
-            "low": 41.279999,
-            "close": 41.549999,
-            "volume": 664187,
-            "amount": 0.148,
-            "yield": 0.0149508047
-        },
-        {
             "date": "2026-09-23",
-            "open": 42.25,
-            "high": 43.099998,
-            "low": 41.740002,
-            "close": 42.029999,
-            "volume": 1210552
-        },
-        {
-            "date": "2026-09-24",
-            "open": 42.66,
-            "high": 43.849998,
-            "low": 41.970001,
-            "close": 42.720001,
-            "volume": 696302
-        },
-        {
-            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2027-03-22",
+            "date": "2026-12-23",
             "forecasted": true
         }
     ]

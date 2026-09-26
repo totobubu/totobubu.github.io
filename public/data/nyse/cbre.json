@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 139.5,
+        "englishName": "CBRE Group, Inc.",
+        "earningsDate": "2026-07-29",
+        "enterpriseValue": 50436628480,
+        "marketCap": 40395755520,
+        "Volume": 4456408,
+        "AvgVolume": 1684425,
+        "sharesOutstanding": 289575298,
+        "52Week": "121.69 - 174.27",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US12504L1098",
         "events": {
             "splits": [
@@ -20,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 139.32,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 50216554496,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 40343633920,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1832033,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1722425,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -50399,43 +50432,7 @@
             "high": 139.949799,
             "low": 137.360001,
             "close": 139.5,
-            "volume": 4456408,
-            "marketCap": 41470078976
-        },
-        {
-            "date": "2026-09-21",
-            "open": 141.449997,
-            "high": 143.600006,
-            "low": 140.729996,
-            "close": 143.210007,
-            "volume": 1995000,
-            "marketCap": 40844595200
-        },
-        {
-            "date": "2026-09-22",
-            "open": 144.529999,
-            "high": 144.569901,
-            "low": 139.690002,
-            "close": 141.050003,
-            "volume": 1578123,
-            "marketCap": 39500967936
-        },
-        {
-            "date": "2026-09-23",
-            "open": 139.5,
-            "high": 140.629807,
-            "low": 135.315002,
-            "close": 136.410004,
-            "volume": 2346681,
-            "marketCap": 39535714304
-        },
-        {
-            "date": "2026-09-24",
-            "open": 136.740005,
-            "high": 138.720001,
-            "low": 135.449997,
-            "close": 136.529999,
-            "volume": 2384676
+            "volume": 4456408
         }
     ]
 }

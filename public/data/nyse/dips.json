@@ -9,7 +9,19 @@
         "underlying": "NVDA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 32.3625,
+        "englishName": "YieldMax Short NVDA Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 3565,
+        "AvgVolume": 6211,
+        "sharesOutstanding": null,
+        "52Week": "31.637 - 62.6",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636J4857",
         "events": {
             "frequencyChanges": [
@@ -27,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.7727,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1973,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 6287,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4724,49 +4749,11 @@
             "high": 32.889999,
             "low": 32.616001,
             "close": 32.772999,
-            "volume": 2000,
-            "yield": 0.6159988026
-        },
-        {
-            "date": "2026-09-18",
-            "open": 32.810001,
-            "high": 32.919998,
-            "low": 32.349998,
-            "close": 32.362999,
-            "volume": 3600
-        },
-        {
-            "date": "2026-09-21",
-            "open": 32.299999,
-            "high": 32.299999,
-            "low": 31.65,
-            "close": 31.688,
-            "volume": 3600
-        },
-        {
-            "date": "2026-09-22",
-            "open": 31.690001,
-            "high": 31.575001,
-            "low": 31.35,
-            "close": 31.48,
-            "volume": 2286
-        },
-        {
-            "date": "2026-09-23",
-            "open": 31.379999,
-            "high": 32.25,
-            "low": 31.98,
-            "close": 32.02,
-            "volume": 5015
+            "volume": 2000
         },
         {
             "date": "2026-09-24",
-            "expected": true,
-            "open": 32.479,
-            "high": 32.48,
-            "low": 32.004101,
-            "close": 32.004101,
-            "volume": 3598
+            "expected": true
         },
         {
             "date": "2026-10-01",
@@ -4866,10 +4853,6 @@
         },
         {
             "date": "2027-03-18",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-25",
             "forecasted": true
         }
     ]

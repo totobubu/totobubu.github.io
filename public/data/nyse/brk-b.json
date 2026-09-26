@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 509.77,
+        "englishName": "Berkshire Hathaway Inc.",
+        "earningsDate": "2026-08-08",
+        "enterpriseValue": -233921298432,
+        "marketCap": 1091269558272,
+        "Volume": 12458105,
+        "AvgVolume": 4355522,
+        "sharesOutstanding": 1408035161,
+        "52Week": "464.01 - 537.74",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": 0,
         "isin": "US0846707026",
         "events": {
             "splits": [
@@ -20,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 509.2,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": -233906176000,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1090049409024,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5812012,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4402117,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -68716,43 +68749,7 @@
             "high": 512.065002,
             "low": 506.130005,
             "close": 509.769989,
-            "volume": 12458105,
-            "marketCap": 1074657755136
-        },
-        {
-            "date": "2026-09-21",
-            "open": 507.929993,
-            "high": 510.5,
-            "low": 501.980011,
-            "close": 502.01001,
-            "volume": 4784300,
-            "marketCap": 1077825961984
-        },
-        {
-            "date": "2026-09-22",
-            "open": 503.325012,
-            "high": 505.559998,
-            "low": 501.5,
-            "close": 503.48999,
-            "volume": 4699919,
-            "marketCap": 1085703782400
-        },
-        {
-            "date": "2026-09-23",
-            "open": 503.859985,
-            "high": 511.279999,
-            "low": 503,
-            "close": 507.170013,
-            "volume": 5358076,
-            "marketCap": 1081443745792
-        },
-        {
-            "date": "2026-09-24",
-            "open": 509.579987,
-            "high": 510,
-            "low": 504.980988,
-            "close": 505.179993,
-            "volume": 2697871
+            "volume": 12458105
         }
     ]
 }

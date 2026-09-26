@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 42.78,
+        "englishName": "Roundhill Gold Miners Weeklypay ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 56382,
+        "AvgVolume": 47366,
+        "sharesOutstanding": null,
+        "52Week": "32.445 - 77.19",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US77926X4869",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43.05,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 42408,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 47637,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1901,46 +1926,8 @@
             "volume": 42400
         },
         {
-            "date": "2026-09-18",
-            "open": 43.200001,
-            "high": 43.200001,
-            "low": 42.080002,
-            "close": 42.779999,
-            "volume": 56400
-        },
-        {
             "date": "2026-09-21",
-            "amountFixed": 0.399685,
-            "open": 42.650002,
-            "high": 42.650002,
-            "low": 41.43,
-            "close": 41.82,
-            "volume": 62200,
-            "yield": 0.5596943934
-        },
-        {
-            "date": "2026-09-22",
-            "open": 41.759998,
-            "high": 43.91,
-            "low": 42.049999,
-            "close": 43.710899,
-            "volume": 61349
-        },
-        {
-            "date": "2026-09-23",
-            "open": 42.310001,
-            "high": 42.067101,
-            "low": 41.0914,
-            "close": 41.299999,
-            "volume": 63366
-        },
-        {
-            "date": "2026-09-24",
-            "open": 40.860001,
-            "high": 40.75,
-            "low": 39.900002,
-            "close": 40.59,
-            "volume": 71090
+            "amountFixed": 0.399685
         },
         {
             "date": "2026-09-28",
@@ -2040,10 +2027,6 @@
         },
         {
             "date": "2027-03-15",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-22",
             "forecasted": true
         }
     ]

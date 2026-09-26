@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 35.03,
+        "englishName": "Direxion Daily Financial Bear 3X Shares",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 807240,
+        "AvgVolume": 795000,
+        "sharesOutstanding": null,
+        "52Week": "30.33 - 56.37",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US25460E2164",
         "events": {
             "splits": [
@@ -50,7 +62,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.01,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1151619,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 783466,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18838,7 +18863,7 @@
             "close": 4148,
             "volume": 2573,
             "yield": 0.5769230769,
-            "amountOriginal": 3.8e-5,
+            "amountOriginal": 0.000038,
             "amountSplitAdjustments": [
                 {
                     "date": "2019-06-28",
@@ -19909,7 +19934,7 @@
             "close": 3696,
             "volume": 1486,
             "yield": 1.5806805708,
-            "amountOriginal": 5.3e-5,
+            "amountOriginal": 0.000053,
             "amountSplitAdjustments": [
                 {
                     "date": "2019-06-28",
@@ -20907,7 +20932,7 @@
             "close": 3628,
             "volume": 5795,
             "yield": 4.7058823529,
-            "amountOriginal": 6.8e-5,
+            "amountOriginal": 0.000068,
             "amountSplitAdjustments": [
                 {
                     "date": "2019-06-28",
@@ -36207,45 +36232,11 @@
             "volume": 807240
         },
         {
-            "date": "2026-09-21",
-            "open": 34.369999,
-            "high": 35.009998,
-            "low": 34.130001,
-            "close": 34.689999,
-            "volume": 696400
-        },
-        {
-            "date": "2026-09-22",
-            "open": 34.240002,
-            "high": 36.994999,
-            "low": 34.189999,
-            "close": 36.580002,
-            "volume": 1235573,
-            "amount": 0.205,
-            "yield": 0.1402161133
-        },
-        {
             "date": "2026-09-23",
-            "open": 36.990002,
-            "high": 37.150002,
-            "low": 36,
-            "close": 37.080002,
-            "volume": 976931
-        },
-        {
-            "date": "2026-09-24",
-            "open": 36.919998,
-            "high": 37.669998,
-            "low": 36.549999,
-            "close": 37.09,
-            "volume": 1066187
-        },
-        {
-            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2027-03-22",
+            "date": "2026-12-23",
             "forecasted": true
         }
     ]

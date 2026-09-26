@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 20.2,
+        "englishName": "First Trust Core Investment Grade ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 497042,
+        "AvgVolume": 723700,
+        "sharesOutstanding": null,
+        "52Week": "20.17 - 21.6",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US33738D7883",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.275,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 375284,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 728366,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5812,44 +5837,8 @@
             "volume": 375300
         },
         {
-            "date": "2026-09-18",
-            "open": 20.23,
-            "high": 20.23,
-            "low": 20.190001,
-            "close": 20.200001,
-            "volume": 497000
-        },
-        {
             "date": "2026-09-21",
-            "open": 20.26,
-            "high": 20.26,
-            "low": 20.23,
-            "close": 20.25,
-            "volume": 471800
-        },
-        {
-            "date": "2026-09-22",
-            "open": 20.27,
-            "high": 20.275999,
-            "low": 20.2218,
-            "close": 20.26,
-            "volume": 389109
-        },
-        {
-            "date": "2026-09-23",
-            "open": 20.24,
-            "high": 20.24,
-            "low": 20.030001,
-            "close": 20.07,
-            "volume": 771949
-        },
-        {
-            "date": "2026-09-24",
-            "open": 19.99,
-            "high": 20.01,
-            "low": 19.870001,
-            "close": 19.870001,
-            "volume": 469895
+            "forecasted": true
         },
         {
             "date": "2026-10-21",
@@ -5869,10 +5858,6 @@
         },
         {
             "date": "2027-02-19",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-19",
             "forecasted": true
         }
     ]

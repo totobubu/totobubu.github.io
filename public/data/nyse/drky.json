@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 21.774,
+        "englishName": "VistaShares Target 15 DRUKMacro Distribution ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 4292,
+        "AvgVolume": 7804,
+        "sharesOutstanding": null,
+        "52Week": "18.21 - 22.72",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US45259A2666",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.5928,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7246,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7722,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1944,36 +1969,8 @@
             "volume": 4292
         },
         {
-            "date": "2026-09-21",
-            "open": 22.15,
-            "high": 22.190001,
-            "low": 22.010099,
-            "close": 22.174801,
-            "volume": 6989
-        },
-        {
-            "date": "2026-09-22",
-            "open": 22.040001,
-            "high": 22.68,
-            "low": 22.02,
-            "close": 22.624399,
-            "volume": 14410
-        },
-        {
-            "date": "2026-09-23",
-            "open": 22.434999,
-            "high": 22.48,
-            "low": 22.340099,
-            "close": 22.346701,
-            "volume": 8980
-        },
-        {
             "date": "2026-09-24",
-            "open": 22.360001,
-            "high": 22.700001,
-            "low": 22.32,
-            "close": 22.6577,
-            "volume": 18496
+            "forecasted": true
         },
         {
             "date": "2026-10-23",
@@ -1993,10 +1990,6 @@
         },
         {
             "date": "2027-02-24",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-24",
             "forecasted": true
         }
     ]

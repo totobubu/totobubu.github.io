@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 14.55,
+        "englishName": "Main Buywrite ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 274687,
+        "AvgVolume": 387137,
+        "sharesOutstanding": null,
+        "52Week": "13.84 - 14.66",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US66538H1793",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.6,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 449498,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 382854,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8172,53 +8197,15 @@
             "volume": 449500
         },
         {
-            "date": "2026-09-18",
-            "open": 14.6,
-            "high": 14.6,
-            "low": 14.55,
-            "close": 14.55,
-            "volume": 274700
-        },
-        {
-            "date": "2026-09-21",
-            "open": 14.57,
-            "high": 14.57,
-            "low": 14.521,
-            "close": 14.56,
-            "volume": 246300
-        },
-        {
-            "date": "2026-09-22",
-            "open": 14.56,
-            "high": 14.6,
-            "low": 14.54,
-            "close": 14.6,
-            "volume": 486621
-        },
-        {
-            "date": "2026-09-23",
-            "open": 14.58,
-            "high": 14.58,
-            "low": 14.53,
-            "close": 14.55,
-            "volume": 666649
-        },
-        {
-            "date": "2026-09-24",
-            "open": 14.47,
-            "high": 14.48,
-            "low": 14.45,
-            "close": 14.45,
-            "volume": 761128,
-            "amount": 0.073,
-            "yield": 0.0596406358
-        },
-        {
-            "date": "2026-10-23",
+            "date": "2026-09-25",
             "forecasted": true
         },
         {
-            "date": "2026-11-24",
+            "date": "2026-10-26",
+            "forecasted": true
+        },
+        {
+            "date": "2026-11-26",
             "forecasted": true
         },
         {
@@ -8226,15 +8213,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-01-22",
+            "date": "2027-01-26",
             "forecasted": true
         },
         {
-            "date": "2027-02-24",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-24",
+            "date": "2027-02-26",
             "forecasted": true
         }
     ]

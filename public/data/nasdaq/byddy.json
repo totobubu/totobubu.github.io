@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 10.36,
+        "englishName": "BYD Company Limited",
+        "earningsDate": "2026-08-28",
+        "enterpriseValue": 103263698944,
+        "marketCap": 94454161408,
+        "Volume": 304665,
+        "AvgVolume": 1295596,
+        "sharesOutstanding": 3683400000,
+        "52Week": "9.21 - 14.64",
+        "Yield": 0.034556,
+        "dividendRate": 0.05,
+        "payoutRatio": 0.1105,
         "isin": "US05606L1008",
         "events": {
             "splits": [
@@ -25,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.32,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 100447338496,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 94089469952,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 236582,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1297435,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.03469,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28336,7 +28373,7 @@
             "close": 13.046667098999023,
             "volume": 1324800,
             "amount": 0.0009,
-            "yield": 6.90537e-5,
+            "yield": 0.0000690537,
             "marketCap": 48056093592,
             "amountOriginal": 0.198,
             "amountSplitAdjustments": [
@@ -37874,43 +37911,7 @@
             "high": 10.36,
             "low": 10.26,
             "close": 10.36,
-            "volume": 304665,
-            "marketCap": 94454161408
-        },
-        {
-            "date": "2026-09-21",
-            "open": 10.31,
-            "high": 10.37,
-            "low": 10.27,
-            "close": 10.36,
-            "volume": 181500,
-            "marketCap": 94454161408
-        },
-        {
-            "date": "2026-09-22",
-            "open": 10.34,
-            "high": 10.43,
-            "low": 10.32,
-            "close": 10.36,
-            "volume": 324987,
-            "marketCap": 92266037248
-        },
-        {
-            "date": "2026-09-23",
-            "open": 10.25,
-            "high": 10.25,
-            "low": 10.12,
-            "close": 10.12,
-            "volume": 185789,
-            "marketCap": 91992522752
-        },
-        {
-            "date": "2026-09-24",
-            "open": 10.22,
-            "high": 10.23,
-            "low": 10.01,
-            "close": 10.09,
-            "volume": 323458
+            "volume": 304665
         }
     ]
 }

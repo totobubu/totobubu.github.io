@@ -9,7 +9,19 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 21.41,
+        "englishName": "Direxion Daily Real Estate Bear 3X Shares",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 72160,
+        "AvgVolume": 135875,
+        "sharesOutstanding": null,
+        "52Week": "16.26 - 27.75",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US25460G4192",
         "events": {
             "splits": [
@@ -40,7 +52,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.76,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 151379,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 134911,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1428,7 +1453,7 @@
             "close": 43750,
             "volume": 699,
             "yield": 21.8642117376,
-            "amountOriginal": 8e-6,
+            "amountOriginal": 0.000008,
             "amountSplitAdjustments": [
                 {
                     "date": "2010-07-08",
@@ -18063,7 +18088,7 @@
             "close": 535,
             "volume": 1402,
             "yield": 0.0092592593,
-            "amountOriginal": 4e-5,
+            "amountOriginal": 0.00004,
             "amountSplitAdjustments": [
                 {
                     "date": "2019-06-28",
@@ -34790,45 +34815,11 @@
             "volume": 72160
         },
         {
-            "date": "2026-09-21",
-            "open": 21.24,
-            "high": 21.25,
-            "low": 20.709999,
-            "close": 20.780001,
-            "volume": 101300
-        },
-        {
-            "date": "2026-09-22",
-            "open": 20.6,
-            "high": 20.875,
-            "low": 20.530001,
-            "close": 20.74,
-            "volume": 66700,
-            "amount": 0.154,
-            "yield": 0.0416019417
-        },
-        {
             "date": "2026-09-23",
-            "open": 21.059999,
-            "high": 21.77,
-            "low": 20.91,
-            "close": 21.709999,
-            "volume": 118577
-        },
-        {
-            "date": "2026-09-24",
-            "open": 21.620001,
-            "high": 22.08,
-            "low": 21.4,
-            "close": 22.059999,
-            "volume": 92951
-        },
-        {
-            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2027-03-22",
+            "date": "2026-12-23",
             "forecasted": true
         }
     ]

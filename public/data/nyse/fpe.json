@@ -9,12 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 17.49,
+        "englishName": "First Trust Preferred Securities and Income ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 1390604,
+        "AvgVolume": 1007190,
+        "sharesOutstanding": null,
+        "52Week": "17.38 - 18.51",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US33739E1082",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.53,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 934242,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1006864,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27696,44 +27721,8 @@
             "volume": 934300
         },
         {
-            "date": "2026-09-18",
-            "open": 17.49,
-            "high": 17.51,
-            "low": 17.48,
-            "close": 17.49,
-            "volume": 1410200
-        },
-        {
             "date": "2026-09-21",
-            "open": 17.540001,
-            "high": 17.559999,
-            "low": 17.530001,
-            "close": 17.540001,
-            "volume": 1156000
-        },
-        {
-            "date": "2026-09-22",
-            "open": 17.52,
-            "high": 17.540001,
-            "low": 17.491899,
-            "close": 17.52,
-            "volume": 820242
-        },
-        {
-            "date": "2026-09-23",
-            "open": 17.5,
-            "high": 17.5084,
-            "low": 17.381599,
-            "close": 17.4,
-            "volume": 1313731
-        },
-        {
-            "date": "2026-09-24",
-            "open": 17.26,
-            "high": 17.278799,
-            "low": 17.23,
-            "close": 17.23,
-            "volume": 1724453
+            "forecasted": true
         },
         {
             "date": "2026-10-21",
@@ -27753,10 +27742,6 @@
         },
         {
             "date": "2027-02-19",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-19",
             "forecasted": true
         }
     ]

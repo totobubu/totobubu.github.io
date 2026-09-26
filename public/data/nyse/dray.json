@@ -9,7 +9,19 @@
         "underlying": "DKNG",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-26 07:04:18 KST",
+        "Update": "2026-09-19 06:35:51 KST",
+        "regularMarketPrice": 12.77,
+        "englishName": "YieldMax DKNG Option Income Strategy ETF",
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": 19605,
+        "AvgVolume": 7520,
+        "sharesOutstanding": null,
+        "52Week": "12.77 - 48.3",
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
         "isin": "US88636R3057",
         "events": {
             "frequencyChanges": [
@@ -21,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.246,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7304,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7493,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2543,51 +2568,11 @@
             "high": 13.98,
             "low": 13.201,
             "close": 13.246,
-            "volume": 7400,
-            "yield": 1.1258861671
-        },
-        {
-            "date": "2026-09-18",
-            "open": 13.11,
-            "high": 13.31,
-            "low": 12.77,
-            "close": 12.77,
-            "volume": 19600
-        },
-        {
-            "date": "2026-09-21",
-            "open": 12.83,
-            "high": 13.03,
-            "low": 12.83,
-            "close": 12.923,
-            "volume": 7900
-        },
-        {
-            "date": "2026-09-22",
-            "open": 13.18,
-            "high": 13.4999,
-            "low": 12.83,
-            "close": 12.83,
-            "volume": 14190
-        },
-        {
-            "date": "2026-09-23",
-            "open": 12.82,
-            "high": 12.81,
-            "low": 12.395,
-            "close": 12.5632,
-            "volume": 9624
+            "volume": 7400
         },
         {
             "date": "2026-09-24",
-            "expected": true,
-            "open": 12.48,
-            "high": 12.56,
-            "low": 12.18,
-            "close": 12.5,
-            "volume": 4563,
-            "amount": 0.101,
-            "yield": 1.1348717949
+            "expected": true
         },
         {
             "date": "2026-10-01",
@@ -2687,10 +2672,6 @@
         },
         {
             "date": "2027-03-18",
-            "forecasted": true
-        },
-        {
-            "date": "2027-03-25",
             "forecasted": true
         }
     ]
