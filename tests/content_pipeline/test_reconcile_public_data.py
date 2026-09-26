@@ -50,6 +50,27 @@ class PublicDataReconciliationTest(unittest.TestCase):
         result = scan(self.db_path, self.data_dir)
         statuses = {row["ticker"]: row["status"] for row in result["reviews"]}
         self.assertEqual(statuses, {"MATCH": "matched", "MISS": "missing_date", "DIFF": "amount_mismatch", "EXPECT": "expected_only"})
+        audit = {row["ticker"]: row for row in result["legacyAudit"]["tickers"]}
+        self.assertEqual(audit["MATCH"]["status"], "partially_verified")
+        self.assertEqual(audit["DIFF"]["status"], "official_conflict")
+        self.assertEqual(audit["EXPECT"]["status"], "pending_official_comparison")
+
+    def test_audits_legacy_only_and_invalid_rows_without_calling_them_verified(self):
+        self.write_ticker("LEGACY", [
+            {"date": "2026-01-01", "amount": 0.1},
+            {"date": "2026-01-01", "expected": True},
+            {"amount": 0.2},
+        ])
+
+        result = scan(self.db_path, self.data_dir)
+
+        audit = result["legacyAudit"]["tickers"][0]
+        self.assertEqual(audit["ticker"], "LEGACY")
+        self.assertEqual(audit["status"], "invalid_rows")
+        self.assertEqual(audit["officialEventCount"], 0)
+        self.assertEqual(audit["duplicateDateCount"], 1)
+        self.assertEqual(audit["malformedRowCount"], 1)
+        self.assertEqual(audit["matchedOfficialEventCount"], 0)
 
     def test_apply_requires_explicit_review_and_writes_only_selected_missing_row(self):
         self.add_event("MISS", "2026-09-10", "0.2")

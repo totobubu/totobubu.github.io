@@ -25,6 +25,8 @@ from scripts.content_pipeline.database import ContentDatabase, DEFAULT_DB_PATH
 
 TOLERANCE = Decimal("0.000001")
 REVIEWABLE = {"missing_date", "amount_mismatch", "expected_only", "needs_review"}
+AUDIT_CONFLICTS = {"amount_mismatch", "needs_review"}
+AUDIT_PENDING = {"missing_date", "expected_only", "missing_data_file"}
 
 
 def now() -> str:
@@ -50,6 +52,109 @@ def _ticker_files(data_dir: Path) -> dict[str, Path]:
     for path in data_dir.glob("*/*.json"):
         candidates.setdefault(path.stem.upper(), []).append(path)
     return {ticker: paths[0] for ticker, paths in candidates.items() if len(paths) == 1}
+
+
+def _legacy_file_audit(data_dir: Path, events: list[sqlite3.Row],
+                       reviews: list[dict[str, Any]]) -> dict[str, Any]:
+    """Inventory legacy files without treating an unreviewed history as verified."""
+    paths_by_ticker: dict[str, list[Path]] = {}
+    for path in data_dir.glob("*/*.json"):
+        paths_by_ticker.setdefault(path.stem.upper(), []).append(path)
+
+    event_counts: dict[str, int] = {}
+    for event in events:
+        ticker = event["ticker"].upper()
+        event_counts[ticker] = event_counts.get(ticker, 0) + 1
+    review_statuses: dict[str, list[str]] = {}
+    for review in reviews:
+        review_statuses.setdefault(review["ticker"].upper(), []).append(review["status"])
+
+    rows: list[dict[str, Any]] = []
+    summary: dict[str, int] = {}
+    for ticker in sorted(set(paths_by_ticker) | set(event_counts)):
+        paths = paths_by_ticker.get(ticker, [])
+        statuses = review_statuses.get(ticker, [])
+        row: dict[str, Any] = {
+            "ticker": ticker,
+            "path": paths[0].as_posix() if len(paths) == 1 else None,
+            "fileCount": len(paths),
+            "sha256": None,
+            "rowCount": 0,
+            "priceRowCount": 0,
+            "actualRowCount": 0,
+            "expectedRowCount": 0,
+            "malformedRowCount": 0,
+            "duplicateDateCount": 0,
+            "earliestDate": None,
+            "latestDate": None,
+            "officialEventCount": event_counts.get(ticker, 0),
+            "matchedOfficialEventCount": sum(status in {"matched", "applied"} for status in statuses),
+            "conflictCount": sum(status in AUDIT_CONFLICTS for status in statuses),
+            "pendingComparisonCount": sum(status in AUDIT_PENDING for status in statuses),
+        }
+        if not paths:
+            status = "missing_legacy_file"
+        elif len(paths) > 1:
+            status = "duplicate_ticker_files"
+            row["paths"] = [path.as_posix() for path in paths]
+        else:
+            path = paths[0]
+            row["sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                history = payload.get("backtestData")
+                if isinstance(history, dict) and not history:
+                    status = "uninitialized_file"
+                    row["status"] = status
+                    summary[status] = summary.get(status, 0) + 1
+                    rows.append(row)
+                    continue
+                if not isinstance(history, list):
+                    raise ValueError("backtestData is not an array")
+                row["rowCount"] = len(history)
+                dates: list[str] = []
+                for item in history:
+                    if not isinstance(item, dict) or not isinstance(item.get("date"), str):
+                        row["malformedRowCount"] += 1
+                        continue
+                    dates.append(item["date"])
+                    if item.get("expected") is True:
+                        row["expectedRowCount"] += 1
+                    has_distribution = (_decimal(item.get("amount")) is not None
+                                        or _decimal(item.get("amountFixed")) is not None)
+                    has_price = _decimal(item.get("close")) is not None
+                    if has_price:
+                        row["priceRowCount"] += 1
+                    if has_distribution:
+                        row["actualRowCount"] += 1
+                    elif item.get("expected") is not True and not has_price:
+                        row["malformedRowCount"] += 1
+                row["duplicateDateCount"] = len(dates) - len(set(dates))
+                if dates:
+                    row["earliestDate"], row["latestDate"] = min(dates), max(dates)
+                if row["malformedRowCount"] or row["duplicateDateCount"]:
+                    status = "invalid_rows"
+                elif row["conflictCount"]:
+                    status = "official_conflict"
+                elif row["pendingComparisonCount"]:
+                    status = "pending_official_comparison"
+                elif row["matchedOfficialEventCount"]:
+                    status = "partially_verified"
+                elif row["officialEventCount"]:
+                    status = "pending_official_comparison"
+                else:
+                    status = "no_official_coverage"
+            except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as exc:
+                status = "invalid_file"
+                row["error"] = str(exc)
+        row["status"] = status
+        summary[status] = summary.get(status, 0) + 1
+        rows.append(row)
+    return {
+        "summary": summary,
+        "tickers": rows,
+        "method": "A file is only partially_verified when at least one official event matches; this does not verify its full history.",
+    }
 
 
 def run_new_ticker_workflow(tickers: list[str]) -> dict[str, Any]:
@@ -144,9 +249,11 @@ def scan(db_path: Path, data_dir: Path, *, onboard_missing: bool = True) -> dict
             FROM public_data_reconciliation_reviews r JOIN distribution_events e ON e.id=r.event_id
             ORDER BY r.ex_date DESC, r.ticker
         """)]
+        legacy_audit = _legacy_file_audit(data_dir, events, reviews)
     finally:
         connection.close()
-    return {"generatedAt": now(), "summary": summary, "reviews": reviews, "newTickerWorkflow": onboarding,
+    return {"generatedAt": now(), "summary": summary, "reviews": reviews, "legacyAudit": legacy_audit,
+            "newTickerWorkflow": onboarding,
             "manualApprovalRequired": sorted(REVIEWABLE), "writeMode": "approval-gated"}
 
 
