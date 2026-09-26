@@ -1,3 +1,6 @@
+import base64
+import json
+import subprocess
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -174,6 +177,44 @@ class ProviderParserTest(unittest.TestCase):
         self.assertEqual(events[0].ticker, "QQQY")
         self.assertEqual(events[0].roc_percent, "69.22")
         self.assertEqual(events[0].verification_status, "needs_review")
+
+    def test_browser_adapter_reuses_batch_collector_and_preserves_fetch_evidence(self):
+        adapter = JPMorganAdapter()
+        candidate = next(iter(adapter.discover()))
+        body = "Dividend Schedule 09/01/2026 09/01/2026 09/03/2026 0.37142"
+        completed = subprocess.CompletedProcess(
+            args=[], returncode=0,
+            stdout=json.dumps([{
+                "ok": True, "httpStatus": 200, "finalUrl": candidate.url,
+                "pageTitle": "JPMorgan ETF",
+                "contentBase64": base64.b64encode(body.encode()).decode(),
+            }]), stderr="",
+        )
+        with patch("scripts.content_pipeline.providers.http.subprocess.run", return_value=completed) as run:
+            outcome = adapter.fetch_many([candidate])[0]
+        self.assertIsNone(outcome.error)
+        self.assertEqual(outcome.document.content.decode(), body)
+        self.assertEqual(outcome.document.metadata["fetchMode"], "browser")
+        self.assertEqual(outcome.document.metadata["httpStatus"], 200)
+        payload = json.loads(run.call_args.kwargs["input"])
+        self.assertEqual(len(payload["sources"]), 1)
+        self.assertEqual(payload["sources"][0]["content"], "text")
+
+    def test_browser_adapter_classifies_challenge_without_fabricating_document(self):
+        adapter = SchwabAdapter()
+        candidate = next(iter(adapter.discover()))
+        completed = subprocess.CompletedProcess(
+            args=[], returncode=0,
+            stdout=json.dumps([{
+                "ok": False, "code": "challenge_detected", "retryable": False,
+                "message": "anti-automation challenge detected; collection stopped",
+            }]), stderr="",
+        )
+        with patch("scripts.content_pipeline.providers.http.subprocess.run", return_value=completed):
+            outcome = adapter.fetch_many([candidate])[0]
+        self.assertIsNone(outcome.document)
+        self.assertEqual(outcome.error.code, "challenge_detected")
+        self.assertFalse(outcome.error.retryable)
 
 
 if __name__ == "__main__":

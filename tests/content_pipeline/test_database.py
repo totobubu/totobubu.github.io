@@ -45,6 +45,7 @@ class ContentDatabaseTest(unittest.TestCase):
                 {
                     "providers": 1,
                     "source_documents": 1,
+                    "collection_attempts": 0,
                     "distribution_events": 1,
                     "validation_findings": 0,
                     "pipeline_runs": 0,

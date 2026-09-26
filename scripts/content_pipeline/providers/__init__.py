@@ -1,6 +1,6 @@
 """Official distribution source adapters."""
 
-from .base import NoDataError, ProviderAdapter, SourceCandidate
+from .base import CollectionError, FetchOutcome, NoDataError, ProviderAdapter, SourceCandidate
 from .amplify import AmplifyAdapter
 from .defiance import DefianceAdapter
 from .globalx import GlobalXAdapter
@@ -25,6 +25,8 @@ PROVIDERS = {
 
 __all__ = [
     "ProviderAdapter",
+    "CollectionError",
+    "FetchOutcome",
     "NoDataError",
     "SourceCandidate",
     "AmplifyAdapter",

@@ -15,6 +15,9 @@ class SchwabAdapter(OfficialHTTPAdapter):
     official_homepage = "https://www.schwabassetmanagement.com/"
     parser_version = "1"
     allowed_hosts = ("schwabassetmanagement.com",)
+    fetch_mode = "browser"
+    browser_content = "html"
+    timeout_seconds = 60
     fund_url = "https://www.schwabassetmanagement.com/products/schd"
 
     def discover(self):

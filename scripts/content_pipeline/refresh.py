@@ -18,6 +18,7 @@ from scripts.content_pipeline.export_dashboard import export_dashboard
 from scripts.content_pipeline.export_system_logs import export_system_logs
 from scripts.content_pipeline.generate_content import generate_all_bundles
 from scripts.content_pipeline.providers import PROVIDERS
+from scripts.content_pipeline.record_collection_report import record_collection_report
 from scripts.content_pipeline.reconcile_public_data import export_snapshot as export_reconciliation
 from scripts.content_pipeline.weekly_digest import generate_weekly_digest
 from scripts.data_pipeline.register_history import register as register_history
@@ -41,6 +42,8 @@ def run_collect(provider: str, db: Path, raw_dir: Path, url: str | None = None) 
         payload = json.loads(result.stdout)
     except json.JSONDecodeError:
         payload = {"stdout": result.stdout[-1000:], "stderr": result.stderr[-1000:]}
+    if payload.get("provider") == provider:
+        record_collection_report(db, provider, payload)
     if result.returncode:
         raise RuntimeError(json.dumps(payload, ensure_ascii=False))
     return payload

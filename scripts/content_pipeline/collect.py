@@ -54,10 +54,23 @@ def main() -> int:
     }
 
     max_sources = args.max_sources or getattr(adapter, "default_max_sources", 3)
-    for candidate in candidates[:max_sources]:
+    selected_candidates = candidates[:max_sources]
+    for outcome in adapter.fetch_many(selected_candidates):
+        candidate = outcome.candidate
         try:
-            document = adapter.fetch(candidate)
-            raw_path = args.raw_dir / adapter.slug / f"{document.content_sha256}.html"
+            if outcome.error:
+                report["errors"].append({
+                    "url": candidate.url,
+                    "error": str(outcome.error),
+                    "code": outcome.error.code,
+                    "retryable": outcome.error.retryable,
+                    "fetchMode": adapter.fetch_mode,
+                })
+                continue
+            assert outcome.document is not None
+            document = outcome.document
+            suffix = ".txt" if document.metadata.get("browserContent") == "text" or adapter.browser_content == "text" else ".html"
+            raw_path = args.raw_dir / adapter.slug / f"{document.content_sha256}{suffix}"
             if not args.dry_run:
                 raw_path.parent.mkdir(parents=True, exist_ok=True)
                 raw_path.write_bytes(document.content)
@@ -75,6 +88,7 @@ def main() -> int:
                     "url": candidate.url,
                     "sha256": document.content_sha256,
                     "events": len(events),
+                    "fetchMode": document.metadata.get("fetchMode", adapter.fetch_mode),
                 }
             )
             report["events"] += len(events)

@@ -12,6 +12,10 @@
             last_fetched_at: string | null;
             source_count: number;
             event_count: number;
+            last_attempt_status: string | null;
+            last_attempt_message: string | null;
+            last_fetch_mode: string | null;
+            last_attempt_at: string | null;
         }>;
         recentEvents: Array<{
             id: number;
@@ -303,7 +307,17 @@
                         <div>
                             <strong>{{ provider.display_name }}</strong>
                             <span>{{
-                                formatTimestamp(provider.last_fetched_at)
+                                [
+                                    provider.last_fetch_mode || '미실행',
+                                    provider.last_attempt_status || '기록 없음',
+                                    formatTimestamp(
+                                        provider.last_attempt_at ||
+                                            provider.last_fetched_at
+                                    ),
+                                ].join(' · ')
+                            }}</span>
+                            <span v-if="provider.last_attempt_message">{{
+                                provider.last_attempt_message
                             }}</span>
                         </div>
                         <b>{{ provider.event_count }} events</b>

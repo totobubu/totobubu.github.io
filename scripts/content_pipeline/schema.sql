@@ -28,6 +28,24 @@ CREATE TABLE IF NOT EXISTS source_documents (
 CREATE INDEX IF NOT EXISTS idx_source_documents_provider_fetched
     ON source_documents (provider_slug, fetched_at DESC);
 
+CREATE TABLE IF NOT EXISTS collection_attempts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    provider_slug TEXT NOT NULL REFERENCES providers(slug),
+    source_url TEXT NOT NULL,
+    fetch_mode TEXT NOT NULL CHECK (fetch_mode IN ('http', 'browser', 'official_file')),
+    status TEXT NOT NULL,
+    retryable INTEGER NOT NULL DEFAULT 0 CHECK (retryable IN (0, 1)),
+    http_status INTEGER,
+    content_sha256 TEXT,
+    event_count INTEGER NOT NULL DEFAULT 0,
+    message TEXT NOT NULL DEFAULT '',
+    details_json TEXT NOT NULL DEFAULT '{}',
+    attempted_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_collection_attempts_provider_time
+    ON collection_attempts (provider_slug, attempted_at DESC, id DESC);
+
 CREATE TABLE IF NOT EXISTS distribution_events (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     provider_slug TEXT NOT NULL REFERENCES providers(slug),
@@ -218,4 +236,4 @@ CREATE TABLE IF NOT EXISTS frequency_regime_observations (
     PRIMARY KEY(listing_key, effective_date, next_frequency)
 );
 
-PRAGMA user_version = 6;
+PRAGMA user_version = 7;

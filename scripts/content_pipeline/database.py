@@ -101,6 +101,38 @@ class ContentDatabase:
             ).fetchone()
             return int(row["id"])
 
+    def add_collection_attempt(
+        self,
+        provider_slug: str,
+        source_url: str,
+        fetch_mode: str,
+        status: str,
+        *,
+        retryable: bool = False,
+        http_status: int | None = None,
+        content_sha256: str | None = None,
+        event_count: int = 0,
+        message: str = "",
+        details: dict | None = None,
+    ) -> int:
+        with self.connect() as connection:
+            cursor = connection.execute(
+                """
+                INSERT INTO collection_attempts (
+                    provider_slug, source_url, fetch_mode, status, retryable,
+                    http_status, content_sha256, event_count, message,
+                    details_json, attempted_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    provider_slug, source_url, fetch_mode, status, int(retryable),
+                    http_status, content_sha256, event_count, message,
+                    json.dumps(details or {}, ensure_ascii=False, sort_keys=True),
+                    utc_now_iso(),
+                ),
+            )
+            return int(cursor.lastrowid)
+
     def upsert_distribution_event(
         self, event: DistributionEvent, source_document_id: int
     ) -> int:
@@ -157,6 +189,7 @@ class ContentDatabase:
         tables = (
             "providers",
             "source_documents",
+            "collection_attempts",
             "distribution_events",
             "validation_findings",
             "pipeline_runs",
@@ -179,7 +212,19 @@ class ContentDatabase:
                     p.enabled,
                     MAX(s.fetched_at) AS last_fetched_at,
                     COUNT(DISTINCT s.id) AS source_count,
-                    COUNT(DISTINCT e.id) AS event_count
+                    COUNT(DISTINCT e.id) AS event_count,
+                    (SELECT a.status FROM collection_attempts a
+                     WHERE a.provider_slug = p.slug
+                     ORDER BY a.attempted_at DESC, a.id DESC LIMIT 1) AS last_attempt_status,
+                    (SELECT a.message FROM collection_attempts a
+                     WHERE a.provider_slug = p.slug
+                     ORDER BY a.attempted_at DESC, a.id DESC LIMIT 1) AS last_attempt_message,
+                    (SELECT a.fetch_mode FROM collection_attempts a
+                     WHERE a.provider_slug = p.slug
+                     ORDER BY a.attempted_at DESC, a.id DESC LIMIT 1) AS last_fetch_mode,
+                    (SELECT a.attempted_at FROM collection_attempts a
+                     WHERE a.provider_slug = p.slug
+                     ORDER BY a.attempted_at DESC, a.id DESC LIMIT 1) AS last_attempt_at
                 FROM providers p
                 LEFT JOIN source_documents s ON s.provider_slug = p.slug
                 LEFT JOIN distribution_events e ON e.provider_slug = p.slug
