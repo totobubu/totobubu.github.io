@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import base64
 import json
+import random
 import subprocess
+import time
 from abc import abstractmethod
 from pathlib import Path
 from urllib.parse import urlparse
@@ -21,6 +23,8 @@ class OfficialHTTPAdapter(ProviderAdapter):
     browser_content = "html"
     browser_min_delay_ms = 5_000
     browser_max_delay_ms = 15_000
+    http_min_delay_seconds = 1.0
+    http_max_delay_seconds = 3.0
 
     def validate_url(self, url: str) -> None:
         parsed = urlparse(url)
@@ -70,7 +74,15 @@ class OfficialHTTPAdapter(ProviderAdapter):
     def fetch_many(self, candidates):
         candidates = list(candidates)
         if self.fetch_mode != "browser":
-            return super().fetch_many(candidates)
+            outcomes = []
+            for index, candidate in enumerate(candidates):
+                outcomes.extend(super().fetch_many([candidate]))
+                if index < len(candidates) - 1:
+                    time.sleep(random.uniform(
+                        self.http_min_delay_seconds,
+                        self.http_max_delay_seconds,
+                    ))
+            return outcomes
         for candidate in candidates:
             self.validate_url(candidate.url)
         if not candidates:
@@ -122,6 +134,7 @@ class OfficialHTTPAdapter(ProviderAdapter):
             metadata = {
                 **candidate.metadata,
                 "fetchMode": "browser",
+                "browserContent": candidate.metadata.get("browserContent", self.browser_content),
                 "httpStatus": row.get("httpStatus"),
                 "finalUrl": row.get("finalUrl"),
                 "pageTitle": row.get("pageTitle"),

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
+from datetime import date
 from typing import Any, Iterable
 
 from ..models import DistributionEvent, SourceDocument
@@ -47,6 +48,11 @@ class ProviderAdapter(ABC):
     @abstractmethod
     def discover(self) -> Iterable[SourceCandidate]:
         """Return newly discoverable official source candidates."""
+
+    def discover_for_ex_date(self, ex_date: date) -> Iterable[SourceCandidate]:
+        """Return the narrowest official sources capable of covering an ex-date."""
+        del ex_date
+        return self.discover()
 
     @abstractmethod
     def fetch(self, candidate: SourceCandidate) -> SourceDocument:

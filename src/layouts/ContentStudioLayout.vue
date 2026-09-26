@@ -18,6 +18,7 @@
                 DIVGROW CONTENT STUDIO
             </router-link>
             <nav aria-label="콘텐츠 스튜디오 관리">
+                <router-link to="/collect">수집</router-link>
                 <router-link to="/distributions">배당</router-link>
                 <router-link to="/sources">소스</router-link>
                 <router-link to="/reconciliation">대조</router-link>

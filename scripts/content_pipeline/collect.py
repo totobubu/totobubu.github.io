@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from dataclasses import replace
+from datetime import date
 from pathlib import Path
 
 if __package__ in {None, ""}:
@@ -18,6 +19,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Collect official ETF distributions")
     parser.add_argument("--provider", choices=sorted(PROVIDERS), required=True)
     parser.add_argument("--url", help="Parse one explicit allowed official URL")
+    parser.add_argument("--ex-date", type=date.fromisoformat,
+                        help="Keep only events matching this ISO ex-dividend date")
     parser.add_argument("--db", type=Path, default=DEFAULT_DB_PATH)
     parser.add_argument("--raw-dir", type=Path, default=Path("var/content-studio/raw"))
     parser.add_argument("--dry-run", action="store_true")
@@ -40,11 +43,12 @@ def main() -> int:
             adapter.parser_version,
         )
 
-    candidates = (
-        [SourceCandidate(url=args.url, source_type="explicit_official_url")]
-        if args.url
-        else list(adapter.discover())
-    )
+    if args.url:
+        candidates = [SourceCandidate(url=args.url, source_type="explicit_official_url")]
+    elif args.ex_date:
+        candidates = list(adapter.discover_for_ex_date(args.ex_date))
+    else:
+        candidates = list(adapter.discover())
     report = {
         "provider": adapter.slug,
         "sources": [],
@@ -53,7 +57,7 @@ def main() -> int:
         "errors": [],
     }
 
-    max_sources = args.max_sources or getattr(adapter, "default_max_sources", 3)
+    max_sources = args.max_sources if args.max_sources is not None else len(candidates)
     selected_candidates = candidates[:max_sources]
     for outcome in adapter.fetch_many(selected_candidates):
         candidate = outcome.candidate
@@ -80,6 +84,10 @@ def main() -> int:
                 source_id = None
 
             events = adapter.parse(document)
+            if args.ex_date:
+                events = [event for event in events if event.ex_date == args.ex_date.isoformat()]
+                if not events:
+                    raise NoDataError(f"no official events matched ex-date {args.ex_date.isoformat()}")
             if not args.dry_run:
                 for event in events:
                     database.upsert_distribution_event(event, source_id)

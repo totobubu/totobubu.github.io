@@ -1,5 +1,5 @@
 name: Content Studio Refresh
-run-name: content-refresh:${{ inputs.scope || 'all' }}:${{ inputs.provider || inputs.ticker || inputs.eventId || 'all' }}:${{ inputs.requestId || github.run_id }}
+run-name: content-refresh:${{ inputs.scope || 'all' }}:${{ inputs.provider || inputs.ticker || inputs.exDate || inputs.eventId || 'all' }}:${{ inputs.requestId || github.run_id }}
 
 on:
     schedule:
@@ -15,13 +15,17 @@ on:
                 required: true
                 default: all
                 type: choice
-                options: [all, provider, ticker, render]
+                options: [all, provider, ticker, ex_date, render]
             provider:
                 description: Allowed provider slug for provider refresh
                 required: false
                 type: string
             ticker:
                 description: Existing ticker for a targeted refresh
+                required: false
+                type: string
+            exDate:
+                description: ISO ex-dividend date for a date-scoped refresh
                 required: false
                 type: string
             eventId:
@@ -69,8 +73,7 @@ jobs:
               if: ${{ inputs.scope != 'render' }}
               run: python scripts/content_pipeline/content_state_store.py restore
 
-            - name: Install render browser
-              if: ${{ inputs.scope == 'render' }}
+            - name: Install collection and render browser
               run: npx playwright install --with-deps chromium
 
             - name: Refresh official data
@@ -83,6 +86,7 @@ jobs:
                   args=(--scope "$scope" --request-id "${{ inputs.requestId }}")
                   if [[ "$scope" == "provider" ]]; then args+=(--provider "${{ inputs.provider }}"); fi
                   if [[ "$scope" == "ticker" ]]; then args+=(--ticker "${{ inputs.ticker }}"); fi
+                  if [[ "$scope" == "ex_date" ]]; then args+=(--ex-date "${{ inputs.exDate }}"); fi
                   python scripts/content_pipeline/refresh.py "${args[@]}"
 
             - name: Generate one PNG

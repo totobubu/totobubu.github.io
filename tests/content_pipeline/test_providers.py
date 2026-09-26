@@ -2,6 +2,7 @@ import base64
 import json
 import subprocess
 import unittest
+from datetime import date
 from pathlib import Path
 from unittest.mock import patch
 
@@ -215,6 +216,12 @@ class ProviderParserTest(unittest.TestCase):
         self.assertIsNone(outcome.document)
         self.assertEqual(outcome.error.code, "challenge_detected")
         self.assertFalse(outcome.error.retryable)
+
+    def test_roundhill_ex_date_discovery_uses_bounded_prior_notice_window(self):
+        candidates = list(RoundhillAdapter().discover_for_ex_date(date(2026, 9, 25)))
+        self.assertEqual(len(candidates), 7)
+        self.assertIn("declaration_dt=2026-09-24", candidates[0].url)
+        self.assertIn("declaration_dt=2026-09-18", candidates[-1].url)
 
 
 if __name__ == "__main__":

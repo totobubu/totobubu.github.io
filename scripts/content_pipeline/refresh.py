@@ -24,7 +24,8 @@ from scripts.content_pipeline.weekly_digest import generate_weekly_digest
 from scripts.data_pipeline.register_history import register as register_history
 
 
-def run_collect(provider: str, db: Path, raw_dir: Path, url: str | None = None) -> dict:
+def run_collect(provider: str, db: Path, raw_dir: Path, url: str | None = None,
+                ex_date: date | None = None) -> dict:
     command = [
         sys.executable,
         "scripts/content_pipeline/collect.py",
@@ -37,6 +38,8 @@ def run_collect(provider: str, db: Path, raw_dir: Path, url: str | None = None) 
     ]
     if url:
         command.extend(["--url", url])
+    if ex_date:
+        command.extend(["--ex-date", ex_date.isoformat()])
     result = subprocess.run(command, capture_output=True, text=True, check=False)
     try:
         payload = json.loads(result.stdout)
@@ -68,9 +71,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--bundles", type=Path, default=Path("var/content-studio/generated"))
     parser.add_argument("--public-dir", type=Path, default=Path("public/content-studio"))
     parser.add_argument("--legacy-data-dir", type=Path, default=Path("public/data"))
-    parser.add_argument("--scope", choices=("all", "provider", "ticker"), default="all")
+    parser.add_argument("--scope", choices=("all", "provider", "ticker", "ex_date"), default="all")
     parser.add_argument("--provider", choices=sorted(PROVIDERS))
     parser.add_argument("--ticker")
+    parser.add_argument("--ex-date", type=date.fromisoformat)
     parser.add_argument("--request-id")
     parser.add_argument("--week-ending", type=date.fromisoformat, default=date.today())
     return parser
@@ -95,6 +99,10 @@ def main() -> int:
         except ValueError as exc:
             parser.error(str(exc))
         providers = [provider]
+    elif args.scope == "ex_date":
+        if not args.ex_date:
+            parser.error("--scope ex_date requires --ex-date")
+        providers = sorted(PROVIDERS)
     else:
         providers = sorted(PROVIDERS)
 
@@ -107,6 +115,7 @@ def main() -> int:
         "scope": args.scope,
         "provider": providers[0] if args.scope in {"provider", "ticker"} else None,
         "ticker": ticker,
+        "exDate": args.ex_date.isoformat() if args.ex_date else None,
         "recoveredInterruptedRuns": recovered,
         "providers": {},
     }
@@ -115,7 +124,9 @@ def main() -> int:
     try:
         for provider in providers:
             try:
-                payload = run_collect(provider, args.db, args.raw_dir, selected_url)
+                payload = run_collect(
+                    provider, args.db, args.raw_dir, selected_url, args.ex_date
+                )
                 step_status = "warning" if payload.get("status") == "partial" else "success"
                 warned = warned or step_status == "warning"
                 database.add_pipeline_step(
