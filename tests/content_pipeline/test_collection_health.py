@@ -4,6 +4,7 @@ from pathlib import Path
 
 from scripts.content_pipeline.database import ContentDatabase
 from scripts.content_pipeline.record_collection_report import record_collection_report
+from scripts.content_pipeline.refresh import _ticker_target
 
 
 class CollectionHealthTest(unittest.TestCase):
@@ -37,6 +38,10 @@ class CollectionHealthTest(unittest.TestCase):
             self.assertEqual(provider["collected_ticker_count"], 0)
             fund = database.dashboard_snapshot()["providerFunds"][0]
             self.assertEqual(fund["coverage_status"], "catalog_only")
+            self.assertEqual(
+                _ticker_target(database, "SCHD"),
+                ("schwab", "https://www.schwabassetmanagement.com/products/schd"),
+            )
 
 
 if __name__ == "__main__":

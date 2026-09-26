@@ -60,7 +60,10 @@ async function loadIndex() {
             collectedTickerCount: item.collected_ticker_count || indexedTickerCounts.get(item.slug) || 0,
         }));
     providerFunds.value = dashboard.providerFunds || [];
-    knownTickers.value = new Set((index.tickers || []).map((row) => row.ticker.toUpperCase()));
+    knownTickers.value = new Set([
+        ...(index.tickers || []).map((row) => row.ticker.toUpperCase()),
+        ...(dashboard.providerFunds || []).map((row) => row.ticker.toUpperCase()),
+    ]);
     provider.value ||= providers.value[0]?.slug || '';
 }
 

@@ -166,6 +166,22 @@ class ProviderParserTest(unittest.TestCase):
         self.assertEqual(events[0].ticker, "SCHD")
         self.assertEqual(events[0].verification_status, "needs_review")
 
+    def test_schwab_catalog_discovers_funds_without_collecting_them_as_events(self):
+        adapter = SchwabAdapter()
+        catalog = next(iter(adapter.discover()))
+        self.assertTrue(catalog.metadata["catalogOnly"])
+        funds = adapter.parse_catalog(SourceDocument(
+            provider_slug="schwab",
+            source_url=catalog.url,
+            source_type=catalog.source_type,
+            content=(
+                b"34 of 34 showing\nSCHD Schwab U.S. Dividend Equity ETF\n"
+                b"SCHB Schwab U.S. Broad Market ETF\nSGVT Schwab Government Money Market ETF"
+            ),
+        ))
+        self.assertEqual([item.metadata["ticker"] for item in funds], ["SCHB", "SCHD", "SGVT"])
+        self.assertEqual(funds[0].url, "https://www.schwabassetmanagement.com/products/schb")
+
     def test_defiance_latest_card_requires_date_review(self):
         events = DefianceAdapter().parse(
             document(

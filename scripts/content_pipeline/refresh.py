@@ -55,12 +55,20 @@ def run_collect(provider: str, db: Path, raw_dir: Path, url: str | None = None,
 def _ticker_target(database: ContentDatabase, ticker: str) -> tuple[str, str]:
     with database.connect() as connection:
         row = connection.execute(
-            """SELECT provider_slug, official_url FROM distribution_events
-               WHERE ticker = ? ORDER BY ex_date DESC, id DESC LIMIT 1""",
-            (ticker,),
+            """
+            SELECT provider_slug, official_url FROM (
+                SELECT provider_slug, official_url, 0 AS priority, ex_date AS observed_at
+                FROM distribution_events WHERE ticker = ?
+                UNION ALL
+                SELECT provider_slug, official_url, 1 AS priority, last_seen_at AS observed_at
+                FROM provider_funds WHERE ticker = ? AND official_url IS NOT NULL
+            )
+            ORDER BY priority, observed_at DESC LIMIT 1
+            """,
+            (ticker, ticker),
         ).fetchone()
     if row is None or row["provider_slug"] not in PROVIDERS:
-        raise ValueError("ticker is not present in the official distribution index")
+        raise ValueError("ticker is not present in the official distribution or catalog index")
     return str(row["provider_slug"]), str(row["official_url"])
 
 

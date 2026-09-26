@@ -54,6 +54,15 @@ class ProviderAdapter(ABC):
         del ex_date
         return self.discover()
 
+    def parse_catalog(self, document: SourceDocument) -> list[SourceCandidate]:
+        """Extract fund candidates from a catalog-only source, if supported."""
+        del document
+        return []
+
+    def catalog_seed(self) -> Iterable[SourceCandidate]:
+        """Return a reviewed fallback snapshot used only as catalog evidence."""
+        return []
+
     @abstractmethod
     def fetch(self, candidate: SourceCandidate) -> SourceDocument:
         """Fetch and preserve an immutable representation of the official source."""

@@ -70,6 +70,7 @@ def main() -> int:
         "provider": adapter.slug,
         "sources": [],
         "events": 0,
+        "catalogTickers": [],
         "noData": [],
         "errors": [],
     }
@@ -99,6 +100,31 @@ def main() -> int:
                 source_id = database.add_source_document(document)
             else:
                 source_id = None
+
+            if candidate.metadata.get("catalogOnly") is True:
+                catalog_candidates = adapter.parse_catalog(document)
+                catalog_tickers: list[str] = []
+                for catalog_candidate in catalog_candidates:
+                    for ticker in candidate_tickers(catalog_candidate):
+                        catalog_tickers.append(ticker)
+                        if database:
+                            database.upsert_provider_fund(
+                                adapter.slug,
+                                ticker,
+                                catalog_candidate.url,
+                                catalog_candidate.source_type,
+                            )
+                report["catalogTickers"] = sorted(set(
+                    [*report["catalogTickers"], *catalog_tickers]
+                ))
+                report["sources"].append({
+                    "url": candidate.url,
+                    "sha256": document.content_sha256,
+                    "events": 0,
+                    "catalogTickers": len(set(catalog_tickers)),
+                    "fetchMode": document.metadata.get("fetchMode", adapter.fetch_mode),
+                })
+                continue
 
             events = adapter.parse(document)
             if args.ex_date:
