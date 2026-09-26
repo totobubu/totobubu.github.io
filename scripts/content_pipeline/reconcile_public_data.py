@@ -84,6 +84,7 @@ def _legacy_file_audit(data_dir: Path, events: list[sqlite3.Row],
             "actualRowCount": 0,
             "expectedRowCount": 0,
             "forecastRowCount": 0,
+            "placeholderRowCount": 0,
             "malformedRowCount": 0,
             "duplicateDateCount": 0,
             "earliestDate": None,
@@ -133,7 +134,7 @@ def _legacy_file_audit(data_dir: Path, events: list[sqlite3.Row],
                     elif (item.get("expected") is not True
                           and item.get("forecasted") is not True
                           and not has_price):
-                        row["malformedRowCount"] += 1
+                        row["placeholderRowCount"] += 1
                 row["duplicateDateCount"] = len(dates) - len(set(dates))
                 if dates:
                     row["earliestDate"], row["latestDate"] = min(dates), max(dates)

@@ -76,6 +76,7 @@ class PublicDataReconciliationTest(unittest.TestCase):
         self.write_ticker("LEGACY", [
             {"date": "2026-01-01", "close": 10.0},
             {"date": "2026-04-01", "forecasted": True},
+            {"date": "2026-07-04"},
         ])
 
         audit = scan(self.db_path, self.data_dir)["legacyAudit"]["tickers"][0]
@@ -83,6 +84,7 @@ class PublicDataReconciliationTest(unittest.TestCase):
         self.assertEqual(audit["status"], "no_official_coverage")
         self.assertEqual(audit["priceRowCount"], 1)
         self.assertEqual(audit["forecastRowCount"], 1)
+        self.assertEqual(audit["placeholderRowCount"], 1)
         self.assertEqual(audit["malformedRowCount"], 0)
 
     def test_apply_requires_explicit_review_and_writes_only_selected_missing_row(self):
