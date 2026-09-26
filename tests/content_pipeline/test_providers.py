@@ -11,11 +11,13 @@ from scripts.content_pipeline.providers import (
     AmplifyAdapter,
     DefianceAdapter,
     GlobalXAdapter,
+    ISharesAdapter,
     JPMorganAdapter,
     NeosAdapter,
     RexAdapter,
     RoundhillAdapter,
     SchwabAdapter,
+    StateStreetAdapter,
     YieldMaxAdapter,
 )
 
@@ -59,6 +61,39 @@ class ProviderParserTest(unittest.TestCase):
         self.assertEqual(events[0].ticker, "QYLD")
         self.assertEqual(events[0].distribution_per_share, "0.1653")
         self.assertEqual(events[0].ex_date, "2026-07-20")
+
+    def test_ishares_catalog_and_distribution_history(self):
+        adapter = ISharesAdapter()
+        catalog = adapter.parse_catalog(
+            document("ishares", "ishares_catalog.html", adapter.catalog_url)
+        )
+        self.assertEqual([item.metadata["ticker"] for item in catalog], ["DGRO", "IVV"])
+        self.assertTrue(catalog[1].url.endswith("/ishares-core-sp-500-etf"))
+        events = adapter.parse(
+            document(
+                "ishares",
+                "ishares_ivv.txt",
+                "https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf",
+            )
+        )
+        self.assertEqual(events[0].ticker, "IVV")
+        self.assertEqual(events[0].distribution_per_share, "2.202607")
+        self.assertEqual(events[0].record_date, "2026-09-15")
+        self.assertEqual(events[0].verification_status, "needs_review")
+
+    def test_state_street_official_distribution_table(self):
+        events = StateStreetAdapter().parse(
+            document(
+                "statestreet",
+                "statestreet_distributions.txt",
+                StateStreetAdapter.distributions_url,
+            )
+        )
+        self.assertEqual([event.ticker for event in events], ["BIL", "SPY"])
+        self.assertEqual(events[0].distribution_per_share, "0.279771")
+        self.assertEqual(events[0].frequency, "monthly")
+        self.assertEqual(events[1].frequency, "quarterly")
+        self.assertEqual(events[1].payable_date, "2026-09-29")
 
     def test_yieldmax_press_release(self):
         events = YieldMaxAdapter().parse(

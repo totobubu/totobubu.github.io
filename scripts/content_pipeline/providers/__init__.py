@@ -4,11 +4,13 @@ from .base import CollectionError, FetchOutcome, NoDataError, ProviderAdapter, S
 from .amplify import AmplifyAdapter
 from .defiance import DefianceAdapter
 from .globalx import GlobalXAdapter
+from .ishares import ISharesAdapter
 from .jpmorgan import JPMorganAdapter
 from .neos import NeosAdapter
 from .rex import RexAdapter
 from .roundhill import RoundhillAdapter
 from .schwab import SchwabAdapter
+from .statestreet import StateStreetAdapter
 from .yieldmax import YieldMaxAdapter
 
 PROVIDERS = {
@@ -21,6 +23,8 @@ PROVIDERS = {
     "neos": NeosAdapter,
     "defiance": DefianceAdapter,
     "globalx": GlobalXAdapter,
+    "ishares": ISharesAdapter,
+    "statestreet": StateStreetAdapter,
 }
 
 __all__ = [
@@ -38,5 +42,7 @@ __all__ = [
     "NeosAdapter",
     "DefianceAdapter",
     "GlobalXAdapter",
+    "ISharesAdapter",
+    "StateStreetAdapter",
     "PROVIDERS",
 ]
