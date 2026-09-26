@@ -11,6 +11,9 @@ from pathlib import Path
 # Configuration
 SCREENSHOT_DIR = Path("public/screenshot")
 DATA_DIR = Path("public/data")
+OCR_DEBUG_PATH = Path("ocr_debug.txt")
+SUPPORTED_EXTENSIONS = {".webp", ".jpg", ".jpeg", ".png", ".txt"}
+PARSER_TYPES = {}
 
 # Tesseract Setup
 TESSERACT_CMD_PATHS = [
@@ -729,10 +732,13 @@ def update_json(path, date_str, amount):
                 target_list = data['dividends']
 
         if target_list is None:
+            print(f"  [!] {path} 건너뜀: 지원하는 배당 내역 목록을 찾지 못함")
             return False
 
+        matching_date_found = False
         for entry in target_list:
             if entry.get('date') == date_str:
+                matching_date_found = True
                 if entry.get('expected') == True:
                     del entry['expected']
                     entry['amountFixed'] = amount
@@ -741,7 +747,14 @@ def update_json(path, date_str, amount):
                 elif 'amountFixed' in entry:
                      # Skip overwriting existing values
                      if abs(entry['amountFixed'] - amount) > 0.0001:
-                         print(f"  [!] {path.name} 건너뜀: {date_str}에 이미 {entry['amountFixed']} 존재 (새 값: {amount})")
+                          print(f"  [!] {path.name} 건너뜀: {date_str}에 이미 {entry['amountFixed']} 존재 (새 값: {amount})")
+                     else:
+                          print(f"  [i] {path.name}: {date_str}의 배당금이 이미 반영됨")
+                else:
+                    print(f"  [!] {path.name} 건너뜀: {date_str} 항목이 expected 상태가 아님")
+
+        if not matching_date_found:
+            print(f"  [!] {path.name} 건너뜀: {date_str} 날짜의 배당 내역을 찾지 못함")
 
         if updated:
             with open(path, 'w', encoding='utf-8') as f:
@@ -763,12 +776,39 @@ def update_json(path, date_str, amount):
 
 def main():
     if not setup_tesseract():
+        print("[!] Tesseract OCR을 찾지 못했습니다.")
         sys.exit(1)
 
-    image_files = list(SCREENSHOT_DIR.glob("*.webp")) + list(SCREENSHOT_DIR.glob("*.jpg")) + list(SCREENSHOT_DIR.glob("*.png")) + list(SCREENSHOT_DIR.glob("*.txt"))
+    if not SCREENSHOT_DIR.is_dir():
+        print(f"[!] 스크린샷 폴더를 찾지 못했습니다: {SCREENSHOT_DIR}")
+        return
+
+    image_files = sorted(
+        (
+            path
+            for path in SCREENSHOT_DIR.iterdir()
+            if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS
+        ),
+        key=lambda path: path.name.lower(),
+    )
+
+    if not image_files:
+        print(f"[!] 지원하는 스크린샷 파일이 없습니다: {SCREENSHOT_DIR}")
+        return
+
+    try:
+        OCR_DEBUG_PATH.unlink(missing_ok=True)
+    except OSError as e:
+        print(f"[!] 이전 OCR 디버그 로그 삭제 실패: {e}")
+
+    processed_files = 0
+    recognized_files = 0
+    extracted_tickers = 0
+    updated_entries = 0
 
     for img_path in image_files:
         print(f"\n{img_path.name} 처리 중...")
+        processed_files += 1
         try:
             if img_path.suffix.lower() == ".txt":
                 with open(img_path, "r", encoding="utf-8") as f:
@@ -777,47 +817,74 @@ def main():
                 # YieldMax uses a single wide table. PSM 6 preserves its visual
                 # row order for reliable ticker/value pairing.
                 ocr_config = "--psm 6" if "yieldmax" in img_path.name.lower() else ""
-                text = pytesseract.image_to_string(Image.open(img_path), config=ocr_config)
+                with Image.open(img_path) as image:
+                    text = pytesseract.image_to_string(image, config=ocr_config)
         except Exception as e:
             print(f"  [!] {img_path.name} 이미지 읽기/처리 실패: {e}")
             continue
 
         # Debug: Save OCR output to file
         try:
-            with open("ocr_debug.txt", "a", encoding="utf-8") as f:
+            with open(OCR_DEBUG_PATH, "a", encoding="utf-8") as f:
                 f.write(f"\n--- {img_path.name} ---\n")
                 f.write(text)
                 f.write("\n" + "="*30 + "\n")
         except Exception as e:
             print(f"  [!] 디버그 로그 쓰기 실패: {e}")
 
-        parser_type = None
-        if "roundhill" in img_path.name.lower():
-            parser_type = RoundHillParser
-        elif "yieldmax" in img_path.name.lower():
-            parser_type = YieldMaxParser
-        elif "rex" in img_path.name.lower():
-            parser_type = RexParser
-        elif "graniteshares" in img_path.name.lower():
-            parser_type = GranitesharesParser
-        elif "defiance" in img_path.name.lower():
-            parser_type = DefianceParser
-        elif "neos" in img_path.name.lower():
-            parser_type = NeosParser
-        else:
+        filename_lower = img_path.name.lower()
+        parser_type = next(
+            (
+                parser
+                for provider, parser in PARSER_TYPES.items()
+                if provider in filename_lower
+            ),
+            None,
+        )
+        if parser_type is None:
+            print(f"  [!] 지원하지 않는 운용사 파일명: {img_path.name}")
             continue
 
+        recognized_files += 1
         parser = parser_type(text, img_path.name)
         date_str = parser.parse_date()
 
-        if not date_str: continue
+        if not date_str:
+            print(f"  [!] 날짜를 인식하지 못함: {img_path.name}")
+            continue
         print(f"  날짜: {date_str}")
 
         data_map = parser.extract_data()
+        if not data_map:
+            print(f"  [!] 티커와 배당금을 추출하지 못함: {img_path.name}")
+            continue
+
+        extracted_tickers += len(data_map)
         for ticker, amount in data_map.items():
             json_path = find_json_path(ticker)
             if json_path:
-                update_json(json_path, date_str, amount)
+                if update_json(json_path, date_str, amount):
+                    updated_entries += 1
+            else:
+                print(f"  [!] {ticker}에 해당하는 JSON 파일을 {DATA_DIR}에서 찾지 못함")
+
+    print("\n" + "=" * 60)
+    print("배당 스크린샷 처리 요약")
+    print(f"  발견한 파일: {len(image_files)}")
+    print(f"  처리한 파일: {processed_files}")
+    print(f"  인식한 운용사 파일: {recognized_files}")
+    print(f"  추출한 티커: {extracted_tickers}")
+    print(f"  업데이트한 배당 항목: {updated_entries}")
+
+
+PARSER_TYPES.update({
+    "roundhill": RoundHillParser,
+    "yieldmax": YieldMaxParser,
+    "rex": RexParser,
+    "graniteshares": GranitesharesParser,
+    "defiance": DefianceParser,
+    "neos": NeosParser,
+})
 
 if __name__ == "__main__":
     main()

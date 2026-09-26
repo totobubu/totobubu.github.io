@@ -1,0 +1,182 @@
+name: Update Distributions from Screenshots
+
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+concurrency:
+    group: update-distributions-main
+    cancel-in-progress: false
+
+env:
+    PYTHON_VERSION: '3.11'
+    NODE_VERSION: '20'
+
+jobs:
+    update-distributions:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Require main branch
+              shell: bash
+              run: |
+                  if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
+                    echo "::error::This workflow must be run from the main branch. Selected ref: ${GITHUB_REF}"
+                    exit 1
+                  fi
+
+            - name: Checkout latest main
+              uses: actions/checkout@v4
+              with:
+                  ref: main
+                  fetch-depth: 0
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: ${{ env.PYTHON_VERSION }}
+                  cache: pip
+                  cache-dependency-path: requirements.txt
+
+            - name: Validate screenshot inputs
+              shell: bash
+              run: |
+                  python - <<'PY'
+                  from pathlib import Path
+
+                  screenshot_dir = Path("public/screenshot")
+                  extensions = {".webp", ".jpg", ".jpeg", ".png", ".txt"}
+                  providers = ("roundhill", "yieldmax", "rex", "graniteshares", "defiance", "neos")
+
+                  candidates = sorted(
+                      (
+                          path
+                          for path in screenshot_dir.iterdir()
+                          if path.is_file()
+                          and path.suffix.lower() in extensions
+                          and any(provider in path.name.lower() for provider in providers)
+                      ),
+                      key=lambda path: path.name.lower(),
+                  ) if screenshot_dir.is_dir() else []
+
+                  if not candidates:
+                      raise SystemExit(
+                          "No supported screenshots found in public/screenshot. "
+                          "Commit at least one supported provider screenshot to main first."
+                      )
+
+                  print("Supported screenshots:")
+                  for path in candidates:
+                      print(f"  - {path}")
+                  PY
+
+            - name: Install Tesseract OCR
+              shell: bash
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install --yes --no-install-recommends tesseract-ocr
+
+            - name: Install Python dependencies
+              run: python -m pip install --requirement requirements.txt
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: npm
+
+            - name: Install Node.js dependencies
+              run: npm ci --no-audit --no-fund
+
+            - name: Update distribution data
+              shell: bash
+              run: |
+                  rm -f update_distributions.log ocr_debug.txt
+                  set -o pipefail
+                  python scripts/data_pipeline/update_distributions.py 2>&1 | tee update_distributions.log
+
+            - name: Format changed JSON files
+              run: npm run format:changed
+
+            - name: Validate updated data
+              id: validate_data
+              shell: bash
+              run: |
+                  mapfile -d '' changed_files < <(git diff --name-only --diff-filter=AM -z -- public/data)
+
+                  if [[ ${#changed_files[@]} -eq 0 ]]; then
+                    echo "::error::Screenshots were processed, but no public/data files changed. Check the OCR log, filename date, and expected dividend rows."
+                    exit 1
+                  fi
+
+                  python - "${changed_files[@]}" <<'PY'
+                  import json
+                  import sys
+                  from pathlib import Path
+
+                  paths = [Path(value) for value in sys.argv[1:]]
+                  for path in paths:
+                      with path.open(encoding="utf-8") as handle:
+                          json.load(handle)
+
+                  print(f"Validated {len(paths)} changed JSON file(s):")
+                  for path in paths:
+                      print(f"  - {path}")
+
+                  summary = Path("distribution-update-summary.md")
+                  summary.write_text(
+                      "## Distribution data changes\n\n"
+                      + "\n".join(f"- `{path}`" for path in paths)
+                      + "\n",
+                      encoding="utf-8",
+                  )
+                  PY
+
+                  cat distribution-update-summary.md >> "${GITHUB_STEP_SUMMARY}"
+
+            - name: Upload OCR diagnostics
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: distribution-ocr-diagnostics-${{ github.run_id }}
+                  path: |
+                      update_distributions.log
+                      ocr_debug.txt
+                  if-no-files-found: warn
+                  retention-days: 14
+
+            - name: Commit and push data changes
+              shell: bash
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+                  git add -- public/data
+
+                  unexpected_files="$(git diff --cached --name-only | grep -v '^public/data/' || true)"
+                  if [[ -n "${unexpected_files}" ]]; then
+                    echo "::error::Refusing to commit files outside public/data:"
+                    echo "${unexpected_files}"
+                    exit 1
+                  fi
+
+                  git commit -m "chore: update distributions from screenshots [skip ci]"
+
+                  for attempt in 1 2 3; do
+                    if git push origin HEAD:main; then
+                      echo "Distribution data pushed to main."
+                      exit 0
+                    fi
+
+                    if [[ ${attempt} -eq 3 ]]; then
+                      echo "::error::Push failed after 3 attempts."
+                      exit 1
+                    fi
+
+                    echo "Push attempt ${attempt} failed; rebasing onto the latest main."
+                    git pull --rebase origin main
+                    sleep 5
+                  done

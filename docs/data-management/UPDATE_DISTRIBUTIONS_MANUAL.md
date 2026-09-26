@@ -1,14 +1,12 @@
 # 배당금 업데이트 스크립트 사용 설명서
 
-이 문서는 `scripts/update_distributions.py` 스크립트의 사용법과 동작 방식을 설명합니다. 이 스크립트는 ETF 배당금 공지 스크린샷(OCR)을 분석하여 데이터 파일(`public/data/**/*.json`)의 배당금 정보를 자동으로 업데이트합니다.
+이 문서는 `scripts/data_pipeline/update_distributions.py` 스크립트와 GitHub Actions 수동 워크플로우의 사용법을 설명합니다. 스크립트는 ETF 배당금 공지 스크린샷(OCR)을 분석하여 데이터 파일(`public/data/**/*.json`)의 배당금 정보를 자동으로 업데이트합니다.
 
 ## 1. 개요
 
-- **스크립트 위치**: `scripts/update_distributions.py`
+- **스크립트 위치**: `scripts/data_pipeline/update_distributions.py`
 - **기능**: `public/screenshot` 폴더의 이미지를 OCR로 읽어, `public/data` 내 해당 ETF JSON 파일의 `amountFixed` 값을 업데이트하고 `expected: true` 플래그를 제거합니다.
-- **지원 및 테스트된 ETF 운용사**:
-    - **Roundhill**: 파일명에 `roundhill` 포함 시 (예: `roundhill.2026.01.20.png`)
-    - **YieldMax**: 파일명에 `yieldmax` 포함 시 (예: `yieldmax_2026-01-15.png`)
+- **지원 운용사**: 파일명에 `roundhill`, `yieldmax`, `rex`, `graniteshares`, `defiance`, `neos` 중 하나가 포함되어야 합니다.
 
 ## 2. 사전 준비 사항 (Prerequisites)
 
@@ -39,10 +37,29 @@
 
 - **파일명 규칙**: `{운용사명}_{날짜}.{확장자}`
     - 예: `yieldmax_2026-01-15.png`, `roundhill.2026.01.20.jpg`
-    - **운용사명 구분**: 파일명에 `roundhill` 또는 `yieldmax`가 포함되어야 적절한 파서가 선택됩니다.
+    - **운용사명 구분**: 파일명에 지원 운용사명이 포함되어야 적절한 파서가 선택됩니다. 대소문자는 구분하지 않습니다.
     - **날짜 인식**: 파일명에 `YYYY-MM-DD`, `YYYY.MM.DD` 또는 `YY-MM-DD` (20xx년 가정) 형식의 날짜가 있으면 그 날짜를 배당일로 사용합니다. 파일명에 날짜가 없으면 이미지 내 텍스트에서 날짜를 찾습니다.
 
-### 2단계: 스크립트 실행
+### 2단계: GitHub Actions에서 실행
+
+1. 스크린샷을 `public/screenshot`에 추가하고 `main` 브랜치에 먼저 커밋·푸시합니다.
+2. GitHub 저장소의 **Actions** 탭에서 **Update Distributions from Screenshots**를 선택합니다.
+3. **Run workflow**에서 브랜치가 `main`인지 확인한 후 실행합니다.
+4. 성공하면 변경된 `public/data/**/*.json`만 `github-actions[bot]` 커밋으로 `main`에 푸시됩니다.
+
+워크플로우는 처리한 스크린샷을 삭제하지 않습니다. OCR 원문과 실행 로그는 워크플로우 실행 화면의 artifact에서 14일 동안 확인할 수 있습니다.
+
+다음 경우에는 커밋하지 않고 실패합니다.
+
+- `public/screenshot`에 지원되는 운용사와 확장자의 파일이 없는 경우
+- OCR 결과에서 날짜, 티커 또는 배당금을 인식하지 못해 `public/data` 변경이 0건인 경우
+- 해당 날짜에 `expected: true`인 배당 내역이 없어 `public/data` 변경이 0건인 경우
+- 변경된 JSON이 유효하지 않거나 `main` 재베이스 중 충돌이 발생한 경우
+
+> [!IMPORTANT]
+> 이 워크플로우는 R2에 업로드하지 않습니다. 또한 기본 `GITHUB_TOKEN`으로 만든 커밋은 `push` 기반 Build and Deploy 워크플로우를 다시 실행하지 않으므로, 운영 화면의 R2 데이터 반영은 별도 작업이 필요합니다.
+
+### 3단계: 로컬에서 직접 실행
 
 터미널에서 프로젝트 루트 경로로 이동한 후 다음 명령어를 실행합니다.
 
@@ -59,9 +76,9 @@ python scripts/data_pipeline/update_distributions.py
 ```
 
 > [!TIP]
-> Windows에서 `py` 명령어가 작동하지 않는 경우, `python3 scripts/update_distributions.py`를 시도해보세요.
+> Windows에서 `py` 명령어가 작동하지 않는 경우, `python scripts/data_pipeline/update_distributions.py`를 시도해보세요.
 
-### 3단계: 결과 확인
+### 4단계: 결과 확인
 
 스크립트가 실행되면 터미널에 진행 상황이 출력됩니다.
 
@@ -75,7 +92,7 @@ python scripts/data_pipeline/update_distributions.py
 
 ## 4. 동작 원리
 
-1.  **이미지 로드**: `public/screenshot` 폴더의 모든 `.png`, `.jpg`, `.webp` 파일을 스캔합니다.
+1.  **이미지 로드**: `public/screenshot` 폴더의 모든 `.png`, `.jpg`, `.jpeg`, `.webp`, `.txt` 파일을 대소문자 구분 없이 스캔합니다.
 2.  **OCR 분석**: Tesseract를 사용하여 이미지에서 텍스트를 추출합니다.
 3.  **파싱 (Parsing)**:
     - **RoundhillParser**: 텍스트에서 티커(대문자 3~5글자)와 소수점 4자리 이상의 금액(예: `$0.2815`)을 찾습니다.
