@@ -72,6 +72,19 @@ class PublicDataReconciliationTest(unittest.TestCase):
         self.assertEqual(audit["malformedRowCount"], 1)
         self.assertEqual(audit["matchedOfficialEventCount"], 0)
 
+    def test_price_and_forecast_rows_are_valid_but_not_officially_verified(self):
+        self.write_ticker("LEGACY", [
+            {"date": "2026-01-01", "close": 10.0},
+            {"date": "2026-04-01", "forecasted": True},
+        ])
+
+        audit = scan(self.db_path, self.data_dir)["legacyAudit"]["tickers"][0]
+
+        self.assertEqual(audit["status"], "no_official_coverage")
+        self.assertEqual(audit["priceRowCount"], 1)
+        self.assertEqual(audit["forecastRowCount"], 1)
+        self.assertEqual(audit["malformedRowCount"], 0)
+
     def test_apply_requires_explicit_review_and_writes_only_selected_missing_row(self):
         self.add_event("MISS", "2026-09-10", "0.2")
         path = self.data_dir / "nyse" / "miss.json"

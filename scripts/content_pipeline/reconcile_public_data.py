@@ -83,6 +83,7 @@ def _legacy_file_audit(data_dir: Path, events: list[sqlite3.Row],
             "priceRowCount": 0,
             "actualRowCount": 0,
             "expectedRowCount": 0,
+            "forecastRowCount": 0,
             "malformedRowCount": 0,
             "duplicateDateCount": 0,
             "earliestDate": None,
@@ -120,6 +121,8 @@ def _legacy_file_audit(data_dir: Path, events: list[sqlite3.Row],
                     dates.append(item["date"])
                     if item.get("expected") is True:
                         row["expectedRowCount"] += 1
+                    if item.get("forecasted") is True:
+                        row["forecastRowCount"] += 1
                     has_distribution = (_decimal(item.get("amount")) is not None
                                         or _decimal(item.get("amountFixed")) is not None)
                     has_price = _decimal(item.get("close")) is not None
@@ -127,7 +130,9 @@ def _legacy_file_audit(data_dir: Path, events: list[sqlite3.Row],
                         row["priceRowCount"] += 1
                     if has_distribution:
                         row["actualRowCount"] += 1
-                    elif item.get("expected") is not True and not has_price:
+                    elif (item.get("expected") is not True
+                          and item.get("forecasted") is not True
+                          and not has_price):
                         row["malformedRowCount"] += 1
                 row["duplicateDateCount"] = len(dates) - len(set(dates))
                 if dates:
