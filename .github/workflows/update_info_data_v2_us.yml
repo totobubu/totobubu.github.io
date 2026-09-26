@@ -56,14 +56,6 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install -r requirements-workflow.txt
 
-            - name: Setup R2 environment variables
-              run: |
-                  echo "R2_ACCOUNT_ID=${{ secrets.R2_ACCOUNT_ID }}" >> $GITHUB_ENV
-                  echo "R2_ACCESS_KEY_ID=${{ secrets.R2_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-                  echo "R2_SECRET_ACCESS_KEY=${{ secrets.R2_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-                  echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
-                  echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
-
             - name: Refuse a stale scheduled checkout
               run: |
                   git fetch origin main
@@ -123,14 +115,6 @@ jobs:
 
             - name: Compact JSON without trimming history
               run: python scripts/data_pipeline/compact_history.py --apply
-
-            - name: Upload compacted files to R2 (Git-based, fast)
-              env:
-                  GITHUB_EVENT_NAME: ${{ github.event_name }}
-              run: python scripts/cloud/upload_changed_to_r2.py
-
-            - name: Upload updated data to R2
-              run: python scripts/cloud/upload_specific_to_r2.py "public/data/**/*.json"
 
             - name: Check for file changes
               id: git_status

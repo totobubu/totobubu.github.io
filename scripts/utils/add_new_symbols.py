@@ -28,7 +28,7 @@
        (tasks/addIpoDatesToNav.js와 동일한 방식)
     4. 해당 market 폴더의 nav 소스 파일에 심볼/ipoDate 반영
     5. public/data/<market>/<symbol>.json 스켈레톤 생성 및 기본 메타데이터 저장
-    6. update_info_data.yml과 동일한 순서의 워크플로우를 로컬에서 실행 (R2 업로드 포함)
+    6. update_info_data.yml과 동일한 순서의 워크플로우를 로컬에서 실행
 
 Windows PowerShell, macOS/Linux 쉘 모두 지원.
 """
@@ -668,11 +668,6 @@ def run_update_workflow(symbols: List[Dict[str, str]]) -> None:
     # 사이드바 생성 (market_data 워크플로우와 동일하게)
     steps.append(
         ("7. 사이드바 생성", ["npm", "run", "generate-sidebar-tickers"])
-    )
-
-    # R2 업로드 (변경된 파일만)
-    steps.append(
-        ("8. R2 업로드 (변경된 파일)", [PYTHON, "scripts/cloud/upload_changed_to_r2.py"])
     )
 
     print("\n" + "=" * 80)

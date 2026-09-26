@@ -1,38 +1,13 @@
 import fs from 'fs/promises';
 import { existsSync, readFileSync } from 'fs';
 import path from 'path';
-import axios from 'axios';
 import pLimit from 'p-limit';
-
-const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL;
-
-const fetchDataFromR2 = async (candidates) => {
-    if (!R2_PUBLIC_URL) return null;
-
-    for (const candidate of candidates) {
-        const url = `${R2_PUBLIC_URL}/${candidate.relPath}`;
-        try {
-            const { data } = await axios.get(url, { timeout: 1500 });
-            if (data && (data.backtestData || data.tickerInfo)) {
-                return data;
-            }
-        } catch (e) {
-            // ignore
-        }
-    }
-    return null;
-};
 
 const rootDir = process.cwd();
 const publicDir = path.join(rootDir, 'public');
 const navDir = path.join(publicDir, 'nav');
 const dataDir = path.join(publicDir, 'data');
-const logosDir = path.join(publicDir, 'logos');
-const logosCompanyDir = path.join(logosDir, 'company');
-const logosKoreaDir = path.join(logosDir, 'korea');
-const logosBrandDir = path.join(logosDir, 'brand');
 const outputFile = path.join(publicDir, 'nav.json');
-const missingLogosFile = path.join(publicDir, 'missing-logos.json');
 
 const brandRulesFilePath = path.join(navDir, 'logos-rules.json');
 const logosBrandFilePath = path.join(navDir, 'logos-brand.json');
@@ -500,121 +475,6 @@ function analyzeFrequencyAndGroup(dividendDates) {
     return { frequency, group };
 }
 
-function findLogoFile(normalizedName, options = {}) {
-    if (!normalizedName) return null;
-
-    let category = 'company';
-    let market = null;
-    let attemptType = null;
-
-    if (typeof options === 'string') {
-        category = options;
-    } else if (options && typeof options === 'object') {
-        category = options.category || 'company';
-        market = options.market || null;
-        attemptType = options.type || null;
-    }
-
-    const supportedExtensions = [
-        '.svg',
-        '.png',
-        '.webp',
-        '.jpg',
-        '.jpeg',
-        '.ico',
-    ];
-
-    const searchTargets = [];
-
-    const addTarget = (dir, relativePrefix) => {
-        if (!dir) return;
-        try {
-            if (!existsSync(dir)) return;
-        } catch (error) {
-            return;
-        }
-        if (searchTargets.some((target) => target.dir === dir)) return;
-        searchTargets.push({ dir, relativePrefix });
-    };
-
-    if (market) {
-        const normalizedMarket = market.toString().trim().toLowerCase();
-        if (normalizedMarket) {
-            const marketRootDir = path.join(logosDir, normalizedMarket);
-            addTarget(marketRootDir, `logos/${normalizedMarket}/`);
-
-            if (category === 'brand') {
-                addTarget(
-                    path.join(marketRootDir, 'brand'),
-                    `logos/${normalizedMarket}/brand/`
-                );
-            } else if (category === 'company') {
-                addTarget(
-                    path.join(marketRootDir, 'company'),
-                    `logos/${normalizedMarket}/company/`
-                );
-            }
-        }
-    }
-
-    if (category === 'symbol') {
-        if (market) {
-            const normalizedMarket = market.toString().trim().toLowerCase();
-            if (normalizedMarket) {
-                addTarget(
-                    path.join(logosDir, normalizedMarket),
-                    `logos/${normalizedMarket}/`
-                );
-            }
-        }
-        addTarget(logosKoreaDir, 'logos/korea/');
-    }
-
-    if (category === 'brand') {
-        addTarget(logosBrandDir, 'logos/brand/');
-    }
-
-    if (category === 'company') {
-        addTarget(logosCompanyDir, 'logos/company/');
-    }
-
-    addTarget(logosDir, 'logos/');
-
-    for (const { dir, relativePrefix } of searchTargets) {
-        const candidateNames = new Set([normalizedName]);
-        if (attemptType === 'symbol') {
-            const numericWithSuffix = normalizedName.match(/^(\d+)(ks|kq)$/);
-            if (numericWithSuffix) {
-                candidateNames.add(numericWithSuffix[1]);
-            }
-            const upper = normalizedName.toUpperCase();
-            const suffixMatch = upper.match(/^([A-Z0-9]+)[._-]?(KS|KQ)$/);
-            if (suffixMatch) {
-                candidateNames.add(suffixMatch[1].toLowerCase());
-            }
-        }
-
-        if (
-            normalizedName &&
-            !normalizedName.startsWith('company-') &&
-            (dir === logosCompanyDir || dir === logosDir)
-        ) {
-            candidateNames.add(`company-${normalizedName}`);
-        }
-
-        for (const name of candidateNames) {
-            for (const ext of supportedExtensions) {
-                const filePath = path.join(dir, `${name}${ext}`);
-                if (existsSync(filePath)) {
-                    return `${relativePrefix}${name}${ext}`;
-                }
-            }
-        }
-    }
-
-    return null;
-}
-
 function convertPeriodToYears(periodString) {
     if (!periodString) return 0;
     const value = parseInt(periodString);
@@ -669,7 +529,6 @@ async function processAndPushTickers(filePath, market, allTickers) {
 
 async function generateNavJson() {
     let allTickers = [];
-    const failedLogoMatches = [];
     const navEntries = await fs.readdir(navDir, { withFileTypes: true });
 
     for (const entry of navEntries) {
@@ -733,128 +592,7 @@ async function generateNavJson() {
                 }
             }
 
-            const logoAttempts = [];
-            const pushAttempt = (name, category = 'company', extra = {}) => {
-                if (!name) return;
-                logoAttempts.push({ name, category, ...extra });
-            };
-
-            const pushBrandAttempt = (brandValue) => {
-                if (!brandValue) return;
-                const trimmed = brandValue.toString().trim();
-                if (!trimmed) return;
-                const lower = trimmed.toLowerCase();
-
-                if (lower.startsWith('brand-')) {
-                    pushAttempt(lower, 'brand');
-                    return;
-                }
-                if (lower.startsWith('etf-')) {
-                    pushAttempt(lower, 'korea');
-                    return;
-                }
-                if (lower.startsWith('company-')) {
-                    pushAttempt(lower, 'company');
-                    return;
-                }
-
-                const normalized = normalizeToFilename(trimmed);
-                if (normalized) {
-                    pushAttempt(`brand-${normalized}`, 'brand');
-                }
-            };
-
-            // 1) 브랜드 우선
-            pushBrandAttempt(processedTicker.brand);
-
-            if (['KOSPI', 'KOSDAQ'].includes(marketUpper)) {
-                const etfBrandSlug =
-                    resolveKoreanEtfBrandSlugFromTicker(processedTicker);
-                if (etfBrandSlug) {
-                    pushAttempt(`etf-${etfBrandSlug}`, 'company');
-                }
-
-                const corporateBrandSlug =
-                    resolveKoreanCorporateBrandSlugFromTicker(processedTicker);
-                if (corporateBrandSlug) {
-                    pushAttempt(`brand-${corporateBrandSlug}`, 'brand');
-                }
-            }
-
-            // 2) 운용사/회사 기반
-            const globalBrandKey = resolveGlobalBrandLogoKey(
-                processedTicker.company
-            );
-            if (globalBrandKey) {
-                pushAttempt(globalBrandKey, 'company');
-            }
-
-            if (processedTicker.company) {
-                pushAttempt(processedTicker.company, 'company');
-            }
-
-            // 3) 티커 심볼 기반
-            if (processedTicker.symbol) {
-                let symbolCategory = 'company';
-                if (marketUpper === 'KOSPI' || marketUpper === 'KOSDAQ') {
-                    symbolCategory = 'symbol';
-                }
-                pushAttempt(processedTicker.symbol, symbolCategory, {
-                    type: 'symbol',
-                });
-            }
-
-            const fallbackName =
-                processedTicker.company || processedTicker.symbol;
-
-            let resolvedLogoPath = null;
-            const attemptedKeys = [];
-            const attemptDedup = new Set();
-
-            for (const attempt of logoAttempts) {
-                const normalizedName = normalizeToFilename(attempt.name);
-                if (!normalizedName) continue;
-
-                const dedupKey = `${attempt.category}:${normalizedName}`;
-                if (attemptDedup.has(dedupKey)) continue;
-                attemptDedup.add(dedupKey);
-                attemptedKeys.push(dedupKey);
-
-                const logoPath = findLogoFile(normalizedName, {
-                    category: attempt.category,
-                    market: processedTicker.market,
-                    type: attempt.type,
-                });
-                if (logoPath) {
-                    resolvedLogoPath = logoPath;
-                    break;
-                }
-            }
-
-            if (resolvedLogoPath) {
-                processedTicker.logo = resolvedLogoPath;
-            } else {
-                processedTicker.logo = null;
-                if (attemptedKeys.length) {
-                    console.log(
-                        `🔸 ${process.env.VERBOSE ? ticker.symbol + ': ' : ''}로고 없음.`
-                    );
-                }
-
-                const failureName =
-                    fallbackName ||
-                    logoAttempts[logoAttempts.length - 1]?.name ||
-                    null;
-                const normalizedFailureName = normalizeToFilename(failureName);
-
-                failedLogoMatches.push({
-                    symbol: ticker.symbol,
-                    company: ticker.company || null,
-                    market: ticker.market || null,
-                    searchName: failureName,
-                    normalizedSearchName: normalizedFailureName,
-                });
-            }
+            delete processedTicker.logo;
 
             const dataCandidates = getDataFileCandidates(
                 processedTicker.yfSymbol,
@@ -888,12 +626,11 @@ async function generateNavJson() {
                     throw new Error('File not found locally');
                 }
             } catch (error) {
-                // Skip R2 fetch for performance. Fallback will handle it.
                 stockData = null;
             }
 
             if (!stockData) {
-                // Fallback: Calculate periods based on IPO date if local/R2 data is missing
+                // Fallback: Calculate periods based on IPO date if local data is missing
                 // This ensures symbols like JEPI, BRKC get periods assigned optimistically
                 const startDateStr = ticker.ipoDate;
                 if (startDateStr) {
@@ -1029,26 +766,6 @@ async function generateNavJson() {
         `\n🎉 nav.json 파일 생성 완료! (총 ${finalTickers.length}개 티커, periods 재생성 완료)`
     );
 
-    try {
-        const failedSummary = {
-            generatedAt: new Date().toISOString(),
-            count: failedLogoMatches.length,
-            items: failedLogoMatches,
-        };
-        await fs.writeFile(
-            missingLogosFile,
-            JSON.stringify(failedSummary, null, 2)
-        );
-        console.log(
-            failedLogoMatches.length
-                ? `⚠️ 매칭 실패 로고 ${failedLogoMatches.length}건이 ${missingLogosFile} 에 기록되었습니다.`
-                : `✅ 모든 로고가 성공적으로 매칭되어 ${missingLogosFile} 에 빈 목록이 저장되었습니다.`
-        );
-    } catch (error) {
-        console.error(
-            `❌ 로고 매칭 실패 내역 저장 중 오류 발생: ${error.message}`
-        );
-    }
 }
 
 generateNavJson();

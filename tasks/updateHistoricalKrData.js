@@ -85,35 +85,6 @@ const fileExists = async (filePath) => {
     }
 };
 
-const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL;
-
-const fetchDataFromR2 = async (symbolCandidates, market) => {
-    if (!R2_PUBLIC_URL) return null;
-
-    for (const candidate of symbolCandidates) {
-        const filename = `${sanitizeTickerForFilename(candidate)}.json`;
-        const subdir = getMarketSubdirectory(market);
-        // R2 경로 구조: data/market/ticker.json (v2/market layout)
-        const urls = [
-            `${R2_PUBLIC_URL}/data/${subdir}/${filename}`,
-            `${R2_PUBLIC_URL}/data/${filename}`, // Fallback for flat layout
-        ];
-
-        for (const url of urls) {
-            try {
-                const { data } = await axios.get(url, { timeout: 10000 });
-                if (data && (data.backtestData || data.tickerInfo)) {
-                    // console.log(`ℹ️ Loaded from R2: ${candidate}`);
-                    return { data, symbol: candidate };
-                }
-            } catch (e) {
-                // Ignore 404 or network error
-            }
-        }
-    }
-    return null;
-};
-
 const findExistingDataFile = async (symbolCandidates, market) => {
     // 먼저 새 형식 (접미사 제거) 시도
     for (const candidate of symbolCandidates) {
@@ -432,17 +403,7 @@ async function fetchAndMergePriceData(ticker) {
             const fileContent = await fs.readFile(filePath, 'utf-8');
             existingData = JSON.parse(fileContent);
             loaded = true;
-        } catch (error) {
-            /* 파일 없으면 R2 시도 */
-            if (R2_PUBLIC_URL) {
-                const r2Res = await fetchDataFromR2(symbolCandidates, market);
-                if (r2Res) {
-                    existingData = r2Res.data;
-                    loaded = true;
-                    console.log(`ℹ️ [${symbol}] Fetched from R2`);
-                }
-            }
-        }
+        } catch (error) {}
 
         if (loaded) {
             const backtestData = existingData.backtestData || [];

@@ -2,7 +2,6 @@
 
 import fs from 'fs/promises';
 import path from 'path';
-import axios from 'axios';
 import pLimit from 'p-limit';
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
@@ -14,7 +13,6 @@ const CALENDAR_MONTHLY_DIR = path.join(PUBLIC_DIR, 'calendar', 'monthly');
 async function loadEnv() {
     const envFiles = [
         '.env.local',
-        '.env.r2',
         '.env.production',
         '.env.development',
         '.env',
@@ -51,10 +49,6 @@ async function loadEnv() {
 
 // Load envs before using them
 await loadEnv();
-
-// Ensure we pick up env var if set (prioritize VITE_ prefixed one if standard one missing)
-const R2_PUBLIC_URL =
-    process.env.R2_PUBLIC_URL || process.env.VITE_R2_PUBLIC_URL;
 
 const KRX_SUFFIXES = new Set(['.KS', '.KQ', '.KN', '.KO']);
 
@@ -102,36 +96,6 @@ const sanitizeTickerForFilename = (ticker) => {
     if (!ticker) return '';
     const base = extractBaseSymbol(ticker) || ticker;
     return base.replace(/[./\\]/g, '-').toLowerCase();
-};
-
-const fetchDataFromR2 = async (symbol, market) => {
-    if (!R2_PUBLIC_URL) return null;
-    const filename = `${sanitizeTickerForFilename(symbol)}.json`;
-    const subdir = getMarketSubdirectory(market);
-    const urls = [
-        `${R2_PUBLIC_URL}/data/${subdir}/${filename}`,
-        `${R2_PUBLIC_URL}/data/${filename}`,
-    ];
-
-    for (const url of urls) {
-        let retries = 0;
-        const maxRetries = 2;
-        while (retries <= maxRetries) {
-            try {
-                const { data } = await axios.get(url, { timeout: 10000 }); // Increased timeout to 10s
-                if (data && data.backtestData) return data;
-                break; // If success but no backtestData, don't retry same URL
-            } catch (e) {
-                retries++;
-                if (retries > maxRetries) {
-                    // console.warn(`Failed to fetch ${url} after ${maxRetries} retries: ${e.message}`);
-                } else {
-                    await new Promise((r) => setTimeout(r, 1000 * retries)); // Backoff
-                }
-            }
-        }
-    }
-    return null;
 };
 
 // 한국 ETF 브랜드명 목록
@@ -189,14 +153,6 @@ async function generateCalendarEvents() {
         process.exit(1);
     }
 
-    if (!R2_PUBLIC_URL) {
-        console.warn(
-            '⚠️  Warning: R2_PUBLIC_URL (or VITE_R2_PUBLIC_URL) is not set. Data missing locally will NOT be fetched from R2.'
-        );
-    } else {
-        console.log(`Using R2_PUBLIC_URL: ${R2_PUBLIC_URL}`);
-    }
-
     const tickerInfoMap = new Map(
         navData.nav
             .map((item) => {
@@ -241,7 +197,6 @@ async function generateCalendarEvents() {
     const limit = pLimit(CONCURRENCY_LIMIT);
     const totalItems = navData.nav.length;
     let processedCount = 0;
-    let r2SuccessCount = 0;
     let localSuccessCount = 0;
     let noDividendsCount = 0; // Track skipped items
     let failCount = 0;
@@ -292,12 +247,6 @@ async function generateCalendarEvents() {
                         }
                     }
                 } catch (e) {}
-            }
-
-            // Try R2 if not found locally
-            if (!data) {
-                data = await fetchDataFromR2(symbol, navItem.market);
-                if (data) r2SuccessCount++;
             }
 
             if (!data) {
@@ -415,7 +364,7 @@ async function generateCalendarEvents() {
 
             if (processedCount % 100 === 0 || processedCount >= totalItems) {
                 console.log(
-                    `[${Math.round((processedCount / totalItems) * 100)}%] ${processedCount}/${totalItems} processed. (Local: ${localSuccessCount}, R2: ${r2SuccessCount}, NoDiv: ${noDividendsCount}, Failed: ${failCount})`
+                    `[${Math.round((processedCount / totalItems) * 100)}%] ${processedCount}/${totalItems} processed. (Local: ${localSuccessCount}, NoDiv: ${noDividendsCount}, Failed: ${failCount})`
                 );
             }
         }

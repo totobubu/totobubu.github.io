@@ -16,11 +16,6 @@ from typing import Iterable, List, Optional, Tuple
 
 import sys
 
-try:
-    from scripts.cloud.r2_helper import list_r2_files
-except ImportError:
-    def list_r2_files(prefix=""): return []
-
 ROOT_DIR = Path(__file__).resolve().parents[2]  # scripts/utils/ -> scripts/ -> 프로젝트 루트
 PUBLIC_DIR = ROOT_DIR / "public"
 DATA_DIR = PUBLIC_DIR / "data"
@@ -114,7 +109,7 @@ def build_symbol_candidates(symbol: str, fallbacks: Iterable[str]) -> List[str]:
 
 
 def find_existing_symbol_file(
-    entry: dict, data_root: Path, r2_files_set: Optional[set] = None
+    entry: dict, data_root: Path
 ) -> Tuple[Optional[str], Optional[Path]]:
     symbol = entry.get("symbol")
     if not isinstance(symbol, str):
@@ -124,17 +119,7 @@ def find_existing_symbol_file(
     entry_market = entry.get("market")
 
     def check_path(path_obj: Path) -> bool:
-        if path_obj.exists():
-            return True
-        if r2_files_set:
-            try:
-                # public/data/... -> data/...
-                rel = path_obj.relative_to(PUBLIC_DIR).as_posix()
-                if rel in r2_files_set:
-                    return True
-            except ValueError:
-                pass
-        return False
+        return path_obj.exists()
 
     # Market layout
     for candidate in candidates:
@@ -213,19 +198,10 @@ def sync_nav_symbols(
     updated = []
     missing = []
 
-    # R2 파일 목록 조회
-    r2_files_set = set()
-    try:
-        r2_files_set = set(list_r2_files("data/"))
-        if r2_files_set:
-            print(f"[INFO] R2에서 {len(r2_files_set)}개 파일 목록을 로드했습니다.")
-    except Exception as e:
-        print(f"[WARN] R2 목록 조회 실패: {e}")
-
     for entry in targets:
         original_symbol = entry.get("symbol")
         market = entry.get("market")
-        resolved_symbol, path = find_existing_symbol_file(entry, DATA_DIR, r2_files_set)
+        resolved_symbol, path = find_existing_symbol_file(entry, DATA_DIR)
         if not resolved_symbol or not path:
             missing.append(original_symbol)
             continue
@@ -313,5 +289,4 @@ def main(argv: Optional[List[str]] = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
 

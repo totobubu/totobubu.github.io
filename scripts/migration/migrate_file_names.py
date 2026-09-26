@@ -102,33 +102,6 @@ def migrate_file(old_path: Path, new_path: Path, dry_run: bool = False) -> bool:
         return False
 
 
-def upload_to_r2(file_path: Path, r2_key: str) -> bool:
-    """
-    R2에 파일을 업로드합니다.
-    
-    Args:
-        file_path: 로컬 파일 경로
-        r2_key: R2 키 (예: "data/kosdaq/473330.json")
-    
-    Returns:
-        bool: 성공 여부
-    """
-    try:
-        from scripts.r2_helper import upload_json_to_r2
-        
-        with open(file_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        
-        upload_json_to_r2(data, r2_key)
-        return True
-    except ImportError:
-        print(f"  ⚠️  R2 헬퍼를 찾을 수 없습니다. R2 업로드를 건너뜁니다.")
-        return False
-    except Exception as e:
-        print(f"  ⚠️  R2 업로드 실패 ({r2_key}): {e}")
-        return False
-
-
 def main():
     import argparse
     
@@ -139,11 +112,6 @@ def main():
         '--dry-run',
         action='store_true',
         help='실제로 파일을 이동하지 않고 시뮬레이션만 실행'
-    )
-    parser.add_argument(
-        '--upload-r2',
-        action='store_true',
-        help='마이그레이션 후 R2에 업로드'
     )
     parser.add_argument(
         '--market',
@@ -216,12 +184,6 @@ def main():
         if success:
             success_count += 1
             
-            # R2 업로드
-            if args.upload_r2 and not args.dry_run:
-                # R2 키 생성: data/{{market}}/{{filename}}
-                market_dir = old_path.parent.name
-                r2_key = f"data/{market_dir}/{new_path.name}"
-                upload_to_r2(new_path, r2_key)
         else:
             failed_count += 1
     
@@ -237,4 +199,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

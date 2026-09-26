@@ -248,15 +248,6 @@ def main():
                 if save_json_file(file_path, data):
                     updated_count += 1
                     
-                    # R2 업로드 시도
-                    try:
-                        from scripts.r2_helper import upload_json_to_r2
-                        file_path_str = str(file_path).replace("\\", "/")
-                        r2_key = file_path_str.split("public/", 1)[1]
-                        upload_json_to_r2(data, r2_key)
-                    except:
-                        pass
-
     print(f"\n--- Yield Calculation Finished. Total files updated: {updated_count} ---")
 
 

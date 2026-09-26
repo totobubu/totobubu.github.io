@@ -246,7 +246,6 @@ python scripts/workflows/run_new_ticker_workflow.py WEED
 
 - **run_new_ticker_workflow.py 소스:** `scripts/workflows/run_new_ticker_workflow.py`
 - **전체 데이터 업데이트:** `src/README.md` 참고
-- **로컬 vs GitHub 워크플로우:** `docs/LOCAL_VS_GITHUB_WORKFLOWS.md` 참고
 
 ---
 

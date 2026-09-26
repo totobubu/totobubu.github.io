@@ -14,7 +14,7 @@
     import Checkbox from 'primevue/checkbox';
     import InputText from 'primevue/inputtext';
     import SelectButton from 'primevue/selectbutton';
-    import { getAssetUrl, getDataUrl, getR2Url } from '@/utils/dataUrl';
+    import { getAssetUrl, getDataUrl } from '@/utils/dataUrl';
 
     useHead({
         title: '썸네일 일괄 생성기',
@@ -221,49 +221,15 @@ watch(selectedGroup, () => {
                         if (!dataPath) {
                             console.warn(`No dataPath found for ${symbol}`);
                         } else {
-                            // [수정] fetchWithFallback 함수를 내부 정의하거나 사용하여 로컬 실패 시 R2 시도
-                            const fetchWithFallback = async (path) => {
-                                const localUrl = getDataUrl(path) + `?t=${new Date().getTime()}`;
-                                try {
-                                    const res = await fetch(localUrl);
-                                    if (res.ok) {
-                                        // 응답이 왔지만 HTML(404페이지)일 수도 있으므로 clone해서 확인하거나 일단 json 파싱 시도
-                                        const clonedRes = res.clone();
-                                        try {
-                                            const json = await res.json();
-                                            return json;
-                                        } catch (jsonErr) {
-                                            // JSON 파싱 실패 -> 로컬 파일이 아닐 확률 높음 (HTML 반환 등)
-                                            // throw 해서 catch 블록으로 이동
-                                            console.warn(
-                                                `Local fetch returned invalid JSON for ${path}, trying R2 fallback...`
-                                            );
-                                            throw new Error('Invalid JSON');
-                                        }
-                                    } else {
-                                        throw new Error(
-                                            `Local fetch failed: ${res.status}`
-                                        );
-                                    }
-                                } catch (err) {
-                                    // 로컬 실패 시 R2 시도
-                                    const baseR2Url = getR2Url(path);
-                                    const r2Url = baseR2Url ? baseR2Url + `?t=${new Date().getTime()}` : null;
-                                    
-                                    if (r2Url && baseR2Url !== getDataUrl(path)) {
-                                        console.log(
-                                            `Fetching from R2 fallback: ${r2Url}`
-                                        );
-                                        const r2Res = await fetch(r2Url);
-                                        if (r2Res.ok) {
-                                            return await r2Res.json();
-                                        }
-                                    }
-                                    throw err; // R2도 실패하면 에러
-                                }
-                            };
-
-                            const data = await fetchWithFallback(dataPath);
+                            const response = await fetch(
+                                `${getDataUrl(dataPath)}?t=${Date.now()}`
+                            );
+                            if (!response.ok) {
+                                throw new Error(
+                                    `Data fetch failed: ${response.status}`
+                                );
+                            }
+                            const data = await response.json();
                             backtestData = data.backtestData || [];
                             tickerInfo = data.tickerInfo || null;
                             tickerDataCache.set(symbol, {

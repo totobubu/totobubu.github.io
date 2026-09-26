@@ -4,7 +4,6 @@ param(
     [ValidateSet("market_data_v2_us", "market_data_v2_kr", "update_info_data_v2")]
     [string]$Workflow = "market_data_v2_us",
     
-    [switch]$SkipR2Upload = $true,
     [switch]$SkipGitCommit = $true
 )
 
@@ -164,21 +163,6 @@ npm run format:changed
 Write-Host "[OK] 포맷팅 완료" -ForegroundColor Green
 Write-Host ""
 
-# R2 업로드 (선택적)
-if (-not $SkipR2Upload) {
-    Write-Host "[5/5] R2 업로드 중..." -ForegroundColor Yellow
-    $env:GITHUB_EVENT_NAME = "workflow_dispatch"
-    python scripts/cloud/upload_changed_to_r2.py
-    if ($LASTEXITCODE -eq 0) {
-        Write-Host "[OK] R2 업로드 완료" -ForegroundColor Green
-    } else {
-        Write-Host "[WARN] R2 업로드 실패" -ForegroundColor Yellow
-    }
-} else {
-    Write-Host "[5/5] R2 업로드 건너뛰기" -ForegroundColor Gray
-}
-Write-Host ""
-
 # Git 상태 확인
 if (-not $SkipGitCommit) {
     Write-Host "변경사항 확인 중..." -ForegroundColor Yellow
@@ -196,4 +180,3 @@ Write-Host "========================================" -ForegroundColor Green
 Write-Host "[OK] 테스트 완료!" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
-

@@ -19,10 +19,6 @@ docs/
 
 ## 🚀 워크플로우 관련 (`workflows/`)
 
-- **[WORKFLOW_GUIDE.md](./workflows/WORKFLOW_GUIDE.md)** - 워크플로우 개요, 통합 파이프라인, 최적화 내역 ⭐
-- **[DEPLOY_WORKFLOW_GUIDE.md](./workflows/DEPLOY_WORKFLOW_GUIDE.md)** - Deploy 워크플로우 & 자동 R2 업로드
-- **[LOCAL_VS_GITHUB_WORKFLOWS.md](./workflows/LOCAL_VS_GITHUB_WORKFLOWS.md)** - 로컬 스크립트 vs GitHub Actions 비교 🔄
-- **[WORKFLOW_TEST_GUIDE.md](./workflows/WORKFLOW_TEST_GUIDE.md)** - 워크플로우 테스트 가이드
 - **[EVENT_DETECTION_WORKFLOW.md](./workflows/EVENT_DETECTION_WORKFLOW.md)** - 이벤트 감지 워크플로우
 
 ---
@@ -35,10 +31,8 @@ docs/
 
 ### 데이터 수집 & 업데이트
 - **[MARKET_CAP_GUIDE.md](./data-management/MARKET_CAP_GUIDE.md)** - 시가총액 데이터 통합 가이드 ⭐
-- **[UPDATE_INFO_DATA_V2_GUIDE.md](./data-management/UPDATE_INFO_DATA_V2_GUIDE.md)** - Info 데이터 업데이트 V2 가이드
 
 ### 데이터 정책 & 포맷
-- **[UPDATE_POLICY.md](./data-management/UPDATE_POLICY.md)** - tickerInfo Update 필드 관리 정책 ⭐
 - **[FORMAT_GUIDE.md](./data-management/FORMAT_GUIDE.md)** - Git 기반 스마트 포맷 가이드 ⭐
 
 ### 거래 데이터
@@ -48,10 +42,8 @@ docs/
 
 ## ☁️ 인프라 설정 (`infrastructure/`)
 
-- **[R2_GUIDE.md](./infrastructure/R2_GUIDE.md)** - R2 업로드 통합 가이드 (스크립트, 최적화, 워크플로우) ⭐
 - **[FIRESTORE_INDEX.md](./infrastructure/FIRESTORE_INDEX.md)** - Firestore 인덱스 설정
 - **[WEB3FORMS_SETUP.md](./infrastructure/WEB3FORMS_SETUP.md)** - Web3Forms 설정 가이드
-- **[LOGO_FETCH_GUIDE.md](./infrastructure/LOGO_FETCH_GUIDE.md)** - 로고 가져오기 가이드
 
 ---
 
@@ -65,11 +57,6 @@ docs/
 
 ## 🎯 빠른 시작 가이드
 
-### 처음 프로젝트를 시작하는 경우
-1. [workflows/WORKFLOW_GUIDE.md](./workflows/WORKFLOW_GUIDE.md) - 워크플로우 이해 ⭐
-2. [infrastructure/R2_GUIDE.md](./infrastructure/R2_GUIDE.md) - R2 업로드 이해
-3. [data-management/UPDATE_POLICY.md](./data-management/UPDATE_POLICY.md) - 업데이트 정책 이해
-
 ### 새로운 티커 추가하기
 1. [data-management/TICKER_MANAGEMENT_GUIDE.md](./data-management/TICKER_MANAGEMENT_GUIDE.md) - 티커 추가 가이드 ⭐
 2. [data-management/ADD_NEW_SYMBOLS_GUIDE.md](./data-management/ADD_NEW_SYMBOLS_GUIDE.md) - 스크립트 사용법
@@ -79,9 +66,7 @@ docs/
 3. [data-management/README_TRANSACTION_UPLOAD.md](./data-management/README_TRANSACTION_UPLOAD.md) - 거래 데이터
 
 ### 워크플로우 운영 및 최적화
-1. [workflows/WORKFLOW_GUIDE.md](./workflows/WORKFLOW_GUIDE.md) - 워크플로우 운영 ⭐
-2. [workflows/DEPLOY_WORKFLOW_GUIDE.md](./workflows/DEPLOY_WORKFLOW_GUIDE.md) - 배포 워크플로우
-3. [data-management/FORMAT_GUIDE.md](./data-management/FORMAT_GUIDE.md) - 포맷 최적화
+1. [data-management/FORMAT_GUIDE.md](./data-management/FORMAT_GUIDE.md) - 포맷 최적화
 
 ---
 

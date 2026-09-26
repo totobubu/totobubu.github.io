@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
     push:
         branches: [main]
-        # Generated market data is served from R2.  It does not require a Pages build.
+        # Generated legacy market data does not affect the Content Studio build.
         paths-ignore:
             - 'public/data/**'
             - 'public/calendar/**'
@@ -21,13 +21,6 @@ permissions:
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
-        env:
-            R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-            R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-            R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-            R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
-            R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
-
         steps:
             - name: Checkout (shallow + blob filter)
               uses: actions/checkout@v4
@@ -58,13 +51,10 @@ jobs:
               run: |
                   python scripts/workflows/check_dividend_changes.py
 
-            - name: Upload changed data files to R2
-              run: python scripts/cloud/upload_changed_to_r2.py || echo "R2 업로드 실패(계속 진행)"
-
-            # R2로 데이터를 쓰면 로컬 'public' 대용량 폴더는 빌드 전에 제거
+            # Content Studio does not serve legacy market data or thumbnails.
             - name: Remove large local data before build
               run: |
-                  rm -rf public/data public/logos public/thumbnail || true
+                  rm -rf public/data public/thumbnail || true
 
             - name: Set up Node.js
               uses: actions/setup-node@v4
@@ -76,9 +66,6 @@ jobs:
               run: npm ci --no-audit --no-fund
 
             - name: Build Vue App
-              env:
-                  VITE_USE_R2: 'true'
-                  VITE_R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
               run: npm run build
 
             # 빌드 끝났으면 추가 정리(선택)

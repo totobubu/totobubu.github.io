@@ -16,11 +16,6 @@ jobs:
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         env:
-            R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-            R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-            R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-            R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
-            R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
             FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}
 
         steps:
@@ -96,12 +91,6 @@ jobs:
                       echo "[INFO] 재생성된 파일 변경사항 감지됨"
                       git status --porcelain public/calendar/ public/nav.json public/sidebar-tickers.json public/sidebar/
                   fi
-
-            # R2에 업로드
-            - name: Upload to R2
-              if: steps.check_changes.outputs.has_changes == 'true'
-              run: |
-                  python scripts/cloud/upload_changed_to_r2.py || echo "R2 업로드 실패(계속 진행)"
 
             # 변경사항 커밋 및 푸시
             - name: Commit and push changes

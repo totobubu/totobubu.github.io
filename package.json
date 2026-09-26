@@ -13,7 +13,6 @@
         "generate-nav": "node tasks/generateNav.js",
         "generate-sidebar-tickers": "python scripts/utils/generateSidebar.py",
         "generate-calendar-events": "node tasks/generateCalendarEvents.js",
-        "fetch-logos": "node tasks/fetchMissingLogos.js",
         "watch-nav": "nodemon --watch public/nav --ext json --exec \"npm run generate-nav\"",
         "dev": "vite",
         "build": "vue-tsc --noEmit && vite build",
