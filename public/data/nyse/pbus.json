@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 76.6,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 77.32,
         "englishName": "Invesco MSCI USA ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2523481,
-        "AvgVolume": 306029,
+        "Volume": 99690,
+        "AvgVolume": 331714,
         "sharesOutstanding": null,
         "52Week": "63.03 - 78.22",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 76.6,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2523481,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 306029,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18158,11 +18171,15 @@
             "volume": 337800
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-09-21",
+            "amount": 0.187
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 61.8,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 61.14,
         "englishName": "iShares MSCI Global Metals & Mining Producers ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 460746,
-        "AvgVolume": 721338,
+        "Volume": 278772,
+        "AvgVolume": 686774,
         "sharesOutstanding": 8350000,
-        "52Week": "42.33 - 69.02",
+        "52Week": "43.41 - 69.02",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 61.8,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 460746,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 721338,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33068,10 +33081,6 @@
             "volume": 717700
         },
         {
-            "date": "2026-09-21",
-            "forecasted": true
-        },
-        {
             "date": "2026-09-28",
             "forecasted": true
         },
@@ -33169,6 +33178,10 @@
         },
         {
             "date": "2027-03-15",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

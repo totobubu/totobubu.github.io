@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 73.8,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 74.29,
         "englishName": "JPMorgan U.S. Quality Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 521057,
-        "AvgVolume": 469293,
+        "Volume": 567438,
+        "AvgVolume": 487674,
         "sharesOutstanding": null,
         "52Week": "59.7 - 75.64",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 73.8,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 521057,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 469293,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17894,11 +17907,15 @@
             "volume": 709800
         },
         {
-            "date": "2026-09-23",
+            "date": "2026-09-22",
+            "amount": 0.181
+        },
+        {
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2026-12-23",
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

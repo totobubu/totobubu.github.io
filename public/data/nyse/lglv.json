@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 179.43,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 176.44,
         "englishName": "State Street SPDR US Large Cap Low Volatility Index ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11516,
-        "AvgVolume": 20630,
+        "Volume": 17587,
+        "AvgVolume": 21177,
         "sharesOutstanding": null,
         "52Week": "170.05 - 192.29",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 179.43,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 11516,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 20630,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27456,11 +27469,15 @@
             "volume": 11516
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-09-21",
+            "amount": 0.991
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

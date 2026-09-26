@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 30.07,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 29.158,
         "englishName": "Direxion Daily NVDA Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 204478,
-        "AvgVolume": 162220,
+        "Volume": 144990,
+        "AvgVolume": 168529,
         "sharesOutstanding": null,
         "52Week": "28.46 - 42.78",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.07,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 204478,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 162220,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6189,11 +6202,15 @@
             "volume": 100900
         },
         {
-            "date": "2026-09-23",
+            "date": "2026-09-22",
+            "amount": 0.488
+        },
+        {
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2026-12-23",
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

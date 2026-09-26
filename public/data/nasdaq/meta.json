@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 665.75,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 751.66,
         "englishName": "Meta Platforms, Inc.",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 1760247021568,
-        "marketCap": 1696002211840,
-        "Volume": 27394770,
-        "AvgVolume": 18162080,
+        "enterpriseValue": 1936916480000,
+        "marketCap": 1914858373120,
+        "Volume": 25649562,
+        "AvgVolume": 19642848,
         "sharesOutstanding": 2205128509,
-        "52Week": "520.26 - 790.8",
-        "Yield": 0.003154,
+        "52Week": "520.26 - 779.82",
+        "Yield": 0.002794,
         "dividendRate": 2.1,
         "payoutRatio": 0.0791,
         "isin": "US30303M1027",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 665.75,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 1760247021568,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 1696002211840,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 27394770,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 18162080,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.003154,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -32257,11 +32282,15 @@
             "volume": 15928000
         },
         {
-            "date": "2026-12-15",
+            "date": "2026-09-21",
+            "amount": 0.525
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2027-03-15",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 84.84,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 86.37,
         "englishName": "Henry Schein, Inc.",
         "earningsDate": "2026-08-04",
-        "enterpriseValue": 14699413504,
-        "marketCap": 9664697344,
-        "Volume": 2202816,
-        "AvgVolume": 1210262,
+        "enterpriseValue": 14847637504,
+        "marketCap": 9838991360,
+        "Volume": 1202224,
+        "AvgVolume": 1213862,
         "sharesOutstanding": 113916757,
         "52Week": "61.95 - 92.18",
         "Yield": null,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 84.84,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 14699413504,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 9664697344,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2202816,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1210262,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -69830,7 +69851,8 @@
             "high": 85.959999,
             "low": 84.455002,
             "close": 84.839996,
-            "volume": 2202816
+            "volume": 2202816,
+            "marketCap": 9838991360
         }
     ]
 }

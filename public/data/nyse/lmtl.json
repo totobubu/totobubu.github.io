@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 32.4809,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 30.3552,
         "englishName": "Direxion Daily LMT Bull 2X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10236,
-        "AvgVolume": 22754,
+        "Volume": 17219,
+        "AvgVolume": 20870,
         "sharesOutstanding": null,
         "52Week": "25.709 - 59.71",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.4809,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10236,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 22754,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2288,11 +2301,15 @@
             "volume": 18900
         },
         {
-            "date": "2026-09-23",
+            "date": "2026-09-22",
+            "amount": 0.273
+        },
+        {
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2026-12-23",
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

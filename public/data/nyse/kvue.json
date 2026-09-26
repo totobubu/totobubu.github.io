@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 17.81,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 17.8,
         "englishName": "Kenvue Inc.",
         "earningsDate": "2026-08-06",
-        "enterpriseValue": 41827221504,
-        "marketCap": 34208974848,
-        "Volume": 26706109,
-        "AvgVolume": 22925124,
+        "enterpriseValue": 41692766208,
+        "marketCap": 34189766656,
+        "Volume": 12557957,
+        "AvgVolume": 22165054,
         "sharesOutstanding": 1920773467,
         "52Week": "14.02 - 20.13",
-        "Yield": 0.046603,
+        "Yield": 0.046629,
         "dividendRate": 0.84,
         "payoutRatio": 0.9765,
         "isin": "US49177J1025",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 17.81,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 41827221504,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 34208974848,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 26706109,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 22925124,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.046603,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7445,11 +7470,15 @@
             "volume": 23452600
         },
         {
-            "date": "2026-11-12",
+            "date": "2026-09-21",
+            "amount": 0.21
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2027-02-12",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

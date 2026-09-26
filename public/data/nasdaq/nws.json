@@ -9,24 +9,53 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 32.68,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 31.75,
         "englishName": "News Corporation",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 19578927104,
-        "marketCap": 17520887808,
-        "Volume": 5594717,
-        "AvgVolume": 1283906,
-        "sharesOutstanding": 177416960,
+        "enterpriseValue": 18702422016,
+        "marketCap": 17132903424,
+        "Volume": 698002,
+        "AvgVolume": 1275454,
+        "sharesOutstanding": 179664434,
         "52Week": "25.49 - 35.76",
-        "Yield": 0.00612,
+        "Yield": 0.006299,
         "dividendRate": 0.2,
         "payoutRatio": 0.1942,
         "isin": "CNE000000KJ6",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.68,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 19578927104,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 17520887808,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5594717,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1283906,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 177416960,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.00612,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29898,7 +29927,8 @@
             "high": 33.599998,
             "low": 33.18,
             "close": 33.369999,
-            "volume": 796400
+            "volume": 796400,
+            "marketCap": 17132903424
         }
     ]
 }

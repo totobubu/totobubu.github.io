@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 50.74,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 50.9461,
         "englishName": "YieldMax NVDA Performance & Distribution Target 25 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7570,
-        "AvgVolume": 8314,
+        "Volume": 4557,
+        "AvgVolume": 8814,
         "sharesOutstanding": null,
         "52Week": "44.195 - 56.263",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.74,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 7570,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8314,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1794,7 +1807,8 @@
         },
         {
             "date": "2026-09-22",
-            "expected": true
+            "expected": true,
+            "amount": 0.243
         },
         {
             "date": "2026-09-29",
@@ -1894,6 +1908,10 @@
         },
         {
             "date": "2027-03-16",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-23",
             "forecasted": true
         }
     ]

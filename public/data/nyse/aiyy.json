@@ -9,16 +9,16 @@
         "underlying": "AI",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 7.4,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 7.44,
         "englishName": "YieldMax AI Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 173427,
-        "AvgVolume": 80156,
+        "Volume": 89213,
+        "AvgVolume": 79423,
         "sharesOutstanding": null,
-        "52Week": "6.95 - 28.8",
+        "52Week": "6.95 - 28.6",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -41,15 +41,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 7.63,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 49053,
+                "value": 7.4,
                 "change": "up"
             },
+            "Volume": {
+                "value": 173427,
+                "change": "down"
+            },
             "AvgVolume": {
-                "value": 81067,
+                "value": 80156,
                 "change": "down"
             }
         }
@@ -6133,11 +6133,13 @@
             "high": 7.63,
             "low": 7.48,
             "close": 7.63,
-            "volume": 49100
+            "volume": 49100,
+            "yield": 0.8659707447
         },
         {
             "date": "2026-09-24",
-            "expected": true
+            "expected": true,
+            "amount": 0.1
         },
         {
             "date": "2026-10-01",
@@ -6237,6 +6239,10 @@
         },
         {
             "date": "2027-03-18",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-25",
             "forecasted": true
         }
     ]

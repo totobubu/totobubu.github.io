@@ -9,14 +9,14 @@
         "underlying": "AAPL",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 11.91,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 11.975,
         "englishName": "YieldMax AAPL Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 42049,
-        "AvgVolume": 109687,
+        "Volume": 104025,
+        "AvgVolume": 101625,
         "sharesOutstanding": null,
         "52Week": "11.05 - 14.21",
         "Yield": null,
@@ -35,15 +35,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 11.935,
-                "change": "down"
+                "value": 11.91,
+                "change": "up"
             },
             "Volume": {
-                "value": 40534,
+                "value": 42049,
                 "change": "up"
             },
             "AvgVolume": {
-                "value": 110519,
+                "value": 109687,
                 "change": "down"
             }
         }
@@ -7159,11 +7159,13 @@
             "high": 11.96,
             "low": 11.77,
             "close": 11.935,
-            "volume": 40600
+            "volume": 40600,
+            "yield": 0.3587983193
         },
         {
             "date": "2026-09-24",
-            "expected": true
+            "expected": true,
+            "amount": 0.078
         },
         {
             "date": "2026-10-01",
@@ -7263,6 +7265,10 @@
         },
         {
             "date": "2027-03-18",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-25",
             "forecasted": true
         }
     ]

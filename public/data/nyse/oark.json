@@ -9,14 +9,14 @@
         "underlying": "ARKK",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 29.7882,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 30.2393,
         "englishName": "YieldMax Innovation Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 6265,
-        "AvgVolume": 8646,
+        "Volume": 4571,
+        "AvgVolume": 8053,
         "sharesOutstanding": null,
         "52Week": "26.89 - 47.0",
         "Yield": null,
@@ -44,7 +44,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.7882,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6265,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8646,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8553,7 +8566,8 @@
             "high": 29.58,
             "low": 29.34,
             "close": 29.58,
-            "volume": 3200
+            "volume": 3200,
+            "yield": 0.4285276178
         },
         {
             "date": "2026-09-24",
@@ -8657,6 +8671,10 @@
         },
         {
             "date": "2027-03-18",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-25",
             "forecasted": true
         }
     ]

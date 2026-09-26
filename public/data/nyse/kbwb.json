@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 92.09,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 89.97,
         "englishName": "Invesco KBW Bank ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1870008,
-        "AvgVolume": 1664443,
+        "Volume": 2787629,
+        "AvgVolume": 1696929,
         "sharesOutstanding": null,
         "52Week": "73.32 - 100.61",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.09,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1870008,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1664443,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30078,11 +30091,15 @@
             "volume": 1870008
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-09-21",
+            "amount": 0.46
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

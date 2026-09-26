@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 55.66,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 54.97,
         "englishName": "ProShares S&P 500 Dividend Aristocrats ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 547890,
-        "AvgVolume": 1092193,
+        "Volume": 1142700,
+        "AvgVolume": 1060770,
         "sharesOutstanding": null,
         "52Week": "50.115 - 59.3",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.66,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 547890,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1092193,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26162,11 +26175,15 @@
             "volume": 510500
         },
         {
-            "date": "2026-09-24",
+            "date": "2026-09-23",
+            "amount": 0.283
+        },
+        {
+            "date": "2026-12-23",
             "forecasted": true
         },
         {
-            "date": "2026-12-24",
+            "date": "2027-03-23",
             "forecasted": true
         }
     ]

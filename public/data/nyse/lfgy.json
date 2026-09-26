@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 20.4254,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 20.09,
         "englishName": "YieldMax Crypto Industry & Tech Portfolio Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 48113,
-        "AvgVolume": 42862,
+        "Volume": 20248,
+        "AvgVolume": 41972,
         "sharesOutstanding": null,
         "52Week": "18.355 - 38.78",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.4254,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 48113,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 42862,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3681,7 +3694,8 @@
         },
         {
             "date": "2026-09-23",
-            "expected": true
+            "expected": true,
+            "amount": 0.164
         },
         {
             "date": "2026-09-30",
@@ -3781,6 +3795,10 @@
         },
         {
             "date": "2027-03-17",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-24",
             "forecasted": true
         }
     ]

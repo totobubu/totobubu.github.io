@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 135.89,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 138.12,
         "englishName": "PTC Inc.",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 15843821568,
-        "marketCap": 14744915968,
-        "Volume": 5813215,
-        "AvgVolume": 1551651,
+        "enterpriseValue": 16243125248,
+        "marketCap": 14986885120,
+        "Volume": 697753,
+        "AvgVolume": 1564500,
         "sharesOutstanding": 108506261,
-        "52Week": "108.5 - 208.0",
+        "52Week": "108.5 - 206.82",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -57,7 +57,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 135.89,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 15843821568,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 14744915968,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5813215,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1551651,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -83242,7 +83263,8 @@
             "high": 136.179993,
             "low": 132.75,
             "close": 135.889999,
-            "volume": 5931600
+            "volume": 5931600,
+            "marketCap": 14986885120
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 91.4,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 90.29,
         "englishName": "State Street SPDR S&P 400 Mid Cap Value ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 63316,
-        "AvgVolume": 87474,
+        "Volume": 69175,
+        "AvgVolume": 91161,
         "sharesOutstanding": null,
         "52Week": "79.64 - 97.58",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 91.4,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 63316,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 87474,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42615,11 +42628,15 @@
             "volume": 63316
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-09-21",
+            "amount": 0.391
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

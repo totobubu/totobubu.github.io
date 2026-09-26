@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 72.75,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 71.55,
         "englishName": "State Street SPDR S&P Regional Banking ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11614020,
-        "AvgVolume": 12750640,
+        "Volume": 12343695,
+        "AvgVolume": 12792758,
         "sharesOutstanding": null,
         "52Week": "57.55 - 78.35",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 72.75,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 11614020,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 12750640,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40927,11 +40940,15 @@
             "volume": 11614020
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-09-21",
+            "amount": 0.412
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

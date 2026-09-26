@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 66.62,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 65.36,
         "englishName": "State Street SPDR S&P Bank ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1207801,
-        "AvgVolume": 1466296,
+        "Volume": 1556336,
+        "AvgVolume": 1482185,
         "sharesOutstanding": null,
         "52Week": "54.64 - 71.92",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 66.62,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1207801,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1466296,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42132,11 +42145,15 @@
             "volume": 1207801
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-09-21",
+            "amount": 0.375
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

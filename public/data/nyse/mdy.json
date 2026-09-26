@@ -9,24 +9,41 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 666.68,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 665.87,
         "englishName": "State Street SPDR S&P MIDCAP 400 ETF Trust",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1051912,
-        "AvgVolume": 605635,
+        "Volume": 650563,
+        "AvgVolume": 611303,
         "sharesOutstanding": 55415100,
         "52Week": "568.21 - 717.35",
-        "Yield": 0.010215,
+        "Yield": 0.010227,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US78467Y1073",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 666.68,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1051912,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 605635,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.010215,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -71127,7 +71144,9 @@
             "high": 668.98999,
             "low": 663.719971,
             "close": 666.679993,
-            "volume": 1051912
+            "volume": 1051912,
+            "amount": 1.604,
+            "yield": 0.0129126429
         },
         {
             "date": "2026-12-18",

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 16.92,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 16.5697,
         "englishName": "Kurv Yield Premium Strategy Netflix ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7799,
-        "AvgVolume": 3706,
+        "Volume": 11017,
+        "AvgVolume": 4067,
         "sharesOutstanding": null,
-        "52Week": "15.78 - 38.09",
+        "52Week": "15.78 - 37.2",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.92,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7799,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3706,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5890,10 +5903,6 @@
             "volume": 600
         },
         {
-            "date": "2026-09-25",
-            "forecasted": true
-        },
-        {
             "date": "2026-10-26",
             "forecasted": true
         },
@@ -5911,6 +5920,10 @@
         },
         {
             "date": "2027-02-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-26",
             "forecasted": true
         }
     ]

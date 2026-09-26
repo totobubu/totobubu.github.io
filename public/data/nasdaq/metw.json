@@ -9,16 +9,16 @@
         "underlying": "META",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 26.82,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 30.69,
         "englishName": "Roundhill META WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 56800,
-        "AvgVolume": 15954,
+        "Volume": 39938,
+        "AvgVolume": 17554,
         "sharesOutstanding": null,
-        "52Week": "21.17 - 51.18",
+        "52Week": "21.17 - 47.09",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.82,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 56800,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 15954,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2836,6 +2849,10 @@
         },
         {
             "date": "2027-03-15",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

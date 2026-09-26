@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 29.71,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 29.25,
         "englishName": "Invesco RAFI Emerging Markets ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 96551,
-        "AvgVolume": 227366,
+        "Volume": 228008,
+        "AvgVolume": 213095,
         "sharesOutstanding": null,
         "52Week": "24.35 - 30.35",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.71,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 96551,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 227366,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38354,11 +38367,15 @@
             "volume": 96600
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-09-21",
+            "amount": 0.325
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

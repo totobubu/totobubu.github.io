@@ -9,16 +9,16 @@
         "underlying": "AMZN",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 14.315,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 14.275,
         "englishName": "Graniteshares YieldBOOST AMZN ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 900,
-        "AvgVolume": 2937,
+        "Volume": 2371,
+        "AvgVolume": 2748,
         "sharesOutstanding": null,
-        "52Week": "14.04 - 25.24",
+        "52Week": "14.04 - 24.67",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -28,15 +28,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 14.345,
+                "value": 14.315,
                 "change": "down"
             },
             "Volume": {
-                "value": 304,
+                "value": 900,
                 "change": "up"
             },
             "AvgVolume": {
-                "value": 2982,
+                "value": 2937,
                 "change": "down"
             }
         }
@@ -2221,11 +2221,13 @@
         },
         {
             "date": "2026-09-18",
-            "expected": true
+            "expected": true,
+            "amount": 0.094
         },
         {
             "date": "2026-09-25",
-            "expected": true
+            "expected": true,
+            "amount": 0.093
         },
         {
             "date": "2026-10-02",
@@ -2317,6 +2319,14 @@
         },
         {
             "date": "2027-03-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-26",
             "forecasted": true
         }
     ]

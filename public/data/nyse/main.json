@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 56.19,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 55.1,
         "englishName": "Main Street Capital Corporation",
         "earningsDate": "2026-08-06",
-        "enterpriseValue": 7818639360,
-        "marketCap": 5254240256,
-        "Volume": 534685,
-        "AvgVolume": 564582,
+        "enterpriseValue": 7638168064,
+        "marketCap": 5152316416,
+        "Volume": 575735,
+        "AvgVolume": 549967,
         "sharesOutstanding": 93508461,
-        "52Week": "48.95 - 66.05",
-        "Yield": 0.054992,
+        "52Week": "48.95 - 65.23",
+        "Yield": 0.05608,
         "dividendRate": 3.18,
         "payoutRatio": 0.8635,
         "isin": "US56035L1044",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.19,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 7818639360,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 5254240256,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 534685,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 564582,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.054992,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -43205,27 +43230,31 @@
             "volume": 534685
         },
         {
-            "date": "2026-10-08",
+            "date": "2026-09-21",
+            "amount": 0.3
+        },
+        {
+            "date": "2026-10-21",
             "forecasted": true
         },
         {
-            "date": "2026-11-06",
+            "date": "2026-11-20",
             "forecasted": true
         },
         {
-            "date": "2026-12-08",
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2027-01-08",
+            "date": "2027-01-21",
             "forecasted": true
         },
         {
-            "date": "2027-02-08",
+            "date": "2027-02-19",
             "forecasted": true
         },
         {
-            "date": "2027-03-08",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

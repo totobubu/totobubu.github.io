@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 60.76,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 62.94,
         "englishName": "Hewlett Packard Enterprise Company",
         "earningsDate": "2026-09-02",
-        "enterpriseValue": 95195447296,
-        "marketCap": 80656760832,
-        "Volume": 25786196,
-        "AvgVolume": 20773627,
+        "enterpriseValue": 97717633024,
+        "marketCap": 83550633984,
+        "Volume": 15478804,
+        "AvgVolume": 20315274,
         "sharesOutstanding": 1327464779,
-        "52Week": "19.84 - 64.25",
-        "Yield": 0.009184,
+        "52Week": "19.84 - 65.65",
+        "Yield": 0.008866,
         "dividendRate": 0.57,
         "payoutRatio": 0.2874,
         "isin": "US42824C1099",
@@ -37,7 +37,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 60.76,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 95195447296,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 80656760832,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 25786196,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 20773627,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.009184,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24737,7 +24762,8 @@
             "high": 62.139999,
             "low": 57.009998,
             "close": 61.040001,
-            "volume": 25822300
+            "volume": 25822300,
+            "yield": 0.0122620087
         },
         {
             "date": "2026-12-17",

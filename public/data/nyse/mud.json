@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 9.73,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 8.95,
         "englishName": "Direxion Daily MU Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5614034,
-        "AvgVolume": 12038748,
+        "Volume": 4947022,
+        "AvgVolume": 10233258,
         "sharesOutstanding": null,
-        "52Week": "8.905 - 1195.0",
+        "52Week": "8.735 - 1156.0",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.73,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5614034,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12038748,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3887,11 +3900,15 @@
             "volume": 5657700
         },
         {
-            "date": "2026-09-23",
+            "date": "2026-09-22",
+            "amount": 0.148
+        },
+        {
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2026-12-23",
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

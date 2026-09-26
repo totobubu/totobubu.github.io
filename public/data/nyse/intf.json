@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 42.09,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 42.22,
         "englishName": "iShares International Equity Factor ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 229976,
-        "AvgVolume": 234653,
+        "Volume": 325366,
+        "AvgVolume": 247804,
         "sharesOutstanding": null,
-        "52Week": "35.385 - 43.49",
+        "52Week": "35.39 - 43.49",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.09,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 229976,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 234653,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22960,10 +22973,6 @@
             "volume": 247500
         },
         {
-            "date": "2026-09-21",
-            "forecasted": true
-        },
-        {
             "date": "2026-09-28",
             "forecasted": true
         },
@@ -23061,6 +23070,10 @@
         },
         {
             "date": "2027-03-15",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

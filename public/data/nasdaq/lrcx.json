@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 288.11,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 315.21,
         "englishName": "Lam Research Corporation",
         "earningsDate": "2026-07-29",
-        "enterpriseValue": 335535636480,
-        "marketCap": 360518057984,
-        "Volume": 19471684,
-        "AvgVolume": 10604441,
-        "sharesOutstanding": 1251321000,
-        "52Week": "125.0 - 438.5",
-        "Yield": 0.00361,
+        "enterpriseValue": 392971288576,
+        "marketCap": 394461478912,
+        "Volume": 7588981,
+        "AvgVolume": 10258440,
+        "sharesOutstanding": 1251424362,
+        "52Week": "130.81 - 438.5",
+        "Yield": 0.003299,
         "dividendRate": 1.32,
         "payoutRatio": 0.1806,
         "isin": "US5128073062",
@@ -42,7 +42,36 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 288.11,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 335535636480,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 360518057984,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 19471684,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10604441,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 1251321000,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.00361,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -96390,11 +96419,15 @@
             "volume": 19471684
         },
         {
-            "date": "2026-12-17",
+            "date": "2026-09-23",
+            "amount": 0.33
+        },
+        {
+            "date": "2026-12-23",
             "forecasted": true
         },
         {
-            "date": "2027-03-17",
+            "date": "2027-03-23",
             "forecasted": true
         }
     ]

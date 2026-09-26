@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 8.835,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 8.7425,
         "englishName": "GraniteShares YieldBOOST BABA ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 372,
-        "AvgVolume": 2208,
+        "Volume": 544,
+        "AvgVolume": 2030,
         "sharesOutstanding": null,
         "52Week": "8.72 - 25.02",
         "Yield": null,
@@ -28,15 +28,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 8.8454,
+                "value": 8.835,
                 "change": "down"
             },
             "Volume": {
-                "value": 729,
-                "change": "down"
+                "value": 372,
+                "change": "up"
             },
             "AvgVolume": {
-                "value": 2214,
+                "value": 2208,
                 "change": "down"
             }
         }
@@ -1989,7 +1989,8 @@
         },
         {
             "date": "2026-09-18",
-            "expected": true
+            "expected": true,
+            "amount": 0.069
         },
         {
             "date": "2026-09-25",
@@ -2085,6 +2086,14 @@
         },
         {
             "date": "2027-03-12",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-26",
             "forecasted": true
         }
     ]

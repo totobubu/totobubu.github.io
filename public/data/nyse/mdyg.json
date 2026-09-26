@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 104.94,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 105.53,
         "englishName": "State Street SPDR S&P 400 Mid Cap Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 89034,
-        "AvgVolume": 84088,
+        "Volume": 74426,
+        "AvgVolume": 82254,
         "sharesOutstanding": null,
         "52Week": "87.09 - 113.93",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 104.94,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 89034,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 84088,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -42615,11 +42628,15 @@
             "volume": 89034
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-09-21",
+            "amount": 0.229
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

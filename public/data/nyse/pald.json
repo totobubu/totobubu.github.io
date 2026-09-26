@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 10.27,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 9.8436,
         "englishName": "Direxion Daily PANW Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 144224,
-        "AvgVolume": 94104,
+        "Volume": 123628,
+        "AvgVolume": 95445,
         "sharesOutstanding": null,
-        "52Week": "9.77 - 30.87",
+        "52Week": "9.33 - 30.87",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.27,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 144224,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 94104,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3006,11 +3019,15 @@
             "volume": 190900
         },
         {
-            "date": "2026-09-23",
+            "date": "2026-09-22",
+            "amount": 0.101
+        },
+        {
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2026-12-23",
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

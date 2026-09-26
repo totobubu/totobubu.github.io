@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 76.57,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 76.15,
         "englishName": "Omnicom Group Inc.",
         "earningsDate": "2026-07-28",
-        "enterpriseValue": 30567792640,
-        "marketCap": 21822924800,
-        "Volume": 16727415,
-        "AvgVolume": 3089479,
+        "enterpriseValue": 29895645184,
+        "marketCap": 21703223296,
+        "Volume": 2838825,
+        "AvgVolume": 3132540,
         "sharesOutstanding": 285006196,
         "52Week": "66.33 - 89.57",
-        "Yield": 0.040486,
+        "Yield": 0.040709,
         "dividendRate": 3.2,
         "payoutRatio": 8.3784,
         "isin": "US6819191064",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 76.57,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 30567792640,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21822924800,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 16727415,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3089479,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.040486,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106979,14 +107004,16 @@
             "high": 77.160004,
             "low": 75.690002,
             "close": 76.57,
-            "volume": 16727415
+            "volume": 16727415,
+            "amount": 0.8,
+            "yield": 0.0413116453
         },
         {
-            "date": "2026-12-10",
+            "date": "2026-12-18",
             "forecasted": true
         },
         {
-            "date": "2027-03-10",
+            "date": "2027-03-18",
             "forecasted": true
         }
     ]

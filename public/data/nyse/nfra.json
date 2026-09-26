@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 64.09,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 63.5,
         "englishName": "Northern Trust STOXX Global Broad Infrastructure ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 99856,
-        "AvgVolume": 75703,
+        "Volume": 43341,
+        "AvgVolume": 64165,
         "sharesOutstanding": null,
         "52Week": "59.6 - 67.36",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 64.09,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 99856,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 75703,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26164,6 +26177,10 @@
             "low": 65.080002,
             "close": 65.290001,
             "volume": 29000
+        },
+        {
+            "date": "2026-09-18",
+            "amount": 0.327
         },
         {
             "date": "2026-12-18",

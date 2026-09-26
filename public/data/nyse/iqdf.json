@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 34.99,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 35.06,
         "englishName": "Northern Trust International Quality Dividend ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 87171,
-        "AvgVolume": 52933,
+        "Volume": 35094,
+        "AvgVolume": 51717,
         "sharesOutstanding": null,
         "52Week": "27.91 - 36.52",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.99,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 87171,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 52933,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27148,6 +27161,10 @@
             "low": 35.560001,
             "close": 35.619999,
             "volume": 51700
+        },
+        {
+            "date": "2026-09-18",
+            "amount": 0.433
         },
         {
             "date": "2026-12-18",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 53,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 52.8886,
         "englishName": "Invesco RAFI US 1500 Small-Mid ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 169322,
-        "AvgVolume": 94869,
+        "Volume": 84299,
+        "AvgVolume": 97003,
         "sharesOutstanding": null,
         "52Week": "42.73 - 56.84",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 53,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 169322,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 94869,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -41046,11 +41059,15 @@
             "volume": 169300
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-09-21",
+            "amount": 0.129
+        },
+        {
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

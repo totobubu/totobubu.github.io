@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 51.13,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 57.9,
         "englishName": "Direxion Daily PLTR Bull 2X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 764181,
-        "AvgVolume": 2356388,
+        "Volume": 517770,
+        "AvgVolume": 2113664,
         "sharesOutstanding": null,
         "52Week": "21.04 - 128.035",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 51.13,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 764181,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2356388,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3582,11 +3595,15 @@
             "volume": 617300
         },
         {
-            "date": "2026-09-23",
+            "date": "2026-09-22",
+            "amount": 0.22
+        },
+        {
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2026-12-23",
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

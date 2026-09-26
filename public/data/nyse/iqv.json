@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 266.42,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 270.37,
         "englishName": "IQVIA Holdings Inc.",
         "earningsDate": "2026-07-28",
-        "enterpriseValue": 58654822400,
-        "marketCap": 43852734464,
-        "Volume": 5593002,
-        "AvgVolume": 1410320,
+        "enterpriseValue": 58807902208,
+        "marketCap": 44502900736,
+        "Volume": 1092242,
+        "AvgVolume": 1455547,
         "sharesOutstanding": 164600000,
-        "52Week": "154.5 - 273.88",
+        "52Week": "154.5 - 277.4",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 266.42,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 58654822400,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 43852734464,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5593002,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1410320,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30125,7 +30146,8 @@
             "high": 273.880005,
             "low": 267.920013,
             "close": 269.440002,
-            "volume": 1714600
+            "volume": 1714600,
+            "marketCap": 44502900736
         }
     ]
 }

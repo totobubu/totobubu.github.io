@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 48.02,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 47.86,
         "englishName": "iShares MSCI India ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 8555912,
-        "AvgVolume": 5181159,
+        "Volume": 3168163,
+        "AvgVolume": 5092383,
         "sharesOutstanding": null,
         "52Week": "45.21 - 55.5",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.02,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8555912,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5181159,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29466,10 +29479,6 @@
             "volume": 4117900
         },
         {
-            "date": "2026-09-22",
-            "forecasted": true
-        },
-        {
             "date": "2026-09-29",
             "forecasted": true
         },
@@ -29567,6 +29576,10 @@
         },
         {
             "date": "2027-03-16",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-23",
             "forecasted": true
         }
     ]

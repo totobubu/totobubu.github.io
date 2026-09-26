@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 47.69,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 47.07,
         "englishName": "Simplify MBS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 143574,
-        "AvgVolume": 203141,
+        "Volume": 337652,
+        "AvgVolume": 221016,
         "sharesOutstanding": null,
-        "52Week": "47.415 - 50.8",
+        "52Week": "46.825 - 50.8",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.69,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 143574,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 203141,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5835,10 +5848,6 @@
             "volume": 227000
         },
         {
-            "date": "2026-09-25",
-            "forecasted": true
-        },
-        {
             "date": "2026-10-26",
             "forecasted": true
         },
@@ -5856,6 +5865,10 @@
         },
         {
             "date": "2027-02-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-26",
             "forecasted": true
         }
     ]

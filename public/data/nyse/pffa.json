@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 20.69,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 20,
         "englishName": "Virtus InfraCap U.S. Preferred Stock ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 699643,
-        "AvgVolume": 828858,
+        "Volume": 1552435,
+        "AvgVolume": 802745,
         "sharesOutstanding": null,
-        "52Week": "20.23 - 22.45",
+        "52Week": "19.89 - 22.06",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.69,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 699643,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 828858,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16994,11 +17007,11 @@
             "volume": 667600
         },
         {
-            "date": "2026-09-18",
-            "forecasted": true
+            "date": "2026-09-21",
+            "amount": 0.173
         },
         {
-            "date": "2026-10-20",
+            "date": "2026-10-21",
             "forecasted": true
         },
         {
@@ -17006,15 +17019,19 @@
             "forecasted": true
         },
         {
-            "date": "2026-12-18",
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2027-01-19",
+            "date": "2027-01-21",
             "forecasted": true
         },
         {
             "date": "2027-02-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

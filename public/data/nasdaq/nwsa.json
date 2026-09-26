@@ -9,24 +9,53 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 29.78,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 28.49,
         "englishName": "News Corporation",
         "earningsDate": "2026-08-05",
-        "enterpriseValue": 17852968960,
-        "marketCap": 15966097408,
-        "Volume": 15318257,
-        "AvgVolume": 4112033,
-        "sharesOutstanding": 358717924,
+        "enterpriseValue": 16938589184,
+        "marketCap": 15373745152,
+        "Volume": 2814302,
+        "AvgVolume": 4170014,
+        "sharesOutstanding": 359954582,
         "52Week": "22.2 - 31.66",
-        "Yield": 0.006716,
+        "Yield": 0.00702,
         "dividendRate": 0.2,
         "payoutRatio": 0.1942,
         "isin": "CNE000000KJ6",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.78,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 17852968960,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 15966097408,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 15318257,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4112033,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 358717924,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.006716,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29898,7 +29927,8 @@
             "high": 30.43,
             "low": 29.99,
             "close": 30.18,
-            "volume": 2631800
+            "volume": 2631800,
+            "marketCap": 15373745152
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": "COIN",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 20.91,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 20.8,
         "englishName": "YieldMax COIN Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 942036,
-        "AvgVolume": 450922,
+        "Volume": 572514,
+        "AvgVolume": 469754,
         "sharesOutstanding": null,
         "52Week": "17.22 - 78.2",
         "Yield": null,
@@ -41,15 +41,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 19.12,
-                "change": "up"
+                "value": 20.91,
+                "change": "down"
             },
             "Volume": {
-                "value": 612039,
-                "change": "up"
+                "value": 942036,
+                "change": "down"
             },
             "AvgVolume": {
-                "value": 448616,
+                "value": 450922,
                 "change": "up"
             }
         }
@@ -6754,11 +6754,13 @@
             "high": 19.16,
             "low": 18.360001,
             "close": 19.120001,
-            "volume": 614100
+            "volume": 614100,
+            "yield": 0.9074386339
         },
         {
             "date": "2026-09-24",
-            "expected": true
+            "expected": true,
+            "amount": 0.281
         },
         {
             "date": "2026-10-01",
@@ -6858,6 +6860,10 @@
         },
         {
             "date": "2027-03-18",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-25",
             "forecasted": true
         }
     ]

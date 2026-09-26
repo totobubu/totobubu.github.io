@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 26.4,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 33.03,
         "englishName": "Direxion Daily META Bull 2X ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5131503,
-        "AvgVolume": 5899237,
+        "Volume": 5585090,
+        "AvgVolume": 6278222,
         "sharesOutstanding": null,
-        "52Week": "16.85 - 49.75",
+        "52Week": "16.85 - 44.89",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.4,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 5131503,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5899237,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4626,11 +4639,15 @@
             "volume": 3607300
         },
         {
-            "date": "2026-09-23",
+            "date": "2026-09-22",
+            "amount": 0.172
+        },
+        {
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2026-12-23",
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

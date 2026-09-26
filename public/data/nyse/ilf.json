@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 35.04,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 34.75,
         "englishName": "iShares Latin America 40 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1468197,
-        "AvgVolume": 2425535,
+        "Volume": 2154439,
+        "AvgVolume": 2409990,
         "sharesOutstanding": 47750000,
         "52Week": "27.16 - 38.5",
-        "Yield": 0.018836,
+        "Yield": 0.018993,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642873909",
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.04,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1468197,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2425535,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.018836,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -56392,10 +56409,6 @@
             "volume": 1468197
         },
         {
-            "date": "2026-09-21",
-            "forecasted": true
-        },
-        {
             "date": "2026-09-28",
             "forecasted": true
         },
@@ -56493,6 +56506,10 @@
         },
         {
             "date": "2027-03-15",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

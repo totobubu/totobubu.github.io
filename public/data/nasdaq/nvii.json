@@ -9,14 +9,14 @@
         "underlying": "NVDA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 24.245,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 24.53,
         "englishName": "REX NVDA Growth & Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 55656,
-        "AvgVolume": 116300,
+        "Volume": 32629,
+        "AvgVolume": 109108,
         "sharesOutstanding": null,
         "52Week": "22.0 - 34.58",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.245,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 55656,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 116300,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2875,7 +2888,8 @@
         },
         {
             "date": "2026-09-22",
-            "expected": true
+            "expected": true,
+            "amount": 0.19
         },
         {
             "date": "2026-09-29",
@@ -2975,6 +2989,10 @@
         },
         {
             "date": "2027-03-16",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-23",
             "forecasted": true
         }
     ]

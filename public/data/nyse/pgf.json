@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 13.2,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 12.92,
         "englishName": "Invesco Financial Preferred ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 292092,
-        "AvgVolume": 173795,
+        "Volume": 284955,
+        "AvgVolume": 189133,
         "sharesOutstanding": null,
-        "52Week": "13.01 - 14.93",
+        "52Week": "12.885 - 14.83",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.2,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 292092,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 173795,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40334,27 +40347,31 @@
             "volume": 292100
         },
         {
-            "date": "2026-09-24",
+            "date": "2026-09-21",
+            "amount": 0.075
+        },
+        {
+            "date": "2026-10-21",
             "forecasted": true
         },
         {
-            "date": "2026-10-23",
+            "date": "2026-11-20",
             "forecasted": true
         },
         {
-            "date": "2026-11-24",
+            "date": "2026-12-21",
             "forecasted": true
         },
         {
-            "date": "2026-12-24",
+            "date": "2027-01-21",
             "forecasted": true
         },
         {
-            "date": "2027-01-22",
+            "date": "2027-02-19",
             "forecasted": true
         },
         {
-            "date": "2027-02-24",
+            "date": "2027-03-19",
             "forecasted": true
         }
     ]

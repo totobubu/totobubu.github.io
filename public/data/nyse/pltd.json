@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 5.08,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 4.71,
         "englishName": "Direxion Daily PLTR Bear 1X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 25950727,
-        "AvgVolume": 36620387,
+        "Volume": 17996888,
+        "AvgVolume": 35046408,
         "sharesOutstanding": null,
-        "52Week": "4.84 - 9.729",
+        "52Week": "4.59 - 9.729",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.08,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 25950727,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 36620387,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3570,11 +3583,15 @@
             "volume": 32080900
         },
         {
-            "date": "2026-09-23",
+            "date": "2026-09-22",
+            "amount": 0.041
+        },
+        {
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2026-12-23",
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

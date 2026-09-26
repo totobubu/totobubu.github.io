@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 139.39,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 150.51,
         "englishName": "Invesco Semiconductors ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 286108,
-        "AvgVolume": 399219,
+        "Volume": 396003,
+        "AvgVolume": 390759,
         "sharesOutstanding": 3200000,
         "52Week": "66.93 - 189.24",
-        "Yield": 0.001363,
+        "Yield": 0.001262,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US46137V6478",
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 139.39,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 286108,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 399219,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.001363,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -48383,11 +48400,11 @@
             "volume": 286200
         },
         {
-            "date": "2026-09-22",
+            "date": "2026-12-22",
             "forecasted": true
         },
         {
-            "date": "2026-12-22",
+            "date": "2027-03-22",
             "forecasted": true
         }
     ]

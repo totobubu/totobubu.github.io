@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 25.72,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 24.64,
         "englishName": "ProShares Short QQQ",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10300697,
-        "AvgVolume": 8514672,
+        "Volume": 19256224,
+        "AvgVolume": 9117479,
         "sharesOutstanding": null,
-        "52Week": "24.96 - 33.47",
+        "52Week": "24.55 - 33.47",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -37,7 +37,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.72,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10300697,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 8514672,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -41138,11 +41151,15 @@
             "volume": 10307800
         },
         {
-            "date": "2026-09-24",
+            "date": "2026-09-23",
+            "amount": 0.257
+        },
+        {
+            "date": "2026-12-23",
             "forecasted": true
         },
         {
-            "date": "2026-12-24",
+            "date": "2027-03-23",
             "forecasted": true
         }
     ]

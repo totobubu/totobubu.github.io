@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-09-19 06:35:51 KST",
-        "regularMarketPrice": 40.19,
+        "Update": "2026-09-26 11:57:00 KST",
+        "regularMarketPrice": 39.6086,
         "englishName": "First Trust Tactical High Yield ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 121240,
-        "AvgVolume": 201716,
+        "Volume": 133973,
+        "AvgVolume": 199862,
         "sharesOutstanding": null,
-        "52Week": "40.01 - 42.4",
+        "52Week": "39.4 - 42.4",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.19,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 121240,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 201716,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27630,27 +27643,31 @@
             "volume": 91100
         },
         {
-            "date": "2026-09-21",
+            "date": "2026-09-24",
+            "amount": 0.22
+        },
+        {
+            "date": "2026-10-23",
             "forecasted": true
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-11-24",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-12-24",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
+            "date": "2027-01-22",
             "forecasted": true
         },
         {
-            "date": "2027-01-21",
+            "date": "2027-02-24",
             "forecasted": true
         },
         {
-            "date": "2027-02-19",
+            "date": "2027-03-24",
             "forecasted": true
         }
     ]
