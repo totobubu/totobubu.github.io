@@ -1,8 +1,10 @@
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 
-from scripts.content_pipeline.content_templates import ContentEvent, MonthlyDistribution, naver_markdown, social_square_html, toss_text
+from scripts.content_pipeline.content_cards import social_square_html
+from scripts.content_pipeline.content_templates import ContentEvent, MonthlyDistribution, naver_markdown, toss_text
 from scripts.content_pipeline.generate_content import generate_bundle
 
 
@@ -40,6 +42,23 @@ class ContentTemplateTest(unittest.TestCase):
         self.assertIn("배당공시일", html)
         self.assertIn("260916", html)
         self.assertIn("직전 대비 +6.4% | + $0.0127", html)
+
+    def test_templates_preserve_official_precision_and_show_source_badges(self):
+        precise = replace(
+            self.event,
+            distribution_per_share="0.252500000",
+            source_class="exchange_official",
+            source_provider="NASDAQ",
+            verification_status="cross_checked",
+            precision_digits=9,
+        )
+        self.assertIn("$0.252500000", toss_text(precise))
+        self.assertIn("거래소 공식 공시", naver_markdown(precise))
+        html = social_square_html(precise)
+        self.assertIn('data-source-class="exchange_official"', html)
+        self.assertIn("교차 검증", html)
+        self.assertIn("원문 소수 9자리", html)
+        self.assertIn("$0.252500000", html)
 
     def test_bundle_has_all_publishable_assets(self):
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -15,11 +15,10 @@ if __package__ in {None, ""}:
 from scripts.content_pipeline.content_templates import (
     ContentEvent,
     MonthlyDistribution,
-    blog_cover_html,
     naver_markdown,
-    social_square_html,
     toss_text,
 )
+from scripts.content_pipeline.content_cards import blog_cover_html, social_square_html
 from scripts.content_pipeline.database import DEFAULT_DB_PATH
 from scripts.content_pipeline.models import utc_now_iso
 

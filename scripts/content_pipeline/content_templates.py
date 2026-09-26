@@ -53,7 +53,25 @@ class ContentEvent:
     @property
     def amount_display(self) -> str:
         value = Decimal(self.distribution_per_share)
-        return format(value.normalize(), "f")
+        # Preserve official lexical precision instead of silently shortening it.
+        return format(value, "f")
+
+    @property
+    def verification_label(self) -> str:
+        return {
+            "official": "공식 확인",
+            "cross_checked": "교차 검증",
+            "needs_review": "검토 필요",
+        }.get(self.verification_status, self.verification_status)
+
+    @property
+    def source_sentence(self) -> str:
+        provider = self.source_provider or self.provider_slug.upper()
+        return {
+            "issuer_official": f"{provider} 운용사 공식 자료에서 확인했습니다.",
+            "exchange_official": f"{provider} 거래소 공식 공시에서 확인했습니다.",
+            "market_infrastructure": f"{provider} 시장 인프라 공식 자료에서 확인했습니다.",
+        }.get(self.source_class, f"{provider} 자료에서 확인했으며 출처 등급을 함께 검토해야 합니다.")
 
     @property
     def change_percent(self) -> Decimal | None:
@@ -115,7 +133,7 @@ def naver_markdown(event: ContentEvent) -> str:
     payable = event.payable_date or "공식 원문에서 확인 필요"
     return f"""# {event.ticker} 배당 발표: 주당 ${event.amount_display}
 
-{event.provider_slug.upper()}가 **{name}({event.ticker})**의 배당 정보를 공식 발표했습니다.
+**{name}({event.ticker})**의 배당 정보를 {event.source_sentence}
 
 ## 핵심 일정
 
