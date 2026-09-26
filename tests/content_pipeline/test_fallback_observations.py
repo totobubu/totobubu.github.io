@@ -5,6 +5,7 @@ from pathlib import Path
 
 from scripts.content_pipeline.collect_fallback import massive_observations
 from scripts.content_pipeline.database import ContentDatabase
+from scripts.content_pipeline.export_admin_data import export_all
 
 
 class FallbackObservationTest(unittest.TestCase):
@@ -33,6 +34,13 @@ class FallbackObservationTest(unittest.TestCase):
             self.assertEqual(stored["precision_digits"], 9)
             self.assertEqual(stored["source_class"], "licensed_vendor")
             self.assertIsNone(stored["canonical_event_id"])
+            bundles = Path(directory) / "bundles"
+            output = Path(directory) / "public"
+            bundles.mkdir()
+            export_all(database.path, bundles, output)
+            index = json.loads((output / "distribution-index.json").read_text())
+            self.assertEqual(index["fallbackObservations"][0]["amount_raw"], "0.252500000")
+            self.assertEqual(index["fallbackObservations"][0]["verification_status"], "third_party_only")
 
 
 if __name__ == "__main__":

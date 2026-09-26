@@ -44,6 +44,16 @@ def export_all(db: Path, bundles: Path, output: Path, *, legacy_exports: bool = 
             (SELECT prs.message FROM pipeline_run_steps prs WHERE prs.provider_slug=p.slug ORDER BY prs.id DESC LIMIT 1) last_message
             FROM providers p LEFT JOIN source_documents s ON s.provider_slug=p.slug GROUP BY p.slug ORDER BY p.display_name""")]
         performance = [dict(row) for row in connection.execute("SELECT * FROM content_performance ORDER BY published_at DESC")]
+        fallback_observations = [dict(row) for row in connection.execute("""
+            SELECT id, ticker, ex_date, amount_raw, amount_normalized, currency,
+                   declared_date, record_date, payable_date, source_class,
+                   source_provider, source_url, content_sha256, precision_digits,
+                   verification_status, observed_at
+            FROM distribution_observations
+            WHERE canonical_event_id IS NULL
+            ORDER BY observed_at DESC, id DESC
+            LIMIT 200
+        """)]
         boundaries: dict[str, set[str]] = {}
         for row in connection.execute('''
             SELECT h.symbol, a.effective_date FROM corporate_action_observations a
@@ -185,6 +195,7 @@ def export_all(db: Path, bundles: Path, output: Path, *, legacy_exports: bool = 
         "providers": distribution_providers,
         "recentEvents": events[:100],
         "tickers": ticker_index,
+        "fallbackObservations": fallback_observations,
         "marketData": "not_configured: NAV/price adapter required",
     })
     if legacy_exports:
