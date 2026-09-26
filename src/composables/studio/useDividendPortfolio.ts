@@ -1,0 +1,145 @@
+import { computed, ref } from 'vue';
+
+export type DistributionEvent = {
+    distribution_per_share: string;
+    ex_date: string;
+    payable_date: string | null;
+    frequency?: string;
+    verification_status: string;
+    official_url: string;
+    previous_amount: string | null;
+    average4: number | null;
+    average12: number | null;
+};
+export type DistributionTicker = {
+    ticker: string;
+    providerSlug: string;
+    latest: DistributionEvent;
+    historyUrl: string;
+    historyCount: number;
+};
+export type Holding = { ticker: string; shares: number; savedAt: string };
+type PersistedPortfolio = {
+    version: 1;
+    holdings: Holding[];
+    watchlist: string[];
+};
+
+const storageKey = 'divgrow.dividend-portfolio.v1';
+const blank = (): PersistedPortfolio => ({
+    version: 1,
+    holdings: [],
+    watchlist: [],
+});
+const state = ref<PersistedPortfolio>(blank());
+let loaded = false;
+
+function persist() {
+    if (typeof window !== 'undefined')
+        localStorage.setItem(storageKey, JSON.stringify(state.value));
+}
+function load() {
+    if (loaded || typeof window === 'undefined') return;
+    loaded = true;
+    try {
+        const value = JSON.parse(localStorage.getItem(storageKey) || 'null');
+        if (
+            value?.version !== 1 ||
+            !Array.isArray(value.holdings) ||
+            !Array.isArray(value.watchlist)
+        )
+            throw new Error('invalid');
+        state.value = {
+            version: 1,
+            holdings: value.holdings
+                .filter(
+                    (item: Holding) =>
+                        typeof item?.ticker === 'string' &&
+                        Number.isFinite(item.shares) &&
+                        item.shares > 0
+                )
+                .map((item: Holding) => ({
+                    ticker: item.ticker.toUpperCase(),
+                    shares: item.shares,
+                    savedAt: item.savedAt || new Date().toISOString(),
+                })),
+            watchlist: value.watchlist
+                .filter((ticker: unknown) => typeof ticker === 'string')
+                .map((ticker: string) => ticker.toUpperCase()),
+        };
+    } catch {
+        state.value = blank();
+        persist();
+    }
+}
+
+export function annualized(event: DistributionEvent) {
+    const amount = Number(event.distribution_per_share);
+    if (!Number.isFinite(amount)) return null;
+    const multiplier =
+        event.frequency === 'weekly'
+            ? 52
+            : event.frequency === 'monthly'
+              ? 12
+              : event.frequency === 'quarterly'
+                ? 4
+                : event.frequency === 'semiannual'
+                  ? 2
+                  : event.frequency === 'annual'
+                    ? 1
+                    : null;
+    return multiplier ? amount * multiplier : null;
+}
+export function nextExpectedDate(event: DistributionEvent) {
+    const date = new Date(`${event.ex_date}T00:00:00Z`);
+    if (Number.isNaN(date.getTime())) return null;
+    const days =
+        event.frequency === 'weekly'
+            ? 7
+            : event.frequency === 'monthly'
+              ? 30
+              : event.frequency === 'quarterly'
+                ? 91
+                : event.frequency === 'semiannual'
+                  ? 182
+                  : event.frequency === 'annual'
+                    ? 365
+                    : null;
+    if (!days) return null;
+    date.setUTCDate(date.getUTCDate() + days);
+    return date.toISOString().slice(0, 10);
+}
+
+export function useDividendPortfolio() {
+    load();
+    const holdings = computed(() => state.value.holdings);
+    const watchlist = computed(() => state.value.watchlist);
+    const setHolding = (ticker: string, shares: number) => {
+        const normalized = ticker.toUpperCase();
+        const next = Number(shares);
+        state.value.holdings = state.value.holdings.filter(
+            (item) => item.ticker !== normalized
+        );
+        if (Number.isFinite(next) && next > 0)
+            state.value.holdings.push({
+                ticker: normalized,
+                shares: next,
+                savedAt: new Date().toISOString(),
+            });
+        persist();
+    };
+    const removeHolding = (ticker: string) => {
+        state.value.holdings = state.value.holdings.filter(
+            (item) => item.ticker !== ticker
+        );
+        persist();
+    };
+    const toggleWatchlist = (ticker: string) => {
+        const normalized = ticker.toUpperCase();
+        state.value.watchlist = state.value.watchlist.includes(normalized)
+            ? state.value.watchlist.filter((item) => item !== normalized)
+            : [...state.value.watchlist, normalized];
+        persist();
+    };
+    return { holdings, watchlist, setHolding, removeHolding, toggleWatchlist };
+}
