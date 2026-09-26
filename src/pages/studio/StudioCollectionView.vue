@@ -46,8 +46,11 @@ function estimatedRequests(item: Provider) {
     if (singleRequestProviders.has(item.slug)) return 1;
     if (item.slug === 'amplify') return 3;
     if (item.slug === 'globalx') return 6;
+    if (item.slug === 'graniteshares') return 2;
     if (item.slug === 'jpmorgan') return 2;
+    if (item.slug === 'kurv') return Math.max(16, item.catalogTickerCount || item.collectedTickerCount);
     if (item.slug === 'neos') return 3;
+    if (item.slug === 'proshares') return 2;
     if (item.slug === 'roundhill') return 3;
     return Math.max(1, item.catalogTickerCount || item.collectedTickerCount);
 }

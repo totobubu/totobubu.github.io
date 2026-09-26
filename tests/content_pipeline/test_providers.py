@@ -11,9 +11,12 @@ from scripts.content_pipeline.providers import (
     AmplifyAdapter,
     DefianceAdapter,
     GlobalXAdapter,
+    GraniteSharesAdapter,
     ISharesAdapter,
     JPMorganAdapter,
+    KurvAdapter,
     NeosAdapter,
+    ProSharesAdapter,
     RexAdapter,
     RoundhillAdapter,
     SchwabAdapter,
@@ -36,6 +39,52 @@ def document(provider: str, fixture: str, url: str, **kwargs) -> SourceDocument:
 
 
 class ProviderParserTest(unittest.TestCase):
+    def test_graniteshares_latest_distribution_table(self):
+        events = GraniteSharesAdapter().parse(
+            document(
+                "graniteshares",
+                "graniteshares_distributions.html",
+                GraniteSharesAdapter.distributions_url,
+            )
+        )
+        self.assertEqual([event.ticker for event in events], ["NVYY", "TQQY"])
+        self.assertEqual(events[0].distribution_per_share, "0.07586")
+        self.assertEqual(events[0].roc_percent, "95.30")
+        self.assertEqual(events[0].verification_status, "needs_review")
+
+    def test_kurv_catalog_and_declared_history(self):
+        adapter = KurvAdapter()
+        catalog = adapter.parse_catalog(
+            document("kurv", "kurv_catalog.html", adapter.catalog_url)
+        )
+        self.assertEqual([item.metadata["ticker"] for item in catalog], ["KEO", "NFLP"])
+        events = adapter.parse(
+            document(
+                "kurv",
+                "kurv_history.html",
+                "https://www.kurvinvest.com/etf/nflp",
+                metadata={"ticker": "NFLP"},
+            )
+        )
+        self.assertEqual(len(events), 2)
+        self.assertEqual(events[0].distribution_per_share, "0.2500")
+        self.assertEqual(events[0].declared_date, "2026-08-25")
+        self.assertEqual(events[0].frequency, "monthly")
+        self.assertEqual(events[0].verification_status, "official")
+
+    def test_proshares_preserves_precision_and_sums_distribution_components(self):
+        events = ProSharesAdapter().parse(
+            document(
+                "proshares",
+                "proshares_distributions.html",
+                ProSharesAdapter.distributions_url,
+            )
+        )
+        self.assertEqual([event.ticker for event in events], ["ANEW", "TEST"])
+        self.assertEqual(events[0].distribution_per_share, "0.029989")
+        self.assertEqual(events[1].distribution_per_share, "0.120000")
+        self.assertEqual(events[1].verification_status, "needs_review")
+
     def test_amplify_standard_history(self):
         events = AmplifyAdapter().parse(
             document(

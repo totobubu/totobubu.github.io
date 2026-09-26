@@ -107,6 +107,7 @@ class OfficialHTTPAdapter(ProviderAdapter):
                 ["node", str(script)],
                 input=json.dumps(payload),
                 text=True,
+                encoding="utf-8",
                 capture_output=True,
                 check=True,
                 timeout=max(120, len(candidates) * (self.timeout_seconds + 20)),
