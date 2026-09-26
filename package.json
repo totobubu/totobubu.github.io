@@ -51,7 +51,8 @@
         "content:schedule:install": "powershell -ExecutionPolicy Bypass -File scripts/content_pipeline/install-schedule.ps1",
         "content:weekly": "python scripts/content_pipeline/weekly_digest.py",
         "content:performance": "python scripts/content_pipeline/performance.py import",
-        "content:recommend": "python scripts/content_pipeline/performance.py recommend"
+        "content:recommend": "python scripts/content_pipeline/performance.py recommend",
+        "content:release-check": "python scripts/content_pipeline/release_readiness.py"
     },
     "dependencies": {
         "@capacitor/android": "^8.3.1",
