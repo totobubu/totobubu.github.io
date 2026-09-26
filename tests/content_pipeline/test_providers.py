@@ -85,6 +85,34 @@ class ProviderParserTest(unittest.TestCase):
         self.assertEqual(events[1].distribution_per_share, "0.120000")
         self.assertEqual(events[1].verification_status, "needs_review")
 
+    def test_proshares_geared_table_uses_total_distribution_column(self):
+        """The leveraged/inverse table omits the ordinary dividend column."""
+        events = ProSharesAdapter().parse(SourceDocument(
+            provider_slug="proshares",
+            source_url=ProSharesAdapter.geared_distributions_url,
+            source_type="fixture",
+            content=b"""<table><thead><tr>
+                <th>Ticker</th><th>Fund Name</th><th>Ex Date</th>
+                <th>Record Date</th><th>Payable Date</th><th>Total Distribution</th>
+            </tr></thead><tbody>
+                <tr><td>BIB</td><td>Ultra Nasdaq Biotechnology</td><td>09/23/2026</td>
+                <td>09/23/2026</td><td>09/29/2026</td><td>$0.082554</td></tr>
+                <tr><td>AGQ</td><td>Ultra Silver</td><td>--</td>
+                <td>--</td><td>--</td><td>--</td></tr>
+            </tbody></table>""",
+        ))
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0].ticker, "BIB")
+        self.assertEqual(events[0].distribution_per_share, "0.082554")
+
+    def test_kurv_catalog_only_fund_is_not_a_distribution_candidate(self):
+        adapter = KurvAdapter()
+        self.assertIn("KMEM", {item.metadata["ticker"] for item in adapter.catalog_seed()})
+        self.assertNotIn("KMEM", {
+            item.metadata["ticker"] for item in adapter.discover()
+            if "ticker" in item.metadata
+        })
+
     def test_amplify_standard_history(self):
         events = AmplifyAdapter().parse(
             document(
