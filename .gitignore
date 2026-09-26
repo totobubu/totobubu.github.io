@@ -77,4 +77,8 @@ var/content-studio/generated/
 var/content-studio/weekly/
 var/content-studio/content-calendar.json
 var/content-studio/content-calendar.csv
+# Generated Content Studio social/blog images are reproducible runtime output.
+# They may be generated locally for preview, but must not grow Git history.
+public/content-studio/renders/
+public/content-studio/renders.json
 var/data-management/
