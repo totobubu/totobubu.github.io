@@ -101,6 +101,39 @@ class ContentDatabase:
             ).fetchone()
             return int(row["id"])
 
+    def upsert_provider_fund(
+        self,
+        provider_slug: str,
+        ticker: str,
+        official_url: str | None,
+        source_type: str,
+        *,
+        collected: bool = False,
+    ) -> None:
+        """Record official catalog coverage separately from dividend truth."""
+        stamp = utc_now_iso()
+        normalized = ticker.strip().upper()
+        if not normalized:
+            return
+        with self.connect() as connection:
+            connection.execute(
+                """
+                INSERT INTO provider_funds (
+                    provider_slug, ticker, official_url, source_type,
+                    first_seen_at, last_seen_at, last_collected_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(provider_slug, ticker) DO UPDATE SET
+                    official_url = COALESCE(excluded.official_url, provider_funds.official_url),
+                    source_type = excluded.source_type,
+                    last_seen_at = excluded.last_seen_at,
+                    last_collected_at = COALESCE(excluded.last_collected_at, provider_funds.last_collected_at)
+                """,
+                (
+                    provider_slug, normalized, official_url, source_type,
+                    stamp, stamp, stamp if collected else None,
+                ),
+            )
+
     def add_collection_attempt(
         self,
         provider_slug: str,
@@ -136,6 +169,13 @@ class ContentDatabase:
     def upsert_distribution_event(
         self, event: DistributionEvent, source_document_id: int
     ) -> int:
+        self.upsert_provider_fund(
+            event.provider_slug,
+            event.ticker,
+            event.official_url,
+            "official_distribution_event",
+            collected=True,
+        )
         now = utc_now_iso()
         with self.connect() as connection:
             connection.execute(
@@ -188,6 +228,7 @@ class ContentDatabase:
     def summary(self) -> dict[str, int]:
         tables = (
             "providers",
+            "provider_funds",
             "source_documents",
             "collection_attempts",
             "distribution_events",
@@ -213,6 +254,9 @@ class ContentDatabase:
                     MAX(s.fetched_at) AS last_fetched_at,
                     COUNT(DISTINCT s.id) AS source_count,
                     COUNT(DISTINCT e.id) AS event_count,
+                    (SELECT COUNT(*) FROM provider_funds pf
+                     WHERE pf.provider_slug = p.slug) AS catalog_ticker_count,
+                    COUNT(DISTINCT e.ticker) AS collected_ticker_count,
                     (SELECT a.status FROM collection_attempts a
                      WHERE a.provider_slug = p.slug
                      ORDER BY a.attempted_at DESC, a.id DESC LIMIT 1) AS last_attempt_status,
@@ -230,6 +274,20 @@ class ContentDatabase:
                 LEFT JOIN distribution_events e ON e.provider_slug = p.slug
                 GROUP BY p.slug, p.display_name, p.enabled
                 ORDER BY p.display_name
+                """
+            ).fetchall()
+            fund_rows = connection.execute(
+                """
+                SELECT pf.provider_slug, pf.ticker, pf.official_url,
+                       pf.source_type, pf.first_seen_at, pf.last_seen_at,
+                       pf.last_collected_at,
+                       CASE WHEN EXISTS (
+                           SELECT 1 FROM distribution_events e
+                           WHERE e.provider_slug = pf.provider_slug
+                             AND e.ticker = pf.ticker
+                       ) THEN 'collected' ELSE 'catalog_only' END AS coverage_status
+                FROM provider_funds pf
+                ORDER BY pf.provider_slug, pf.ticker
                 """
             ).fetchall()
             event_rows = connection.execute(
@@ -274,6 +332,7 @@ class ContentDatabase:
             "generatedAt": utc_now_iso(),
             "counts": counts,
             "providers": [dict(row) for row in provider_rows],
+            "providerFunds": [dict(row) for row in fund_rows],
             "recentEvents": [dict(row) for row in event_rows],
             "openFindings": [dict(row) for row in finding_rows],
             "recentRuns": [dict(row) for row in run_rows],

@@ -15,6 +15,17 @@ from scripts.content_pipeline.database import ContentDatabase, DEFAULT_DB_PATH
 from scripts.content_pipeline.providers import NoDataError, PROVIDERS, SourceCandidate
 
 
+def candidate_tickers(candidate: SourceCandidate) -> list[str]:
+    values: list[str] = []
+    ticker = candidate.metadata.get("ticker")
+    if isinstance(ticker, str):
+        values.append(ticker)
+    tickers = candidate.metadata.get("tickers")
+    if isinstance(tickers, (list, tuple, set)):
+        values.extend(str(value) for value in tickers)
+    return sorted({value.strip().upper() for value in values if value.strip()})
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Collect official ETF distributions")
     parser.add_argument("--provider", choices=sorted(PROVIDERS), required=True)
@@ -49,6 +60,12 @@ def main() -> int:
         candidates = list(adapter.discover_for_ex_date(args.ex_date))
     else:
         candidates = list(adapter.discover())
+    if database:
+        for candidate in candidates:
+            for ticker in candidate_tickers(candidate):
+                database.upsert_provider_fund(
+                    adapter.slug, ticker, candidate.url, candidate.source_type
+                )
     report = {
         "provider": adapter.slug,
         "sources": [],

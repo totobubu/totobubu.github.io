@@ -15,6 +15,11 @@ class CollectionHealthTest(unittest.TestCase):
             database.upsert_provider(
                 "schwab", "Schwab", "https://www.schwabassetmanagement.com"
             )
+            database.upsert_provider_fund(
+                "schwab", "SCHD",
+                "https://www.schwabassetmanagement.com/products/schd",
+                "official_fund_history",
+            )
             record_collection_report(db_path, "schwab", {
                 "errors": [{
                     "url": "https://www.schwabassetmanagement.com/products/schd",
@@ -28,6 +33,10 @@ class CollectionHealthTest(unittest.TestCase):
             self.assertEqual(provider["last_fetch_mode"], "browser")
             self.assertEqual(provider["last_attempt_status"], "challenge_detected")
             self.assertIn("challenge", provider["last_attempt_message"])
+            self.assertEqual(provider["catalog_ticker_count"], 1)
+            self.assertEqual(provider["collected_ticker_count"], 0)
+            fund = database.dashboard_snapshot()["providerFunds"][0]
+            self.assertEqual(fund["coverage_status"], "catalog_only")
 
 
 if __name__ == "__main__":

@@ -46,7 +46,11 @@ class RoundhillAdapter(OfficialHTTPAdapter):
             url=f"{self.cboe_url}?{query}",
             source_type="official_exchange_notice",
             published_at=declaration_date.isoformat(),
-            metadata={"primary_provider": "Roundhill Investments", "exchange": "Cboe"},
+            metadata={
+                "primary_provider": "Roundhill Investments",
+                "exchange": "Cboe",
+                "tickers": list(self.tracked_symbols),
+            },
         )
 
     def parse(self, document: SourceDocument) -> list[DistributionEvent]:

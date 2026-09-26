@@ -10,6 +10,23 @@ CREATE TABLE IF NOT EXISTS providers (
     updated_at TEXT NOT NULL
 );
 
+-- Candidate universe observed from an official provider catalog or an
+-- official distribution source. Presence here is coverage evidence, not a
+-- verified distribution event.
+CREATE TABLE IF NOT EXISTS provider_funds (
+    provider_slug TEXT NOT NULL REFERENCES providers(slug),
+    ticker TEXT NOT NULL,
+    official_url TEXT,
+    source_type TEXT NOT NULL,
+    first_seen_at TEXT NOT NULL,
+    last_seen_at TEXT NOT NULL,
+    last_collected_at TEXT,
+    PRIMARY KEY (provider_slug, ticker)
+);
+
+CREATE INDEX IF NOT EXISTS idx_provider_funds_last_seen
+    ON provider_funds (provider_slug, last_seen_at DESC);
+
 CREATE TABLE IF NOT EXISTS source_documents (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     provider_slug TEXT NOT NULL REFERENCES providers(slug),
@@ -236,4 +253,4 @@ CREATE TABLE IF NOT EXISTS frequency_regime_observations (
     PRIMARY KEY(listing_key, effective_date, next_frequency)
 );
 
-PRAGMA user_version = 7;
+PRAGMA user_version = 8;
