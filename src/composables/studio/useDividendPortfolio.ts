@@ -18,18 +18,36 @@ export type DistributionTicker = {
     historyUrl: string;
     historyCount: number;
 };
-export type Holding = { ticker: string; shares: number; savedAt: string };
+export type Holding = {
+    ticker: string;
+    shares: number;
+    savedAt: string;
+    source: 'manual' | 'toss';
+};
+export type TossSnapshot = {
+    source: 'toss';
+    accountSeq: number;
+    syncedAt: string;
+    holdings: Array<{
+        ticker: string;
+        shares: number;
+        market: 'KR' | 'US' | null;
+        name: string | null;
+    }>;
+};
 type PersistedPortfolio = {
-    version: 1;
+    version: 2;
     holdings: Holding[];
     watchlist: string[];
+    tossSnapshot: TossSnapshot | null;
 };
 
 const storageKey = 'divgrow.dividend-portfolio.v1';
 const blank = (): PersistedPortfolio => ({
-    version: 1,
+    version: 2,
     holdings: [],
     watchlist: [],
+    tossSnapshot: null,
 });
 const state = ref<PersistedPortfolio>(blank());
 let loaded = false;
@@ -44,13 +62,13 @@ function load() {
     try {
         const value = JSON.parse(localStorage.getItem(storageKey) || 'null');
         if (
-            value?.version !== 1 ||
+            ![1, 2].includes(value?.version) ||
             !Array.isArray(value.holdings) ||
             !Array.isArray(value.watchlist)
         )
             throw new Error('invalid');
         state.value = {
-            version: 1,
+            version: 2,
             holdings: value.holdings
                 .filter(
                     (item: Holding) =>
@@ -62,10 +80,18 @@ function load() {
                     ticker: item.ticker.toUpperCase(),
                     shares: item.shares,
                     savedAt: item.savedAt || new Date().toISOString(),
+                    source: item.source === 'toss' ? 'toss' : 'manual',
                 })),
             watchlist: value.watchlist
                 .filter((ticker: unknown) => typeof ticker === 'string')
                 .map((ticker: string) => ticker.toUpperCase()),
+            tossSnapshot:
+                value?.tossSnapshot?.source === 'toss' &&
+                Number.isSafeInteger(value.tossSnapshot.accountSeq) &&
+                typeof value.tossSnapshot.syncedAt === 'string' &&
+                Array.isArray(value.tossSnapshot.holdings)
+                    ? value.tossSnapshot
+                    : null,
         };
     } catch {
         state.value = blank();
@@ -114,6 +140,7 @@ export function useDividendPortfolio() {
     load();
     const holdings = computed(() => state.value.holdings);
     const watchlist = computed(() => state.value.watchlist);
+    const tossSnapshot = computed(() => state.value.tossSnapshot);
     const setHolding = (ticker: string, shares: number) => {
         const normalized = ticker.toUpperCase();
         const next = Number(shares);
@@ -125,6 +152,7 @@ export function useDividendPortfolio() {
                 ticker: normalized,
                 shares: next,
                 savedAt: new Date().toISOString(),
+                source: 'manual',
             });
         persist();
     };
@@ -141,5 +169,38 @@ export function useDividendPortfolio() {
             : [...state.value.watchlist, normalized];
         persist();
     };
-    return { holdings, watchlist, setHolding, removeHolding, toggleWatchlist };
+    const saveTossSnapshot = (snapshot: TossSnapshot) => {
+        state.value.tossSnapshot = snapshot;
+        persist();
+    };
+    const applyTossSnapshot = () => {
+        const snapshot = state.value.tossSnapshot;
+        if (!snapshot) return;
+        const tossTickers = new Set(
+            snapshot.holdings.map((item) => item.ticker.toUpperCase())
+        );
+        const manualUnmatched = state.value.holdings.filter(
+            (item) => item.source !== 'toss' && !tossTickers.has(item.ticker)
+        );
+        state.value.holdings = [
+            ...manualUnmatched,
+            ...snapshot.holdings.map((item) => ({
+                ticker: item.ticker.toUpperCase(),
+                shares: item.shares,
+                savedAt: snapshot.syncedAt,
+                source: 'toss' as const,
+            })),
+        ];
+        persist();
+    };
+    return {
+        holdings,
+        watchlist,
+        tossSnapshot,
+        setHolding,
+        removeHolding,
+        toggleWatchlist,
+        saveTossSnapshot,
+        applyTossSnapshot,
+    };
 }

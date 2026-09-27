@@ -26,6 +26,28 @@ def candidate_tickers(candidate: SourceCandidate) -> list[str]:
     return sorted({value.strip().upper() for value in values if value.strip()})
 
 
+def stable_event_key(event) -> tuple[str, str, str, str]:
+    """Return the issuer-event identity without relying on a SQLite row ID."""
+    return (
+        event.provider_slug,
+        event.ticker,
+        event.declared_date,
+        event.ex_date,
+    )
+
+
+def event_snapshot(event) -> dict[str, str | None]:
+    """Fields whose disagreement must never silently replace an earlier source."""
+    return {
+        "amount": event.distribution_per_share,
+        "recordDate": event.record_date,
+        "payableDate": event.payable_date,
+        "frequency": event.frequency,
+        "rocPercent": event.roc_percent,
+        "verificationStatus": event.verification_status,
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Collect official ETF distributions")
     parser.add_argument("--provider", choices=sorted(PROVIDERS), required=True)
@@ -76,7 +98,13 @@ def main() -> int:
         }),
         "noData": [],
         "errors": [],
+        "duplicates": [],
+        "conflicts": [],
     }
+    # Two official tables can repeat a row.  Keep the first immutable source
+    # as the canonical event and surface exact duplicates or disagreements in
+    # the run report; do not let a later table silently revise the ledger.
+    seen_events: dict[tuple[str, str, str, str], tuple[dict[str, str | None], str]] = {}
 
     max_sources = args.max_sources if args.max_sources is not None else len(candidates)
     selected_candidates = candidates[:max_sources]
@@ -134,24 +162,47 @@ def main() -> int:
                 events = [event for event in events if event.ex_date == args.ex_date.isoformat()]
                 if not events:
                     raise NoDataError(f"no official events matched ex-date {args.ex_date.isoformat()}")
+            accepted_events = []
+            for event in events:
+                key = stable_event_key(event)
+                snapshot = event_snapshot(event)
+                previous = seen_events.get(key)
+                if previous:
+                    previous_snapshot, previous_url = previous
+                    duplicate = {
+                        "eventKey": ":".join(key),
+                        "firstUrl": previous_url,
+                        "duplicateUrl": document.source_url,
+                    }
+                    if previous_snapshot == snapshot:
+                        report["duplicates"].append(duplicate)
+                    else:
+                        report["conflicts"].append({
+                            **duplicate,
+                            "first": previous_snapshot,
+                            "duplicate": snapshot,
+                        })
+                    continue
+                seen_events[key] = (snapshot, document.source_url)
+                accepted_events.append(event)
             if not args.dry_run:
-                for event in events:
+                for event in accepted_events:
                     database.upsert_distribution_event(event, source_id)
             report["sources"].append(
                 {
                     "url": candidate.url,
                     "sha256": document.content_sha256,
-                    "events": len(events),
+                    "events": len(accepted_events),
                     "fetchMode": document.metadata.get("fetchMode", adapter.fetch_mode),
                 }
             )
-            report["events"] += len(events)
+            report["events"] += len(accepted_events)
         except NoDataError as exc:
             report["noData"].append({"url": candidate.url, "message": str(exc)})
         except Exception as exc:
             report["errors"].append({"url": candidate.url, "error": str(exc)})
 
-    if report["errors"] and report["sources"]:
+    if (report["errors"] or report["conflicts"]) and report["sources"]:
         report["status"] = "partial"
     elif report["errors"]:
         report["status"] = "failed"

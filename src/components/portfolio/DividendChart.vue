@@ -7,7 +7,6 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useECharts } from 'vue-echarts';
 import VChart from 'vue-echarts';
 import * as echarts from 'echarts/core';
 import { BarChart } from 'echarts/charts';

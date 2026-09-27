@@ -3,17 +3,35 @@
     import { useHead } from '@vueuse/head';
     import InputNumber from 'primevue/inputnumber';
     import Button from 'primevue/button';
+    import Select from 'primevue/select';
     import {
         annualized,
         nextExpectedDate,
         type DistributionTicker,
         useDividendPortfolio,
     } from '@/composables/studio/useDividendPortfolio';
+    import {
+        getTossAccounts,
+        getTossSnapshot,
+        type TossAccount,
+    } from '@/services/tossPortfolio';
     const rows = ref<DistributionTicker[]>([]);
     const error = ref('');
     const loading = ref(true);
-    const { holdings, watchlist, setHolding, removeHolding, toggleWatchlist } =
-        useDividendPortfolio();
+    const {
+        holdings,
+        watchlist,
+        tossSnapshot,
+        setHolding,
+        removeHolding,
+        toggleWatchlist,
+        saveTossSnapshot,
+        applyTossSnapshot,
+    } = useDividendPortfolio();
+    const tossAccounts = ref<TossAccount[]>([]);
+    const selectedAccount = ref<number | null>(null);
+    const tossError = ref('');
+    const tossLoading = ref(false);
     useHead({ title: '내 배당 | DivGrow' });
     const number = (value: number) =>
         `$${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
@@ -37,6 +55,39 @@
     const savedRows = computed(() =>
         rows.value.filter((row) => watchlist.value.includes(row.ticker))
     );
+    const connectToss = async () => {
+        tossError.value = '';
+        tossLoading.value = true;
+        try {
+            const result = await getTossAccounts();
+            tossAccounts.value = result.accounts;
+            selectedAccount.value = result.accounts[0]?.accountSeq ?? null;
+            if (!result.accounts.length)
+                tossError.value = '연결된 Toss 종합매매 계좌가 없습니다.';
+        } catch (reason) {
+            tossError.value =
+                reason instanceof Error
+                    ? reason.message
+                    : 'Toss 계좌를 불러오지 못했습니다.';
+        } finally {
+            tossLoading.value = false;
+        }
+    };
+    const syncToss = async () => {
+        if (!selectedAccount.value) return;
+        tossError.value = '';
+        tossLoading.value = true;
+        try {
+            saveTossSnapshot(await getTossSnapshot(selectedAccount.value));
+        } catch (reason) {
+            tossError.value =
+                reason instanceof Error
+                    ? reason.message
+                    : 'Toss 보유수량을 불러오지 못했습니다.';
+        } finally {
+            tossLoading.value = false;
+        }
+    };
     onMounted(async () => {
         try {
             const response = await fetch(
@@ -80,6 +131,45 @@
             ><strong>{{ number(totalAnnual) }}</strong
             ><small>공식 최신 배당 × 현재 보유 수량</small>
         </article>
+        <section class="toss" aria-labelledby="toss-heading">
+            <div>
+                <p class="eyebrow">READ-ONLY TOSS SNAPSHOT</p>
+                <h2 id="toss-heading">Toss 보유수량</h2>
+                <small
+                    >읽기 전용입니다. 불러온 수량은 적용 버튼을 누르기 전까지 내
+                    배당 계산에 반영되지 않습니다.</small
+                >
+            </div>
+            <div class="toss-actions">
+                <Button
+                    :label="tossLoading ? '연결 중…' : 'Toss 계좌 연결'"
+                    :disabled="tossLoading"
+                    outlined
+                    @click="connectToss" /><Select
+                    v-if="tossAccounts.length"
+                    v-model="selectedAccount"
+                    :options="tossAccounts"
+                    option-label="label"
+                    option-value="accountSeq"
+                    placeholder="계좌 선택" /><Button
+                    v-if="selectedAccount"
+                    label="보유수량 조회"
+                    :disabled="tossLoading"
+                    @click="syncToss" />
+            </div>
+            <p v-if="tossError" class="notice error">{{ tossError }}</p>
+            <template v-if="tossSnapshot"
+                ><p class="snapshot-meta">
+                    계좌 #{{ tossSnapshot.accountSeq }} ·
+                    {{ tossSnapshot.holdings.length }}개 종목 ·
+                    {{ tossSnapshot.syncedAt }}에 조회
+                </p>
+                <Button
+                    label="이 스냅샷을 내 배당에 적용"
+                    severity="secondary"
+                    @click="applyTossSnapshot"
+            /></template>
+        </section>
         <p v-if="loading" class="notice">공식 원장을 불러오는 중…</p>
         <div v-else-if="portfolio.length" class="table-wrap">
             <table>
@@ -87,6 +177,7 @@
                     <tr>
                         <th>ETF</th>
                         <th>보유 수량</th>
+                        <th>출처</th>
                         <th>최근 배당</th>
                         <th>다음 예상 배당락일</th>
                         <th>연 환산 추정</th>
@@ -100,6 +191,13 @@
                             ><small v-if="!item.row"
                                 >현재 공식 원장에 없음</small
                             >
+                        </td>
+                        <td>
+                            {{
+                                item.source === 'toss'
+                                    ? 'Toss 스냅샷'
+                                    : '직접 입력'
+                            }}
                         </td>
                         <td>
                             <InputNumber
@@ -228,6 +326,28 @@
         display: grid;
         gap: 0.6rem;
     }
+    .toss {
+        display: grid;
+        gap: 0.8rem;
+        padding: 1.1rem;
+        border: 1px solid var(--studio-border);
+        border-radius: 1rem;
+        background: var(--studio-surface);
+    }
+    .toss h2 {
+        margin: 0;
+    }
+    .toss-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+    .snapshot-meta {
+        margin: 0;
+        color: var(--studio-muted);
+        font-size: 0.85rem;
+    }
     .watch h2 {
         margin: 0;
     }
@@ -245,6 +365,10 @@
     }
     @media (max-width: 640px) {
         .watch > div {
+            align-items: stretch;
+            flex-direction: column;
+        }
+        .toss-actions {
             align-items: stretch;
             flex-direction: column;
         }

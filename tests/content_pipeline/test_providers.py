@@ -7,6 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from scripts.content_pipeline.models import SourceDocument
+from scripts.content_pipeline.collect import event_snapshot, stable_event_key
 from scripts.content_pipeline.providers import (
     AmplifyAdapter,
     DefianceAdapter,
@@ -39,6 +40,23 @@ def document(provider: str, fixture: str, url: str, **kwargs) -> SourceDocument:
 
 
 class ProviderParserTest(unittest.TestCase):
+    def test_graniteshares_tables_share_a_stable_duplicate_identity(self):
+        adapter = GraniteSharesAdapter()
+        first = adapter.parse(document(
+            "graniteshares", "graniteshares_distributions.html", adapter.distributions_url,
+        ))[0]
+        repeated = type(first)(
+            provider_slug=first.provider_slug, ticker=first.ticker,
+            distribution_per_share=first.distribution_per_share,
+            declared_date=first.declared_date, ex_date=first.ex_date,
+            record_date=first.record_date, payable_date=first.payable_date,
+            frequency=first.frequency, roc_percent=first.roc_percent,
+            official_url=adapter.autocallable_distributions_url,
+            verification_status=first.verification_status,
+        )
+        self.assertEqual(stable_event_key(first), stable_event_key(repeated))
+        self.assertEqual(event_snapshot(first), event_snapshot(repeated))
+
     def test_graniteshares_latest_distribution_table(self):
         events = GraniteSharesAdapter().parse(
             document(
