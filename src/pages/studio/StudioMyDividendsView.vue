@@ -6,10 +6,17 @@
     import Select from 'primevue/select';
     import {
         annualized,
+        distributionCadenceDays,
         nextExpectedDate,
         type DistributionTicker,
         useDividendPortfolio,
     } from '@/composables/studio/useDividendPortfolio';
+    import {
+        isEstimateEligible,
+        loadMarketInputs,
+        yieldPercent,
+        type PriceIndex,
+    } from '@/services/dividendMarketData';
     import {
         getTossAccounts,
         getTossSnapshot,
@@ -18,6 +25,11 @@
     const rows = ref<DistributionTicker[]>([]);
     const error = ref('');
     const loading = ref(true);
+    const prices = ref<PriceIndex>({
+        generatedAt: '',
+        source: 'yahoo_eod',
+        prices: {},
+    });
     const {
         holdings,
         watchlist,
@@ -41,10 +53,18 @@
                 (item) => item.ticker === holding.ticker
             );
             const annual = row ? annualized(row.latest) : null;
+            const eligible = isEstimateEligible(row);
+            const quote = prices.value.prices[holding.ticker];
             return {
                 ...holding,
                 row,
-                annual: annual === null ? null : annual * holding.shares,
+                annual:
+                    annual === null || !eligible
+                        ? null
+                        : annual * holding.shares,
+                annualPerShare: annual === null || !eligible ? null : annual,
+                quote,
+                yieldPercent: eligible ? yieldPercent(annual, quote) : null,
                 next: row ? nextExpectedDate(row.latest) : null,
             };
         })
@@ -55,6 +75,36 @@
     const savedRows = computed(() =>
         rows.value.filter((row) => watchlist.value.includes(row.ticker))
     );
+    const cashflowMonths = computed(() => {
+        const start = new Date();
+        start.setUTCDate(1);
+        const months = Array.from({ length: 12 }, (_, index) => {
+            const date = new Date(
+                Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + index, 1)
+            );
+            return { key: date.toISOString().slice(0, 7), total: 0 };
+        });
+        for (const item of portfolio.value) {
+            if (!item.row || item.annual === null || !item.next) continue;
+            const cadence = distributionCadenceDays(item.row.latest);
+            const amount =
+                Number(item.row.latest.distribution_per_share) * item.shares;
+            if (!cadence || !Number.isFinite(amount)) continue;
+            const occurrence = new Date(`${item.next}T00:00:00Z`);
+            const end = new Date(
+                Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 12, 1)
+            );
+            while (occurrence < end) {
+                const bucket = months.find(
+                    (month) =>
+                        month.key === occurrence.toISOString().slice(0, 7)
+                );
+                if (bucket) bucket.total += amount;
+                occurrence.setUTCDate(occurrence.getUTCDate() + cadence);
+            }
+        }
+        return months;
+    });
     const connectToss = async () => {
         tossError.value = '';
         tossLoading.value = true;
@@ -90,20 +140,12 @@
     };
     onMounted(async () => {
         try {
-            const response = await fetch(
-                '/content-studio/distribution-index.json',
-                { cache: 'no-store' }
-            );
-            if (!response.ok)
-                throw new Error(
-                    `공식 원장을 읽지 못했습니다 (${response.status})`
-                );
-            const index = await response.json();
-            rows.value = (index.tickers || []).filter(
-                (row: DistributionTicker) =>
-                    ['official', 'cross_checked'].includes(
-                        row.latest.verification_status
-                    )
+            const inputs = await loadMarketInputs();
+            prices.value = inputs.priceIndex;
+            rows.value = inputs.rows.filter((row: DistributionTicker) =>
+                ['official', 'cross_checked'].includes(
+                    row.latest.verification_status
+                )
             );
         } catch (e) {
             error.value =
@@ -134,6 +176,21 @@
                 종목은 제외</small
             >
         </article>
+        <section v-if="portfolio.length" class="cashflow">
+            <header>
+                <h2>향후 12개월 예상 현금흐름</h2>
+                <small
+                    >공식 최신 배당과 지급 주기 기준의 세전 USD 예상 배당락일
+                    집계입니다.</small
+                >
+            </header>
+            <div class="cashflow-grid">
+                <div v-for="month in cashflowMonths" :key="month.key">
+                    <strong>{{ month.key }}</strong
+                    ><span>{{ number(month.total) }}</span>
+                </div>
+            </div>
+        </section>
         <section class="toss" aria-labelledby="toss-heading">
             <div>
                 <p class="eyebrow">READ-ONLY TOSS SNAPSHOT</p>
@@ -182,6 +239,8 @@
                         <th>보유 수량</th>
                         <th>출처</th>
                         <th>최근 배당</th>
+                        <th>예상 수익률</th>
+                        <th>가격 기준일</th>
                         <th>다음 예상 배당락일</th>
                         <th>연 환산 추정</th>
                         <th></th>
@@ -196,13 +255,6 @@
                             >
                         </td>
                         <td>
-                            {{
-                                item.source === 'toss'
-                                    ? 'Toss 스냅샷'
-                                    : '직접 입력'
-                            }}
-                        </td>
-                        <td>
                             <InputNumber
                                 :model-value="item.shares"
                                 :min="0"
@@ -214,11 +266,26 @@
                         </td>
                         <td>
                             {{
+                                item.source === 'toss'
+                                    ? 'Toss 스냅샷'
+                                    : '직접 입력'
+                            }}
+                        </td>
+                        <td>
+                            {{
                                 item.row
                                     ? `$${item.row.latest.distribution_per_share}`
                                     : '—'
                             }}
                         </td>
+                        <td>
+                            {{
+                                item.yieldPercent === null
+                                    ? '—'
+                                    : `${item.yieldPercent.toFixed(2)}%`
+                            }}
+                        </td>
+                        <td>{{ item.quote?.priceDate || '가격 없음' }}</td>
                         <td>{{ item.next || '이력 부족' }}</td>
                         <td>
                             {{
@@ -336,6 +403,33 @@
         display: grid;
         gap: 0.6rem;
     }
+    .cashflow {
+        display: grid;
+        gap: 0.75rem;
+        padding: 1.1rem;
+        border: 1px solid var(--studio-border);
+        border-radius: 1rem;
+        background: var(--studio-surface);
+    }
+    .cashflow h2 {
+        margin: 0;
+    }
+    .cashflow-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.5rem;
+    }
+    .cashflow-grid > div {
+        display: grid;
+        gap: 0.2rem;
+        padding: 0.7rem;
+        border-radius: 0.65rem;
+        background: var(--studio-surface-subtle);
+    }
+    .cashflow-grid strong {
+        font-size: 0.78rem;
+        color: var(--studio-muted);
+    }
     .toss {
         display: grid;
         gap: 0.8rem;
@@ -381,6 +475,9 @@
         .toss-actions {
             align-items: stretch;
             flex-direction: column;
+        }
+        .cashflow-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 </style>

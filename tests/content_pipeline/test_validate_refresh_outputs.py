@@ -21,12 +21,14 @@ class RefreshOutputValidationTest(unittest.TestCase):
                 "content.json": {"bundles": []},
                 "dashboard.json": {"providers": []},
                 "distribution-index.json": {"tickers": []},
+                "price-index.json": {"source": "yahoo_eod", "prices": {}},
+                "price-quality.json": {"source": "yahoo_eod", "findings": []},
                 "reconciliation.json": {"writeMode": "approval-gated", "reviews": []},
                 "sources.json": {"providers": []},
             }
             for name, payload in payloads.items():
                 (root / name).write_text(json.dumps(payload), encoding="utf-8")
-            self.assertEqual(validate(root), {"providers": 0, "tickers": 0, "reviews": 0})
+            self.assertEqual(validate(root), {"providers": 0, "tickers": 0, "reviews": 0, "pricedTickers": 0})
 
     def test_rejects_snapshot_without_approval_gate(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -35,6 +37,8 @@ class RefreshOutputValidationTest(unittest.TestCase):
                 "content.json": {"bundles": []},
                 "dashboard.json": {"providers": []},
                 "distribution-index.json": {"tickers": []},
+                "price-index.json": {"source": "yahoo_eod", "prices": {}},
+                "price-quality.json": {"source": "yahoo_eod", "findings": []},
                 "reconciliation.json": {"reviews": []},
                 "sources.json": {"providers": []},
             }.items():

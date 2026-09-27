@@ -15,6 +15,7 @@ from scripts.content_pipeline.content_calendar import export_calendar
 from scripts.content_pipeline.database import ContentDatabase, DEFAULT_DB_PATH
 from scripts.content_pipeline.export_admin_data import export_all
 from scripts.content_pipeline.export_dashboard import export_dashboard
+from scripts.content_pipeline.export_price_snapshot import export_price_snapshot
 from scripts.content_pipeline.generate_content import generate_all_bundles
 from scripts.content_pipeline.reconcile_public_data import export_snapshot as export_reconciliation
 from scripts.content_pipeline.weekly_digest import generate_weekly_digest
@@ -85,6 +86,8 @@ def main() -> int:
         database.add_pipeline_step(run_id, "register-history", "success", details=history_report)
         export_dashboard(args.db, args.public_dir / "dashboard.json")
         export_all(args.db, args.bundles, args.public_dir)
+        price_coverage = export_price_snapshot(Path("public/nav.json"), args.public_dir / "distribution-index.json", Path("public"), args.public_dir / "price-index.json", args.public_dir / "price-quality.json")
+        database.add_pipeline_step(run_id, "export-prices", "success", details=price_coverage)
         reconciliation = export_reconciliation(args.db, args.legacy_data_dir, args.public_dir / "reconciliation.json", onboard_missing=True)
         database.add_pipeline_step(run_id, "reconcile-public-data", "warning" if reconciliation["summary"].get("missing_date", 0) or reconciliation["summary"].get("amount_mismatch", 0) else "success",
                                    message="manual approval required for legacy-data differences",

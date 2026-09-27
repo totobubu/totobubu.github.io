@@ -9,6 +9,8 @@ REQUIRED_SNAPSHOTS = (
     "content.json",
     "dashboard.json",
     "distribution-index.json",
+    "price-index.json",
+    "price-quality.json",
     "reconciliation.json",
     "sources.json",
 )
@@ -37,17 +39,24 @@ def validate(root: Path = Path("public/content-studio")) -> dict[str, int]:
 
     dashboard = payloads["dashboard.json"]
     distribution_index = payloads["distribution-index.json"]
+    price_index = payloads["price-index.json"]
+    price_quality = payloads["price-quality.json"]
     reconciliation = payloads["reconciliation.json"]
     if not isinstance(dashboard.get("providers"), list):
         raise ValueError("dashboard providers must be an array")
     if not isinstance(distribution_index.get("tickers"), list):
         raise ValueError("distribution index tickers must be an array")
+    if price_index.get("source") != "yahoo_eod" or not isinstance(price_index.get("prices"), dict):
+        raise ValueError("price snapshot must contain Yahoo EOD prices")
+    if price_quality.get("source") != "yahoo_eod" or not isinstance(price_quality.get("findings"), list):
+        raise ValueError("price quality snapshot must contain findings")
     if reconciliation.get("writeMode") != "approval-gated":
         raise ValueError("reconciliation snapshot lost its approval gate")
     return {
         "providers": len(dashboard["providers"]),
         "tickers": len(distribution_index["tickers"]),
         "reviews": len(reconciliation.get("reviews", [])),
+        "pricedTickers": len(price_index["prices"]),
     }
 
 

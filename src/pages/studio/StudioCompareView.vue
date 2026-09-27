@@ -146,21 +146,6 @@
                             ><small>{{ row.providerSlug }}</small>
                         </td>
                         <td>
-                            <span
-                                v-if="
-                                    row.latest.comparisonBasis ===
-                                    'corporate_action_or_frequency_change'
-                                "
-                                >기업행동/주기 변경</span
-                            >
-                            <span v-else>{{
-                                row.latest.verification_status ===
-                                'cross_checked'
-                                    ? '교차 검증'
-                                    : '공식 확인'
-                            }}</span>
-                        </td>
-                        <td>
                             {{
                                 money(Number(row.latest.distribution_per_share))
                             }}
@@ -180,6 +165,21 @@
                                 rel="noreferrer"
                                 >보기</a
                             >
+                        </td>
+                        <td>
+                            <span
+                                v-if="
+                                    row.latest.comparisonBasis ===
+                                    'corporate_action_or_frequency_change'
+                                "
+                                >기업행동/주기 변경</span
+                            >
+                            <span v-else>{{
+                                row.latest.verification_status ===
+                                'cross_checked'
+                                    ? '교차 검증'
+                                    : '공식 확인'
+                            }}</span>
                         </td>
                     </tr>
                 </tbody>

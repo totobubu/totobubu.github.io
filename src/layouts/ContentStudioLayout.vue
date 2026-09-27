@@ -22,6 +22,7 @@
                 <router-link to="/distributions">배당</router-link>
                 <router-link to="/compare">ETF 비교</router-link>
                 <router-link to="/my-dividends">내 배당</router-link>
+                <router-link to="/dividend-calendar">배당 캘린더</router-link>
                 <router-link to="/sources">소스</router-link>
                 <router-link to="/reconciliation">대조</router-link>
                 <router-link to="/renders">산출물</router-link>

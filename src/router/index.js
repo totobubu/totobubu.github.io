@@ -25,6 +25,7 @@ const StudioReconciliationView = () => import('../pages/studio/StudioReconciliat
 const StudioCollectionView = () => import('../pages/studio/StudioCollectionView.vue');
 const StudioCompareView = () => import('../pages/studio/StudioCompareView.vue');
 const StudioMyDividendsView = () => import('../pages/studio/StudioMyDividendsView.vue');
+const StudioDividendCalendarView = () => import('../pages/studio/StudioDividendCalendarView.vue');
 
 const getCurrentUser = async () => {
     const [{ auth }, { onAuthStateChanged }] = await Promise.all([
@@ -50,6 +51,7 @@ const contentStudioRoutes = [
     { path: '/distributions', name: 'studio-distributions', component: StudioDistributionsView },
     { path: '/compare', name: 'studio-compare', component: StudioCompareView },
     { path: '/my-dividends', name: 'studio-my-dividends', component: StudioMyDividendsView },
+    { path: '/dividend-calendar', name: 'studio-dividend-calendar', component: StudioDividendCalendarView },
     { path: '/content', name: 'studio-content', component: StudioDataView, meta: { kind: 'content' } },
     { path: '/sources', name: 'studio-sources', component: StudioDataView, meta: { kind: 'sources' } },
     { path: '/reconciliation', name: 'studio-reconciliation', component: StudioReconciliationView },

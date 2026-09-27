@@ -37,6 +37,7 @@
         "data:sort-keys": "node tasks/sortDataKeys.js",
         "content:init": "python scripts/content_pipeline/manage.py init-db",
         "content:dashboard": "python scripts/content_pipeline/export_dashboard.py",
+        "content:prices": "python scripts/content_pipeline/export_price_snapshot.py",
         "content:generate": "python scripts/content_pipeline/generate_content.py",
         "content:images": "node scripts/content_pipeline/render_content_images.mjs",
         "content:calendar": "python scripts/content_pipeline/content_calendar.py",

@@ -119,25 +119,30 @@ export function annualized(event: DistributionEvent) {
                     : null;
     return multiplier ? amount * multiplier : null;
 }
+export function distributionCadenceDays(event: DistributionEvent) {
+    return event.frequency === 'weekly'
+        ? 7
+        : event.frequency === 'monthly'
+          ? 30
+          : event.frequency === 'quarterly'
+            ? 91
+            : event.frequency === 'semiannual'
+              ? 182
+              : event.frequency === 'annual'
+                ? 365
+                : null;
+}
 export function nextExpectedDate(event: DistributionEvent) {
     if (event.comparisonBasis === 'corporate_action_or_frequency_change')
         return null;
     const date = new Date(`${event.ex_date}T00:00:00Z`);
     if (Number.isNaN(date.getTime())) return null;
-    const days =
-        event.frequency === 'weekly'
-            ? 7
-            : event.frequency === 'monthly'
-              ? 30
-              : event.frequency === 'quarterly'
-                ? 91
-                : event.frequency === 'semiannual'
-                  ? 182
-                  : event.frequency === 'annual'
-                    ? 365
-                    : null;
+    const days = distributionCadenceDays(event);
     if (!days) return null;
-    date.setUTCDate(date.getUTCDate() + days);
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+    do date.setUTCDate(date.getUTCDate() + days);
+    while (date <= today);
     return date.toISOString().slice(0, 10);
 }
 
