@@ -36,6 +36,7 @@
             ? '—'
             : `$${value.toFixed(4).replace(/0+$/, '').replace(/\.$/, '')}`;
     const change = (row: DistributionTicker) =>
+        row.latest.comparisonBasis === 'corporate_action_or_frequency_change' ||
         row.latest.previous_amount === null
             ? '—'
             : money(
@@ -135,6 +136,7 @@
                         <th>다음 예상 배당락일</th>
                         <th>연 환산 추정</th>
                         <th>공식 원문</th>
+                        <th>검증</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -142,6 +144,21 @@
                         <td>
                             <strong>{{ row.ticker }}</strong
                             ><small>{{ row.providerSlug }}</small>
+                        </td>
+                        <td>
+                            <span
+                                v-if="
+                                    row.latest.comparisonBasis ===
+                                    'corporate_action_or_frequency_change'
+                                "
+                                >기업행동/주기 변경</span
+                            >
+                            <span v-else>{{
+                                row.latest.verification_status ===
+                                'cross_checked'
+                                    ? '교차 검증'
+                                    : '공식 확인'
+                            }}</span>
                         </td>
                         <td>
                             {{

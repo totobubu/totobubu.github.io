@@ -10,6 +10,7 @@ export type DistributionEvent = {
     previous_amount: string | null;
     average4: number | null;
     average12: number | null;
+    comparisonBasis?: string;
 };
 export type DistributionTicker = {
     ticker: string;
@@ -100,6 +101,8 @@ function load() {
 }
 
 export function annualized(event: DistributionEvent) {
+    if (event.comparisonBasis === 'corporate_action_or_frequency_change')
+        return null;
     const amount = Number(event.distribution_per_share);
     if (!Number.isFinite(amount)) return null;
     const multiplier =
@@ -117,6 +120,8 @@ export function annualized(event: DistributionEvent) {
     return multiplier ? amount * multiplier : null;
 }
 export function nextExpectedDate(event: DistributionEvent) {
+    if (event.comparisonBasis === 'corporate_action_or_frequency_change')
+        return null;
     const date = new Date(`${event.ex_date}T00:00:00Z`);
     if (Number.isNaN(date.getTime())) return null;
     const days =

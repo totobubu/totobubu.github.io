@@ -129,7 +129,10 @@
         <article class="total">
             <span>연 환산 예상 배당</span
             ><strong>{{ number(totalAnnual) }}</strong
-            ><small>공식 최신 배당 × 현재 보유 수량</small>
+            ><small
+                >공식 최신 배당 × 현재 보유 수량 · 기업행동 또는 주기 변경
+                종목은 제외</small
+            >
         </article>
         <section class="toss" aria-labelledby="toss-heading">
             <div>
@@ -221,6 +224,13 @@
                             {{
                                 item.annual === null ? '—' : number(item.annual)
                             }}
+                            <small
+                                v-if="
+                                    item.row?.latest.comparisonBasis ===
+                                    'corporate_action_or_frequency_change'
+                                "
+                                >주기 변경 확인 필요</small
+                            >
                         </td>
                         <td>
                             <Button
