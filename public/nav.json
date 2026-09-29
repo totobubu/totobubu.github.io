@@ -3208,7 +3208,7 @@
             "koName": "T-REX 비트마인 이머션 테크놀로지스 데일리 타겟 2배 ETF",
             "logo": null,
             "dataPaths": ["data/nyse/bmnu.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "BMY",
@@ -6343,7 +6343,7 @@
             "logo": "logos/company/company-wisdomtree.jpeg",
             "dataPaths": ["data/nyse/des.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
-            "group": "MJD"
+            "group": "JSD"
         },
         {
             "symbol": "DFAC",
@@ -6837,7 +6837,7 @@
             "logo": "logos/company/company-wisdomtree.jpeg",
             "dataPaths": ["data/nasdaq/dgrw.json"],
             "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
-            "group": "JJD"
+            "group": "JSD"
         },
         {
             "symbol": "DGS",
@@ -9473,7 +9473,7 @@
             "company": "WisdomTree",
             "ipoDate": "2007-02-23",
             "frequency": "분기",
-            "group": "MJD",
+            "group": "MJS",
             "sharesOutstanding": false,
             "isin": "US97717W5702",
             "market": "NYSE",
@@ -11876,8 +11876,8 @@
             "koName": "글로벌파운드리",
             "logo": "logos/nasdaq/gfs.svg",
             "dataPaths": ["data/nasdaq/gfs.json"],
-            "periods": [],
             "frequency": "분기",
+            "periods": [],
             "group": "JS"
         },
         {
@@ -16585,7 +16585,7 @@
             "koName": "디파이언스 드론 및 현대전 ETF",
             "logo": "logos/company/company-defiance.png",
             "dataPaths": ["data/nyse/jedi.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "JEMA",
@@ -18088,8 +18088,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/lmtl.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "LMTS",
@@ -19821,7 +19821,7 @@
             "koName": "그래닛셰어즈 일드부스트 스트래티지 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nasdaq/mtyy.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "MU",
@@ -22179,7 +22179,7 @@
             "koName": "그래닛셰어즈 일드부스트 팔란티어 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nasdaq/plyy.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "PM",
@@ -23069,7 +23069,7 @@
             "koName": "앰플리파이 CWP 성장 & 인컴 ETF",
             "logo": "logos/company/company-amplify.png",
             "dataPaths": ["data/nyse/qdvo.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "SON"
         },
         {
@@ -24235,7 +24235,7 @@
             "currency": "USD",
             "logo": "logos/company/company-rockefeller.svg",
             "dataPaths": ["data/nyse/rmca.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "SON"
         },
         {
@@ -24265,7 +24265,7 @@
             "currency": "USD",
             "logo": "logos/company/company-rockefeller.svg",
             "dataPaths": ["data/nyse/rmny.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "SON"
         },
         {
@@ -24280,7 +24280,7 @@
             "currency": "USD",
             "logo": "logos/company/company-rockefeller.svg",
             "dataPaths": ["data/nyse/rmop.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "SON"
         },
         {
@@ -25776,8 +25776,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/shpu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MSD"
+            "group": "MSD",
+            "periods": []
         },
         {
             "symbol": "SHRT",
@@ -26285,7 +26285,7 @@
             "koName": "발 앤 게이너 중소형 배당 성장주 ETF",
             "logo": null,
             "dataPaths": ["data/nyse/smig.json"],
-            "periods": ["1Y", "2Y", "3Y"],
+            "periods": ["1Y", "2Y", "3Y", "5Y"],
             "group": "SON"
         },
         {
@@ -27628,7 +27628,7 @@
             "symbol": "STX",
             "ipoDate": "2002-12-11",
             "frequency": "분기",
-            "group": "AND",
+            "group": "ASD",
             "sharesOutstanding": false,
             "isin": "IE00BKVD2N49",
             "market": "NASDAQ",
@@ -28007,8 +28007,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/tbxu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TCAF",
@@ -28298,8 +28298,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/texu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TFC",
@@ -29346,8 +29346,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/tsxd.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TSXU",
@@ -29362,8 +29362,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/tsxu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TSYW",
@@ -29451,8 +29451,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/ttxd.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TTXU",
@@ -29467,8 +29467,8 @@
             "logo": "logos/company/company-direxion.png",
             "dataPaths": ["data/nyse/ttxu.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "TXN",
