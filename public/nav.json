@@ -12527,7 +12527,9 @@
             "koName": "펀드스트랫 그래니 샷 미국 대형주 ETF",
             "logo": null,
             "dataPaths": ["data/nyse/grny.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "분기",
+            "group": "JS"
         },
         {
             "symbol": "GS",
@@ -24041,7 +24043,7 @@
             "company": "Rockefeller",
             "ipoDate": "2024-10-28",
             "frequency": "분기",
-            "group": "AJD",
+            "group": "JSD",
             "sharesOutstanding": false,
             "isin": "US45259A8861",
             "market": "NYSE",
@@ -28974,7 +28976,7 @@
             "currency": "USD",
             "logo": "logos/company/company-defiance.png",
             "dataPaths": ["data/nyse/tril.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "TRMB",
