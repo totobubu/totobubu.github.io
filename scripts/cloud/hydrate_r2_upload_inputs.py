@@ -44,7 +44,9 @@ def hydrate(paths: list[str]) -> None:
         print("No public files need to be hydrated.")
         return
     subprocess.run(
-        ["git", "sparse-checkout", "add", "--no-cone", "--stdin"],
+        # Non-cone mode is configured by actions/checkout. `sparse-checkout add`
+        # inherits it, and current Git versions do not accept --no-cone here.
+        ["git", "sparse-checkout", "add", "--stdin"],
         input="\n".join(paths) + "\n",
         text=True,
         check=True,
