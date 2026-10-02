@@ -35,7 +35,6 @@ jobs:
                       /public/
                       !/public/data/
                       !/public/logos/
-                      !/public/thumbnail/
                   token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Set up Python
