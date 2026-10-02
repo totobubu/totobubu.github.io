@@ -10,9 +10,9 @@ import HomeView from '../pages/HomeView.vue';
 const CalendarView = () => import('../pages/CalendarView.vue');
 const BacktesterView = () => import('../pages/BacktesterView.vue');
 const StockView = () => import('../pages/StockView.vue');
+const BookmarkView = () => import('../pages/BookmarkView.vue');
 const ContactView = () => import('../pages/ContactView.vue');
 const NotFound = () => import('../pages/NotFound.vue');
-const ThumbnailGenerator = () => import('../pages/ThumbnailGenerator.vue');
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,7 +28,7 @@ const router = createRouter({
         {
             path: '/bookmark',
             name: 'bookmark-gallery',
-            component: ThumbnailGenerator,
+            component: BookmarkView,
         },
         {
             path: '/contact',
