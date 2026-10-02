@@ -14,6 +14,15 @@ const ThumbnailGenerator = () => import('../pages/ThumbnailGenerator.vue');
 const ContactView = () => import('../pages/ContactView.vue');
 const NotFound = () => import('../pages/NotFound.vue');
 
+// GitHub Pages serves public/thumbnail/index.html for a direct `/thumbnail`
+// request. Normalize its redirect before Vue Router reads the initial URL.
+const staticRedirect = new URLSearchParams(window.location.search).get(
+    'redirect'
+);
+if (staticRedirect === '/thumbnail') {
+    window.history.replaceState(null, '', staticRedirect);
+}
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -67,12 +76,5 @@ const router = createRouter({
         { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     ],
 });
-
-const staticRedirect = new URLSearchParams(window.location.search).get(
-    'redirect'
-);
-if (staticRedirect === '/thumbnail') {
-    router.replace(staticRedirect);
-}
 
 export default router;
