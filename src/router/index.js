@@ -68,4 +68,11 @@ const router = createRouter({
     ],
 });
 
+const staticRedirect = new URLSearchParams(window.location.search).get(
+    'redirect'
+);
+if (staticRedirect === '/thumbnail') {
+    router.replace(staticRedirect);
+}
+
 export default router;
