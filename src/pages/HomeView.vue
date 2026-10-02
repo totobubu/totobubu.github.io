@@ -80,7 +80,7 @@ useHead({
 
             <!-- Quick Links (Restored from Original) -->
             <article class="t-home-link px-3 w-full mx-auto mt-2">
-                <Button label="기본 배당 목록" icon="pi pi-bookmark" severity="primary" rounded size="large" class="w-full mb-2" @click="router.push('/bookmark')" />
+                <Button label="썸네일 생성" icon="pi pi-images" severity="primary" rounded size="large" class="w-full mb-2" @click="router.push('/thumbnail')" />
                 <div class="grid grid-nogutter gap-2">
                     <div class="col">
                         <Button label="배당달력" icon="pi pi-calendar" severity="secondary" outlined rounded class="w-full" @click="router.push('/calendar')" />
@@ -91,7 +91,7 @@ useHead({
                 </div>
                 <div class="grid grid-nogutter gap-2 mt-2">
                     <div class="col">
-                        <Button label="배당 목록" icon="pi pi-star" severity="secondary" outlined rounded class="w-full" @click="router.push('/bookmark')" />
+                        <Button label="썸네일 생성" icon="pi pi-images" severity="secondary" outlined rounded class="w-full" @click="router.push('/thumbnail')" />
                     </div>
                     <div class="col">
                         <Button label="문의하기" icon="pi pi-envelope" severity="secondary" outlined rounded class="w-full" @click="router.push('/contact')" />

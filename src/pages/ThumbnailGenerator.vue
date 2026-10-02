@@ -2,7 +2,6 @@
 <script setup>
     import { ref, onMounted, computed, watch } from 'vue';
     import { useHead } from '@vueuse/head';
-    import { useRouter } from 'vue-router';
     import html2canvas from 'html2canvas';
     import JSZip from 'jszip';
     import ThumbnailItem from '@/components/thumbnail/ThumbnailItem.vue';
@@ -11,10 +10,8 @@
 
     import Button from 'primevue/button';
     import ProgressSpinner from 'primevue/progressspinner';
-    import Checkbox from 'primevue/checkbox';
-    import InputText from 'primevue/inputtext';
     import SelectButton from 'primevue/selectbutton';
-    import { getAssetUrl, getDataUrl, getR2Url } from '@/utils/dataUrl';
+    import { getDataUrl, getR2Url } from '@/utils/dataUrl';
 
     useHead({
         title: '썸네일 일괄 생성기',
@@ -34,7 +31,6 @@
     });
 
     const { myBookmarks, isBookmarksLoading } = useFilterState(); // [수정] isBookmarksLoading 추가
-    const router = useRouter();
 
     const allThumbnailsData = ref([]);
     // const selectedThumbnails = ref([]); // [삭제] 개별 선택 방식 제거
@@ -525,10 +521,6 @@ watch(selectedGroup, () => {
         }
     };
 
-    const goToBookmarkEdit = () => {
-        router.push({ name: 'bookmark-edit' });
-    };
-
     // [신규] 개별 다운로드 함수
     const downloadSingleThumbnail = async (symbol) => {
         if (!symbol) return;
@@ -565,11 +557,6 @@ watch(selectedGroup, () => {
                 <h1>({{ filteredThumbnails.length }})</h1>
             </div>
             <div class="flex align-items-center gap-3">
-                <Button
-                    label="북마크 관리"
-                    icon="pi pi-pencil"
-                    @click="goToBookmarkEdit"
-                    severity="secondary" />
                 <SelectButton
                     v-if="groups.length > 1"
                     v-model="selectedGroup"
@@ -601,15 +588,11 @@ watch(selectedGroup, () => {
                 <p>썸네일 데이터 로딩 중...</p>
             </div>
 
-            <!-- [신규] 북마크 없음 안내 -->
+            <!-- 정적 기본 목록 로드 실패 안내 -->
             <div
                 v-else-if="filteredThumbnails.length === 0"
                 class="no-bookmarks">
-                <p>북마크된 종목이 없습니다.</p>
-                <Button
-                    label="북마크 추가하러 가기"
-                    icon="pi pi-plus"
-                    @click="goToBookmarkEdit" />
+                <p>기본 배당 목록을 불러오지 못했습니다.</p>
             </div>
 
             <div

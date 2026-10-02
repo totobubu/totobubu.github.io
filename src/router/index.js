@@ -10,7 +10,7 @@ import HomeView from '../pages/HomeView.vue';
 const CalendarView = () => import('../pages/CalendarView.vue');
 const BacktesterView = () => import('../pages/BacktesterView.vue');
 const StockView = () => import('../pages/StockView.vue');
-const BookmarkView = () => import('../pages/BookmarkView.vue');
+const ThumbnailGenerator = () => import('../pages/ThumbnailGenerator.vue');
 const ContactView = () => import('../pages/ContactView.vue');
 const NotFound = () => import('../pages/NotFound.vue');
 
@@ -26,9 +26,9 @@ const router = createRouter({
             props: true,
         },
         {
-            path: '/bookmark',
-            name: 'bookmark-gallery',
-            component: BookmarkView,
+            path: '/thumbnail',
+            name: 'thumbnail-generator',
+            component: ThumbnailGenerator,
         },
         {
             path: '/contact',

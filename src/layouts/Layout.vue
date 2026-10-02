@@ -23,7 +23,7 @@ const { isDarkMode, toggleDarkMode } = useLayout();
 const visible = ref(false);
 
 const isStandalonePage = computed(() => {
-    return ['/', '/thumbnail-generator'].includes(route.path);
+    return ['/', '/thumbnail'].includes(route.path);
 });
 
 const menu = ref();
@@ -49,9 +49,9 @@ const menuItems = computed(() => [
     },
     { separator: true },
     {
-        label: '기본 배당 목록',
-        icon: 'pi pi-bookmark',
-        command: () => router.push('/bookmark'),
+        label: '썸네일 생성',
+        icon: 'pi pi-images',
+        command: () => router.push('/thumbnail'),
     },
 ]);
 
