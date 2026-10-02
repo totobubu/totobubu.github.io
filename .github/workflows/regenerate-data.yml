@@ -22,7 +22,20 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
               with:
-                  fetch-depth: 10 # 전체 히스토리 필요 (변경사항 비교용)
+                  fetch-depth: 1
+                  filter: blob:none
+                  sparse-checkout-cone-mode: false
+                  sparse-checkout: |
+                      /*
+                      !/*/
+                      /scripts/
+                      /tasks/
+                      /public/nav/
+                      /public/nav.json
+                      /public/calendar/
+                      /public/sidebar/
+                      /public/sidebar-tickers.json
+                      /public/symbol-to-isin.json
                   token: ${{ secrets.GITHUB_TOKEN }}
 
             # - name: Free Disk Space
@@ -91,8 +104,7 @@ jobs:
             # R2에 업로드
             - name: Upload to R2
               if: steps.check_changes.outputs.has_changes == 'true'
-              run: |
-                  python scripts/cloud/upload_changed_to_r2.py || echo "R2 업로드 실패(계속 진행)"
+              run: python scripts/cloud/upload_changed_to_r2.py --working-tree
 
             # 변경사항 커밋 및 푸시
             - name: Commit and push changes

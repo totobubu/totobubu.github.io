@@ -29,15 +29,7 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
               with:
-                  fetch-depth: 10
-
-            - name: Free Disk Space
-              run: |
-                  sudo rm -rf /usr/local/lib/android
-                  sudo rm -rf /usr/share/dotnet
-                  sudo rm -rf /opt/ghc
-                  sudo rm -rf /usr/local/share/boost
-                  sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+                  fetch-depth: 1
 
             - name: Set up Node.js
               uses: actions/setup-node@v4
@@ -82,13 +74,8 @@ jobs:
             - name: Format changed files only
               run: npm run format:changed
 
-            - name: Upload changed files to R2 (Git-based, fast)
-              env:
-                  GITHUB_EVENT_NAME: ${{ github.event_name }}
-              run: python scripts/cloud/upload_changed_to_r2.py
-
-            - name: Upload updated data to R2
-              run: python scripts/cloud/upload_specific_to_r2.py "public/data/**/*.json"
+            - name: Upload workflow changes to R2
+              run: python scripts/cloud/upload_changed_to_r2.py --working-tree
 
             - name: Check for changes
               id: git_status

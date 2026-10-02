@@ -7,6 +7,7 @@ Git 변경사항 기반 R2 업로드 (초고속 버전)
 - Git에서 변경된 파일만 바로 업로드
 """
 
+import argparse
 import os
 import subprocess
 from pathlib import Path
@@ -14,7 +15,7 @@ from tqdm import tqdm
 from r2_helper import upload_file_to_r2, load_r2_config, R2_AVAILABLE
 
 
-def get_git_changed_files():
+def get_git_changed_files(working_tree=False):
     """
     Git에서 변경된 파일 목록 가져오기
     - GitHub Actions 환경: push된 커밋의 변경사항 확인
@@ -24,6 +25,14 @@ def get_git_changed_files():
         list: 변경된 파일 경로 목록
     """
     try:
+        if working_tree:
+            result = subprocess.run(
+                ["git", "diff", "--name-only", "--diff-filter=AM"],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            return [line for line in result.stdout.splitlines() if line.strip()]
         # GitHub Actions 환경 변수 확인
         github_before = os.environ.get("GITHUB_BEFORE_SHA")
         github_after = os.environ.get("GITHUB_AFTER_SHA")
@@ -156,7 +165,7 @@ def filter_public_files(file_paths):
     return upload_targets
 
 
-def upload_changed_files():
+def upload_changed_files(working_tree=False):
     """Git에서 변경된 파일만 R2에 업로드"""
     print("=" * 70)
     print("  R2 업로드 (Git 변경사항 기반 - 초고속)")
@@ -164,7 +173,7 @@ def upload_changed_files():
     
     if not R2_AVAILABLE:
         print("[WARNING] boto3가 설치되지 않았습니다. R2 업로드를 건너뜁니다.")
-        return
+        return 1
     
     try:
         config = load_r2_config()
@@ -172,16 +181,16 @@ def upload_changed_files():
         print(f"[OK] Public URL: {config['public_url']}\n")
     except Exception as e:
         print(f"[ERROR] R2 설정을 로드할 수 없습니다: {e}")
-        return
+        return 1
     
     # 1. Git에서 변경된 파일 가져오기
     print("[1/3] Git 변경사항 확인 중...")
-    changed_files = get_git_changed_files()
+    changed_files = get_git_changed_files(working_tree=working_tree)
     print(f"   ✓ Git 변경된 파일: {len(changed_files)}개")
     
     if not changed_files:
         print("\n[OK] 변경된 파일이 없습니다. 업로드 건너뜀.")
-        return
+        return 0
     
     # 2. public/ 폴더 내의 파일만 필터링
     print("\n[2/3] 업로드 대상 필터링 중...")
@@ -190,7 +199,7 @@ def upload_changed_files():
     
     if not upload_targets:
         print("\n[OK] public/ 폴더에 변경된 파일이 없습니다.")
-        return
+        return 0
     
     # 파일 타입별 개수 표시
     file_types = {}
@@ -257,10 +266,21 @@ def upload_changed_files():
     # 예시 URL 출력 (첫 3개 파일)
     for i, (_, r2_key) in enumerate(upload_targets[:3]):
         print(f"   - {config['public_url']}/{r2_key}")
-    
     if len(upload_targets) > 3:
         print(f"   ... 외 {len(upload_targets) - 3}개")
+    return 0 if fail_count == 0 else 1
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--working-tree",
+        action="store_true",
+        help="Upload only unstaged/staged changes created by the current workflow.",
+    )
+    args = parser.parse_args()
+    return upload_changed_files(working_tree=args.working_tree)
 
 
 if __name__ == "__main__":
-    upload_changed_files()
+    raise SystemExit(main())

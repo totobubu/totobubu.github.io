@@ -25,15 +25,18 @@ jobs:
               with:
                   fetch-depth: 2 # 이전 커밋과 비교하기 위해 2개 커밋 필요
                   filter: blob:none # 큰 파일을 즉시 받지 않음(접근 시 필요분만 받음)
+                  sparse-checkout-cone-mode: false
+                  sparse-checkout: |
+                      /*
+                      !/*/
+                      /src/
+                      /scripts/cloud/
+                      /scripts/workflows/
+                      /public/
+                      !/public/data/
+                      !/public/logos/
+                      !/public/thumbnail/
                   token: ${{ secrets.GITHUB_TOKEN }}
-
-            - name: Free Disk Space
-              run: |
-                  sudo rm -rf /usr/local/lib/android
-                  sudo rm -rf /usr/share/dotnet
-                  sudo rm -rf /opt/ghc
-                  sudo rm -rf /usr/local/share/boost
-                  sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
             - name: Set up Python
               uses: actions/setup-python@v5
@@ -44,13 +47,16 @@ jobs:
             - name: Install Python deps
               run: pip install -r requirements-workflow.txt
 
+            - name: Hydrate changed public files for R2
+              run: python scripts/cloud/hydrate_r2_upload_inputs.py changed
+
             - name: Check for dividend changes
               id: check_dividend
               run: |
                   python scripts/workflows/check_dividend_changes.py
 
             - name: Upload changed data files to R2
-              run: python scripts/cloud/upload_changed_to_r2.py || echo "R2 업로드 실패(계속 진행)"
+              run: python scripts/cloud/upload_changed_to_r2.py
 
             # R2로 데이터를 쓰면 로컬 'public' 대용량 폴더는 빌드 전에 제거
             - name: Remove large local data before build

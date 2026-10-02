@@ -17,6 +17,15 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
+              with:
+                  fetch-depth: 1
+                  filter: blob:none
+                  sparse-checkout-cone-mode: false
+                  sparse-checkout: |
+                      /*
+                      !/*/
+                      /scripts/data_pipeline/check_no_dividend_status.py
+                      /public/nav/
 
             - name: Set up Python
               uses: actions/setup-python@v5

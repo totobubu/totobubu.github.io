@@ -21,7 +21,7 @@ on:
                 default: ''
 
 permissions:
-    contents: write
+    contents: read
 
 jobs:
     upload-r2:
@@ -29,14 +29,14 @@ jobs:
         steps:
             - name: Checkout main branch
               uses: actions/checkout@v4
-
-            - name: Free Disk Space
-              run: |
-                  sudo rm -rf /usr/local/lib/android
-                  sudo rm -rf /usr/share/dotnet
-                  sudo rm -rf /opt/ghc
-                  sudo rm -rf /usr/local/share/boost
-                  sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+              with:
+                  fetch-depth: 2
+                  filter: blob:none
+                  sparse-checkout-cone-mode: false
+                  sparse-checkout: |
+                      /*
+                      !/*/
+                      /scripts/cloud/
 
             - name: Set up Python
               uses: actions/setup-python@v5
@@ -58,6 +58,18 @@ jobs:
                   echo "R2_BUCKET_NAME=${{ secrets.R2_BUCKET_NAME }}" >> $GITHUB_ENV
                   echo "R2_PUBLIC_URL=${{ secrets.R2_PUBLIC_URL }}" >> $GITHUB_ENV
                   echo "✅ R2 환경변수 설정 완료"
+
+            - name: Hydrate upload inputs
+              env:
+                  R2_UPLOAD_MODE: ${{ inputs.upload_mode }}
+                  R2_SPECIFIC_FILES: ${{ inputs.specific_files }}
+              run: |
+                  if [[ "$R2_UPLOAD_MODE" == "full_sync" ]]; then
+                    git sparse-checkout add --no-cone '/public/**'
+                    git checkout HEAD -- public
+                  else
+                    python scripts/cloud/hydrate_r2_upload_inputs.py "$R2_UPLOAD_MODE" --specific-files "$R2_SPECIFIC_FILES"
+                  fi
 
             # --- R2 업로드 ---
             - name: Upload to R2 (Changed Files - Fast) ⚡
@@ -85,22 +97,3 @@ jobs:
                   fi
                   python scripts/cloud/upload_specific_to_r2.py ${{ inputs.specific_files }}
                   echo "✅ 특정 파일 업로드 완료"
-
-            # --- 변경 사항 커밋 및 푸시 (필요한 경우) ---
-            - name: Check for file changes
-              id: git_status
-              run: |
-                  if [[ -n "$(git status --porcelain)" ]]; then
-                    echo "changes=true" >> $GITHUB_OUTPUT
-                  else
-                    echo "changes=false" >> $GITHUB_OUTPUT
-                  fi
-
-            - name: Commit and push changes
-              if: steps.git_status.outputs.changes == 'true'
-              run: |
-                  git config user.name "github-actions[bot]"
-                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                  git add .
-                  git commit -m "📤 Manual: Upload files to R2"
-                  git push

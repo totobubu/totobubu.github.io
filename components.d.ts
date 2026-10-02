@@ -42,7 +42,6 @@ declare module 'vue' {
     FilterInput: typeof import('./src/components/FilterInput.vue')['default']
     GroupItem: typeof import('./src/components/thumbnail/GroupItem.vue')['default']
     HomeCurationBoard: typeof import('./src/components/HomeCurationBoard.vue')['default']
-    InputGroup: typeof import('primevue/inputgroup')['default']
     InputGroupAddon: typeof import('primevue/inputgroupaddon')['default']
     InputText: typeof import('primevue/inputtext')['default']
     LoadingOverlay: typeof import('./src/components/common/LoadingOverlay.vue')['default']

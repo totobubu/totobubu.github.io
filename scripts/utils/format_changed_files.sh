@@ -3,19 +3,28 @@
 
 set -e
 
-# Get changed files from git status (staged and unstaged)
-# This works better in GitHub Actions where git history might be limited
-CHANGED_FILES=$(git status --porcelain | awk '{print $2}' | grep -E '\.(json)$' || true)
+# Gather tracked and untracked JSON files without parsing whitespace-delimited
+# porcelain output. Prettier is started once for the whole batch; starting it
+# once per file dominated large data refresh runs.
+mapfile -d '' -t CHANGED_FILES < <(
+    {
+        git diff --name-only --diff-filter=AM -z
+        git diff --cached --name-only --diff-filter=AM -z
+        git ls-files --others --exclude-standard -z
+    } | while IFS= read -r -d '' file; do
+        [[ "$file" == *.json ]] && printf '%s\0' "$file"
+    done | sort -zu
+)
 
-if [ -z "$CHANGED_FILES" ]; then
+if [ "${#CHANGED_FILES[@]}" -eq 0 ]; then
     echo "No changed JSON files to format."
     exit 0
 fi
 
 # Filter out excluded paths if EXCLUDE_PATHS environment variable is set
 if [ -n "$EXCLUDE_PATHS" ]; then
-    FILTERED_FILES=""
-    while IFS= read -r file; do
+    FILTERED_FILES=()
+    for file in "${CHANGED_FILES[@]}"; do
         EXCLUDE=false
         for exclude_path in $EXCLUDE_PATHS; do
             if [[ "$file" == "$exclude_path"* ]]; then
@@ -24,24 +33,24 @@ if [ -n "$EXCLUDE_PATHS" ]; then
             fi
         done
         if [ "$EXCLUDE" = false ]; then
-            FILTERED_FILES="${FILTERED_FILES}${file}\n"
+            FILTERED_FILES+=("$file")
         fi
-    done <<< "$CHANGED_FILES"
-    CHANGED_FILES=$(echo -e "$FILTERED_FILES" | grep -v '^$' || true)
+    done
+    CHANGED_FILES=("${FILTERED_FILES[@]}")
 fi
 
-if [ -z "$CHANGED_FILES" ]; then
+if [ "${#CHANGED_FILES[@]}" -eq 0 ]; then
     echo "No changed JSON files to format (after exclusions)."
     exit 0
 fi
 
 echo "Formatting changed JSON files:"
-echo "$CHANGED_FILES" | while IFS= read -r file; do
+for file in "${CHANGED_FILES[@]}"; do
     if [ -f "$file" ]; then
         echo "  - $file"
-        npx prettier --write "$file" --log-level=warn || true
     fi
 done
 
-echo "✅ Formatting complete."
+npx prettier --write "${CHANGED_FILES[@]}" --log-level=warn
 
+echo "✅ Formatting complete."

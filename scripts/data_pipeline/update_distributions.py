@@ -1,9 +1,9 @@
+import argparse
 import os
 import re
 import sys
 import json
 import glob
-import subprocess
 import pytesseract
 from PIL import Image
 from pathlib import Path
@@ -760,13 +760,6 @@ def update_json(path, date_str, amount):
             with open(path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
-            # Format with Prettier
-            try:
-                subprocess.run(["npx", "prettier", "--write", str(path)], shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                print(f"  [+] {path.name} Prettier 포매팅 완료")
-            except Exception as fmt_err:
-                print(f"  [!] {path.name} 포매팅 오류: {fmt_err}")
-
             return True
 
     except Exception as e:
@@ -775,6 +768,13 @@ def update_json(path, date_str, amount):
     return False
 
 def main():
+    parser_args = argparse.ArgumentParser()
+    parser_args.add_argument(
+        "--ticker-output",
+        type=Path,
+        help="Write OCR-extracted ticker symbols and stop before reading public/data.",
+    )
+    args = parser_args.parse_args()
     if not setup_tesseract():
         print("[!] Tesseract OCR을 찾지 못했습니다.")
         sys.exit(1)
@@ -805,6 +805,7 @@ def main():
     recognized_files = 0
     extracted_tickers = 0
     updated_entries = 0
+    extracted_symbols = set()
 
     for img_path in image_files:
         print(f"\n{img_path.name} 처리 중...")
@@ -861,12 +862,22 @@ def main():
 
         extracted_tickers += len(data_map)
         for ticker, amount in data_map.items():
+            extracted_symbols.add(ticker.upper())
+            if args.ticker_output:
+                continue
             json_path = find_json_path(ticker)
             if json_path:
                 if update_json(json_path, date_str, amount):
                     updated_entries += 1
             else:
                 print(f"  [!] {ticker}에 해당하는 JSON 파일을 {DATA_DIR}에서 찾지 못함")
+
+    if args.ticker_output:
+        args.ticker_output.write_text(
+            "\n".join(sorted(extracted_symbols)) + ("\n" if extracted_symbols else ""),
+            encoding="utf-8",
+        )
+        print(f"  JSON hydration targets: {len(extracted_symbols)}")
 
     print("\n" + "=" * 60)
     print("배당 스크린샷 처리 요약")
