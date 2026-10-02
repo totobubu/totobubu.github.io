@@ -4,7 +4,6 @@
     import { computed, ref, watch } from 'vue';
     import { useSidebar } from '@/composables/portfolio/useSidebar';
     import { useBreakpoint } from '@/composables/shared/useBreakpoint';
-    import { user } from '../store/auth';
 
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
@@ -63,9 +62,7 @@
         },
     ];
 
-    const isBookmarkActive = computed(
-        () => mainFilterTab.value === '북마크' && !!user.value
-    );
+    const isBookmarkActive = computed(() => mainFilterTab.value === '북마크');
 
     const isSelected = (item) => {
         return (
@@ -80,19 +77,9 @@
     };
 
     const handleBookmarkClick = () => {
-        if (!user.value) {
-            return;
-        }
         mainFilterTab.value = '북마크';
         subFilterTab.value = groupedMarketOptions[0].items[0].value.sub;
     };
-
-    // 로그아웃 시 북마크 탭에 있으면 미국 탭으로 전환
-    watch(user, (newUser) => {
-        if (!newUser && mainFilterTab.value === '북마크') {
-            mainFilterTab.value = '미국';
-        }
-    });
 
     watch(
         () => (globalSearchQuery.value || '').trim(),
@@ -129,7 +116,6 @@
                 </template>
                 <template v-else>
                     <Button
-                        v-if="user"
                         :label="isMobile ? undefined : '북마크'"
                         icon="pi pi-bookmark"
                         size="small"
@@ -207,16 +193,10 @@
                         <div
                             v-if="mainFilterTab === '북마크'"
                             class="text-center p-4">
-                            <p v-if="!user" class="mb-2">
-                                로그인 후 종목을 북마크에 추가해 보세요.
-                            </p>
                             <p
-                                class="mb-2"
-                                v-else-if="
-                                    Object.keys(myBookmarks).length === 0
-                                ">
-                                아직 추가된 북마크가 없습니다.<br />종목 왼쪽의
-                                아이콘을 클릭하여 추가하세요.
+                                v-if="Object.keys(myBookmarks).length === 0"
+                                class="mb-2">
+                                기본 배당 목록에 종목이 없습니다.
                             </p>
                             <p v-else>검색 결과가 없습니다.</p>
                         </div>
@@ -235,7 +215,7 @@
                             v-else
                             class="pi pi-bookmark"
                             :class="{
-                                'is-active': user && isTickerBookmarked(data),
+                                'is-active': isTickerBookmarked(data),
                             }"
                             @click.stop="handleStockBookmarkClick(data)"></i>
                     </template>

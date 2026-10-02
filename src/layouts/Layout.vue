@@ -3,8 +3,6 @@
 import { ref, watch, computed } from 'vue';
 import { RouterView, useRoute, useRouter } from 'vue-router';
 import { useBreakpoint } from '@/composables/shared/useBreakpoint';
-import { handleSignOut, user } from '../store/auth'; // handleSignOut import
-import { useAdmin } from '@/composables/asset/useAdmin';
 import { useStockData } from '@/composables/data/useStockData';
 import { useLayout } from '@/composables/shared/useLayout';
 
@@ -23,9 +21,6 @@ const { isDesktop, isMobile } = useBreakpoint();
 const { tickerInfo } = useStockData();
 const { isDarkMode, toggleDarkMode } = useLayout();
 const visible = ref(false);
-
-// 관리자 여부 확인 (이메일 기반)
-const { isAdmin } = useAdmin();
 
 const isStandalonePage = computed(() => {
     return ['/', '/thumbnail-generator'].includes(route.path);
@@ -53,45 +48,11 @@ const menuItems = computed(() => [
         command: () => router.push('/contact'),
     },
     { separator: true },
-    ...(!user.value
-        ? [
-            {
-                label: '로그인',
-                icon: 'pi pi-sign-in',
-                command: () => router.push('/login'),
-            },
-        ]
-        : [
-            {
-                label: '북마크',
-                icon: 'pi pi-bookmark',
-                command: () => router.push('/bookmark'),
-            },
-            ...(isAdmin.value
-                ? [
-                    {
-                        label: '자산관리',
-                        icon: 'pi pi-wallet',
-                        command: () => router.push('/assets'),
-                    },
-                    {
-                        label: '관리자',
-                        icon: 'pi pi-check-circle',
-                        command: () => router.push('/admin'),
-                    },
-                ]
-                : []),
-            {
-                label: '회원정보 수정',
-                icon: 'pi pi-user-edit',
-                command: () => router.push('/profile'),
-            },
-            {
-                label: '로그아웃',
-                icon: 'pi pi-sign-out',
-                command: handleSignOut, // [핵심 수정] store의 함수를 직접 연결
-            },
-        ]),
+    {
+        label: '기본 배당 목록',
+        icon: 'pi pi-bookmark',
+        command: () => router.push('/bookmark'),
+    },
 ]);
 
 const breadcrumbItems = computed(() => {

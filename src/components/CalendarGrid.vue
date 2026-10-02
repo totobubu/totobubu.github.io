@@ -179,14 +179,16 @@
             if (!Array.isArray(dividendArray)) {
                 return [];
             }
-            return dividendArray.map((entry) => ({
-                title: `${entry.koName || entry.ticker}`,
-                start: date,
-                extendedProps: {
-                    ...entry,
-                    eventClass: getEventClass(entry),
-                },
-            }));
+            return dividendArray
+                .filter((entry) => isEntryBookmarked(entry))
+                .map((entry) => ({
+                    title: `${entry.koName || entry.ticker}`,
+                    start: date,
+                    extendedProps: {
+                        ...entry,
+                        eventClass: getEventClass(entry),
+                    },
+                }));
         });
     };
 

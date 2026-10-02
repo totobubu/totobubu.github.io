@@ -1,7 +1,5 @@
 // src/composables/portfolio/useFilterState.ts
 import { ref, watch, type Ref } from 'vue';
-import { db } from '@/firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
 import {
     ensureInstrumentDirectory,
     resolveInstrumentByIsin,
@@ -13,15 +11,17 @@ import type { Bookmark, BookmarksMap } from '@/types/asset';
 const globalSearchQuery = ref<string | null>(null);
 
 // localStorage에서 필터 상태 복원
-const savedMainFilterTab = localStorage.getItem('mainFilterTab');
 const savedSubFilterTab = localStorage.getItem('subFilterTab');
-
-let initialMainFilterTab = savedMainFilterTab || '미국';
-if (initialMainFilterTab === '한국') {
-    initialMainFilterTab = '미국';
-}
-
-const mainFilterTab = ref<string>(initialMainFilterTab);
+const STATIC_DIVIDEND_SYMBOLS = [
+    'TOPW',
+    'LFGY',
+    'YMAX',
+    'TSLY',
+    'MSTY',
+    'JEPI',
+    'SCHD',
+];
+const mainFilterTab = ref<string>('북마크');
 const subFilterTab = ref<string>(savedSubFilterTab || 'ETF');
 const myBookmarks = ref<BookmarksMap>({});
 
@@ -65,45 +65,15 @@ const createBookmarkPayload = (
     };
 };
 
-const serializeBookmarks = (
-    bookmarks: BookmarksMap | null | undefined
-): BookmarksMap => {
-    const serialized: BookmarksMap = {};
-    Object.values(bookmarks || {}).forEach((value) => {
-        if (!value) return;
-        const payload = createBookmarkPayload(value, value);
-        const { symbol, isin } = payload;
-        if (!symbol || !isin) return;
-        serialized[symbol] = {
-            ...payload,
-            symbol,
-            isin,
-        };
-    });
-    return serialized;
-};
-
 // 필터 상태를 localStorage에 저장
-watch(mainFilterTab, (newValue) => {
-    localStorage.setItem('mainFilterTab', newValue);
-});
-
 watch(subFilterTab, (newValue) => {
     localStorage.setItem('subFilterTab', newValue);
 });
 
 export const saveMyBookmarksToFirestore = async (
-    userId: string,
-    bookmarks: BookmarksMap
-): Promise<void> => {
-    if (!userId) return;
-    try {
-        const userDocRef = doc(db, 'userBookmarks', userId);
-        await setDoc(userDocRef, { bookmarks: serializeBookmarks(bookmarks) });
-    } catch (error) {
-        console.error('Firestore에 북마크 저장 실패:', error);
-    }
-};
+    _userId: string,
+    _bookmarks: BookmarksMap
+): Promise<void> => {};
 
 const normalizeBookmarks = (rawBookmarks: BookmarksMap = {}): BookmarksMap => {
     const normalized: BookmarksMap = {};
@@ -130,24 +100,24 @@ const normalizeBookmarks = (rawBookmarks: BookmarksMap = {}): BookmarksMap => {
 const isBookmarksLoading = ref(false);
 
 export const loadMyBookmarksFromFirestore = async (
-    userId: string
+    _userId: string
 ): Promise<BookmarksMap> => {
-    if (!userId) return {};
     isBookmarksLoading.value = true;
     try {
         await ensureInstrumentDirectory();
-        const userDocRef = doc(db, 'userBookmarks', userId);
-        const docSnap = await getDoc(userDocRef);
-        if (!docSnap.exists()) return {};
-        const rawBookmarks = docSnap.data().bookmarks || {};
-        return normalizeBookmarks(rawBookmarks);
-    } catch (error) {
-        console.error('Firestore에서 북마크 로드 실패:', error);
-        return {};
+        return normalizeBookmarks(
+            Object.fromEntries(
+                STATIC_DIVIDEND_SYMBOLS.map((symbol) => [symbol, { symbol }])
+            ) as unknown as BookmarksMap
+        );
     } finally {
         isBookmarksLoading.value = false;
     }
 };
+
+void loadMyBookmarksFromFirestore('static').then((bookmarks) => {
+    myBookmarks.value = bookmarks;
+});
 
 const toggleMyStock = (
     ticker: string | Partial<Bookmark> | null

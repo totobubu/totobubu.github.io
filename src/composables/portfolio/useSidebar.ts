@@ -11,9 +11,6 @@ import {
 import { useRouter, useRoute } from 'vue-router';
 import { useFilterState } from '@/composables/portfolio/useFilterState';
 import { getDataUrl } from '@/utils/dataUrl';
-import { user } from '@/store/auth';
-import { db } from '@/firebase';
-import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { useToast } from 'primevue/usetoast';
 import {
     ensureInstrumentDirectory,
@@ -290,8 +287,9 @@ export function useSidebar(): UseSidebarReturn {
                 return [];
             }
 
-            return allTickersForSearch.value.filter((item) =>
-                matchesSearchQuery(item, query)
+            return allTickersForSearch.value.filter(
+                (item) =>
+                    isInBookmarks(item) && matchesSearchQuery(item, query)
             );
         }
 
@@ -321,9 +319,7 @@ export function useSidebar(): UseSidebarReturn {
             });
             return [...matched, ...missing];
         } else if (mainTab === '미국') {
-            baseList = allTickers.value.filter(
-                (item) => item.currency === 'USD'
-            );
+            baseList = allTickers.value.filter((item) => isInBookmarks(item));
         }
 
         // 3. 서브 탭 필터링
@@ -497,52 +493,13 @@ export function useSidebar(): UseSidebarReturn {
     };
 
     const handleTickerRequest = async (tickerSymbol: string): Promise<void> => {
-        if (!user.value) {
-            toast.add({
-                severity: 'warn',
-                summary: '로그인 필요',
-                detail: '종목 추가 요청은 로그인 후 가능합니다.',
-                life: 3000,
-            });
-            return;
-        }
         if (!tickerSymbol || tickerSymbol.trim().length < 1) return;
-
-        const symbol = tickerSymbol.trim().toUpperCase();
-        const requestRef = doc(db, 'tickerRequests', symbol);
-
-        const docSnap = await getDoc(requestRef);
-        if (docSnap.exists()) {
-            toast.add({
-                severity: 'info',
-                summary: '알림',
-                detail: `'${symbol}'은(는) 이미 추가 요청된 종목입니다.`,
-                life: 3000,
-            });
-            return;
-        }
-
-        try {
-            await setDoc(requestRef, {
-                requestedBy: (user.value as any).uid,
-                requestedAt: serverTimestamp(),
-                status: 'pending',
-            });
-            toast.add({
-                severity: 'success',
-                summary: '요청 완료',
-                detail: `'${symbol}' 추가 요청이 정상적으로 접수되었습니다.`,
-                life: 3000,
-            });
-        } catch (error) {
-            console.error('Error adding ticker request: ', error);
-            toast.add({
-                severity: 'error',
-                summary: '요청 실패',
-                detail: '요청 처리 중 오류가 발생했습니다.',
-                life: 3000,
-            });
-        }
+        toast.add({
+            severity: 'info',
+            summary: '읽기 전용 사이트',
+            detail: '종목 추가 요청은 지원하지 않습니다.',
+            life: 3000,
+        });
     };
 
     const handleStockBookmarkClick = (ticker: SidebarTicker | string): void => {
@@ -569,17 +526,6 @@ export function useSidebar(): UseSidebarReturn {
                 : null);
 
         if (!payload) return;
-
-        if (!user.value) {
-            toast.add({
-                severity: 'warn',
-                summary: '로그인 필요',
-                detail: '북마크를 사용하려면 로그인해 주세요.',
-                life: 2500,
-            });
-            router.push('/login');
-            return;
-        }
 
         const result = toggleMyStock(payload as any);
         const displaySymbol =

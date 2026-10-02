@@ -6,7 +6,6 @@ import { useRouter } from 'vue-router';
 import Button from 'primevue/button';
 import AutoComplete from 'primevue/autocomplete';
 import HomeCurationBoard from '@/components/HomeCurationBoard.vue';
-import { user } from '../store/auth';
 import { useSidebar } from '@/composables/portfolio/useSidebar';
 import { getRouteParamsFromSymbol } from '@/utils/tickerRoute';
 
@@ -81,7 +80,7 @@ useHead({
 
             <!-- Quick Links (Restored from Original) -->
             <article class="t-home-link px-3 w-full mx-auto mt-2">
-                <Button label="내 포트폴리오" icon="pi pi-briefcase" severity="primary" rounded size="large" class="w-full mb-2" @click="router.push('/asset')" />
+                <Button label="기본 배당 목록" icon="pi pi-bookmark" severity="primary" rounded size="large" class="w-full mb-2" @click="router.push('/bookmark')" />
                 <div class="grid grid-nogutter gap-2">
                     <div class="col">
                         <Button label="배당달력" icon="pi pi-calendar" severity="secondary" outlined rounded class="w-full" @click="router.push('/calendar')" />
@@ -92,8 +91,7 @@ useHead({
                 </div>
                 <div class="grid grid-nogutter gap-2 mt-2">
                     <div class="col">
-                        <Button v-if="!user" label="로그인" icon="pi pi-user" severity="secondary" outlined rounded class="w-full" @click="router.push('/login')" />
-                        <Button v-else label="북마크" icon="pi pi-star" severity="secondary" outlined rounded class="w-full" @click="router.push('/bookmark')" />
+                        <Button label="배당 목록" icon="pi pi-star" severity="secondary" outlined rounded class="w-full" @click="router.push('/bookmark')" />
                     </div>
                     <div class="col">
                         <Button label="문의하기" icon="pi pi-envelope" severity="secondary" outlined rounded class="w-full" @click="router.push('/contact')" />
