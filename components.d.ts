@@ -65,6 +65,7 @@ declare module 'vue' {
     Tag: typeof import('primevue/tag')['default']
     ThumbnailItem: typeof import('./src/components/thumbnail/ThumbnailItem.vue')['default']
     TimeMachineResultCard: typeof import('./src/components/time-machine/TimeMachineResultCard.vue')['default']
+    TossCommunityCopy: typeof import('./src/components/thumbnail/TossCommunityCopy.vue')['default']
     TransactionHistoryDialog: typeof import('./src/components/asset/TransactionHistoryDialog.vue')['default']
     WeekdayRotatingTag: typeof import('./src/components/WeekdayRotatingTag.vue')['default']
   }

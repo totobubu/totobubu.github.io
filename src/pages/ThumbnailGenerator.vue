@@ -6,6 +6,7 @@
     import JSZip from 'jszip';
     import ThumbnailItem from '@/components/thumbnail/ThumbnailItem.vue';
     import GroupItem from '@/components/thumbnail/GroupItem.vue';
+    import TossCommunityCopy from '@/components/thumbnail/TossCommunityCopy.vue';
     import { useFilterState } from '@/composables/portfolio/useFilterState';
 
     import Button from 'primevue/button';
@@ -320,6 +321,8 @@ watch(selectedGroup, () => {
                         ? (allDividends[currentIndex].amountFixed ??
                           allDividends[currentIndex].amount)
                         : 0;
+                const currentDividendEvent =
+                    currentIndex !== -1 ? allDividends[currentIndex] : null;
                 const previousDividend =
                     currentIndex > 0
                         ? (allDividends[currentIndex - 1].amountFixed ??
@@ -328,6 +331,18 @@ watch(selectedGroup, () => {
 
                 const diff = currentDividend - previousDividend;
                 const comparisonText = `LAST $ ${diff >= 0 ? '+' : ''}${Number(diff.toFixed(6))}`;
+                const exDividendClose = Number(currentDividendEvent?.close);
+                const hasExDividendClose =
+                    Number.isFinite(exDividendClose) && exDividendClose > 0;
+                const afterTaxDividendAmount = currentDividend * 0.85;
+                const dividendChangePercent =
+                    previousDividend > 0 ? (diff / previousDividend) * 100 : null;
+                const exDividendYield = hasExDividendClose
+                    ? (currentDividend / exDividendClose) * 100
+                    : null;
+                const afterTaxDividendYield = hasExDividendClose
+                    ? (afterTaxDividendAmount / exDividendClose) * 100
+                    : null;
 
                 // 차트용 배당 데이터: 최근 4개월치 배당만 필터링
                 const fourMonthsAgo = new Date(targetDate);
@@ -342,6 +357,14 @@ watch(selectedGroup, () => {
                     ...thumb,
                     currentDividendAmount: currentDividend,
                     previousDividendAmount: previousDividend,
+                    afterTaxDividendAmount,
+                    dividendDifference: diff,
+                    dividendChangePercent,
+                    exDividendClose: hasExDividendClose ? exDividendClose : null,
+                    exDividendYield,
+                    afterTaxDividendYield,
+                    hasDividend: currentIndex !== -1,
+                    exDate: currentIndex !== -1 ? currentDividendEvent.date : null,
                     formattedCurrentAmount:
                         formatCurrentAmount(currentDividend),
                     comparisonText,
@@ -615,23 +638,27 @@ watch(selectedGroup, () => {
                         background: rgba(255, 255, 255, 0.8);
                     " />
 
-                <!-- Group Type -->
-                <GroupItem
-                    v-if="thumb.type === 'Group'"
-                    :data="{
-                        ...thumb,
-                        date: thumb.displayDate || date,
-                    }" />
+                <div class="thumbnail-pair">
+                    <!-- Group Type -->
+                    <GroupItem
+                        v-if="thumb.type === 'Group'"
+                        :data="{
+                            ...thumb,
+                            date: thumb.displayDate || date,
+                        }" />
 
-                <!-- Regular Thumbnail Type -->
-                <ThumbnailItem
-                    v-else
-                    :data="{
-                        ...thumb,
-                        date: thumb.displayDate || date,
-                        showChart: includeChart,
-                        targetDate: thumb.targetDate,
-                    }" />
+                    <!-- Regular Thumbnail Type -->
+                    <ThumbnailItem
+                        v-else
+                        :data="{
+                            ...thumb,
+                            date: thumb.displayDate || date,
+                            showChart: includeChart,
+                            targetDate: thumb.targetDate,
+                        }" />
+
+                    <TossCommunityCopy v-if="thumb.type !== 'Group'" :data="thumb" />
+                </div>
             </div>
         </main>
     </div>
