@@ -85,26 +85,56 @@ $thumbnail-px: 4px;
     background-color: #ffffff;
 
     .thumbnail-container {
-
         display: flex;
-        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        height: 100%;
     }
 
+    // GroupItem is retained for legacy static group cards.
     .thumbnail-container-inner {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
         width: $thumbnail-size;
-        height: 100%;
+        max-width: 100%;
+        aspect-ratio: 1 / 1;
+        position: relative;
+        overflow: hidden;
+        padding: $thumbnail-px * 10;
+        box-sizing: border-box;
+        font-family: 'Bungee', sans-serif;
+        color: #ffffff;
+
+        .header,
+        .main-content,
+        .footer {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header { display: flex; align-items: center; justify-content: space-between; }
+        .logo { height: $thumbnail-px * 20; }
+        .date { font-size: $thumbnail-px * 5; }
+        .ticker { margin: 0; font-size: $thumbnail-px * 30; }
+        .amount { margin: 0; font-size: $thumbnail-px * 18; }
+        .description { font-size: $thumbnail-px * 4; }
+        .copyright { margin: 0; font-family: 'Nanum Gothic Coding'; font-size: $thumbnail-px * 3; }
+    }
+
+    .thumbnail-capture {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto auto;
+        width: $thumbnail-size;
+        max-width: 100%;
+        aspect-ratio: 1 / 1;
         position: relative;
         overflow: hidden;
         font-family: 'Bungee', sans-serif;
         color: #ffffff;
-        padding: $thumbnail-px * 10;
+        padding: $thumbnail-px * 9;
+        box-sizing: border-box;
     }
 
     .bg-image {
@@ -118,105 +148,123 @@ $thumbnail-px: 4px;
         z-index: 0;
     }
 
-    .header,
-    .main-content,
-    .footer {
+    .thumbnail-scrim {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.6));
+        z-index: 1;
+    }
+
+    .distribution-header,
+    .distribution-main,
+    .monthly-history,
+    .thumbnail-footer,
+    .distribution-unavailable {
         position: relative;
         width: 100%;
-        padding: 0 0;
         z-index: 2;
         box-sizing: border-box;
     }
 
-    .header {
-        padding: 0 $thumbnail-px * 10;
+    .distribution-header {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
+        color: #ffd36b;
+        font-size: $thumbnail-px * 4;
+        letter-spacing: 0.08em;
 
-        .logo {
-            height: $thumbnail-px * 20;
-        }
-
-        .date {
-
-            font-size: $thumbnail-px * 12;
-            letter-spacing: $thumbnail-px * -0.3;
-            line-height: 1;
-        }
+        time { color: #ffffff; }
     }
 
-    .main-content {
+    .distribution-main {
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         width: 100%;
+        justify-content: center;
+        gap: $thumbnail-px * 3;
 
         .ticker {
-            font-size: $thumbnail-px * 50;
+            margin: 0;
+            font-size: $thumbnail-px * 36;
             line-height: 1;
             text-shadow: $thumbnail-px * 3 $thumbnail-px * 3 0 rgba(255, 255, 255, 0.3);
         }
 
-        .amount {
-            font-size: $thumbnail-px * 30;
-            line-height: 1;
-            margin-top: 0;
-            text-shadow: $thumbnail-px * 3 $thumbnail-px * 3 0 rgba(255, 255, 255, 0.3);
-            letter-spacing: $thumbnail-px * -0.5;
-        }
+        .current-amounts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: $thumbnail-px * 3;
+            width: 100%;
 
-        &.group-content {
-            top: 50%;
-            gap: 0px;
-
-            .ticker {
-                font-size: 180px;
+            > div {
+                display: flex;
+                flex-direction: column;
+                gap: $thumbnail-px;
+                padding: $thumbnail-px * 2 $thumbnail-px * 3;
+                border-radius: $thumbnail-px * 2;
+                background: rgba(0, 0, 0, 0.24);
             }
 
-            .amount {
-                font-size: 180px;
-            }
+            span { font-size: $thumbnail-px * 3; }
+            small { font-size: $thumbnail-px * 2; }
+            strong { font-size: $thumbnail-px * 7; line-height: 1; }
+        }
+
+        .comparison-card {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            width: 100%;
+            gap: $thumbnail-px * 2;
+            padding: $thumbnail-px * 2 $thumbnail-px * 3;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: $thumbnail-px * 2;
+            background: rgba(0, 0, 0, 0.35);
+
+            p { margin: 0; font-size: $thumbnail-px * 2.8; }
+            strong { display: block; margin-top: $thumbnail-px; font-size: $thumbnail-px * 4; }
+            b { grid-column: 1 / -1; font-size: $thumbnail-px * 4; }
+            &.is-up b { color: #80ec95; }
+            &.is-down b { color: #ffbe9a; }
+            &.is-neutral b { color: #ffffff; }
+        }
+
+        .comparison-arrow { font-size: $thumbnail-px * 7; }
+        .comparison-missing { grid-column: 1 / -1; }
+
+        .distribution-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 100%;
+            margin: 0;
+            padding: 0;
+
+            div { padding: 0 $thumbnail-px * 2; }
+            div + div { border-left: 1px solid rgba(255, 255, 255, 0.3); }
+            dt { font-size: $thumbnail-px * 2.5; opacity: 0.8; }
+            dd { margin: $thumbnail-px 0 0; font-size: $thumbnail-px * 3.5; }
         }
     }
 
-    .footer {
-        text-align: center;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-shadow: $thumbnail-px * 1 $thumbnail-px * 1 0 rgba(255, 255, 255, 0.3);
-        letter-spacing: $thumbnail-px * -0.3;
+    .distribution-unavailable { align-self: center; text-align: center; }
 
-        .comparison {
-            font-size: $thumbnail-px * 12;
-        }
+    .monthly-history {
+        display: flex;
+        flex-direction: column;
+        gap: $thumbnail-px * 1.5;
+        padding: $thumbnail-px * 3;
+        border-radius: $thumbnail-px * 2;
+        background: rgba(255, 255, 255, 0.94);
+        color: #17212b;
 
-        .description {
-            font-size: $thumbnail-px * 8;
-            opacity: 1;
-            line-height: 1.2;
-        }
-    }
-
-    .copyright {
-        font-size: $thumbnail-px * 6;
-        font-family: 'Nanum Gothic Coding';
-        text-transform: lowercase;
-        text-shadow: none;
-        opacity: 1;
-        line-height: 1;
-        color: #ffffff;
-    }
-
-
-    // with-chart 상태에서만 적용되는 스타일 모음
-    &.with-chart {
-
-        // 차트 영역 스타일
+        > p { margin: 0 0 $thumbnail-px; font-size: $thumbnail-px * 3; }
+        small { color: #637080; font-size: $thumbnail-px * 2; }
 
         .segment-label {
-            font-size: $thumbnail-px * 4;
+            font-size: $thumbnail-px * 2.3;
             font-weight: bold;
             color: #ffffff;
             text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0 rgba(0, 0, 0, 0.7);
@@ -224,76 +272,47 @@ $thumbnail-px: 4px;
             padding: 0 $thumbnail-px * 1;
         }
 
-        .chart {
-            &-section {
-                width: 100%;
-                padding: $thumbnail-px * 3 $thumbnail-px * 5;
-                z-index: 2;
-                display: flex;
-                align-items: baseline;
-                justify-content: center;
-                flex-direction: column;
-                gap: $thumbnail-px * 3;
-                background-color: #ffffff;
-            }
+        .chart-row {
+            display: grid;
+            width: 100%;
+            align-items: center;
+            grid-template-columns: 105px 1fr;
+            gap: $thumbnail-px * 2;
+            color: #17212b;
+        }
 
-            &-row {
-                display: grid;
-                width: 100%;
-                align-items: center;
-                grid-template-columns: 120px 1fr;
-                gap: $thumbnail-px * 4;
-                font-size: $thumbnail-px * 3;
-                color: #000000;
-            }
+        .chart-label { display: flex; justify-content: space-between; gap: $thumbnail-px; }
+        .chart-month { font-size: $thumbnail-px * 2.7; font-weight: bold; }
+        .chart-total { font-size: $thumbnail-px * 2.8; font-weight: bold; }
+        .chart-bar {
+            display: flex;
+            height: $thumbnail-px * 5;
+            background-color: rgba(23, 33, 43, 0.12);
+            border-radius: $thumbnail-px;
+            overflow: hidden;
+            min-width: 0;
+        }
+        .chart-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
 
-            &-label {
-                display: flex;
-                align-items: center;
-                gap: $thumbnail-px * 2;
-            }
-
-            &-month {
-                display: inline-block;
-                font-weight: bold;
-                font-size: $thumbnail-px * 4;
-            }
-
-            &-total {
-                text-align: left;
-                font-weight: bold;
-                font-size: $thumbnail-px * 5;
-                color: #000000;
+            &[style*='rgb(251, 188, 4);'] .segment-label {
+                color: #17212b;
                 text-shadow: none;
             }
-
-            &-bar {
-                display: flex;
-                height: $thumbnail-px * 8;
-                background-color: rgba(255, 255, 255, 0.1);
-                border-radius: $thumbnail-px * 1;
-                overflow: hidden;
-                position: relative;
-                min-width: 0;
-            }
-
-            &-segment {
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-width: 0;
-                transition: min-width 0.2s;
-
-                &[style*='rgb(251, 188, 4);'] {
-                    .segment-label {
-                        color: #000000;
-
-                        text-shadow: $thumbnail-px * 0.5 $thumbnail-px * 0.5 0 rgba(255, 255, 255, 0.7);
-                    }
-                }
-            }
         }
+    }
+
+    .thumbnail-footer {
+        padding-top: $thumbnail-px * 2;
+        text-align: center;
+        font-family: 'Nanum Gothic Coding';
+        font-size: $thumbnail-px * 2.2;
+        opacity: 0.9;
     }
 }
 

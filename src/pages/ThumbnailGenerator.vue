@@ -504,7 +504,7 @@ watch(selectedGroup, () => {
 
         for (const symbol of symbols) {
             const el = document.querySelector(
-                `[data-symbol="${symbol}"] .thumbnail-container`
+                `[data-symbol="${symbol}"] .thumbnail-capture`
             );
             if (!el) continue;
 
@@ -549,7 +549,7 @@ watch(selectedGroup, () => {
         if (!symbol) return;
 
         const el = document.querySelector(
-            `[data-symbol="${symbol}"] .thumbnail-container`
+            `[data-symbol="${symbol}"] .thumbnail-capture`
         );
         if (!el) return;
 

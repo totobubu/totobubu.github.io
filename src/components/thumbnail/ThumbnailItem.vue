@@ -86,58 +86,117 @@ const weekColors = [
 const getColor = (index) => weekColors[index % weekColors.length];
 
 const formatAmount = (amount) => {
-    return `$${Number(amount.toFixed(4))}`;
+    return `$${Number(amount).toFixed(4)}`;
+};
+
+const formatDate = (date) => {
+    if (!date) return '날짜 정보 없음';
+    const [year, month, day] = date.split('-');
+    return `${year.slice(-2)}.${month}.${day}`;
+};
+
+const hasComparison = computed(
+    () =>
+        props.data.previousDividendAmount != null &&
+        props.data.previousDividendAmount > 0
+);
+
+const comparisonDifference = computed(
+    () => props.data.dividendDifference ?? 0
+);
+const comparisonPercent = computed(() => props.data.dividendChangePercent);
+const comparisonTone = computed(() => {
+    if (!hasComparison.value || comparisonDifference.value === 0) return 'neutral';
+    return comparisonDifference.value > 0 ? 'up' : 'down';
+});
+
+const formatSignedAmount = (amount) => {
+    const sign = amount > 0 ? '+' : amount < 0 ? '-' : '';
+    return `${sign}${formatAmount(Math.abs(amount))}`;
+};
+
+const formatSignedPercent = (value) => {
+    if (value == null) return '';
+    const sign = value > 0 ? '+' : '';
+    return `${sign}${Number(value).toFixed(2)}%`;
 };
 </script>
 
 <template>
     <div class="thumbnail-item-wrapper" :class="{ 'with-chart': data.showChart }">
         <div class="thumbnail-container">
-            <div class="thumbnail-container-inner">
+            <section class="thumbnail-capture">
                 <img :src="data.backgroundImageUrl" class="bg-image" alt="" />
-                <div class="header">
-                    <!-- <img :src="data.logo" alt="Company Logo" class="logo" /> -->
-                    <span class="date">{{ data.date }}
-                        <span v-if="data.weekNo">({{ data.weekNo }})</span></span>
+                <div class="thumbnail-scrim" aria-hidden="true" />
 
-                </div>
-                <div class="main-content">
+                <header class="distribution-header">
+                    <span>최근 배당 정보</span>
+                    <time>{{ formatDate(data.exDate) }}</time>
+                </header>
+
+                <main v-if="data.hasDividend" class="distribution-main">
                     <h1 class="ticker" :style="{ color: data.tickerColor }">
                         {{ data.symbol }}
                     </h1>
-                    <h2 class="amount">${{ data.formattedCurrentAmount }}</h2>
-                </div>
-                <div class="footer">
-                    <p class="comparison">{{ data.comparisonText }}</p>
-                    <!-- <p class="description">
-                        {{ data.descriptionLine1 }}<br />{{
-                            data.descriptionLine2
-                        }}
-                    </p> -->
-                    <p class="copyright">By 토또부부</p>
-                </div>
-            </div>
-            <!-- 차트 영역 -->
-            <div v-if="data.showChart && chartData.length > 0" class="chart-section">
-                <div v-for="item in chartData" :key="item.month" class="chart-row">
-                    <div class="chart-label">
-                        <span class="chart-month">{{ item.month }}</span>
-                        <span class="chart-total">{{
-                            formatAmount(item.total)
-                        }}</span>
-                    </div>
-                    <div class="chart-bar" :style="{ width: `${item.widthRatio}%` }">
-                        <div v-for="(amount, idx) in item.amounts" :key="idx" class="chart-segment" :style="{
-                            width: `${(amount / item.total) * 100}%`,
-                            backgroundColor: getColor(idx),
-                        }">
-                            <span class="segment-label">{{
-                                formatAmount(amount)
-                            }}</span>
+                    <div class="current-amounts">
+                        <div>
+                            <span>세전 배당금</span>
+                            <strong>{{ formatAmount(data.currentDividendAmount) }}</strong>
+                        </div>
+                        <div>
+                            <span>세후 배당금 <small>(15% 가정)</small></span>
+                            <strong>{{ formatAmount(data.afterTaxDividendAmount) }}</strong>
                         </div>
                     </div>
-                </div>
-            </div>
+
+                    <section class="comparison-card" :class="`is-${comparisonTone}`">
+                        <template v-if="hasComparison">
+                            <p>직전 배당금 <strong>{{ formatAmount(data.previousDividendAmount) }}</strong></p>
+                            <span class="comparison-arrow" aria-hidden="true">→</span>
+                            <p>이번 배당금 <strong>{{ formatAmount(data.currentDividendAmount) }}</strong></p>
+                            <b>{{ formatSignedAmount(comparisonDifference) }} · {{ formatSignedPercent(comparisonPercent) }}</b>
+                        </template>
+                        <p v-else class="comparison-missing">직전 배당 데이터 없음</p>
+                    </section>
+
+                    <dl class="distribution-metrics">
+                        <div>
+                            <dt>배당락일 종가</dt>
+                            <dd>{{ data.exDividendClose == null ? '데이터 없음' : `$${Number(data.exDividendClose).toFixed(2)}` }}</dd>
+                        </div>
+                        <div>
+                            <dt>세전 배당률</dt>
+                            <dd>{{ data.exDividendYield == null ? '데이터 없음' : `${Number(data.exDividendYield).toFixed(2)}%` }}</dd>
+                        </div>
+                        <div>
+                            <dt>세후 배당률</dt>
+                            <dd>{{ data.afterTaxDividendYield == null ? '데이터 없음' : `${Number(data.afterTaxDividendYield).toFixed(2)}%` }}</dd>
+                        </div>
+                    </dl>
+                </main>
+
+                <p v-else class="distribution-unavailable">최근 배당 데이터를 찾지 못했습니다.</p>
+
+                <section v-if="data.showChart && chartData.length > 0" class="monthly-history">
+                    <p>최근 월별 배당 합계 <small>예정값 제외</small></p>
+                    <div v-for="item in chartData" :key="item.month" class="chart-row">
+                        <div class="chart-label">
+                            <span class="chart-month">{{ item.month }}</span>
+                            <span class="chart-total">{{ formatAmount(item.total) }}</span>
+                        </div>
+                        <div class="chart-bar" :style="{ width: `${item.widthRatio}%` }">
+                            <div v-for="(amount, idx) in item.amounts" :key="idx" class="chart-segment" :style="{
+                                width: `${(amount / item.total) * 100}%`,
+                                backgroundColor: getColor(idx),
+                            }">
+                                <span class="segment-label">{{ formatAmount(amount) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="thumbnail-footer">주당 USD 기준 · 세후 금액은 15% 원천징수 단순 가정</footer>
+            </section>
         </div>
     </div>
 </template>
