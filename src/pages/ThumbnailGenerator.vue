@@ -360,14 +360,16 @@ watch(selectedGroup, () => {
                     ? (previousAfterTaxDividendAmount / previousExDividendClose) * 100
                     : null;
 
-                // 차트용 배당 데이터: 최근 4개월치 배당만 필터링
-                const fourMonthsAgo = new Date(targetDate);
-                fourMonthsAgo.setMonth(fourMonthsAgo.getMonth() - 4);
-                const chartDividends = allDividends.filter(
-                    (d) =>
-                        new Date(d.date) >= fourMonthsAgo &&
-                        new Date(d.date) <= new Date(targetDate)
-                );
+                // 최근 3회 실제 배당 이벤트: 주·월·분기 배당 모두 같은 회차 기준으로 표시
+                const recentDividendEvents =
+                    currentIndex === -1
+                        ? []
+                        : allDividends
+                              .slice(Math.max(0, currentIndex - 2), currentIndex + 1)
+                              .map((event) => ({
+                                  date: event.date,
+                                  amount: event.amountFixed ?? event.amount,
+                              }));
 
                 return {
                     ...thumb,
@@ -391,8 +393,9 @@ watch(selectedGroup, () => {
                     formattedCurrentAmount:
                         formatCurrentAmount(currentDividend),
                     comparisonText,
-                    chartDividends: includeChart.value ? chartDividends : [],
-                    targetDate: includeChart.value ? targetDate : null, // 차트용 타겟 날짜 (범위 필터링용)
+                    recentDividendEvents: includeChart.value
+                        ? recentDividendEvents
+                        : [],
                     // [신규] 개별 썸네일용 날짜 데이터
                     displayDate: displayDate,
                     foundDate: foundDate,
