@@ -428,7 +428,8 @@
 
         const createThumbnailConfig = (stockInfo, fallbackSymbol) => {
             const symbol = stockInfo.symbol || fallbackSymbol;
-            const companyName = stockInfo.company || 'Unknown';
+            const companyName = stockInfo.company || '';
+            const isEtf = Boolean(stockInfo.company || stockInfo.underlying);
             const group = stockInfo.group || 'Others';
             const background = getBackgroundForCompany(companyName);
 
@@ -437,6 +438,9 @@
                 koName: stockInfo.koName,
                 longName: stockInfo.longName,
                 companyName,
+                metaLabel: isEtf
+                    ? companyName
+                    : stockInfo.koName || stockInfo.longName || '',
                 group,
                 tickerColor: background.tickerColor,
                 backgroundImageUrl: background.path,
@@ -519,16 +523,18 @@
     const captureArtwork = async (element) => {
         const token = `thumbnail-export-${captureSequence++}`;
         element.dataset.captureToken = token;
-        const captureSize = 390;
+        const captureSize = 400;
 
         try {
             return await html2canvas(element, {
                 useCORS: true,
                 allowTaint: true,
-                backgroundColor: null,
+                backgroundColor: '#ffffff',
                 windowWidth: captureSize,
                 windowHeight: captureSize,
-                scale: 1,
+                // Keep the 400px source artboard, but export at an exact 2x
+                // raster density so every downloaded PNG is 800 × 800.
+                scale: 2,
                 onclone: (clonedDocument) => {
                     const clonedArtwork = clonedDocument.querySelector(
                         `[data-capture-token="${token}"]`
@@ -543,33 +549,11 @@
                         minHeight: `${captureSize}px`,
                         maxHeight: 'none',
                         aspectRatio: '1 / 1',
-                        // zoom is used only to scale the on-screen preview.
-                        // html2canvas must render the native 390px composition.
+                        // Exports always use the native fixed 400px composition.
                         zoom: '1',
                         transform: 'none',
                     });
 
-                    const artworkWrapper = clonedArtwork.closest(
-                        '.thumbnail-item-wrapper'
-                    );
-                    if (artworkWrapper) {
-                        Object.assign(artworkWrapper.style, {
-                            width: `${captureSize}px`,
-                            height: `${captureSize}px`,
-                            minWidth: `${captureSize}px`,
-                            paddingTop: '0',
-                        });
-                    }
-
-                    const comparisonWrapper = clonedArtwork.closest(
-                        '.comparison-thumbnail-wrapper'
-                    );
-                    if (comparisonWrapper) {
-                        Object.assign(comparisonWrapper.style, {
-                            width: `${captureSize}px`,
-                            height: `${captureSize}px`,
-                        });
-                    }
                 },
             });
         } finally {
@@ -633,7 +617,32 @@
         }
     };
 
-    // [신규] 개별 다운로드 함수
+    const downloadArtwork = async (symbol, kind) => {
+        if (!symbol || !kind) return;
+
+        try {
+            const customDate = date.value.replace(/[. ]/g, '');
+            const capture = document.querySelector(
+                '[data-symbol="' + symbol + '"] [data-thumbnail-kind="' + kind + '"]'
+            );
+            if (!capture) return;
+            const canvas = await captureArtwork(capture);
+            if (canvas.width !== 800 || canvas.height !== 800) {
+                throw new Error('Unexpected thumbnail size: ' + canvas.width + 'x' + canvas.height);
+            }
+            const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+            if (!blob) throw new Error('PNG blob creation failed');
+            const link = document.createElement('a');
+            link.download = symbol.toLowerCase() + '_' + customDate + '_' + kind + '.png';
+            link.href = URL.createObjectURL(blob);
+            link.click();
+            window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
+        } catch (error) {
+            console.error('Failed to download ' + kind + ' thumbnail for ' + symbol + ':', error);
+        }
+    };
+
+    // Legacy combined ZIP helper; individual UI controls use downloadArtwork.
     const downloadSingleThumbnail = async (symbol) => {
         if (!symbol) return;
 
@@ -719,20 +728,6 @@
                 :key="thumb.symbol || thumb.groupTitle"
                 :data-symbol="thumb.symbol || thumb.groupTitle"
                 class="thumbnail-wrapper">
-                <!-- [수정] 개별 다운로드 버튼으로 변경 -->
-                <Button
-                    v-if="thumb.type !== 'Group'"
-                    icon="pi pi-download"
-                    class="thumbnail-download-btn p-button-rounded"
-                    @click="downloadSingleThumbnail(thumb.symbol)"
-                    style="
-                        position: absolute;
-                        top: 0.5rem;
-                        left: 0.5rem;
-                        z-index: 10;
-                        background: rgba(255, 255, 255, 0.8);
-                    " />
-
                 <div class="thumbnail-pair">
                     <!-- Group Type -->
                     <GroupItem
@@ -743,18 +738,20 @@
                         }" />
 
                     <!-- Regular Thumbnail Type -->
-                    <ThumbnailItem
-                        v-else
-                        :data="{
+                    <div v-if="thumb.type !== 'Group'" class="thumbnail-preview">
+                        <ThumbnailItem :data="{
                             ...thumb,
                             date: thumb.displayDate || date,
                             showChart: includeChart,
                             targetDate: thumb.targetDate,
                         }" />
+                        <Button class="thumbnail-download" icon="pi pi-download" label="요약 PNG 다운로드" @click="downloadArtwork(thumb.symbol, 'summary')" />
+                    </div>
 
-                    <DividendComparisonThumbnail
-                        v-if="thumb.type !== 'Group'"
-                        :data="thumb" />
+                    <div v-if="thumb.type !== 'Group'" class="thumbnail-preview">
+                        <DividendComparisonThumbnail :data="thumb" />
+                        <Button class="thumbnail-download" icon="pi pi-download" label="비교 PNG 다운로드" @click="downloadArtwork(thumb.symbol, 'comparison')" />
+                    </div>
 
                     <TossCommunityCopy v-if="thumb.type !== 'Group'" :data="thumb" />
                 </div>
@@ -762,7 +759,3 @@
         </main>
     </div>
 </template>
-
-<style lang="scss" scoped>
-    @use '@/styles/pages/thumbnail-generator';
-</style>
