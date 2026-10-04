@@ -534,6 +534,17 @@ watch(selectedGroup, () => {
                         maxHeight: 'none',
                         aspectRatio: '1 / 1',
                     });
+
+                    const artworkWrapper = clonedArtwork.closest(
+                        '.thumbnail-item-wrapper'
+                    );
+                    if (artworkWrapper) {
+                        Object.assign(artworkWrapper.style, {
+                            width: '1080px',
+                            height: '1080px',
+                            minWidth: '1080px',
+                        });
+                    }
                 },
             });
         } finally {

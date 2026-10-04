@@ -116,28 +116,25 @@ const formatSignedPercent = (value) => {
         <div class="thumbnail-container">
             <section class="thumbnail-capture" data-thumbnail-kind="summary">
                 <header class="distribution-header">
-                    <div>
-                        <h1 class="ticker">{{ data.symbol }}</h1>
-                        <span>DIVIDEND UPDATE</span>
-                    </div>
-                    <time><small>배당락일</small>{{ formatDate(data.exDate) }}</time>
+                    <h1 class="ticker">{{ data.symbol }}</h1>
+                    <div class="ex-date"><span>Ex-Date</span><time>{{ formatDate(data.exDate) }}</time></div>
+                    <span class="update-label">Dividend Update</span>
                 </header>
 
                 <main v-if="data.hasDividend" class="distribution-main">
                     <div class="summary-hero" :class="`is-${comparisonTone}`">
                         <div>
-                            <span>현재 배당금</span>
+                            <span>Dividend per Share</span>
                             <strong>{{ formatAmount(data.currentDividendAmount) }}</strong>
                         </div>
-                        <b v-if="hasComparison">▲ {{ formatSignedAmount(comparisonDifference) }}<small>({{ formatSignedPercent(comparisonPercent) }})</small></b>
                     </div>
 
                     <section class="comparison-card" :class="`is-${comparisonTone}`">
                         <template v-if="hasComparison">
-                            <p><span>이전 배당금</span><strong>{{ formatAmount(data.previousDividendAmount) }}</strong></p>
+                            <p><span>Previous</span><strong>{{ formatAmount(data.previousDividendAmount) }}</strong><small>{{ formatDate(data.previousExDate) }}</small></p>
                             <span class="comparison-arrow" aria-hidden="true">→</span>
-                            <p><span>현재 배당금</span><strong>{{ formatAmount(data.currentDividendAmount) }}</strong></p>
-                            <b>{{ formatSignedPercent(comparisonPercent) }}</b>
+                            <p><span>Current</span><strong>{{ formatAmount(data.currentDividendAmount) }}</strong><small>{{ formatDate(data.exDate) }}</small></p>
+                            <b><strong>{{ formatSignedPercent(comparisonPercent) }}</strong><small>vs. previous</small></b>
                         </template>
                         <p v-else class="comparison-missing">직전 배당 데이터 없음</p>
                     </section>
@@ -147,7 +144,7 @@ const formatSignedPercent = (value) => {
                 <p v-else class="distribution-unavailable">최근 배당 데이터를 찾지 못했습니다.</p>
 
                 <section v-if="data.showChart && chartData.length > 0" class="monthly-history">
-                    <p>최근 3개월 배당금 <small>월별 실제 합계</small></p>
+                    <p>3-Month Dividend Trend</p>
                     <div class="monthly-cards">
                         <article v-for="(item, index) in chartData" :key="item.month" class="monthly-card" :class="{ latest: index === chartData.length - 1 }">
                             <span class="chart-month">{{ item.month }}</span>

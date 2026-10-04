@@ -2,7 +2,7 @@
 @use '../functions/breakpoints' as bp;
 
 $thumbnail-size: 720px;
-$thumbnail-px: 4px;
+$thumbnail-px: 6px;
 
 .thumbnail-batch-page {
     padding: 2rem;
@@ -93,10 +93,14 @@ $thumbnail-px: 4px;
     height: 100%;
     aspect-ratio: 1 / 1;
     background-color: #ffffff;
+    container-type: inline-size;
 
     .thumbnail-container {
         display: flex;
         align-items: center;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
     }
 
     // GroupItem is retained for legacy static group cards.
@@ -135,16 +139,20 @@ $thumbnail-px: 4px;
 
     .thumbnail-capture {
         display: grid;
-        grid-template-rows: auto minmax(0, 1fr) auto auto;
-        width: $thumbnail-size;
-        max-width: 100%;
+        grid-template-rows: auto auto auto auto;
+        width: 1080px;
+        min-width: 1080px;
+        max-width: none;
+        height: 1080px;
+        min-height: 1080px;
         aspect-ratio: 1 / 1;
+        zoom: calc(100cqw / 1080px);
         position: relative;
         overflow: hidden;
         background: #f8fafc;
         font-family: Inter, Pretendard, system-ui, sans-serif;
         color: #0f172a;
-        padding: $thumbnail-px * 12;
+        padding: $thumbnail-px * 8;
         box-sizing: border-box;
     }
 
@@ -160,13 +168,14 @@ $thumbnail-px: 4px;
     .distribution-header {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         color: #0f2747;
 
-        .ticker { margin: 0; font-size: $thumbnail-px * 20; font-weight: 850; letter-spacing: -0.08em; line-height: .9; }
-        span { display: block; margin-top: $thumbnail-px * 2; font-size: $thumbnail-px * 3; font-weight: 750; letter-spacing: .18em; }
-        time { display: flex; flex-direction: column; gap: $thumbnail-px; min-width: 170px; padding: $thumbnail-px * 4; border-radius: $thumbnail-px * 2; background: #f1f5f9; color: #0f172a; font-size: $thumbnail-px * 6; font-weight: 800; letter-spacing: -0.04em; box-sizing: border-box; }
-        time small { color: #475569; font-size: $thumbnail-px * 2.5; font-weight: 600; letter-spacing: 0; }
+        .ticker { margin: 0; font-size: $thumbnail-px * 30; font-weight: 850; letter-spacing: -0.09em; line-height: .9; }
+        .ex-date { display: flex; flex-direction: column; gap: $thumbnail-px; padding-left: $thumbnail-px * 4; border-left: 1px solid #94a3b8; }
+        .ex-date span { color: #64748b; font-size: $thumbnail-px * 7; font-weight: 700; }
+        .ex-date time { color: #0f172a; font-size: $thumbnail-px * 12; font-weight: 850; letter-spacing: -0.05em; }
+        .update-label { padding: $thumbnail-px * 3 $thumbnail-px * 4; border-radius: $thumbnail-px * 2; background: #e0ecff; color: #155eef; font-size: $thumbnail-px * 5; font-weight: 800; }
     }
 
     .distribution-main {
@@ -176,33 +185,27 @@ $thumbnail-px: 4px;
         text-align: center;
         width: 100%;
         justify-content: center;
-        gap: $thumbnail-px * 3;
+        gap: $thumbnail-px * 2;
 
         .summary-hero {
             display: flex;
-            flex-direction: column;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            gap: $thumbnail-px * 5;
+            align-items: flex-start;
+            justify-content: flex-start;
             width: 100%;
-            padding: $thumbnail-px * 5 $thumbnail-px * 6;
+            min-height: 300px;
+            padding: $thumbnail-px * 4;
             border-radius: $thumbnail-px * 4;
             background: #155eef;
             box-sizing: border-box;
 
             > div { display: flex; flex-direction: column; gap: $thumbnail-px; }
-            span { color: #dbeafe; font-size: $thumbnail-px * 3.5; font-weight: 700; }
-            strong { color: #ffffff; font-size: $thumbnail-px * 13; font-weight: 850; letter-spacing: -0.07em; line-height: 0.95; }
-            > b { color: #86efac; font-size: $thumbnail-px * 5; line-height: 1.15; }
-            > b small { display: block; margin-top: $thumbnail-px; font-size: $thumbnail-px * 3.5; font-weight: 650; }
-            &.is-down > b { color: #fecaca; }
-            &.is-neutral > b { color: #dbeafe; }
+            span { color: #dbeafe; font-size: $thumbnail-px * 7; font-weight: 750; }
+            strong { color: #ffffff; font-size: $thumbnail-px * 30; font-weight: 850; letter-spacing: -0.08em; line-height: .95; }
         }
 
         .comparison-card {
             display: grid;
-            grid-template-columns: 1fr auto 1fr auto;
+            grid-template-columns: 1fr auto 1fr 1px 1fr;
             align-items: center;
             width: 100%;
             gap: $thumbnail-px * 2;
@@ -211,11 +214,14 @@ $thumbnail-px: 4px;
             border-radius: $thumbnail-px * 2;
             background: #ffffff;
 
-            p { margin: 0; color: #64748b; font-size: $thumbnail-px * 2.5; }
+            p { margin: 0; color: #64748b; font-size: $thumbnail-px * 4; }
             p span { display: block; margin-bottom: $thumbnail-px; }
-            strong { display: block; color: #0f172a; font-size: $thumbnail-px * 4.3; letter-spacing: -0.04em; }
-            b { color: #16a34a; font-size: $thumbnail-px * 4; }
-            &.is-down b { color: #dc2626; }
+            p strong { display: block; color: #0f172a; font-size: $thumbnail-px * 10; letter-spacing: -0.06em; }
+            p small { display: block; margin-top: $thumbnail-px; font-size: $thumbnail-px * 4; }
+            b { display: flex; flex-direction: column; gap: $thumbnail-px; padding-left: $thumbnail-px * 4; border-left: 1px solid #94a3b8; color: #166534; }
+            b strong { padding: $thumbnail-px * 3; border-radius: $thumbnail-px * 2; background: #dcfce7; color: #166534; font-size: $thumbnail-px * 9; }
+            b small { color: #64748b; font-size: $thumbnail-px * 4; font-weight: 600; text-align: center; }
+            &.is-down b strong { background: #fee2e2; color: #b91c1c; }
         }
 
         .comparison-arrow { color: #2563eb; font-size: $thumbnail-px * 7; }
@@ -229,18 +235,18 @@ $thumbnail-px: 4px;
         display: flex;
         flex-direction: column;
         gap: $thumbnail-px * 2;
-        padding: $thumbnail-px * 4 0 0;
+        padding: $thumbnail-px * 2 0 0;
         background: transparent;
         color: #0f172a;
 
-        > p { display: flex; justify-content: space-between; margin: 0; font-size: $thumbnail-px * 4; font-weight: 800; }
+        > p { display: flex; justify-content: space-between; margin: 0; font-size: $thumbnail-px * 8; font-weight: 850; letter-spacing: -0.05em; }
         small { color: #64748b; font-size: $thumbnail-px * 2.5; font-weight: 600; }
         .monthly-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: $thumbnail-px * 3; }
-        .monthly-card { display: flex; flex-direction: column; gap: $thumbnail-px * 2; min-width: 0; padding: $thumbnail-px * 4; border-radius: $thumbnail-px * 3; background: #f1f5f9; }
+        .monthly-card { display: flex; flex-direction: column; gap: $thumbnail-px * 2; min-width: 0; padding: $thumbnail-px * 3; border-radius: $thumbnail-px * 3; background: #f1f5f9; }
         .monthly-card.latest { border: 2px solid #155eef; background: #eff6ff; }
-        .chart-month { color: #64748b; font-size: $thumbnail-px * 2.5; font-weight: 650; }
-        .chart-total { color: #0f172a; font-size: $thumbnail-px * 5; font-weight: 820; letter-spacing: -0.06em; }
-        .chart-track { height: $thumbnail-px * 5; overflow: hidden; border-radius: $thumbnail-px; background: #cbd5e1; }
+        .chart-month { color: #64748b; font-size: $thumbnail-px * 4; font-weight: 650; }
+        .chart-total { color: #0f172a; font-size: $thumbnail-px * 9; font-weight: 820; letter-spacing: -0.07em; }
+        .chart-track { height: $thumbnail-px * 6; overflow: hidden; border-radius: $thumbnail-px; background: #cbd5e1; }
         .chart-bar { height: 100%; min-width: 4px; border-radius: inherit; background: #94a3b8; }
         .monthly-card.latest .chart-bar { background: #155eef; }
     }
@@ -253,33 +259,6 @@ $thumbnail-px: 4px;
         color: #64748b;
         opacity: 0.95;
     }
-}
-
-@media (max-width: 520px) {
-    .thumbnail-item-wrapper .thumbnail-capture { padding: 16px; }
-    .thumbnail-item-wrapper .distribution-header .ticker { font-size: 36px; }
-    .thumbnail-item-wrapper .distribution-header span { margin-top: 4px; font-size: 7px; }
-    .thumbnail-item-wrapper .distribution-header time { min-width: 82px; padding: 8px; font-size: 13px; }
-    .thumbnail-item-wrapper .distribution-header time small { font-size: 7px; }
-    .thumbnail-item-wrapper .distribution-main { justify-content: flex-start; gap: 7px; }
-    .thumbnail-item-wrapper .distribution-main .summary-hero { padding: 11px; }
-    .thumbnail-item-wrapper .distribution-main .summary-hero span { font-size: 9px; }
-    .thumbnail-item-wrapper .distribution-main .summary-hero strong { font-size: 32px; }
-    .thumbnail-item-wrapper .distribution-main .summary-hero > b { font-size: 9px; }
-    .thumbnail-item-wrapper .distribution-main .summary-hero > b small { font-size: 7px; }
-    .thumbnail-item-wrapper .distribution-main .comparison-card { padding: 7px; }
-    .thumbnail-item-wrapper .distribution-main .comparison-card p { font-size: 7px; }
-    .thumbnail-item-wrapper .distribution-main .comparison-card strong { font-size: 10px; }
-    .thumbnail-item-wrapper .distribution-main .comparison-arrow { font-size: 15px; }
-    .thumbnail-item-wrapper .monthly-history { gap: 3px; padding: 8px 0 0; }
-    .thumbnail-item-wrapper .monthly-history > p { font-size: 9px; }
-    .thumbnail-item-wrapper .monthly-history small { font-size: 7px; }
-    .thumbnail-item-wrapper .monthly-history .monthly-cards { gap: 6px; }
-    .thumbnail-item-wrapper .monthly-history .monthly-card { gap: 4px; padding: 7px; border-radius: 6px; }
-    .thumbnail-item-wrapper .monthly-history .chart-month,
-    .thumbnail-item-wrapper .monthly-history .chart-total { font-size: 8px; }
-    .thumbnail-item-wrapper .monthly-history .chart-track { height: 7px; }
-    .thumbnail-item-wrapper .thumbnail-footer { font-size: 7px; }
 }
 
 .no-bookmarks {
