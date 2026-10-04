@@ -105,7 +105,7 @@ const changePercent = computed(() => {
 </template>
 
 <style scoped>
-.comparison-thumbnail-wrapper { width: 100%; aspect-ratio: 1 / 1; container-type: inline-size; }
+.comparison-thumbnail-wrapper { display: flex; justify-content: center; width: 100%; height: auto; aspect-ratio: 1 / 1; overflow: hidden; container-type: inline-size; }
 .comparison-thumbnail {
     --theme-primary: #155eef;
     --theme-highlight: #eff6ff;
@@ -209,7 +209,9 @@ footer b { margin-left: auto; color: var(--theme-primary); font-size: 9px; lette
     min-width: 390px;
     height: 390px;
     min-height: 390px;
-    zoom: calc(100cqw / 390px);
+    zoom: 1;
+    transform: scale(calc(100cqw / 390px));
+    transform-origin: top center;
 }
 header { padding: 18px 20px 16px; }
 header > div { gap: 4px; }

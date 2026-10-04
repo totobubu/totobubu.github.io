@@ -546,6 +546,7 @@
                         // zoom is used only to scale the on-screen preview.
                         // html2canvas must render the native 390px composition.
                         zoom: '1',
+                        transform: 'none',
                     });
 
                     const artworkWrapper = clonedArtwork.closest(
@@ -556,6 +557,7 @@
                             width: `${captureSize}px`,
                             height: `${captureSize}px`,
                             minWidth: `${captureSize}px`,
+                            paddingTop: '0',
                         });
                     }
 

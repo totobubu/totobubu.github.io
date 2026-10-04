@@ -123,15 +123,19 @@ $thumbnail-px: 6px;
 
 
 .thumbnail-item-wrapper {
+    position: relative;
     width: 100%;
-    height: 100%;
-    aspect-ratio: 1 / 1;
+    height: 0;
+    padding-top: 100%;
     background-color: #ffffff;
     container-type: inline-size;
 
     .thumbnail-container {
         display: flex;
         align-items: center;
+        justify-content: center;
+        position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -181,7 +185,9 @@ $thumbnail-px: 6px;
         height: 390px;
         min-height: 390px;
         aspect-ratio: 1 / 1;
-        zoom: calc(100cqw / 390px);
+        zoom: 1;
+        transform: scale(calc(100cqw / 390px));
+        transform-origin: center;
         position: relative;
         overflow: hidden;
         background: #f1f5f9;
