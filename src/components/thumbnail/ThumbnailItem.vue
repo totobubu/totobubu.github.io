@@ -57,7 +57,7 @@ const chartData = computed(() => {
             if (ya !== yb) return ya - yb;
             return ma - mb;
         })
-        .slice(-4) // 최근 4개월만 표시 (뒤에서 4개)
+        .slice(-3) // 최근 3개월만 표시 (뒤에서 3개)
         .map((month) => ({
             month,
             amounts: monthlyGroups[month],
@@ -73,17 +73,6 @@ const chartData = computed(() => {
         widthRatio: (item.total / maxTotal) * 100,
     }));
 });
-
-const weekColors = [
-    '#4285F4',
-    '#EA4335',
-    '#FBBC04',
-    '#34A853',
-    '#FF6D01',
-    '#9C27B0',
-    '#00BCD4',
-];
-const getColor = (index) => weekColors[index % weekColors.length];
 
 const formatAmount = (amount) => {
     return `$${Number(amount).toFixed(4)}`;
@@ -158,17 +147,17 @@ const formatSignedPercent = (value) => {
                 <p v-else class="distribution-unavailable">최근 배당 데이터를 찾지 못했습니다.</p>
 
                 <section v-if="data.showChart && chartData.length > 0" class="monthly-history">
-                    <p>최근 4회 배당금 추이 <small>(단위: USD)</small></p>
-                    <div class="chart-columns">
-                        <div v-for="item in chartData" :key="item.month" class="chart-column">
-                            <span class="chart-total">{{ formatAmount(item.total) }}</span>
-                            <div class="chart-track"><div class="chart-bar" :style="{ height: `${item.widthRatio}%` }" /></div>
+                    <p>최근 3개월 배당금 <small>월별 실제 합계</small></p>
+                    <div class="monthly-cards">
+                        <article v-for="(item, index) in chartData" :key="item.month" class="monthly-card" :class="{ latest: index === chartData.length - 1 }">
                             <span class="chart-month">{{ item.month }}</span>
-                        </div>
+                            <strong class="chart-total">{{ formatAmount(item.total) }}</strong>
+                            <div class="chart-track"><div class="chart-bar" :style="{ width: `${item.widthRatio}%` }" /></div>
+                        </article>
                     </div>
                 </section>
 
-                <footer class="thumbnail-footer">주당 USD 기준 · 최근 4개월 실제 배당 합계</footer>
+                <footer class="thumbnail-footer">주당 USD 기준 · 최근 3개월 실제 배당 합계</footer>
             </section>
         </div>
     </div>

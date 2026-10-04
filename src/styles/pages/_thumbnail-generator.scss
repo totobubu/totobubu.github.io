@@ -228,20 +228,21 @@ $thumbnail-px: 4px;
     .monthly-history {
         display: flex;
         flex-direction: column;
-        gap: $thumbnail-px * 3;
+        gap: $thumbnail-px * 2;
         padding: $thumbnail-px * 4 0 0;
         background: transparent;
         color: #0f172a;
 
         > p { display: flex; justify-content: space-between; margin: 0; font-size: $thumbnail-px * 4; font-weight: 800; }
         small { color: #64748b; font-size: $thumbnail-px * 2.5; font-weight: 600; }
-        .chart-columns { display: flex; align-items: flex-end; height: 160px; border-bottom: 1px solid #94a3b8; }
-        .chart-column { display: grid; grid-template-rows: auto 1fr auto; align-items: end; flex: 1; height: 100%; text-align: center; }
-        .chart-total { margin-bottom: $thumbnail-px * 2; font-size: $thumbnail-px * 3; font-weight: 750; }
-        .chart-track { display: flex; align-items: flex-end; justify-content: center; height: 100%; }
-        .chart-bar { width: 66%; min-height: 8px; border-radius: $thumbnail-px $thumbnail-px 0 0; background: #79aaf5; }
-        .chart-column:last-child .chart-bar { background: #155eef; }
-        .chart-month { padding: $thumbnail-px * 2 0; color: #64748b; font-size: $thumbnail-px * 2.5; font-weight: 600; }
+        .monthly-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: $thumbnail-px * 3; }
+        .monthly-card { display: flex; flex-direction: column; gap: $thumbnail-px * 2; min-width: 0; padding: $thumbnail-px * 4; border-radius: $thumbnail-px * 3; background: #f1f5f9; }
+        .monthly-card.latest { border: 2px solid #155eef; background: #eff6ff; }
+        .chart-month { color: #64748b; font-size: $thumbnail-px * 2.5; font-weight: 650; }
+        .chart-total { color: #0f172a; font-size: $thumbnail-px * 5; font-weight: 820; letter-spacing: -0.06em; }
+        .chart-track { height: $thumbnail-px * 5; overflow: hidden; border-radius: $thumbnail-px; background: #cbd5e1; }
+        .chart-bar { height: 100%; min-width: 4px; border-radius: inherit; background: #94a3b8; }
+        .monthly-card.latest .chart-bar { background: #155eef; }
     }
 
     .thumbnail-footer {
@@ -273,10 +274,11 @@ $thumbnail-px: 4px;
     .thumbnail-item-wrapper .monthly-history { gap: 3px; padding: 8px 0 0; }
     .thumbnail-item-wrapper .monthly-history > p { font-size: 9px; }
     .thumbnail-item-wrapper .monthly-history small { font-size: 7px; }
-    .thumbnail-item-wrapper .monthly-history .chart-columns { height: 68px; }
+    .thumbnail-item-wrapper .monthly-history .monthly-cards { gap: 6px; }
+    .thumbnail-item-wrapper .monthly-history .monthly-card { gap: 4px; padding: 7px; border-radius: 6px; }
     .thumbnail-item-wrapper .monthly-history .chart-month,
     .thumbnail-item-wrapper .monthly-history .chart-total { font-size: 8px; }
-    .thumbnail-item-wrapper .monthly-history .chart-bar { min-height: 4px; }
+    .thumbnail-item-wrapper .monthly-history .chart-track { height: 7px; }
     .thumbnail-item-wrapper .thumbnail-footer { font-size: 7px; }
 }
 
