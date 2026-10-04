@@ -126,11 +126,8 @@ const formatSignedPercent = (value) => {
     <div class="thumbnail-item-wrapper" :class="{ 'with-chart': data.showChart }">
         <div class="thumbnail-container">
             <section class="thumbnail-capture" data-thumbnail-kind="summary">
-                <img :src="data.backgroundImageUrl" class="bg-image" alt="" />
-                <div class="thumbnail-scrim" aria-hidden="true" />
-
                 <header class="distribution-header">
-                    <span>최근 배당 정보</span>
+                    <span>DIVIDEND UPDATE</span>
                     <time>{{ formatDate(data.exDate) }}</time>
                 </header>
 
@@ -138,17 +135,17 @@ const formatSignedPercent = (value) => {
                     <h1 class="ticker">
                         {{ data.symbol }}
                     </h1>
-                    <div class="current-amount">
+                    <div class="summary-hero" :class="`is-${comparisonTone}`">
                         <span>이번 세전 배당금</span>
                         <strong>{{ formatAmount(data.currentDividendAmount) }}</strong>
+                        <b v-if="hasComparison">{{ formatSignedAmount(comparisonDifference) }} · {{ formatSignedPercent(comparisonPercent) }}</b>
                     </div>
 
                     <section class="comparison-card" :class="`is-${comparisonTone}`">
                         <template v-if="hasComparison">
-                            <p>직전 배당금 <strong>{{ formatAmount(data.previousDividendAmount) }}</strong></p>
+                            <p><span>직전 배당금</span><strong>{{ formatAmount(data.previousDividendAmount) }}</strong></p>
                             <span class="comparison-arrow" aria-hidden="true">→</span>
-                            <p>이번 배당금 <strong>{{ formatAmount(data.currentDividendAmount) }}</strong></p>
-                            <b>{{ formatSignedAmount(comparisonDifference) }} · {{ formatSignedPercent(comparisonPercent) }}</b>
+                            <p><span>이번 배당금</span><strong>{{ formatAmount(data.currentDividendAmount) }}</strong></p>
                         </template>
                         <p v-else class="comparison-missing">직전 배당 데이터 없음</p>
                     </section>
@@ -173,7 +170,7 @@ const formatSignedPercent = (value) => {
                     </div>
                 </section>
 
-                <footer class="thumbnail-footer">주당 USD 기준 · 최근 실제 배당 이력</footer>
+                <footer class="thumbnail-footer">주당 USD 기준 · 최근 4개월 실제 배당 합계</footer>
             </section>
         </div>
     </div>

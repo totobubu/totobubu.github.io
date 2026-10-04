@@ -44,6 +44,7 @@
     const date = ref('');
     const groups = ref(['All']);
     const selectedGroup = ref('All');
+    let captureSequence = 0;
 
     const backgroundOptions = ref([
         { name: 'Blue', path: '/thumbnail/blue.png', tickerColor: '#6ffc04' },
@@ -507,6 +508,39 @@ watch(selectedGroup, () => {
         { immediate: true, deep: true }
     );
 
+    const captureArtwork = async (element) => {
+        const token = `thumbnail-export-${captureSequence++}`;
+        element.dataset.captureToken = token;
+
+        try {
+            return await html2canvas(element, {
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null,
+                windowWidth: 1080,
+                windowHeight: 1080,
+                onclone: (clonedDocument) => {
+                    const clonedArtwork = clonedDocument.querySelector(
+                        `[data-capture-token="${token}"]`
+                    );
+                    if (!clonedArtwork) return;
+
+                    Object.assign(clonedArtwork.style, {
+                        width: '1080px',
+                        minWidth: '1080px',
+                        maxWidth: 'none',
+                        height: '1080px',
+                        minHeight: '1080px',
+                        maxHeight: 'none',
+                        aspectRatio: '1 / 1',
+                    });
+                },
+            });
+        } finally {
+            delete element.dataset.captureToken;
+        }
+    };
+
     const downloadImages = async () => {
         if (filteredThumbnails.value.length === 0) {
             alert('다운로드할 썸네일이 없습니다.');
@@ -531,11 +565,7 @@ watch(selectedGroup, () => {
 
             for (const capture of captures) {
                 try {
-                    const canvas = await html2canvas(capture, {
-                        useCORS: true,
-                        allowTaint: true,
-                        backgroundColor: null,
-                    });
+                    const canvas = await captureArtwork(capture);
                     const blob = await new Promise((resolve) =>
                         canvas.toBlob(resolve, 'image/png')
                     );
@@ -559,7 +589,7 @@ watch(selectedGroup, () => {
             link.href = URL.createObjectURL(zipBlob);
             link.download = `thumbnails_${dateForFilename}.zip`;
             link.click();
-            URL.revokeObjectURL(link.href);
+            window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
         } catch (error) {
             console.error('Failed to generate zip file:', error);
         } finally {
@@ -580,11 +610,7 @@ watch(selectedGroup, () => {
             if (!captures.length) return;
 
             for (const capture of captures) {
-                const canvas = await html2canvas(capture, {
-                    useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: null,
-                });
+                const canvas = await captureArtwork(capture);
                 const kind = capture.dataset.thumbnailKind;
                 zip.file(
                     `${symbol.toLowerCase()}_${customDate}_${kind}.png`,
@@ -598,7 +624,7 @@ watch(selectedGroup, () => {
                 await zip.generateAsync({ type: 'blob' })
             );
             link.click();
-            URL.revokeObjectURL(link.href);
+            window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
         } catch (error) {
             console.error(`Failed to download thumbnail for ${symbol}:`, error);
         }

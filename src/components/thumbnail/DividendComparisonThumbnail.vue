@@ -44,15 +44,15 @@ const changeTone = computed(() => {
     <div class="comparison-thumbnail-wrapper">
         <section class="comparison-thumbnail" data-thumbnail-kind="comparison">
             <header>
-                <span>배당 전후 비교</span>
+                <span>DIVIDEND COMPARISON</span>
                 <strong>{{ data.symbol }}</strong>
             </header>
 
             <template v-if="data.hasDividend">
                 <div class="comparison-headings">
                     <span>항목</span>
-                    <span>BEFORE</span>
-                    <span>CURRENT</span>
+                    <span>직전</span>
+                    <span>이번</span>
                 </div>
 
                 <dl class="comparison-table">
@@ -76,39 +76,53 @@ const changeTone = computed(() => {
 </template>
 
 <style scoped>
-.comparison-thumbnail-wrapper { width: 100%; aspect-ratio: 1 / 1; }
+.comparison-thumbnail-wrapper { width: 100%; aspect-ratio: 1 / 1; container-type: inline-size; }
 .comparison-thumbnail {
     display: flex;
     width: 100%;
     height: 100%;
     min-height: 0;
     flex-direction: column;
-    padding: 36px;
+    padding: 32px;
     box-sizing: border-box;
     background: #071827;
     color: #f8fafc;
-    font-family: 'Bungee', sans-serif;
+    font-family: Inter, Pretendard, system-ui, sans-serif;
     overflow: hidden;
 }
-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px; }
-header span { color: #bae6fd; font-size: 14px; letter-spacing: 0.08em; }
-header strong { font-size: 42px; line-height: 1; }
+header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; }
+header span { color: #93c5fd; font-size: 15px; font-weight: 700; letter-spacing: 0.12em; }
+header strong { font-size: 56px; font-weight: 800; letter-spacing: -0.06em; line-height: 1; }
 .comparison-headings,
 .comparison-table > div { display: grid; grid-template-columns: 1.05fr 1fr 1fr; column-gap: 12px; }
-.comparison-headings { padding: 0 14px 10px; color: #94a3b8; font-size: 11px; }
+.comparison-headings { padding: 0 18px 14px; color: #94a3b8; font-size: 13px; font-weight: 700; }
 .comparison-headings span:not(:first-child) { text-align: right; }
 .comparison-table { margin: 0; border-top: 1px solid #334155; }
-.comparison-table > div { align-items: center; min-height: 58px; padding: 0 14px; border-bottom: 1px solid #334155; }
-dt { color: #cbd5e1; font-size: 12px; }
-dd { margin: 0; text-align: right; font-size: 16px; }
-dd:last-child { color: #bae6fd; }
-.comparison-table .emphasis { background: rgba(56, 189, 248, 0.12); }
-.comparison-table .emphasis dd { color: #f8fafc; font-size: 19px; }
-.comparison-change { margin: auto 0 18px; padding: 16px; border-radius: 10px; background: #0f273b; color: #cbd5e1; font-size: 12px; }
-.comparison-change strong { float: right; font-size: 18px; }
+.comparison-table > div { align-items: center; min-height: 58px; padding: 0 18px; border-bottom: 1px solid #334155; }
+dt { color: #cbd5e1; font-size: 15px; font-weight: 600; }
+dd { margin: 0; text-align: right; font-size: 18px; font-weight: 700; letter-spacing: -0.03em; }
+dd:last-child { color: #bfdbfe; }
+.comparison-table .emphasis { background: #12354b; box-shadow: inset 3px 0 #3b82f6; }
+.comparison-table .emphasis dd { color: #ffffff; font-size: 22px; }
+.comparison-change { margin: auto 0 12px; padding: 14px; border-radius: 12px; background: #102d42; color: #cbd5e1; font-size: 14px; font-weight: 600; }
+.comparison-change strong { float: right; font-size: 20px; }
 .comparison-change.is-up strong { color: #86efac; }
 .comparison-change.is-down strong { color: #fca5a5; }
 .comparison-change.is-neutral strong { color: #e2e8f0; }
 .comparison-unavailable { margin: auto 0; text-align: center; color: #cbd5e1; }
-footer { color: #94a3b8; font-family: 'Nanum Gothic Coding'; font-size: 9px; text-align: center; }
+footer { color: #94a3b8; font-size: 11px; text-align: center; }
+
+@media (max-width: 520px) {
+    .comparison-thumbnail { padding: 18px; }
+    header { margin-bottom: 12px; }
+    header span { font-size: 10px; }
+    header strong { font-size: 38px; }
+    .comparison-headings { padding: 0 6px 5px; font-size: 8px; }
+    .comparison-table > div { min-height: 33px; padding: 0 6px; }
+    dt { font-size: 9px; }
+    dd { font-size: 10px; }
+    .comparison-table .emphasis dd { font-size: 11px; }
+    .comparison-change { display: none; }
+    footer { font-size: 8px; }
+}
 </style>
