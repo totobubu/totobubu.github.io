@@ -543,6 +543,9 @@
                         minHeight: `${captureSize}px`,
                         maxHeight: 'none',
                         aspectRatio: '1 / 1',
+                        // zoom is used only to scale the on-screen preview.
+                        // html2canvas must render the native 390px composition.
+                        zoom: '1',
                     });
 
                     const artworkWrapper = clonedArtwork.closest(
