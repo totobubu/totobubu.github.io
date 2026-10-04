@@ -125,7 +125,7 @@ const formatSignedPercent = (value) => {
 <template>
     <div class="thumbnail-item-wrapper" :class="{ 'with-chart': data.showChart }">
         <div class="thumbnail-container">
-            <section class="thumbnail-capture">
+            <section class="thumbnail-capture" data-thumbnail-kind="summary">
                 <img :src="data.backgroundImageUrl" class="bg-image" alt="" />
                 <div class="thumbnail-scrim" aria-hidden="true" />
 
@@ -135,18 +135,12 @@ const formatSignedPercent = (value) => {
                 </header>
 
                 <main v-if="data.hasDividend" class="distribution-main">
-                    <h1 class="ticker" :style="{ color: data.tickerColor }">
+                    <h1 class="ticker">
                         {{ data.symbol }}
                     </h1>
-                    <div class="current-amounts">
-                        <div>
-                            <span>세전 배당금</span>
-                            <strong>{{ formatAmount(data.currentDividendAmount) }}</strong>
-                        </div>
-                        <div>
-                            <span>세후 배당금 <small>(15% 가정)</small></span>
-                            <strong>{{ formatAmount(data.afterTaxDividendAmount) }}</strong>
-                        </div>
+                    <div class="current-amount">
+                        <span>이번 세전 배당금</span>
+                        <strong>{{ formatAmount(data.currentDividendAmount) }}</strong>
                     </div>
 
                     <section class="comparison-card" :class="`is-${comparisonTone}`">
@@ -159,20 +153,6 @@ const formatSignedPercent = (value) => {
                         <p v-else class="comparison-missing">직전 배당 데이터 없음</p>
                     </section>
 
-                    <dl class="distribution-metrics">
-                        <div>
-                            <dt>배당락일 종가</dt>
-                            <dd>{{ data.exDividendClose == null ? '데이터 없음' : `$${Number(data.exDividendClose).toFixed(2)}` }}</dd>
-                        </div>
-                        <div>
-                            <dt>세전 배당률</dt>
-                            <dd>{{ data.exDividendYield == null ? '데이터 없음' : `${Number(data.exDividendYield).toFixed(2)}%` }}</dd>
-                        </div>
-                        <div>
-                            <dt>세후 배당률</dt>
-                            <dd>{{ data.afterTaxDividendYield == null ? '데이터 없음' : `${Number(data.afterTaxDividendYield).toFixed(2)}%` }}</dd>
-                        </div>
-                    </dl>
                 </main>
 
                 <p v-else class="distribution-unavailable">최근 배당 데이터를 찾지 못했습니다.</p>
@@ -188,14 +168,12 @@ const formatSignedPercent = (value) => {
                             <div v-for="(amount, idx) in item.amounts" :key="idx" class="chart-segment" :style="{
                                 width: `${(amount / item.total) * 100}%`,
                                 backgroundColor: getColor(idx),
-                            }">
-                                <span class="segment-label">{{ formatAmount(amount) }}</span>
-                            </div>
+                            }" />
                         </div>
                     </div>
                 </section>
 
-                <footer class="thumbnail-footer">주당 USD 기준 · 세후 금액은 15% 원천징수 단순 가정</footer>
+                <footer class="thumbnail-footer">주당 USD 기준 · 최근 실제 배당 이력</footer>
             </section>
         </div>
     </div>

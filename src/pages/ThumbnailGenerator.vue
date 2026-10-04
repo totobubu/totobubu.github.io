@@ -5,6 +5,7 @@
     import html2canvas from 'html2canvas';
     import JSZip from 'jszip';
     import ThumbnailItem from '@/components/thumbnail/ThumbnailItem.vue';
+    import DividendComparisonThumbnail from '@/components/thumbnail/DividendComparisonThumbnail.vue';
     import GroupItem from '@/components/thumbnail/GroupItem.vue';
     import TossCommunityCopy from '@/components/thumbnail/TossCommunityCopy.vue';
     import { useFilterState } from '@/composables/portfolio/useFilterState';
@@ -328,6 +329,8 @@ watch(selectedGroup, () => {
                         ? (allDividends[currentIndex - 1].amountFixed ??
                           allDividends[currentIndex - 1].amount)
                         : 0;
+                const previousDividendEvent =
+                    currentIndex > 0 ? allDividends[currentIndex - 1] : null;
 
                 const diff = currentDividend - previousDividend;
                 const comparisonText = `LAST $ ${diff >= 0 ? '+' : ''}${Number(diff.toFixed(6))}`;
@@ -342,6 +345,18 @@ watch(selectedGroup, () => {
                     : null;
                 const afterTaxDividendYield = hasExDividendClose
                     ? (afterTaxDividendAmount / exDividendClose) * 100
+                    : null;
+                const previousExDividendClose = Number(previousDividendEvent?.close);
+                const hasPreviousExDividendClose =
+                    Number.isFinite(previousExDividendClose) &&
+                    previousExDividendClose > 0;
+                const previousAfterTaxDividendAmount =
+                    previousDividendEvent ? previousDividend * 0.85 : null;
+                const previousExDividendYield = hasPreviousExDividendClose
+                    ? (previousDividend / previousExDividendClose) * 100
+                    : null;
+                const previousAfterTaxDividendYield = hasPreviousExDividendClose
+                    ? (previousAfterTaxDividendAmount / previousExDividendClose) * 100
                     : null;
 
                 // 차트용 배당 데이터: 최근 4개월치 배당만 필터링
@@ -363,6 +378,13 @@ watch(selectedGroup, () => {
                     exDividendClose: hasExDividendClose ? exDividendClose : null,
                     exDividendYield,
                     afterTaxDividendYield,
+                    previousExDate: previousDividendEvent?.date ?? null,
+                    previousExDividendClose: hasPreviousExDividendClose
+                        ? previousExDividendClose
+                        : null,
+                    previousAfterTaxDividendAmount,
+                    previousExDividendYield,
+                    previousAfterTaxDividendYield,
                     hasDividend: currentIndex !== -1,
                     exDate: currentIndex !== -1 ? currentDividendEvent.date : null,
                     formattedCurrentAmount:
@@ -503,30 +525,31 @@ watch(selectedGroup, () => {
             .map((t) => t.symbol);
 
         for (const symbol of symbols) {
-            const el = document.querySelector(
-                `[data-symbol="${symbol}"] .thumbnail-capture`
+            const captures = document.querySelectorAll(
+                `[data-symbol="${symbol}"] [data-thumbnail-kind]`
             );
-            if (!el) continue;
 
-            try {
-                const canvas = await html2canvas(el, {
-                    useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: null,
-                });
-                const blob = await new Promise((resolve) =>
-                    canvas.toBlob(resolve, 'image/png')
-                );
-                const chartSuffix = includeChart.value ? '_chart' : '';
-                zip.file(
-                    `${symbol.toLowerCase()}_${dateForFilename}${chartSuffix}.png`,
-                    blob
-                );
-            } catch (error) {
-                console.error(
-                    `Failed to capture thumbnail for ${symbol}:`,
-                    error
-                );
+            for (const capture of captures) {
+                try {
+                    const canvas = await html2canvas(capture, {
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: null,
+                    });
+                    const blob = await new Promise((resolve) =>
+                        canvas.toBlob(resolve, 'image/png')
+                    );
+                    const kind = capture.dataset.thumbnailKind;
+                    zip.file(
+                        `${symbol.toLowerCase()}_${dateForFilename}_${kind}.png`,
+                        blob
+                    );
+                } catch (error) {
+                    console.error(
+                        `Failed to capture ${symbol} thumbnail:`,
+                        error
+                    );
+                }
             }
         }
 
@@ -548,25 +571,34 @@ watch(selectedGroup, () => {
     const downloadSingleThumbnail = async (symbol) => {
         if (!symbol) return;
 
-        const el = document.querySelector(
-            `[data-symbol="${symbol}"] .thumbnail-capture`
-        );
-        if (!el) return;
-
         try {
             const customDate = date.value.replace(/[. ]/g, '');
-            const chartSuffix = includeChart.value ? '_chart' : '';
+            const zip = new JSZip();
+            const captures = document.querySelectorAll(
+                `[data-symbol="${symbol}"] [data-thumbnail-kind]`
+            );
+            if (!captures.length) return;
 
-            const canvas = await html2canvas(el, {
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: null,
-            });
-
+            for (const capture of captures) {
+                const canvas = await html2canvas(capture, {
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: null,
+                });
+                const kind = capture.dataset.thumbnailKind;
+                zip.file(
+                    `${symbol.toLowerCase()}_${customDate}_${kind}.png`,
+                    canvas.toDataURL('image/png').split(',')[1],
+                    { base64: true }
+                );
+            }
             const link = document.createElement('a');
-            link.download = `${symbol.toLowerCase()}_${customDate}${chartSuffix}.png`;
-            link.href = canvas.toDataURL('image/png');
+            link.download = `${symbol.toLowerCase()}_${customDate}.zip`;
+            link.href = URL.createObjectURL(
+                await zip.generateAsync({ type: 'blob' })
+            );
             link.click();
+            URL.revokeObjectURL(link.href);
         } catch (error) {
             console.error(`Failed to download thumbnail for ${symbol}:`, error);
         }
@@ -656,6 +688,10 @@ watch(selectedGroup, () => {
                             showChart: includeChart,
                             targetDate: thumb.targetDate,
                         }" />
+
+                    <DividendComparisonThumbnail
+                        v-if="thumb.type !== 'Group'"
+                        :data="thumb" />
 
                     <TossCommunityCopy v-if="thumb.type !== 'Group'" :data="thumb" />
                 </div>

@@ -35,6 +35,7 @@ declare module 'vue' {
     CompanyLogo: typeof import('./src/components/CompanyLogo.vue')['default']
     DateAndInvestment: typeof import('./src/components/backtester/controls/DateAndInvestment.vue')['default']
     DividendChart: typeof import('./src/components/portfolio/DividendChart.vue')['default']
+    DividendComparisonThumbnail: typeof import('./src/components/thumbnail/DividendComparisonThumbnail.vue')['default']
     EnhancedTransactionDialog: typeof import('./src/components/asset/EnhancedTransactionDialog.vue')['default']
     ErrorBoundary: typeof import('./src/components/ErrorBoundary.vue')['default']
     FamilyMemberList: typeof import('./src/components/asset/FamilyMemberList.vue')['default']
