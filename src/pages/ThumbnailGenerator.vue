@@ -11,8 +11,8 @@
     import { useFilterState } from '@/composables/portfolio/useFilterState';
 
     import Button from 'primevue/button';
+    import InputText from 'primevue/inputtext';
     import ProgressSpinner from 'primevue/progressspinner';
-    import SelectButton from 'primevue/selectbutton';
     import { getDataUrl, getR2Url } from '@/utils/dataUrl';
 
     useHead({
@@ -42,8 +42,7 @@
     const isSyncing = ref(false); // [신규] 데이터 동기화 로딩 상태
     const includeChart = ref(true); // [신규] 차트 포함 여부 (기본값 true)
     const date = ref('');
-    const groups = ref(['All']);
-    const selectedGroup = ref('All');
+    const tickerQuery = ref('');
     let captureSequence = 0;
 
     const backgroundOptions = ref([
@@ -58,42 +57,12 @@
     const navDataCache = ref(null);
 
     const filteredThumbnails = computed(() => {
-        if (selectedGroup.value === 'All') {
-            return allThumbnailsData.value;
-        }
-        return allThumbnailsData.value.filter(
-            (t) => t.group === selectedGroup.value
+        const query = tickerQuery.value.trim().toUpperCase();
+        if (!query) return allThumbnailsData.value;
+        return allThumbnailsData.value.filter((thumbnail) =>
+            thumbnail.symbol?.toUpperCase().includes(query)
         );
     });
-
-    /*
-const isAllSelected = computed({
-    get: () =>
-        filteredThumbnails.value.length > 0 &&
-        selectedThumbnails.value.length === filteredThumbnails.value.length,
-    set: (value) => {
-        const filteredSymbols = filteredThumbnails.value.map(
-            (t) => t.symbol
-        );
-        if (value) {
-            selectedThumbnails.value = [
-                ...new Set([
-                    ...selectedThumbnails.value,
-                    ...filteredSymbols,
-                ]),
-            ];
-        } else {
-            selectedThumbnails.value = selectedThumbnails.value.filter(
-                (s) => !filteredSymbols.includes(s)
-            );
-        }
-    },
-});
-
-watch(selectedGroup, () => {
-    isAllSelected.value = true;
-});
-*/
 
     // 차트 포함 옵션이 변경되면 데이터를 다시 동기화
     watch(includeChart, async () => {
@@ -470,11 +439,6 @@ watch(selectedGroup, () => {
             };
         });
 
-        groups.value = [
-            'All',
-            ...new Set(thumbnailConfigs.map((c) => c.group).filter(Boolean)),
-        ];
-
         allThumbnailsData.value = thumbnailConfigs;
         // 데이터 구성 후 배당 정보 동기화
         await syncDividendData();
@@ -651,11 +615,12 @@ watch(selectedGroup, () => {
             <div class="flex align-items-center gap-3">
                 <h1>({{ filteredThumbnails.length }})</h1>
             </div>
-            <div class="flex align-items-center gap-3">
-                <SelectButton
-                    v-if="groups.length > 1"
-                    v-model="selectedGroup"
-                    :options="groups" />
+            <div class="batch-actions">
+                <InputText
+                    v-model="tickerQuery"
+                    class="ticker-search"
+                    placeholder="티커 검색"
+                    aria-label="티커 검색" />
 
                 <!-- [신규] 차트 포함 옵션 -->
                 <!-- [신규] 차트 포함 옵션 (항상 true로 고정) -->
@@ -687,7 +652,7 @@ watch(selectedGroup, () => {
             <div
                 v-else-if="filteredThumbnails.length === 0"
                 class="no-bookmarks">
-                <p>기본 배당 목록을 불러오지 못했습니다.</p>
+                <p>{{ tickerQuery.trim() ? '검색 결과가 없습니다.' : '기본 배당 목록을 불러오지 못했습니다.' }}</p>
             </div>
 
             <div
