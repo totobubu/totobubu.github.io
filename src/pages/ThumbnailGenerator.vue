@@ -59,9 +59,16 @@
     const filteredThumbnails = computed(() => {
         const query = tickerQuery.value.trim().toUpperCase();
         if (!query) return allThumbnailsData.value;
-        return allThumbnailsData.value.filter((thumbnail) =>
-            thumbnail.symbol?.toUpperCase().includes(query)
-        );
+        return allThumbnailsData.value.filter((thumbnail) => {
+            const searchableValues = [
+                thumbnail.symbol,
+                thumbnail.koName,
+                thumbnail.longName,
+            ];
+            return searchableValues.some((value) =>
+                value?.toUpperCase().includes(query)
+            );
+        });
     });
 
     // 차트 포함 옵션이 변경되면 데이터를 다시 동기화
@@ -412,32 +419,62 @@
             await loadNavData();
         }
         const navData = navDataCache.value;
-        const bookmarks = myBookmarks.value;
+        const bookmarks = myBookmarks.value || {};
 
-        if (!navData || !bookmarks) {
+        if (!navData) {
             allThumbnailsData.value = [];
             return;
         }
 
-        const thumbnailConfigs = Object.keys(bookmarks).map((isin) => {
-            const stockInfo =
-                navData.nav.find((item) => item.isin === isin) || {};
-            const symbol = stockInfo.symbol || bookmarks[isin].symbol || isin;
+        const createThumbnailConfig = (stockInfo, fallbackSymbol) => {
+            const symbol = stockInfo.symbol || fallbackSymbol;
             const companyName = stockInfo.company || 'Unknown';
             const group = stockInfo.group || 'Others';
-
             const background = getBackgroundForCompany(companyName);
 
             return {
-                symbol: symbol,
-                companyName: companyName,
-                group: group,
+                symbol,
+                koName: stockInfo.koName,
+                longName: stockInfo.longName,
+                companyName,
+                group,
                 tickerColor: background.tickerColor,
                 backgroundImageUrl: background.path,
                 formattedCurrentAmount: '0.0000',
                 comparisonText: 'LAST $ +0.000000',
             };
+        };
+
+        const thumbnailConfigs = Object.keys(bookmarks).map((isin) => {
+            const stockInfo =
+                navData.nav.find((item) => item.isin === isin) || {};
+            return createThumbnailConfig(
+                stockInfo,
+                bookmarks[isin].symbol || isin
+            );
         });
+
+        // The default view remains the user's bookmarks. A ticker query must
+        // also work for any registered symbol, including when no bookmarks
+        // have been saved in this browser yet.
+        const query = tickerQuery.value.trim().toUpperCase();
+        if (query) {
+            navData.nav
+                .filter((item) =>
+                    [item.symbol, item.yfSymbol, item.koName, item.longName].some(
+                        (value) => value?.toUpperCase().includes(query)
+                    )
+                )
+                .forEach((item) => {
+                    if (
+                        !thumbnailConfigs.some(
+                            (config) => config.symbol === item.symbol
+                        )
+                    ) {
+                        thumbnailConfigs.push(createThumbnailConfig(item, item.symbol));
+                    }
+                });
+        }
 
         allThumbnailsData.value = thumbnailConfigs;
         // 데이터 구성 후 배당 정보 동기화
@@ -475,17 +512,23 @@
         { immediate: true, deep: true }
     );
 
+    watch(tickerQuery, async () => {
+        await updateThumbnailConfigs();
+    });
+
     const captureArtwork = async (element) => {
         const token = `thumbnail-export-${captureSequence++}`;
         element.dataset.captureToken = token;
+        const captureSize = 390;
 
         try {
             return await html2canvas(element, {
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: null,
-                windowWidth: 1080,
-                windowHeight: 1080,
+                windowWidth: captureSize,
+                windowHeight: captureSize,
+                scale: 1,
                 onclone: (clonedDocument) => {
                     const clonedArtwork = clonedDocument.querySelector(
                         `[data-capture-token="${token}"]`
@@ -493,11 +536,11 @@
                     if (!clonedArtwork) return;
 
                     Object.assign(clonedArtwork.style, {
-                        width: '1080px',
-                        minWidth: '1080px',
+                        width: `${captureSize}px`,
+                        minWidth: `${captureSize}px`,
                         maxWidth: 'none',
-                        height: '1080px',
-                        minHeight: '1080px',
+                        height: `${captureSize}px`,
+                        minHeight: `${captureSize}px`,
                         maxHeight: 'none',
                         aspectRatio: '1 / 1',
                     });
@@ -507,9 +550,19 @@
                     );
                     if (artworkWrapper) {
                         Object.assign(artworkWrapper.style, {
-                            width: '1080px',
-                            height: '1080px',
-                            minWidth: '1080px',
+                            width: `${captureSize}px`,
+                            height: `${captureSize}px`,
+                            minWidth: `${captureSize}px`,
+                        });
+                    }
+
+                    const comparisonWrapper = clonedArtwork.closest(
+                        '.comparison-thumbnail-wrapper'
+                    );
+                    if (comparisonWrapper) {
+                        Object.assign(comparisonWrapper.style, {
+                            width: `${captureSize}px`,
+                            height: `${captureSize}px`,
                         });
                     }
                 },
