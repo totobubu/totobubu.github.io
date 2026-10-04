@@ -1,11 +1,18 @@
 # scripts/analyze_dividend_frequency.py
 import os
 import json
+import sys
 from datetime import datetime
 from collections import Counter
+from pathlib import Path
 from tqdm import tqdm
 
-ROOT_DIR = os.getcwd()
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from scripts.utils.data_file_path import find_existing_data_file
+
 PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
 DATA_DIR = os.path.join(PUBLIC_DIR, "data")
 NAV_DIR = os.path.join(PUBLIC_DIR, "nav")
@@ -138,8 +145,9 @@ def main():
         ):
             continue
 
-        sanitized_symbol = symbol.replace(".", "-").lower()
-        data_path = os.path.join(DATA_DIR, f"{sanitized_symbol}.json")
+        # Prefer the current market-partitioned data layout, while retaining
+        # compatibility with legacy flat data files.
+        data_path = find_existing_data_file(symbol, ticker_info.get("market"))
 
         try:
             with open(data_path, "r", encoding="utf-8") as f:
@@ -209,7 +217,7 @@ def main():
                 print(f"❌ Error writing updates to {file_path}: {e}")
 
     print(
-        f"\n🎉 Analysis complete. Updated {updated_ticker_count} tickers in {changed_file_count} files."
+        f"\nAnalysis complete. Updated {updated_ticker_count} tickers in {changed_file_count} files."
     )
     if len(all_tickers_from_nav) > 0 and updated_ticker_count == 0:
         print(" (No new frequency information to update.)")

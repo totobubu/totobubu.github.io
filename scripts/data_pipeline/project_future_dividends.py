@@ -3,10 +3,16 @@
 import os
 import re
 import json
+import sys
 from collections import Counter
 from datetime import datetime, timedelta
+from pathlib import Path
 from dateutil.relativedelta import relativedelta
 from tqdm import tqdm
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 DAY_NAME_TO_INDEX = {
     "월": 0,
     "화": 1,
@@ -139,13 +145,15 @@ def main():
     today = datetime.now()
     limit_date = today + relativedelta(months=6)
 
-    files = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
+    # Data is now partitioned by market (for example, data/nasdaq/tqqq.json).
+    # Include legacy flat files as well so this remains backward compatible.
+    files = [str(path) for path in Path(DATA_DIR).rglob("*.json")]
     
     # 특정 티커만 필터링
     if target_tickers:
         files = [
-            f for f in files 
-            if f.replace(".json", "").replace("-", ".").upper() in target_tickers
+            f for f in files
+            if Path(f).stem.replace("-", ".").upper() in target_tickers
         ]
         if not files:
             print(f"❌ 지정한 티커의 JSON 파일을 찾을 수 없습니다: {', '.join(target_tickers)}")
@@ -153,8 +161,7 @@ def main():
     
     updated_count = 0
 
-    for filename in tqdm(files, desc="Projecting future dividends"):
-        file_path = os.path.join(DATA_DIR, filename)
+    for file_path in tqdm(files, desc="Projecting future dividends"):
         data = load_json_file(file_path)
 
         if not data or "backtestData" not in data or "tickerInfo" not in data:
