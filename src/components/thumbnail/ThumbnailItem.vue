@@ -72,7 +72,6 @@ const formatMetricPercent = (value) =>
 
                 <main v-if="data.hasDividend" class="distribution-main">
                     <div class="summary-hero">
-                        <span>이번 주당 배당금</span>
                         <strong>{{ formatAmount(data.currentDividendAmount) }}</strong>
                     </div>
 

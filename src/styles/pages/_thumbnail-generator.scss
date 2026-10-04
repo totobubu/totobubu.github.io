@@ -204,7 +204,7 @@ $thumbnail-px: 6px;
             box-sizing: border-box;
 
             span { display: block; color: #0f2747; font-size: $thumbnail-px * 7; font-weight: 800; }
-            strong { display: block; margin-top: $thumbnail-px; color: var(--summary-theme); font-size: $thumbnail-px * 31; font-weight: 850; letter-spacing: -0.09em; line-height: .9; }
+            strong { display: block; margin-top: 0; color: var(--summary-theme); font-size: $thumbnail-px * 31; font-weight: 850; letter-spacing: -0.09em; line-height: .9; }
         }
 
         .key-metrics {
