@@ -127,25 +127,28 @@ const formatSignedPercent = (value) => {
         <div class="thumbnail-container">
             <section class="thumbnail-capture" data-thumbnail-kind="summary">
                 <header class="distribution-header">
-                    <span>DIVIDEND UPDATE</span>
-                    <time>{{ formatDate(data.exDate) }}</time>
+                    <div>
+                        <h1 class="ticker">{{ data.symbol }}</h1>
+                        <span>DIVIDEND UPDATE</span>
+                    </div>
+                    <time><small>배당락일</small>{{ formatDate(data.exDate) }}</time>
                 </header>
 
                 <main v-if="data.hasDividend" class="distribution-main">
-                    <h1 class="ticker">
-                        {{ data.symbol }}
-                    </h1>
                     <div class="summary-hero" :class="`is-${comparisonTone}`">
-                        <span>이번 세전 배당금</span>
-                        <strong>{{ formatAmount(data.currentDividendAmount) }}</strong>
-                        <b v-if="hasComparison">{{ formatSignedAmount(comparisonDifference) }} · {{ formatSignedPercent(comparisonPercent) }}</b>
+                        <div>
+                            <span>현재 배당금</span>
+                            <strong>{{ formatAmount(data.currentDividendAmount) }}</strong>
+                        </div>
+                        <b v-if="hasComparison">▲ {{ formatSignedAmount(comparisonDifference) }}<small>({{ formatSignedPercent(comparisonPercent) }})</small></b>
                     </div>
 
                     <section class="comparison-card" :class="`is-${comparisonTone}`">
                         <template v-if="hasComparison">
-                            <p><span>직전 배당금</span><strong>{{ formatAmount(data.previousDividendAmount) }}</strong></p>
+                            <p><span>이전 배당금</span><strong>{{ formatAmount(data.previousDividendAmount) }}</strong></p>
                             <span class="comparison-arrow" aria-hidden="true">→</span>
-                            <p><span>이번 배당금</span><strong>{{ formatAmount(data.currentDividendAmount) }}</strong></p>
+                            <p><span>현재 배당금</span><strong>{{ formatAmount(data.currentDividendAmount) }}</strong></p>
+                            <b>{{ formatSignedPercent(comparisonPercent) }}</b>
                         </template>
                         <p v-else class="comparison-missing">직전 배당 데이터 없음</p>
                     </section>
@@ -155,17 +158,12 @@ const formatSignedPercent = (value) => {
                 <p v-else class="distribution-unavailable">최근 배당 데이터를 찾지 못했습니다.</p>
 
                 <section v-if="data.showChart && chartData.length > 0" class="monthly-history">
-                    <p>최근 월별 배당 합계 <small>예정값 제외</small></p>
-                    <div v-for="item in chartData" :key="item.month" class="chart-row">
-                        <div class="chart-label">
-                            <span class="chart-month">{{ item.month }}</span>
+                    <p>최근 4회 배당금 추이 <small>(단위: USD)</small></p>
+                    <div class="chart-columns">
+                        <div v-for="item in chartData" :key="item.month" class="chart-column">
                             <span class="chart-total">{{ formatAmount(item.total) }}</span>
-                        </div>
-                        <div class="chart-bar" :style="{ width: `${item.widthRatio}%` }">
-                            <div v-for="(amount, idx) in item.amounts" :key="idx" class="chart-segment" :style="{
-                                width: `${(amount / item.total) * 100}%`,
-                                backgroundColor: getColor(idx),
-                            }" />
+                            <div class="chart-track"><div class="chart-bar" :style="{ height: `${item.widthRatio}%` }" /></div>
+                            <span class="chart-month">{{ item.month }}</span>
                         </div>
                     </div>
                 </section>
