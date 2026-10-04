@@ -61,7 +61,7 @@ const formatMetricPercent = (value) =>
 <template>
     <div class="thumbnail-item-wrapper" :class="{ 'with-chart': data.showChart }">
         <div class="thumbnail-container">
-            <section class="thumbnail-capture" data-thumbnail-kind="summary">
+            <section class="thumbnail-capture" :class="`is-${comparisonTone}`" data-thumbnail-kind="summary">
                 <header class="distribution-header">
                     <h1 class="ticker">{{ data.symbol }}</h1>
                     <div class="header-meta">

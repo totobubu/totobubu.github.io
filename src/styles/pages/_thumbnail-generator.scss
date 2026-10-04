@@ -138,6 +138,8 @@ $thumbnail-px: 6px;
     }
 
     .thumbnail-capture {
+        --summary-theme: #155eef;
+        --summary-highlight: #eff6ff;
         display: grid;
         grid-template-rows: auto 1fr auto;
         width: 1080px;
@@ -155,6 +157,9 @@ $thumbnail-px: 6px;
         padding: $thumbnail-px * 7;
         box-sizing: border-box;
     }
+
+    .thumbnail-capture.is-up { --summary-theme: #059669; --summary-highlight: #ecfdf5; }
+    .thumbnail-capture.is-down { --summary-theme: #c62828; --summary-highlight: #fff1f2; }
 
     .distribution-header,
     .distribution-main,
@@ -199,7 +204,7 @@ $thumbnail-px: 6px;
             box-sizing: border-box;
 
             span { display: block; color: #0f2747; font-size: $thumbnail-px * 7; font-weight: 800; }
-            strong { display: block; margin-top: $thumbnail-px; color: #155eef; font-size: $thumbnail-px * 31; font-weight: 850; letter-spacing: -0.09em; line-height: .9; }
+            strong { display: block; margin-top: $thumbnail-px; color: var(--summary-theme); font-size: $thumbnail-px * 31; font-weight: 850; letter-spacing: -0.09em; line-height: .9; }
         }
 
         .key-metrics {
@@ -230,19 +235,19 @@ $thumbnail-px: 6px;
 
             .signal-line { width: 42%; height: auto; overflow: visible; }
             .signal-base { fill: none; stroke: #cbd5e1; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-            .signal-active { fill: none; stroke: #16a34a; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+            .signal-active { fill: none; stroke: var(--summary-theme); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
             .signal-node { fill: #cbd5e1; }
-            .signal-node.latest { fill: #16a34a; }
-            .change-badge { display: flex; align-items: baseline; justify-content: flex-end; gap: $thumbnail-px; padding: $thumbnail-px * 2 $thumbnail-px * 3; border-radius: 999px; background: #ecfdf3; color: #15803d; }
-            .change-badge span { color: #166534; font-size: $thumbnail-px * 3; font-weight: 750; }
+            .signal-node.latest { fill: var(--summary-theme); }
+            .change-badge { display: flex; align-items: baseline; justify-content: flex-end; gap: $thumbnail-px; padding: $thumbnail-px * 2 $thumbnail-px * 3; border-radius: 999px; background: var(--summary-highlight); color: var(--summary-theme); }
+            .change-badge span { color: var(--summary-theme); font-size: $thumbnail-px * 3; font-weight: 750; }
             .change-badge strong { font-size: $thumbnail-px * 7; font-weight: 850; letter-spacing: -0.06em; }
             .change-badge small { font-size: $thumbnail-px * 3.5; font-weight: 800; }
             &.is-down {
                 .signal-line { transform: scaleY(-1); transform-origin: center; }
-                .signal-active { stroke: #dc2626; }
-                .signal-node.latest { fill: #dc2626; }
-                .change-badge { background: #fff1f2; color: #c2410c; }
-                .change-badge span { color: #9f1239; }
+                .signal-active { stroke: var(--summary-theme); }
+                .signal-node.latest { fill: var(--summary-theme); }
+                .change-badge { background: var(--summary-highlight); color: var(--summary-theme); }
+                .change-badge span { color: var(--summary-theme); }
             }
             &.is-neutral {
                 .signal-active { stroke: #64748b; }
@@ -270,7 +275,7 @@ $thumbnail-px: 6px;
         .monthly-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: $thumbnail-px * 7; }
         .monthly-card { position: relative; display: flex; flex-direction: column; gap: $thumbnail-px * 2; min-width: 0; padding: $thumbnail-px * 4; border: 1px solid #dbe4f0; border-radius: $thumbnail-px * 3; background: #f8fafc; box-shadow: 0 1px 0 rgba(15, 39, 71, .04); }
         .monthly-card:not(:last-child)::after { content: '›'; position: absolute; top: 50%; right: -$thumbnail-px * 5.5; transform: translateY(-50%); color: #94a3b8; font-size: $thumbnail-px * 9; font-weight: 500; }
-        .monthly-card.latest { border-color: #155eef; background: #155eef; box-shadow: 0 6px 18px rgba(21, 94, 239, .16); }
+        .monthly-card.latest { border-color: var(--summary-theme); background: var(--summary-theme); box-shadow: 0 6px 18px rgba(15, 39, 71, .16); }
         .chart-month { color: #64748b; font-size: $thumbnail-px * 4; font-weight: 700; letter-spacing: -.02em; }
         .chart-total { color: #0f172a; font-size: $thumbnail-px * 9; font-weight: 820; letter-spacing: -0.07em; }
         .monthly-card.latest .chart-month, .monthly-card.latest .chart-total { color: #ffffff; }

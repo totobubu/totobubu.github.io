@@ -42,7 +42,7 @@ const changeTone = computed(() => {
 
 <template>
     <div class="comparison-thumbnail-wrapper">
-        <section class="comparison-thumbnail" data-thumbnail-kind="comparison">
+        <section class="comparison-thumbnail" :class="`is-${changeTone}`" data-thumbnail-kind="comparison">
             <header>
                 <div><strong>{{ data.symbol }}</strong><span>DIVIDEND COMPARISON</span></div>
                 <time><small>배당락일</small>{{ formatDate(data.exDate) }}</time>
@@ -78,6 +78,9 @@ const changeTone = computed(() => {
 <style scoped>
 .comparison-thumbnail-wrapper { width: 100%; aspect-ratio: 1 / 1; container-type: inline-size; }
 .comparison-thumbnail {
+    --theme-primary: #155eef;
+    --theme-highlight: #eaf2ff;
+    --theme-change: #eff6ff;
     display: grid;
     grid-template-rows: auto 1fr auto;
     width: 100%;
@@ -91,7 +94,9 @@ const changeTone = computed(() => {
     font-family: Inter, Pretendard, system-ui, sans-serif;
     overflow: hidden;
 }
-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 40px 44px 30px; background: #0f2747; color: #fff; }
+.comparison-thumbnail.is-up { --theme-primary: #059669; --theme-highlight: #ecfdf5; --theme-change: #ecfdf5; }
+.comparison-thumbnail.is-down { --theme-primary: #c62828; --theme-highlight: #fff1f2; --theme-change: #fff1f2; }
+header { display: flex; justify-content: space-between; align-items: flex-start; padding: 40px 44px 30px; background: var(--theme-primary); color: #fff; }
 header div { display: flex; flex-direction: column; gap: 10px; }
 header span { color: #dbeafe; font-size: 14px; font-weight: 700; letter-spacing: 0.16em; }
 header strong { font-size: 64px; font-weight: 850; letter-spacing: -0.08em; line-height: .85; }
@@ -106,13 +111,12 @@ header time small { color: #dbeafe; font-size: 12px; font-weight: 600; }
 .comparison-table > div { align-items: center; min-height: 52px; padding: 0 12px; border-bottom: 1px solid #dbe4f0; }
 dt { color: #334155; font-size: 14px; font-weight: 650; }
 dd { margin: 0; text-align: right; font-size: 18px; font-weight: 700; letter-spacing: -0.03em; }
-dd:last-child { color: #155eef; }
-.comparison-table .emphasis { background: #eaf2ff; box-shadow: inset 3px 0 #155eef; }
+dd:last-child { color: var(--theme-primary); }
+.comparison-table .emphasis { background: var(--theme-highlight); box-shadow: inset 3px 0 var(--theme-primary); }
 .comparison-table .emphasis dd { color: #0f2747; font-size: 20px; }
-.comparison-change { margin: 12px 0; padding: 12px; border-radius: 8px; background: #eff6ff; color: #334155; font-size: 13px; font-weight: 600; }
+.comparison-change { margin: 12px 0; padding: 12px; border-radius: 8px; background: var(--theme-change); color: #334155; font-size: 13px; font-weight: 600; }
 .comparison-change strong { float: right; font-size: 20px; }
-.comparison-change.is-up strong { color: #86efac; }
-.comparison-change.is-down strong { color: #fca5a5; }
+.comparison-change.is-up strong, .comparison-change.is-down strong { color: var(--theme-primary); }
 .comparison-change.is-neutral strong { color: #e2e8f0; }
 .comparison-unavailable { margin: auto 0; text-align: center; color: #64748b; }
 footer { padding: 12px; color: #64748b; font-size: 10px; text-align: center; }
