@@ -624,6 +624,17 @@ function convertPeriodToYears(periodString) {
     return 0;
 }
 
+// Reject arbitrary text returned by an upstream scrape before it reaches the
+// generated navigation, logo queue, or search UI.
+function isValidTickerSymbol(symbol) {
+    return (
+        typeof symbol === 'string' &&
+        /^[A-Z0-9]{1,10}(?:[._-][A-Z0-9]{1,5})?$/.test(
+            symbol.trim().toUpperCase()
+        )
+    );
+}
+
 async function processAndPushTickers(filePath, market, allTickers) {
     try {
         const data = await fs.readFile(filePath, 'utf8');
@@ -632,7 +643,14 @@ async function processAndPushTickers(filePath, market, allTickers) {
             return;
         }
         let fileUpdated = false;
-        const tickers = tickersRaw.map((ticker) => {
+        const tickers = tickersRaw.filter((ticker) => {
+            const symbol = ticker?.symbol || ticker?.yfSymbol;
+            if (isValidTickerSymbol(symbol)) return true;
+            console.warn(
+                `⚠️ Invalid ticker record ignored in ${filePath}: ${String(symbol)}`
+            );
+            return false;
+        }).map((ticker) => {
             const normalized = ensureTickerSymbols({
                 ...ticker,
                 market: ticker.market || market,

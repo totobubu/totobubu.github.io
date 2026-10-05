@@ -465,6 +465,7 @@
         if (query) {
             navData.nav
                 .filter((item) =>
+                    !item.upcoming &&
                     [item.symbol, item.yfSymbol, item.koName, item.longName].some(
                         (value) => value?.toUpperCase().includes(query)
                     )
