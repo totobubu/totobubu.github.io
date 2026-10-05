@@ -288,9 +288,24 @@
 
                 const diff = currentDividend - previousDividend;
                 const comparisonText = `LAST $ ${diff >= 0 ? '+' : ''}${Number(diff.toFixed(6))}`;
-                const exDividendClose = Number(currentDividendEvent?.close);
-                const hasExDividendClose =
-                    Number.isFinite(exDividendClose) && exDividendClose > 0;
+                const actualExDividendClose = Number(currentDividendEvent?.close);
+                const hasActualExDividendClose =
+                    Number.isFinite(actualExDividendClose) && actualExDividendClose > 0;
+                const provisionalClose = Number(currentDividendEvent?.referenceClose);
+                const hasProvisionalClose =
+                    currentDividendEvent?.priceStatus === 'provisional' &&
+                    Number.isFinite(provisionalClose) && provisionalClose > 0;
+                const priceStatus = hasActualExDividendClose
+                    ? 'confirmed'
+                    : hasProvisionalClose
+                      ? 'provisional'
+                      : 'unavailable';
+                const exDividendClose = hasActualExDividendClose
+                    ? actualExDividendClose
+                    : hasProvisionalClose
+                      ? provisionalClose
+                      : null;
+                const hasExDividendClose = exDividendClose != null;
                 const afterTaxDividendAmount = currentDividend * 0.85;
                 const dividendChangePercent =
                     previousDividend > 0 ? (diff / previousDividend) * 100 : null;
@@ -356,6 +371,11 @@
                     dividendDifference: diff,
                     dividendChangePercent,
                     exDividendClose: hasExDividendClose ? exDividendClose : null,
+                    priceStatus,
+                    priceReferenceDate: priceStatus === 'provisional'
+                        ? currentDividendEvent?.referenceCloseDate ?? null
+                        : currentDividendEvent?.date ?? null,
+                    announcementUrl: currentDividendEvent?.announcementUrl ?? null,
                     exDividendYield,
                     afterTaxDividendYield,
                     previousExDate: previousDividendEvent?.date ?? null,
