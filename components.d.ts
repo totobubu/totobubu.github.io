@@ -52,6 +52,7 @@ declare module 'vue' {
     PortfolioItem: typeof import('./src/components/backtester/controls/PortfolioItem.vue')['default']
     ProfileSettings: typeof import('./src/components/mypage/ProfileSettings.vue')['default']
     ResponsiveDialog: typeof import('./src/components/common/ResponsiveDialog.vue')['default']
+    RivalThumbnail: typeof import('./src/components/thumbnail/RivalThumbnail.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchBar: typeof import('./src/components/SearchBar.vue')['default']

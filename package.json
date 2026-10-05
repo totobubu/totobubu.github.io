@@ -6,6 +6,7 @@
     "scripts": {
         "add:etf": "python scripts/utils/add_etfs_by_provider.py",
         "backfill-market-cap": "python scripts/data_pipeline/backfill_market_cap_approximate.py",
+        "discover:underlyings": "python scripts/data_pipeline/discover_underlying_candidates.py",
         "generate-nav": "node tasks/generateNav.js",
         "generate-sidebar-tickers": "python scripts/utils/generateSidebar.py",
         "generate-calendar-events": "node tasks/generateCalendarEvents.js",
