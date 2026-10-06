@@ -14,6 +14,19 @@ const formatDividend = (value) => `$${Number(value).toFixed(6).replace(/\.?(0+)$
 const formatUsd = (value, digits = 2) => `$${Number(value).toFixed(digits)}`;
 const formatPercent = (value) => `${Number(value).toFixed(2)}%`;
 
+const formatExDate = (value) => {
+    const match = String(value ?? '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return value ?? '날짜 미정';
+
+    return `${Number(match[2])}월 ${Number(match[3])}일`;
+};
+
+const postTitle = computed(() => {
+    if (!props.data.hasDividend) return `${props.data.symbol} 최근 배당 정보`;
+
+    return `${props.data.symbol} | ${formatExDate(props.data.exDate)} 주당 ${formatDividend(props.data.currentDividendAmount)} 배당 공시`;
+});
+
 const changeSummary = computed(() => {
     const { previousDividendAmount, dividendDifference, dividendChangePercent } =
         props.data;
@@ -36,7 +49,7 @@ const postText = computed(() => {
     }
 
     const lines = [
-        `📢 ${props.data.symbol} 최근 배당 공시 안내`,
+        postTitle.value,
         '',
         `${props.data.symbol}의 최근 배당 정보입니다.`,
         '',
@@ -83,7 +96,7 @@ const copyPostText = async () => {
 <template>
     <aside class="toss-community-copy" :aria-label="`${data.symbol} 토스 게시 문구`">
         <p class="copy-eyebrow">TOSS COMMUNITY</p>
-        <h2>{{ data.symbol }} 최근 배당 공시 안내</h2>
+        <h2>{{ postTitle }}</h2>
 
         <template v-if="data.hasDividend">
             <dl class="copy-facts">
