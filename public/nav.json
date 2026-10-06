@@ -15189,6 +15189,23 @@
             "periods": ["5Y"]
         },
         {
+            "symbol": "INYY",
+            "company": "YieldMax",
+            "frequency": "매주",
+            "group": "목",
+            "underlying": "INTC",
+            "ipoDate": "2026-06-03",
+            "sharesOutstanding": false,
+            "isin": "US88636J7256",
+            "market": "NYSE",
+            "yfSymbol": "INYY",
+            "currency": "USD",
+            "koName": "일드맥스 인텔 옵션 인컴 전략 ETF",
+            "logo": "logos/company/company-yieldmax.png",
+            "dataPaths": ["data/nyse/inyy.json"],
+            "periods": ["3M"]
+        },
+        {
             "symbol": "IONL",
             "company": "GraniteShares",
             "ipoDate": "2025-03-26",
@@ -33282,6 +33299,39 @@
             "logo": "logos/company/company-yieldmax.png",
             "dataPaths": ["data/nasdaq/yqqq.json"],
             "periods": ["6M", "1Y"]
+        },
+        {
+            "symbol": "YRAM",
+            "company": "YieldMax",
+            "frequency": "매주",
+            "group": "수",
+            "ipoDate": "2026-08-25",
+            "sharesOutstanding": false,
+            "isin": "US88634T2380",
+            "market": "NYSE",
+            "yfSymbol": "YRAM",
+            "currency": "USD",
+            "koName": "일드맥스 메모리 및 스토리지 포트폴리오 옵션 인컴 ETF",
+            "logo": "logos/company/company-yieldmax.png",
+            "dataPaths": ["data/nyse/yram.json"],
+            "periods": ["1M"]
+        },
+        {
+            "symbol": "YSPC",
+            "company": "YieldMax",
+            "frequency": "매주",
+            "group": "목",
+            "underlying": "SPCX",
+            "ipoDate": "2026-07-15",
+            "sharesOutstanding": false,
+            "isin": "US88636Y6234",
+            "market": "NYSE",
+            "yfSymbol": "YSPC",
+            "currency": "USD",
+            "koName": "일드맥스 SPCX 옵션 인컴 전략 ETF",
+            "logo": "logos/company/company-yieldmax.png",
+            "dataPaths": ["data/nyse/yspc.json"],
+            "periods": ["3M"]
         },
         {
             "symbol": "YSPY",

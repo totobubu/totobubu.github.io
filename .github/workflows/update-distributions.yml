@@ -231,8 +231,18 @@ jobs:
                       update_distributions.log
                       ocr_debug.txt
                       distribution-r2-targets.txt
+                      distribution-update-review.json
+                      distribution-update-review.md
                   if-no-files-found: warn
                   retention-days: 14
+
+            - name: Publish OCR review summary
+              if: always()
+              shell: bash
+              run: |
+                  if [[ -f distribution-update-review.md ]]; then
+                    cat distribution-update-review.md >> "${GITHUB_STEP_SUMMARY}"
+                  fi
 
             - name: Commit and push data changes
               shell: bash
