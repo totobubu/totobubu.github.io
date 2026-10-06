@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-06 09:37:43 KST",
-        "regularMarketPrice": 221.46,
+        "Update": "2026-10-07 08:04:23 KST",
+        "regularMarketPrice": 223.22,
         "englishName": "Erie Indemnity Company",
         "earningsDate": "2026-10-29",
-        "enterpriseValue": 11337216000,
-        "marketCap": 11580114944,
-        "Volume": 133240,
-        "AvgVolume": 272046,
+        "enterpriseValue": 11338262528,
+        "marketCap": 11672144896,
+        "Volume": 117169,
+        "AvgVolume": 270854,
         "sharesOutstanding": 46189068,
         "52Week": "204.63 - 330.54",
-        "Yield": 0.025978,
+        "Yield": 0.025773,
         "dividendRate": 5.85,
         "payoutRatio": 0.5215,
         "isin": "US29530P1021",
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 221.46,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 11337216000,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 11580114944,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 133240,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 272046,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.025978,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -70417,14 +70442,16 @@
             "high": 221.899994,
             "low": 217.199997,
             "close": 221.460007,
-            "volume": 133200
+            "volume": 133200,
+            "amount": 1.463,
+            "yield": 0.0328598089
         },
         {
-            "date": "2026-10-07",
+            "date": "2027-01-05",
             "forecasted": true
         },
         {
-            "date": "2027-01-07",
+            "date": "2027-04-05",
             "forecasted": true
         }
     ]
