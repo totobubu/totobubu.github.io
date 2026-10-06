@@ -9,14 +9,14 @@
         "underlying": "CRWD",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-10-03 07:44:37 KST",
-        "regularMarketPrice": 15.335,
+        "Update": "2026-10-06 09:37:43 KST",
+        "regularMarketPrice": 15.34,
         "englishName": "GraniteShares YieldBOOST CRWV ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 4081,
-        "AvgVolume": 2874,
+        "Volume": 1888,
+        "AvgVolume": 2893,
         "sharesOutstanding": null,
         "52Week": "15.05 - 25.64",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.335,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4081,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2874,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1042,7 +1055,8 @@
         },
         {
             "date": "2026-10-02",
-            "expected": true
+            "expected": true,
+            "amount": 0.236
         },
         {
             "date": "2026-10-09",

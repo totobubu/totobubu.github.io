@@ -1226,7 +1226,7 @@
             "company": "iShares",
             "ipoDate": "2008-11-11",
             "frequency": "분기",
-            "group": "AJD",
+            "group": "JOD",
             "sharesOutstanding": false,
             "isin": "US4642898591",
             "market": "NYSE",
@@ -1241,7 +1241,7 @@
             "company": "iShares",
             "ipoDate": "2008-11-11",
             "frequency": "분기",
-            "group": "AJD",
+            "group": "JOD",
             "sharesOutstanding": false,
             "isin": "US4642898757",
             "market": "NYSE",
@@ -1271,7 +1271,7 @@
             "company": "iShares",
             "ipoDate": "2008-11-19",
             "frequency": "분기",
-            "group": "AJD",
+            "group": "JOD",
             "sharesOutstanding": false,
             "isin": "US4642898674",
             "market": "NYSE",
@@ -1641,18 +1641,6 @@
             "dataPaths": ["data/nyse/arty.json"],
             "periods": ["5Y"],
             "group": "JSD"
-        },
-        {
-            "symbol": "AS _",
-            "upcoming": true,
-            "sharesOutstanding": false,
-            "market": "NYSE",
-            "yfSymbol": "AS _",
-            "currency": "USD",
-            "noDividends": true,
-            "koName": "AST 스페이스모바일",
-            "logo": null,
-            "periods": []
         },
         {
             "symbol": "ASHR",
@@ -3347,7 +3335,7 @@
             "noDividends": true,
             "logo": "logos/company/company-proshares.png",
             "dataPaths": ["data/nyse/boil.json"],
-            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y", "15Y"]
         },
         {
             "symbol": "BOND",
@@ -8467,7 +8455,7 @@
             "koName": "엠코 그룹",
             "logo": "logos/nyse/eme.png",
             "dataPaths": ["data/nyse/eme.json"],
-            "periods": ["5Y", "10Y"]
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "EMGF",
@@ -13492,7 +13480,7 @@
             "koName": "그래닛셰어즈 일드부스트 로빈후드 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nasdaq/hoyy.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "HPE",
@@ -15169,7 +15157,7 @@
             "koName": "인튜이트",
             "logo": "logos/nasdaq/intu.svg",
             "dataPaths": ["data/nasdaq/intu.json"],
-            "periods": ["5Y", "10Y"]
+            "periods": ["5Y", "10Y", "15Y"]
         },
         {
             "symbol": "INTW",
@@ -17144,7 +17132,7 @@
             "koName": "JP모건 US 테크 리더스 ETF",
             "logo": "logos/company/company-jpmorgan.png",
             "dataPaths": ["data/nyse/jtek.json"],
-            "periods": ["6M", "1Y"]
+            "periods": ["6M", "1Y", "3Y"]
         },
         {
             "symbol": "K",
@@ -17460,7 +17448,7 @@
             "koName": "프로셰어즈 천연가스 2배 인버스 ETF",
             "logo": "logos/company/company-proshares.png",
             "dataPaths": ["data/nyse/kold.json"],
-            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y", "15Y"]
         },
         {
             "symbol": "KOMP",
@@ -18311,7 +18299,7 @@
             "koName": "마스터카드",
             "logo": "logos/nyse/ma.svg",
             "dataPaths": ["data/nyse/ma.json"],
-            "periods": ["5Y", "10Y", "15Y"]
+            "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
             "symbol": "MAA",
@@ -26412,7 +26400,7 @@
             "koName": "그래닛셰어즈 일드부스트 슈퍼 마이크로 컴퓨터 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nasdaq/smyy.json"],
-            "periods": ["6M"]
+            "periods": ["6M", "1Y"]
         },
         {
             "symbol": "SNA",
@@ -27716,7 +27704,7 @@
             "koName": "프로셰어즈 단기 VIX 0.5배 인버스 ETF",
             "logo": "logos/company/company-proshares.png",
             "dataPaths": ["data/nyse/svxy.json"],
-            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y", "15Y"]
         },
         {
             "symbol": "SW",
@@ -29300,7 +29288,7 @@
             "logo": null,
             "dataPaths": ["data/nasdaq/tspy.json"],
             "frequency": "매월",
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "MJO"
         },
         {
@@ -30337,7 +30325,7 @@
             "koName": "프로셰어즈 VIX 단기선물 1.5배 ETF",
             "logo": "logos/company/company-proshares.png",
             "dataPaths": ["data/nyse/uvxy.json"],
-            "periods": ["6M", "1Y", "3Y", "5Y", "10Y"]
+            "periods": ["6M", "1Y", "3Y", "5Y", "10Y", "15Y"]
         },
         {
             "symbol": "UWM",

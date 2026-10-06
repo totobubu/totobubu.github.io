@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-03 07:44:37 KST",
-        "regularMarketPrice": 19,
+        "Update": "2026-10-06 09:37:43 KST",
+        "regularMarketPrice": 18.95,
         "englishName": "Global X SuperDividend U.S. ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 257839,
-        "AvgVolume": 199079,
+        "Volume": 199599,
+        "AvgVolume": 199998,
         "sharesOutstanding": null,
         "52Week": "16.84 - 20.21",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 257839,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 199079,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27638,10 +27651,6 @@
             "volume": 262400
         },
         {
-            "date": "2026-10-02",
-            "forecasted": true
-        },
-        {
             "date": "2026-11-03",
             "forecasted": true
         },
@@ -27659,6 +27668,10 @@
         },
         {
             "date": "2027-03-03",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-02",
             "forecasted": true
         }
     ]
