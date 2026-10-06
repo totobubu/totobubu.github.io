@@ -292,9 +292,30 @@
                 const hasActualExDividendClose =
                     Number.isFinite(actualExDividendClose) && actualExDividendClose > 0;
                 const provisionalClose = Number(currentDividendEvent?.referenceClose);
-                const hasProvisionalClose =
-                    currentDividendEvent?.priceStatus === 'provisional' &&
+                const hasRecordedProvisionalClose =
                     Number.isFinite(provisionalClose) && provisionalClose > 0;
+                // An announcement may reach the thumbnail generator before the
+                // collection job has persisted its referenceClose metadata. In
+                // that case, use the closest earlier available close rather than
+                // presenting price-derived fields as unavailable.
+                const fallbackReference = currentDividendEvent
+                    ? backtestData
+                          .filter((row) => {
+                              const close = Number(row.close);
+                              return (
+                                  row.date < currentDividendEvent.date &&
+                                  Number.isFinite(close) &&
+                                  close > 0
+                              );
+                          })
+                          .sort((a, b) => b.date.localeCompare(a.date))[0]
+                    : null;
+                const fallbackClose = Number(fallbackReference?.close);
+                const hasFallbackClose =
+                    Number.isFinite(fallbackClose) && fallbackClose > 0;
+                const hasProvisionalClose =
+                    !hasActualExDividendClose &&
+                    (hasRecordedProvisionalClose || hasFallbackClose);
                 const priceStatus = hasActualExDividendClose
                     ? 'confirmed'
                     : hasProvisionalClose
@@ -302,8 +323,10 @@
                       : 'unavailable';
                 const exDividendClose = hasActualExDividendClose
                     ? actualExDividendClose
-                    : hasProvisionalClose
+                    : hasRecordedProvisionalClose
                       ? provisionalClose
+                      : hasFallbackClose
+                        ? fallbackClose
                       : null;
                 const hasExDividendClose = exDividendClose != null;
                 const afterTaxDividendAmount = currentDividend * 0.85;
@@ -385,7 +408,7 @@
                     exDividendClose: hasExDividendClose ? exDividendClose : null,
                     priceStatus,
                     priceReferenceDate: priceStatus === 'provisional'
-                        ? currentDividendEvent?.referenceCloseDate ?? null
+                        ? currentDividendEvent?.referenceCloseDate ?? fallbackReference?.date ?? null
                         : currentDividendEvent?.date ?? null,
                     announcementUrl: currentDividendEvent?.announcementUrl ?? null,
                     exDividendYield,
