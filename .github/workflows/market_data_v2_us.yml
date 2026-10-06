@@ -66,6 +66,9 @@ jobs:
                   DATA_LAYOUT_MODE: market
               run: node tasks/updateHistoricalUsData.js
 
+            - name: Confirm announced distributions with ex-date closes
+              run: python scripts/data_pipeline/reconcile_announced_distributions.py
+
             - name: Generate sidebar (popularity 100%)
               env:
                   FIRESTORE_SA_KEY: ${{ secrets.FIRESTORE_SA_KEY }}

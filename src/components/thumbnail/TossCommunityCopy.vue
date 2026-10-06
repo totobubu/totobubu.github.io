@@ -10,7 +10,8 @@ const props = defineProps({
 
 const copied = ref(false);
 
-const formatUsd = (value, digits = 4) => `$${Number(value).toFixed(digits)}`;
+const formatDividend = (value) => `$${Number(value).toFixed(6).replace(/\.?(0+)$/, '')}`;
+const formatUsd = (value, digits = 2) => `$${Number(value).toFixed(digits)}`;
 const formatPercent = (value) => `${Number(value).toFixed(2)}%`;
 
 const changeSummary = computed(() => {
@@ -40,14 +41,18 @@ const postText = computed(() => {
         `${props.data.symbol}의 최근 배당 정보입니다.`,
         '',
         `• 배당락일: ${props.data.exDate}`,
-        `• 배당락일 종가: ${props.data.exDividendClose == null ? '데이터 없음' : formatUsd(props.data.exDividendClose, 2)}`,
-        `• 세전 배당금: ${formatUsd(props.data.currentDividendAmount)}`,
-        `• 세후 배당금(15% 원천징수 가정): ${formatUsd(props.data.afterTaxDividendAmount)}`,
+        `• ${props.data.priceStatus === 'provisional' ? `참조 종가 (${props.data.priceReferenceDate}, 잠정)` : '배당락일 종가'}: ${props.data.exDividendClose == null ? '데이터 없음' : formatUsd(props.data.exDividendClose, 2)}`,
+        `• 세전 배당금: ${formatDividend(props.data.currentDividendAmount)}`,
+        `• 세후 배당금(15% 원천징수 가정): ${formatDividend(props.data.afterTaxDividendAmount)}`,
     ];
 
     if (props.data.exDividendYield != null) {
         lines.push(`• 주가 대비 세전 배당률: ${formatPercent(props.data.exDividendYield)}`);
         lines.push(`• 주가 대비 세후 배당률: ${formatPercent(props.data.afterTaxDividendYield)}`);
+    }
+
+    if (props.data.priceStatus === 'provisional') {
+        lines.push('※ 배당금은 운용사 공식 공시값이며, 배당률은 미국 장 마감 전 직전 거래일 종가 기준 잠정치입니다.');
     }
 
     lines.push('', changeSummary.value, '');
@@ -83,9 +88,9 @@ const copyPostText = async () => {
         <template v-if="data.hasDividend">
             <dl class="copy-facts">
                 <div><dt>배당락일</dt><dd>{{ data.exDate }}</dd></div>
-                <div><dt>배당락일 종가</dt><dd>{{ data.exDividendClose == null ? '데이터 없음' : `$${Number(data.exDividendClose).toFixed(2)}` }}</dd></div>
-                <div><dt>세전 배당금</dt><dd>${{ Number(data.currentDividendAmount).toFixed(4) }}</dd></div>
-                <div><dt>세후 배당금</dt><dd>${{ Number(data.afterTaxDividendAmount).toFixed(4) }}</dd></div>
+                <div><dt>{{ data.priceStatus === 'provisional' ? '참조 종가 (잠정)' : '배당락일 종가' }}</dt><dd>{{ data.exDividendClose == null ? '데이터 없음' : `$${Number(data.exDividendClose).toFixed(2)}` }}</dd></div>
+                <div><dt>세전 배당금</dt><dd>{{ formatDividend(data.currentDividendAmount) }}</dd></div>
+                <div><dt>세후 배당금</dt><dd>{{ formatDividend(data.afterTaxDividendAmount) }}</dd></div>
                 <div v-if="data.exDividendYield != null"><dt>주가 대비 세전 배당률</dt><dd>{{ Number(data.exDividendYield).toFixed(2) }}%</dd></div>
                 <div v-if="data.afterTaxDividendYield != null"><dt>주가 대비 세후 배당률</dt><dd>{{ Number(data.afterTaxDividendYield).toFixed(2) }}%</dd></div>
             </dl>
