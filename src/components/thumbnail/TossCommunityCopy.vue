@@ -40,7 +40,7 @@ const changeSummary = computed(() => {
     }
 
     const direction = dividendDifference > 0 ? '증가' : '감소';
-    return `직전 배당 이벤트와 비교해 주당 ${formatUsd(Math.abs(dividendDifference))} ${direction}했습니다 (${dividendDifference > 0 ? '+' : ''}${formatPercent(dividendChangePercent)}).`;
+    return `직전 배당 이벤트와 비교해 주당 ${formatDividend(Math.abs(dividendDifference))} ${direction}했습니다 (${dividendDifference > 0 ? '+' : ''}${formatPercent(dividendChangePercent)}).`;
 });
 
 const postText = computed(() => {
