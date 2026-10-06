@@ -357,7 +357,19 @@
                                 };
                             })
                         );
-                        rivalComparison = calculateRivalComparison(rivalData, targetDate);
+                        const underlyingData = await loadTickerData(rivalSet.underlying, navData);
+                        rivalComparison = calculateRivalComparison(
+                            rivalData,
+                            {
+                                symbol: rivalSet.underlying,
+                                tickerInfo: underlyingData.tickerInfo,
+                                backtestData: applySplits(
+                                    underlyingData.backtestData,
+                                    underlyingData.tickerInfo?.events?.splits
+                                ),
+                            },
+                            targetDate
+                        );
                     } catch (error) {
                         console.warn(`Failed to calculate rival comparison for ${symbol}`, error);
                     }

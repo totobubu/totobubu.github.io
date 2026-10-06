@@ -1,31 +1,39 @@
 <script setup>
 const props = defineProps({ data: { type: Object, default: null } });
 const formatPercent = (value) => Number.isFinite(value) ? `${value >= 0 ? '+' : ''}${(value * 100).toFixed(1)}%` : '—';
-const formatUsd = (value) => Number.isFinite(value) ? `$${value.toFixed(0)}` : '—';
+const formatUsd = (value) => Number.isFinite(value) ? `$${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}` : '—';
 const formatDate = (value) => value?.replaceAll('-', '.');
 const hasCrown = (symbol, metric) => props.data?.crowns?.[metric]?.has(symbol);
+const relativeLabel = (value) => {
+    if (!Number.isFinite(value)) return '—';
+    if (value > 0.000001) return 'WIN';
+    if (value < -0.000001) return 'LOSE';
+    return 'DRAW';
+};
 </script>
 
 <template>
     <section class="thumbnail-artboard thumbnail-rival" data-thumbnail-kind="rival">
-        <header class="artwork-header">
-            <div class="artwork-ticker"><h1>RIVAL</h1><span>{{ data?.underlying ?? '승인 세트 없음' }}</span></div>
-            <div class="rival-notional">$10K 동일 매수</div>
-        </header>
         <template v-if="data?.comparison">
-            <p class="rival-period">{{ formatDate(data.comparison.startDate) }} — {{ formatDate(data.comparison.endDate) }}<span v-if="!data.comparison.usesFullYear"> · 공통 이력</span></p>
-            <section class="rival-table" aria-label="라이벌 ETF 성과 비교">
-                <div class="rival-row rival-head"><span>ETF</span><span>주가</span><span>누적 배당</span><span>TR</span></div>
-                <div v-for="item in data.comparison.metrics" :key="item.symbol" class="rival-row">
-                    <strong>{{ item.symbol }}</strong>
-                    <span :class="{ crowned: hasCrown(item.symbol, 'priceReturn') }">{{ hasCrown(item.symbol, 'priceReturn') ? '♛ ' : '' }}{{ formatPercent(item.priceReturn) }}</span>
-                    <span :class="{ crowned: hasCrown(item.symbol, 'cumulativeDividends') }">{{ hasCrown(item.symbol, 'cumulativeDividends') ? '♛ ' : '' }}{{ formatUsd(item.cumulativeDividends) }}</span>
-                    <span :class="{ crowned: hasCrown(item.symbol, 'totalReturn') }">{{ hasCrown(item.symbol, 'totalReturn') ? '♛ ' : '' }}{{ formatPercent(item.totalReturn) }}</span>
+            <header class="rival-header">
+                <div class="rival-title"><h1>RIVAL</h1><span>{{ data.underlying }} ETF 비교</span></div>
+                <p>{{ formatDate(data.comparison.startDate) }} — {{ formatDate(data.comparison.endDate) }}<small v-if="!data.comparison.usesFullYear">공통 이력</small></p>
+                <div class="underlying-summary">
+                    <span>기준 {{ data.underlying }}</span>
+                    <b>{{ formatUsd(data.comparison.underlying.startPrice) }} → {{ formatUsd(data.comparison.underlying.endPrice) }}</b>
+                    <strong>{{ formatPercent(data.comparison.underlying.priceReturn) }}</strong>
+                    <em>$10K 투자 시 <b>{{ formatUsd(data.comparison.underlying.finalValue) }}</b></em>
                 </div>
-            </section>
-            <section class="rival-continuity">
-                <span>배당지급 연속성</span>
-                <div v-for="item in data.comparison.metrics" :key="item.symbol"><b>{{ item.symbol }}</b><i><em :style="{ width: `${(item.continuityRate ?? 0) * 100}%` }" /></i><strong>{{ item.continuityRate == null ? '—' : `${Math.round(item.continuityRate * 100)}%` }}</strong></div>
+            </header>
+            <section class="rival-table" aria-label="라이벌 ETF 성과 비교">
+                <div class="rival-row rival-head"><span>구분 <small>($10K 동일)</small></span><b v-for="item in data.comparison.metrics" :key="item.symbol" :class="{ selected: item.symbol === 'TSLY' }">{{ item.symbol }}<i v-if="item.symbol === 'TSLY'">선택</i></b></div>
+                <div class="rival-row rival-key"><span>10K 최종 평가</span><b v-for="item in data.comparison.metrics" :key="item.symbol" :class="{ crowned: hasCrown(item.symbol, 'totalReturn') }">{{ hasCrown(item.symbol, 'totalReturn') ? '👑 ' : '' }}{{ formatUsd(item.finalValue) }}</b></div>
+                <div class="rival-row rival-tr"><span>총수익률 (TR)</span><b v-for="item in data.comparison.metrics" :key="item.symbol" :class="{ crowned: hasCrown(item.symbol, 'totalReturn') }">{{ hasCrown(item.symbol, 'totalReturn') ? '👑 ' : '' }}{{ formatPercent(item.totalReturn) }}</b></div>
+                <div class="rival-row"><span>주가 수익률</span><b v-for="item in data.comparison.metrics" :key="item.symbol" :class="{ crowned: hasCrown(item.symbol, 'priceReturn') }">{{ hasCrown(item.symbol, 'priceReturn') ? '👑 ' : '' }}{{ formatPercent(item.priceReturn) }}</b></div>
+                <div class="rival-row"><span>누적 배당금</span><b v-for="item in data.comparison.metrics" :key="item.symbol" :class="{ crowned: hasCrown(item.symbol, 'cumulativeDividends') }">{{ hasCrown(item.symbol, 'cumulativeDividends') ? '👑 ' : '' }}{{ formatUsd(item.cumulativeDividends) }}</b></div>
+                <div class="rival-row rival-prices"><span>주가 (시작→종료)</span><b v-for="item in data.comparison.metrics" :key="item.symbol">{{ formatUsd(item.startPrice) }}→{{ formatUsd(item.endPrice) }}</b></div>
+                <div class="rival-row rival-info"><span>주식정보</span><b v-for="item in data.comparison.metrics" :key="item.symbol"><small>{{ item.frequency ?? '—' }}</small><em>{{ item.actualPayments }}회 배당</em></b></div>
+                <div class="rival-row rival-vs"><span>VS {{ data.underlying }}</span><b v-for="item in data.comparison.metrics" :key="item.symbol" :class="`is-${relativeLabel(item.vsUnderlying).toLowerCase()}`">{{ relativeLabel(item.vsUnderlying) }}</b></div>
             </section>
         </template>
         <p v-else class="artwork-unavailable">승인된 라이벌 세트 또는 공통 가격 이력이 없습니다.</p>
