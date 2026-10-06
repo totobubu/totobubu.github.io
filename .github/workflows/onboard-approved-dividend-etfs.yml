@@ -1,0 +1,48 @@
+name: Open PR for Approved Dividend ETFs
+
+on:
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: Comma-separated ETF symbols from the review artifact
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  onboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-workflow.txt
+      - run: npm ci --no-audit --no-fund
+      - run: pip install -r requirements-workflow.txt
+      - name: Revalidate and onboard approved candidates
+        env:
+          INPUT_SYMBOLS: ${{ inputs.symbols }}
+        run: python scripts/ticker_onboarding/onboard_approved_candidates.py --symbols "$INPUT_SYMBOLS"
+      - name: Open review PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/onboard-approved-dividend-etfs
+          delete-branch: true
+          title: 'data: onboard approved dividend ETFs'
+          commit-message: 'data: onboard approved dividend ETFs'
+          body: |
+            Official issuer candidates were revalidated before this change.
+            Review source URLs, any underlying mapping, and collected data before merge.
+          labels: data-review

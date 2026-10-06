@@ -1,0 +1,43 @@
+name: Discover Official Dividend ETF Candidates
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+    inputs:
+      provider:
+        description: Optional provider slug from scripts/ticker_onboarding/provider_sources.py
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-workflow.txt
+      - name: Install discovery dependencies
+        run: pip install -r requirements-workflow.txt
+      - name: Discover review candidates
+        shell: bash
+        env:
+          INPUT_PROVIDER: ${{ inputs.provider }}
+        run: |
+          args=()
+          if [[ -n "$INPUT_PROVIDER" ]]; then args+=(--provider "$INPUT_PROVIDER"); fi
+          python scripts/ticker_onboarding/discover_official_dividend_etfs.py "${args[@]}" --output tmp/official-dividend-etf-candidates.json
+      - name: Upload review-only candidate report
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-dividend-etf-candidates
+          path: tmp/official-dividend-etf-candidates.json
+          if-no-files-found: error

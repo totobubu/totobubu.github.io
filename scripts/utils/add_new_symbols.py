@@ -315,10 +315,12 @@ def ensure_data_file(
     symbol: str,
     market: str,
     currency: Optional[str],
-    isin: str,
+    isin: Optional[str],
     company: Optional[str] = None,
     underlying: Optional[str] = None,
     ko_name: Optional[str] = None,
+    auto_registered: bool = False,
+    registration_source: Optional[str] = None,
 ) -> Path:
     """data 파일에 티커 정보를 추가하거나 업데이트합니다."""
     slug = symbol_to_slug(symbol)
@@ -339,7 +341,11 @@ def ensure_data_file(
 
     ticker_info = payload.setdefault("tickerInfo", {})
     ticker_info["Symbol"] = symbol
-    ticker_info["isin"] = isin
+    if isin:
+        ticker_info["isin"] = isin
+        ticker_info.pop("isinPending", None)
+    else:
+        ticker_info["isinPending"] = True
     ticker_info["market"] = market
     if currency:
         ticker_info["currency"] = currency
@@ -349,6 +355,9 @@ def ensure_data_file(
         ticker_info["underlying"] = underlying
     if ko_name:
         ticker_info["koName"] = ko_name
+    if auto_registered:
+        ticker_info["autoRegistered"] = True
+        ticker_info["registrationSource"] = registration_source or "official_catalogue"
     ticker_info["Update"] = datetime.now(timezone(timedelta(hours=9))).strftime(
         "%Y-%m-%d %H:%M:%S KST"
     )
@@ -411,10 +420,12 @@ def ensure_nav_entry(
     symbol: str,
     market: str,
     ipo_date: Optional[str],
-    isin: str,
+    isin: Optional[str],
     company: Optional[str] = None,
     underlying: Optional[str] = None,
     ko_name: Optional[str] = None,
+    auto_registered: bool = False,
+    registration_source: Optional[str] = None,
 ) -> Path:
     """nav 파일에 티커 정보를 추가하거나 업데이트합니다."""
     nav_file = nav_filename_for_symbol(symbol)
@@ -441,7 +452,11 @@ def ensure_nav_entry(
 
     if existing_entry:
         # 업데이트
-        existing_entry["isin"] = isin
+        if isin:
+            existing_entry["isin"] = isin
+            existing_entry.pop("isinPending", None)
+        else:
+            existing_entry["isinPending"] = True
         existing_entry["market"] = market
         if ipo_date:
             existing_entry["ipoDate"] = ipo_date
@@ -451,17 +466,23 @@ def ensure_nav_entry(
             existing_entry["underlying"] = underlying
         if ko_name:
             existing_entry["koName"] = ko_name
+        if auto_registered:
+            existing_entry["autoRegistered"] = True
+            existing_entry["registrationSource"] = registration_source or "official_catalogue"
         print(f"[UPDATE] nav 항목 업데이트: {symbol}")
     else:
         # 신규 추가
         new_entry = {
             "symbol": symbol,
-            "isin": isin,
             "market": market,
             "yfSymbol": symbol,
             "currency": MARKET_TO_CURRENCY.get(market, "USD"),
             "sharesOutstanding": False,  # 기본값
         }
+        if isin:
+            new_entry["isin"] = isin
+        else:
+            new_entry["isinPending"] = True
         if ipo_date:
             new_entry["ipoDate"] = ipo_date
         if company:
@@ -470,6 +491,9 @@ def ensure_nav_entry(
             new_entry["underlying"] = underlying
         if ko_name:
             new_entry["koName"] = ko_name
+        if auto_registered:
+            new_entry["autoRegistered"] = True
+            new_entry["registrationSource"] = registration_source or "official_catalogue"
 
         entries.append(new_entry)
         print(f"[ADD] nav 항목 추가: {symbol}")
@@ -706,7 +730,9 @@ def parse_prefill_map(entries: List[str], all_symbols: List[str]) -> Dict[str, s
     return result
 
 
-def process_symbol(symbol: str, prefill: Optional[Dict] = None) -> Dict[str, str]:  # noqa: C901
+def process_symbol(
+    symbol: str, prefill: Optional[Dict] = None, apply: bool = True
+) -> Dict[str, str]:  # noqa: C901
     """단일 심볼을 처리합니다.
 
     Args:
@@ -734,8 +760,21 @@ def process_symbol(symbol: str, prefill: Optional[Dict] = None) -> Dict[str, str
         isin = prefill_isin.upper()
         resolved_symbol = normalized
         print(f"[INFO] ISIN (CLI): {isin}")
+    elif prefill.get("allow_missing_isin"):
+        # The approved bulk path must stay bounded.  Do not launch a browser
+        # lookup per ticker; retain an explicit pending marker for later
+        # official ISIN enrichment instead of inventing an identifier.
+        isin, resolved_symbol = None, normalized
+        print("[INFO] ISIN 조회를 건너뛰고 isinPending으로 등록합니다.")
     else:
-        isin, resolved_symbol = fetch_isin_with_fallback(normalized)
+        try:
+            isin, resolved_symbol = fetch_isin(normalized)
+        except FetchError as exc:
+            if prefill.get("allow_missing_isin"):
+                isin, resolved_symbol = None, normalized
+                print(f"[WARN] ISIN 자동 조회 실패; isinPending으로 등록: {exc}")
+            else:
+                isin, resolved_symbol = fetch_isin_with_fallback(normalized)
     if resolved_symbol != normalized:
         print(f"[INFO] {normalized} → {resolved_symbol} 로 재매핑")
 
@@ -759,6 +798,8 @@ def process_symbol(symbol: str, prefill: Optional[Dict] = None) -> Dict[str, str
     company = None
     underlying = None
     ko_name = None
+    auto_registered = bool(prefill.get("auto_registered"))
+    registration_source = prefill.get("registration_source") or None
     if is_etf:
         # CLI 모드: 미지정 값은 None (인터랙티브 건너뜀)
         company = prompt_company(resolved_symbol, prefill.get("company") if not cli_mode else (prefill.get("company") or ""))
@@ -767,21 +808,39 @@ def process_symbol(symbol: str, prefill: Optional[Dict] = None) -> Dict[str, str
         # ETF 아니어도 CLI로 전달된 경우 반영
         company = prefill.get("company") or None
         underlying = (prefill.get("underlying") or "").upper() or None
-    # 한국어 종목명(koName): CLI 모드에서는 미지정 시 None (인터랙티브 건너뜀)
-    ko_name = prompt_ko_name(resolved_symbol, market, prefill.get("ko_name") if not cli_mode else (prefill.get("ko_name") or ""))
+    # Dry-run must not invoke the Toss helper because that helper caches a
+    # response on disk.  A supplied name is still shown in the plan.
+    if not apply:
+        ko_name = prefill.get("ko_name") or None
+        if not ko_name:
+            print("[PLAN] 한국어 종목명 조회를 건너뜁니다.")
+    else:
+        # CLI 모드에서는 미지정 시 None (인터랙티브 건너뜀)
+        ko_name = prompt_ko_name(
+            resolved_symbol,
+            market,
+            prefill.get("ko_name") if not cli_mode else (prefill.get("ko_name") or ""),
+        )
 
     # IPO 날짜 자동 조회 (실패 시 None, 나중에 자동 계산됨)
     ipo_date = fetch_ipo_date(resolved_symbol)
 
-    # nav 파일 업데이트 (ISIN, company, underlying, koName 포함)
-    nav_path = ensure_nav_entry(
-        resolved_symbol, market, ipo_date, isin, company, underlying, ko_name
-    )
-
-    # data 파일 업데이트 (ISIN, company, underlying, koName 포함)
-    data_path = ensure_data_file(
-        resolved_symbol, market, currency, isin, company, underlying, ko_name
-    )
+    market_dir = MARKET_TO_DIR.get(market, market.lower())
+    nav_path = NAV_DIR / market_dir / nav_filename_for_symbol(resolved_symbol)
+    data_path = DATA_DIR / market_dir / f"{symbol_to_slug(resolved_symbol)}.json"
+    if apply:
+        # nav 파일 업데이트 (ISIN, company, underlying, koName 포함)
+        nav_path = ensure_nav_entry(
+            resolved_symbol, market, ipo_date, isin, company, underlying, ko_name
+            , auto_registered, registration_source
+        )
+        # data 파일 업데이트 (ISIN, company, underlying, koName 포함)
+        data_path = ensure_data_file(
+            resolved_symbol, market, currency, isin, company, underlying, ko_name
+            , auto_registered, registration_source
+        )
+    else:
+        print("[PLAN] nav/data 파일은 변경하지 않습니다.")
 
     return {
         "input_symbol": normalized,
@@ -878,6 +937,24 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="[SYMBOL:]NAME",
         help="한국어 종목명 미리 전달 (예: \"TPAY:트리플포인트\")",
     )
+    parser.add_argument(
+        "--auto-registered",
+        action="store_true",
+        help="Mark the nav/data metadata as registered by approved automation.",
+    )
+    parser.add_argument(
+        "--allow-missing-isin",
+        action="store_true",
+        help="Register an approved automated candidate with isinPending when lookup fails.",
+    )
+    parser.add_argument(
+        "--registration-source",
+        dest="registration_sources",
+        action="append",
+        default=[],
+        metavar="[SYMBOL:]URL",
+        help="Official catalogue URL recorded for an automated registration.",
+    )
     # --- 동작 제어 옵션 ---
     parser.add_argument(
         "--skip-workflow",
@@ -909,6 +986,7 @@ def main() -> int:
     company_map = parse_prefill_map(args.companies, args.symbols)
     underlying_map = parse_prefill_map(args.underlyings, args.symbols)
     ko_name_map = parse_prefill_map(args.ko_names, args.symbols)
+    registration_source_map = parse_prefill_map(args.registration_sources, args.symbols)
     # --etf SYMBOL 형식이므로 대문자로 set 생성
     etf_set = {s.upper() for s in (args.etfs or [])}
 
@@ -923,8 +1001,11 @@ def main() -> int:
             "company": company_map.get(sym_upper),
             "underlying": underlying_map.get(sym_upper),
             "ko_name": ko_name_map.get(sym_upper),
+            "auto_registered": args.auto_registered,
+            "registration_source": registration_source_map.get(sym_upper),
+            "allow_missing_isin": args.allow_missing_isin,
         }
-        summaries.append(process_symbol(symbol, prefill=prefill))
+        summaries.append(process_symbol(symbol, prefill=prefill, apply=not args.dry_run))
 
     if args.dry_run:
         print("\n[DRY-RUN] 워크플로우는 실행되지 않았습니다.")

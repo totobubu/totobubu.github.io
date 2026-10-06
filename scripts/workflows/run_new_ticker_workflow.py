@@ -25,7 +25,8 @@ from pathlib import Path
 from typing import Iterable, List
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+# scripts/workflows/<file> -> scripts -> repository root
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PYTHON = sys.executable
 
 
@@ -98,7 +99,7 @@ def get_ticker_markets(tickers: Iterable[str]) -> dict[str, list[str]]:
     return {"KR": kr_tickers, "US": us_tickers}
 
 
-def prepare_steps(tickers: Iterable[str], skip_format: bool):
+def prepare_steps(tickers: Iterable[str], skip_format: bool, skip_ipo_sync: bool = False):
     """Return the ordered list of workflow steps."""
     ticker_args = [t.upper() for t in tickers]
     if not ticker_args:
@@ -110,8 +111,11 @@ def prepare_steps(tickers: Iterable[str], skip_format: bool):
         else ["npm", "run", "format:changed"]
     )
 
-    steps = [
-        ("Update IPO dates (nav)", ["npm", "run", "add-ipo-dates"]),
+    steps = []
+    if not skip_ipo_sync:
+        steps.append(("Update IPO dates (nav)", ["npm", "run", "add-ipo-dates"]))
+
+    steps.extend([
         (
             "Analyze dividend frequency",
             [PYTHON, "scripts/data_pipeline/analyze_dividend_frequency.py", *ticker_args],
@@ -121,7 +125,7 @@ def prepare_steps(tickers: Iterable[str], skip_format: bool):
             "Scrape info data",
             [PYTHON, "scripts/data_pipeline/scraper_info.py", *ticker_args],
         ),
-    ]
+    ])
 
     # 티커를 market별로 분류하여 적절한 스크립트 실행
     ticker_markets = get_ticker_markets(ticker_args)
@@ -197,6 +201,11 @@ def main():
         action="store_true",
         help="Print the plan without executing commands.",
     )
+    parser.add_argument(
+        "--skip-ipo-sync",
+        action="store_true",
+        help="Do not run the repository-wide IPO-date synchronization.",
+    )
 
     args = parser.parse_args()
 
@@ -205,6 +214,7 @@ def main():
     steps = prepare_steps(
         args.tickers,
         skip_format=args.skip_format,
+        skip_ipo_sync=args.skip_ipo_sync,
     )
 
     print("=" * 80)
