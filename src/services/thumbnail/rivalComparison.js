@@ -65,9 +65,13 @@ const calculateMetric = (series, startDate, endDate) => {
 
     return {
         symbol: series.symbol,
+        frequency: series.frequency,
+        startPrice,
+        endPrice,
         priceReturn: endPrice / startPrice - 1,
         cumulativeDividends,
         totalReturn: (reinvestedShares * endPrice) / INITIAL_INVESTMENT - 1,
+        finalValue: reinvestedShares * endPrice,
         continuityRate,
         actualPayments: dividendEntries.length,
         expectedPayments,
@@ -81,9 +85,9 @@ const crownWinners = (items, key) => {
     return new Set(items.filter((item) => item[key] === winner).map((item) => item.symbol));
 };
 
-export function calculateRivalComparison(tickers, asOfDate) {
-    if (!Array.isArray(tickers) || tickers.length !== 3) return null;
-    const series = tickers.map(buildSeries);
+export function calculateRivalComparison(tickers, underlyingTicker, asOfDate) {
+    if (!Array.isArray(tickers) || tickers.length !== 3 || !underlyingTicker) return null;
+    const series = [...tickers, underlyingTicker].map(buildSeries);
     const dates = commonDates(series);
     if (dates.length < 2) return null;
 
@@ -94,10 +98,16 @@ export function calculateRivalComparison(tickers, asOfDate) {
     const endDate = [...dates].reverse().find((date) => date <= asOfDate) ?? dates.at(-1);
     if (!startDate || !endDate || startDate >= endDate) return null;
 
-    const metrics = series
+    const calculatedMetrics = series
         .map((item) => calculateMetric(item, startDate, endDate))
         .filter(Boolean);
-    if (metrics.length !== 3) return null;
+    if (calculatedMetrics.length !== 4) return null;
+
+    const underlying = calculatedMetrics.at(-1);
+    const metrics = calculatedMetrics.slice(0, -1).map((metric) => ({
+        ...metric,
+        vsUnderlying: metric.totalReturn - underlying.priceReturn,
+    }));
 
     const crowns = {
         priceReturn: crownWinners(metrics, 'priceReturn'),
@@ -110,6 +120,10 @@ export function calculateRivalComparison(tickers, asOfDate) {
         endDate,
         usesFullYear: Math.round((toDate(endDate) - toDate(startDate)) / DAY_MS) >= 358,
         metrics,
+        underlying: {
+            ...underlying,
+            finalValue: INITIAL_INVESTMENT * (1 + underlying.priceReturn),
+        },
         crowns,
     };
 }

@@ -187,18 +187,23 @@
 .thumbnail-comparison footer { display: flex; align-items: center; gap: 5px; padding-top: 3px; color: #94a3b8; font-size: 8px; font-weight: 600; }
 .thumbnail-comparison footer > i { flex: 0 0 auto; background: var(--tone); }
 
-.thumbnail-rival { padding: 0 16px 14px; gap: 10px; background: #101827; color: #f8fafc; }
-.thumbnail-rival .artwork-header { padding: 16px 0 6px; }
-.thumbnail-rival .artwork-header h1 { color: #f8fafc; }
-.thumbnail-rival .artwork-ticker span { border-color: #475569; background: #1e293b; color: #cbd5e1; }
-.rival-notional { padding: 5px 7px; border: 1px solid #7c5a13; border-radius: 6px; background: #2f2207; color: #fcd34d; font-size: 9px; font-weight: 850; }
-.rival-period { margin: 0; color: #94a3b8; font-size: 9px; font-weight: 700; text-align: center; }.rival-period span { color: #fbbf24; }
-.rival-table { overflow: hidden; border: 1px solid #334155; border-radius: 13px; background: #172033; }
-.rival-row { display: grid; grid-template-columns: .73fr .92fr 1.18fr .92fr; align-items: center; min-height: 45px; padding: 0 8px; border-bottom: 1px solid #334155; column-gap: 3px; }
-.rival-row:last-child { border-bottom: 0; }.rival-row > * { min-width: 0; color: #cbd5e1; font-size: 10px; font-weight: 750; text-align: right; white-space: nowrap; }.rival-row > strong { color: #fff; font-size: 13px; text-align: left; letter-spacing: -.04em; }.rival-row > .crowned { color: #fcd34d; font-weight: 900; }
-.rival-head { min-height: 30px; background: #0f172a; }.rival-head > * { color: #94a3b8; font-size: 8px; font-weight: 800; }.rival-head > :first-child { text-align: left; }
-.rival-continuity { padding: 9px 10px; border: 1px solid #334155; border-radius: 12px; background: #172033; }.rival-continuity > span { display: block; margin-bottom: 6px; color: #94a3b8; font-size: 9px; font-weight: 800; }.rival-continuity div { display: grid; grid-template-columns: 37px 1fr 30px; align-items: center; gap: 6px; }.rival-continuity div + div { margin-top: 4px; }.rival-continuity b, .rival-continuity strong { color: #cbd5e1; font-size: 9px; font-weight: 800; }.rival-continuity strong { text-align: right; }.rival-continuity i { display: block; height: 5px; overflow: hidden; border-radius: 99px; background: #334155; }.rival-continuity em { display: block; height: 100%; border-radius: inherit; background: #38bdf8; }
-.thumbnail-rival footer { margin-top: auto; padding-top: 8px; border-top: 1px solid #334155; color: #64748b; font-size: 8px; text-align: center; }
+.thumbnail-rival { padding: 12px 14px 13px; gap: 8px; background: #fff; color: #172033; }
+.rival-header { border: 1px solid #dce5ef; border-radius: 13px 13px 0 0; background: #fff; overflow: hidden; }
+.rival-title { display: flex; align-items: center; gap: 8px; padding: 10px 11px 5px; }
+.rival-title h1 { margin: 0; color: #101827; font-size: 18px; font-weight: 900; letter-spacing: -.06em; line-height: 1; }
+.rival-title span { padding: 4px 6px; border: 1px solid #c7d2fe; border-radius: 5px; background: #eef2ff; color: #4338ca; font-size: 8px; font-weight: 850; line-height: 1; }
+.rival-header > p { margin: 0; padding: 0 11px 7px; color: #475569; font-size: 9px; font-weight: 750; text-align: center; }.rival-header > p small { margin-left: 5px; color: #94a3b8; font-size: 8px; }
+.underlying-summary { display: flex; align-items: center; gap: 5px; padding: 7px 9px; border-top: 1px solid #e2e8f0; background: #f8fafc; color: #475569; font-size: 8px; font-weight: 700; white-space: nowrap; }
+.underlying-summary > span { padding: 3px 4px; border: 1px solid #fecaca; border-radius: 4px; background: #fff1f2; color: #dc2626; font-weight: 850; }.underlying-summary > b { color: #475569; }.underlying-summary > strong { color: #dc2626; font-size: 9px; }.underlying-summary > em { margin-left: auto; color: #64748b; font-style: normal; }.underlying-summary > em b { padding: 3px 4px; border: 1px solid #c7d2fe; border-radius: 4px; background: #fff; color: #312e81; }
+.rival-table { overflow: hidden; border: 1px solid #dce5ef; border-top: 0; border-radius: 0 0 13px 13px; background: #fff; }
+.rival-row { display: grid; grid-template-columns: 1.35fr repeat(3, 1fr); align-items: center; min-height: 31px; padding: 0 8px; border-bottom: 1px solid #edf1f5; column-gap: 2px; }.rival-row:last-child { border-bottom: 0; }
+.rival-row > * { min-width: 0; color: #334155; font-size: 9px; font-weight: 750; text-align: center; white-space: nowrap; }.rival-row > span { text-align: left; color: #475569; }.rival-row > b { font-size: 10px; font-weight: 850; }.rival-row > .crowned { color: #b45309; }
+.rival-head { min-height: 34px; background: #f1f5f9; }.rival-head > span { color: #334155; font-weight: 850; }.rival-head > span small { color: #94a3b8; font-size: 7px; }.rival-head > b { color: #172033; font-size: 11px; }.rival-head > .selected { color: #4338ca; }.rival-head i { margin-left: 3px; padding: 2px 3px; border-radius: 99px; background: #4338ca; color: #fff; font-size: 6px; font-style: normal; }
+.rival-key { min-height: 35px; background: #eef2ff; }.rival-key > span { color: #312e81; font-weight: 850; }.rival-key > b { color: #b91c1c; }
+.rival-tr { min-height: 35px; border-top: 1px solid #fecdd3; border-bottom-color: #fecdd3; background: #fff1f2; }.rival-tr > span { color: #172033; font-weight: 900; }.rival-tr > b { color: #dc2626; font-size: 11px; }
+.rival-prices > b { color: #64748b; font-size: 8px; font-weight: 700; }.rival-info { min-height: 37px; background: #f8fafc; }.rival-info > b { display: flex; flex-direction: column; gap: 2px; }.rival-info small { color: #334155; font-size: 8px; }.rival-info em { color: #64748b; font-size: 7px; font-style: normal; font-weight: 700; }
+.rival-vs { min-height: 34px; border-top: 1px solid #dce5ef; background: #f8fafc; }.rival-vs > span { color: #334155; font-weight: 850; }.rival-vs > b { display: inline-flex; justify-self: center; align-items: center; justify-content: center; min-width: 30px; padding: 3px 5px; border-radius: 99px; font-size: 8px; line-height: 1; }.rival-vs > .is-win { background: #dcfce7; color: #15803d; }.rival-vs > .is-lose { background: #fee2e2; color: #dc2626; }.rival-vs > .is-draw { background: #e2e8f0; color: #475569; }
+.thumbnail-rival footer { margin-top: auto; padding-top: 5px; color: #94a3b8; font-size: 7px; text-align: center; }
 
 .toss-community-copy {
     display: flex;
