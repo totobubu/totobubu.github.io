@@ -104,7 +104,8 @@
     const loadNavData = async () => {
         if (navDataCache.value) return navDataCache.value;
         try {
-            const navUrl = getDataUrl('nav.json') + `?t=${new Date().getTime()}`;
+            const navUrl =
+                getDataUrl('nav.json') + `?t=${new Date().getTime()}`;
             const navResponse = await fetch(navUrl);
             if (!navResponse.ok) {
                 console.error('Failed to load nav.json');
@@ -143,12 +144,15 @@
         let data;
         try {
             const response = await fetch(localUrl);
-            if (!response.ok) throw new Error(`Local fetch failed: ${response.status}`);
+            if (!response.ok)
+                throw new Error(`Local fetch failed: ${response.status}`);
             data = await response.json();
         } catch (error) {
             const baseR2Url = getR2Url(dataPath);
             if (!baseR2Url || baseR2Url === getDataUrl(dataPath)) throw error;
-            const response = await fetch(baseR2Url + `?t=${new Date().getTime()}`);
+            const response = await fetch(
+                baseR2Url + `?t=${new Date().getTime()}`
+            );
             if (!response.ok) throw error;
             data = await response.json();
         }
@@ -288,10 +292,15 @@
 
                 const diff = currentDividend - previousDividend;
                 const comparisonText = `LAST $ ${diff >= 0 ? '+' : ''}${Number(diff.toFixed(6))}`;
-                const actualExDividendClose = Number(currentDividendEvent?.close);
+                const actualExDividendClose = Number(
+                    currentDividendEvent?.close
+                );
                 const hasActualExDividendClose =
-                    Number.isFinite(actualExDividendClose) && actualExDividendClose > 0;
-                const provisionalClose = Number(currentDividendEvent?.referenceClose);
+                    Number.isFinite(actualExDividendClose) &&
+                    actualExDividendClose > 0;
+                const provisionalClose = Number(
+                    currentDividendEvent?.referenceClose
+                );
                 const hasRecordedProvisionalClose =
                     Number.isFinite(provisionalClose) && provisionalClose > 0;
                 // An announcement may reach the thumbnail generator before the
@@ -327,28 +336,35 @@
                       ? provisionalClose
                       : hasFallbackClose
                         ? fallbackClose
-                      : null;
+                        : null;
                 const hasExDividendClose = exDividendClose != null;
                 const afterTaxDividendAmount = currentDividend * 0.85;
                 const dividendChangePercent =
-                    previousDividend > 0 ? (diff / previousDividend) * 100 : null;
+                    previousDividend > 0
+                        ? (diff / previousDividend) * 100
+                        : null;
                 const exDividendYield = hasExDividendClose
                     ? (currentDividend / exDividendClose) * 100
                     : null;
                 const afterTaxDividendYield = hasExDividendClose
                     ? (afterTaxDividendAmount / exDividendClose) * 100
                     : null;
-                const previousExDividendClose = Number(previousDividendEvent?.close);
+                const previousExDividendClose = Number(
+                    previousDividendEvent?.close
+                );
                 const hasPreviousExDividendClose =
                     Number.isFinite(previousExDividendClose) &&
                     previousExDividendClose > 0;
-                const previousAfterTaxDividendAmount =
-                    previousDividendEvent ? previousDividend * 0.85 : null;
+                const previousAfterTaxDividendAmount = previousDividendEvent
+                    ? previousDividend * 0.85
+                    : null;
                 const previousExDividendYield = hasPreviousExDividendClose
                     ? (previousDividend / previousExDividendClose) * 100
                     : null;
                 const previousAfterTaxDividendYield = hasPreviousExDividendClose
-                    ? (previousAfterTaxDividendAmount / previousExDividendClose) * 100
+                    ? (previousAfterTaxDividendAmount /
+                          previousExDividendClose) *
+                      100
                     : null;
 
                 // 최근 3회 실제 배당 이벤트: 주·월·분기 배당 모두 같은 회차 기준으로 표시
@@ -356,7 +372,10 @@
                     currentIndex === -1
                         ? []
                         : allDividends
-                              .slice(Math.max(0, currentIndex - 2), currentIndex + 1)
+                              .slice(
+                                  Math.max(0, currentIndex - 2),
+                                  currentIndex + 1
+                              )
                               .map((event) => ({
                                   date: event.date,
                                   amount: event.amountFixed ?? event.amount,
@@ -369,7 +388,10 @@
                         const rivalSymbols = [symbol, ...rivalSet.rivals];
                         const rivalData = await Promise.all(
                             rivalSymbols.map(async (rivalSymbol) => {
-                                const loaded = await loadTickerData(rivalSymbol, navData);
+                                const loaded = await loadTickerData(
+                                    rivalSymbol,
+                                    navData
+                                );
                                 return {
                                     symbol: rivalSymbol,
                                     tickerInfo: loaded.tickerInfo,
@@ -380,7 +402,10 @@
                                 };
                             })
                         );
-                        const underlyingData = await loadTickerData(rivalSet.underlying, navData);
+                        const underlyingData = await loadTickerData(
+                            rivalSet.underlying,
+                            navData
+                        );
                         rivalComparison = calculateRivalComparison(
                             rivalData,
                             {
@@ -394,7 +419,10 @@
                             targetDate
                         );
                     } catch (error) {
-                        console.warn(`Failed to calculate rival comparison for ${symbol}`, error);
+                        console.warn(
+                            `Failed to calculate rival comparison for ${symbol}`,
+                            error
+                        );
                     }
                 }
 
@@ -405,12 +433,18 @@
                     afterTaxDividendAmount,
                     dividendDifference: diff,
                     dividendChangePercent,
-                    exDividendClose: hasExDividendClose ? exDividendClose : null,
+                    exDividendClose: hasExDividendClose
+                        ? exDividendClose
+                        : null,
                     priceStatus,
-                    priceReferenceDate: priceStatus === 'provisional'
-                        ? currentDividendEvent?.referenceCloseDate ?? fallbackReference?.date ?? null
-                        : currentDividendEvent?.date ?? null,
-                    announcementUrl: currentDividendEvent?.announcementUrl ?? null,
+                    priceReferenceDate:
+                        priceStatus === 'provisional'
+                            ? (currentDividendEvent?.referenceCloseDate ??
+                              fallbackReference?.date ??
+                              null)
+                            : (currentDividendEvent?.date ?? null),
+                    announcementUrl:
+                        currentDividendEvent?.announcementUrl ?? null,
                     exDividendYield,
                     afterTaxDividendYield,
                     previousExDate: previousDividendEvent?.date ?? null,
@@ -421,7 +455,8 @@
                     previousExDividendYield,
                     previousAfterTaxDividendYield,
                     hasDividend: currentIndex !== -1,
-                    exDate: currentIndex !== -1 ? currentDividendEvent.date : null,
+                    exDate:
+                        currentIndex !== -1 ? currentDividendEvent.date : null,
                     formattedCurrentAmount:
                         formatCurrentAmount(currentDividend),
                     comparisonText,
@@ -429,7 +464,11 @@
                         ? recentDividendEvents
                         : [],
                     rival: rivalSet
-                        ? { underlying: rivalSet.underlying, comparison: rivalComparison }
+                        ? {
+                              underlying: rivalSet.underlying,
+                              selectedTicker: symbol,
+                              comparison: rivalComparison,
+                          }
                         : null,
                     // [신규] 개별 썸네일용 날짜 데이터
                     displayDate: displayDate,
@@ -523,11 +562,15 @@
         const query = tickerQuery.value.trim().toUpperCase();
         if (query) {
             navData.nav
-                .filter((item) =>
-                    !item.upcoming &&
-                    [item.symbol, item.yfSymbol, item.koName, item.longName].some(
-                        (value) => value?.toUpperCase().includes(query)
-                    )
+                .filter(
+                    (item) =>
+                        !item.upcoming &&
+                        [
+                            item.symbol,
+                            item.yfSymbol,
+                            item.koName,
+                            item.longName,
+                        ].some((value) => value?.toUpperCase().includes(query))
                 )
                 .forEach((item) => {
                     if (
@@ -535,7 +578,9 @@
                             (config) => config.symbol === item.symbol
                         )
                     ) {
-                        thumbnailConfigs.push(createThumbnailConfig(item, item.symbol));
+                        thumbnailConfigs.push(
+                            createThumbnailConfig(item, item.symbol)
+                        );
                     }
                 });
         }
@@ -613,7 +658,6 @@
                         zoom: '1',
                         transform: 'none',
                     });
-
                 },
             });
         } finally {
@@ -683,22 +727,37 @@
         try {
             const customDate = date.value.replace(/[. ]/g, '');
             const capture = document.querySelector(
-                '[data-symbol="' + symbol + '"] [data-thumbnail-kind="' + kind + '"]'
+                '[data-symbol="' +
+                    symbol +
+                    '"] [data-thumbnail-kind="' +
+                    kind +
+                    '"]'
             );
             if (!capture) return;
             const canvas = await captureArtwork(capture);
             if (canvas.width !== 800 || canvas.height !== 800) {
-                throw new Error('Unexpected thumbnail size: ' + canvas.width + 'x' + canvas.height);
+                throw new Error(
+                    'Unexpected thumbnail size: ' +
+                        canvas.width +
+                        'x' +
+                        canvas.height
+                );
             }
-            const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+            const blob = await new Promise((resolve) =>
+                canvas.toBlob(resolve, 'image/png')
+            );
             if (!blob) throw new Error('PNG blob creation failed');
             const link = document.createElement('a');
-            link.download = symbol.toLowerCase() + '_' + customDate + '_' + kind + '.png';
+            link.download =
+                symbol.toLowerCase() + '_' + customDate + '_' + kind + '.png';
             link.href = URL.createObjectURL(blob);
             link.click();
             window.setTimeout(() => URL.revokeObjectURL(link.href), 0);
         } catch (error) {
-            console.error('Failed to download ' + kind + ' thumbnail for ' + symbol + ':', error);
+            console.error(
+                'Failed to download ' + kind + ' thumbnail for ' + symbol + ':',
+                error
+            );
         }
     };
 
@@ -779,7 +838,13 @@
             <div
                 v-else-if="filteredThumbnails.length === 0"
                 class="no-bookmarks">
-                <p>{{ tickerQuery.trim() ? '검색 결과가 없습니다.' : '기본 배당 목록을 불러오지 못했습니다.' }}</p>
+                <p>
+                    {{
+                        tickerQuery.trim()
+                            ? '검색 결과가 없습니다.'
+                            : '기본 배당 목록을 불러오지 못했습니다.'
+                    }}
+                </p>
             </div>
 
             <div
@@ -798,27 +863,50 @@
                         }" />
 
                     <!-- Regular Thumbnail Type -->
-                    <div v-if="thumb.type !== 'Group'" class="thumbnail-preview">
-                        <ThumbnailItem :data="{
-                            ...thumb,
-                            date: thumb.displayDate || date,
-                            showChart: includeChart,
-                            targetDate: thumb.targetDate,
-                        }" />
-                        <Button class="thumbnail-download" icon="pi pi-download" label="요약 PNG 다운로드" @click="downloadArtwork(thumb.symbol, 'summary')" />
+                    <div
+                        v-if="thumb.type !== 'Group'"
+                        class="thumbnail-preview">
+                        <ThumbnailItem
+                            :data="{
+                                ...thumb,
+                                date: thumb.displayDate || date,
+                                showChart: includeChart,
+                                targetDate: thumb.targetDate,
+                            }" />
+                        <Button
+                            class="thumbnail-download"
+                            icon="pi pi-download"
+                            label="요약 PNG 다운로드"
+                            @click="downloadArtwork(thumb.symbol, 'summary')" />
                     </div>
 
-                    <div v-if="thumb.type !== 'Group'" class="thumbnail-preview">
+                    <div
+                        v-if="thumb.type !== 'Group'"
+                        class="thumbnail-preview">
                         <DividendComparisonThumbnail :data="thumb" />
-                        <Button class="thumbnail-download" icon="pi pi-download" label="비교 PNG 다운로드" @click="downloadArtwork(thumb.symbol, 'comparison')" />
+                        <Button
+                            class="thumbnail-download"
+                            icon="pi pi-download"
+                            label="비교 PNG 다운로드"
+                            @click="
+                                downloadArtwork(thumb.symbol, 'comparison')
+                            " />
                     </div>
 
-                    <div v-if="thumb.type !== 'Group'" class="thumbnail-preview">
+                    <div
+                        v-if="thumb.type !== 'Group'"
+                        class="thumbnail-preview">
                         <RivalThumbnail :data="thumb.rival" />
-                        <Button class="thumbnail-download" icon="pi pi-download" label="라이벌 PNG 다운로드" @click="downloadArtwork(thumb.symbol, 'rival')" />
+                        <Button
+                            class="thumbnail-download"
+                            icon="pi pi-download"
+                            label="라이벌 PNG 다운로드"
+                            @click="downloadArtwork(thumb.symbol, 'rival')" />
                     </div>
 
-                    <TossCommunityCopy v-if="thumb.type !== 'Group'" :data="thumb" />
+                    <TossCommunityCopy
+                        v-if="thumb.type !== 'Group'"
+                        :data="thumb" />
                 </div>
             </div>
         </main>

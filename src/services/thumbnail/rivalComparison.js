@@ -3,7 +3,8 @@ const INITIAL_INVESTMENT = 10_000;
 
 const toDate = (value) => new Date(`${value}T12:00:00Z`);
 const dateKey = (value) => value.toISOString().slice(0, 10);
-const finitePositive = (value) => Number.isFinite(Number(value)) && Number(value) > 0;
+const finitePositive = (value) =>
+    Number.isFinite(Number(value)) && Number(value) > 0;
 
 const cadenceDays = (frequency) => {
     if (frequency === '매주') return 7;
@@ -16,7 +17,9 @@ const cadenceDays = (frequency) => {
 
 const buildSeries = (ticker) => {
     const rows = (ticker.backtestData ?? [])
-        .filter((row) => row.date && !row.forecasted && finitePositive(row.close))
+        .filter(
+            (row) => row.date && !row.forecasted && finitePositive(row.close)
+        )
         .sort((a, b) => a.date.localeCompare(b.date));
     return {
         symbol: ticker.symbol,
@@ -24,7 +27,11 @@ const buildSeries = (ticker) => {
         prices: new Map(rows.map((row) => [row.date, Number(row.close)])),
         dividends: new Map(
             rows
-                .filter((row) => !row.forecasted && finitePositive(row.amountFixed ?? row.amount))
+                .filter(
+                    (row) =>
+                        !row.forecasted &&
+                        finitePositive(row.amountFixed ?? row.amount)
+                )
                 .map((row) => [row.date, Number(row.amountFixed ?? row.amount)])
         ),
     };
@@ -43,8 +50,9 @@ const calculateMetric = (series, startDate, endDate) => {
     if (!finitePositive(startPrice) || !finitePositive(endPrice)) return null;
 
     const initialShares = INITIAL_INVESTMENT / startPrice;
-    const dividendEntries = [...series.dividends.entries()]
-        .filter(([date]) => date > startDate && date <= endDate);
+    const dividendEntries = [...series.dividends.entries()].filter(
+        ([date]) => date > startDate && date <= endDate
+    );
     const cumulativeDividends = dividendEntries.reduce(
         (total, [, perShare]) => total + initialShares * perShare,
         0
@@ -54,14 +62,22 @@ const calculateMetric = (series, startDate, endDate) => {
     for (const [date, perShare] of dividendEntries) {
         const reinvestmentPrice = series.prices.get(date);
         if (finitePositive(reinvestmentPrice)) {
-            reinvestedShares += (reinvestedShares * perShare) / reinvestmentPrice;
+            reinvestedShares +=
+                (reinvestedShares * perShare) / reinvestmentPrice;
         }
     }
 
-    const periodDays = Math.max(1, Math.round((toDate(endDate) - toDate(startDate)) / DAY_MS));
+    const periodDays = Math.max(
+        1,
+        Math.round((toDate(endDate) - toDate(startDate)) / DAY_MS)
+    );
     const cadence = cadenceDays(series.frequency);
-    const expectedPayments = cadence ? Math.max(1, Math.round(periodDays / cadence)) : null;
-    const continuityRate = expectedPayments ? Math.min(1, dividendEntries.length / expectedPayments) : null;
+    const expectedPayments = cadence
+        ? Math.max(1, Math.round(periodDays / cadence))
+        : null;
+    const continuityRate = expectedPayments
+        ? Math.min(1, dividendEntries.length / expectedPayments)
+        : null;
 
     return {
         symbol: series.symbol,
@@ -79,14 +95,27 @@ const calculateMetric = (series, startDate, endDate) => {
 };
 
 const crownWinners = (items, key) => {
-    const values = items.map((item) => item[key]).filter((value) => Number.isFinite(value));
+    const values = items
+        .map((item) => item[key])
+        .filter((value) => Number.isFinite(value));
     if (!values.length) return new Set();
     const winner = Math.max(...values);
-    return new Set(items.filter((item) => item[key] === winner).map((item) => item.symbol));
+    return new Set(
+        items.filter((item) => item[key] === winner).map((item) => item.symbol)
+    );
 };
 
 export function calculateRivalComparison(tickers, underlyingTicker, asOfDate) {
-    if (!Array.isArray(tickers) || tickers.length !== 3 || !underlyingTicker) return null;
+    // One selected ETF plus up to three review-approved rivals fit the artwork.
+    // Keep a lower bound of two so the card remains a comparison rather than a
+    // single-ticker performance summary.
+    if (
+        !Array.isArray(tickers) ||
+        tickers.length < 2 ||
+        tickers.length > 4 ||
+        !underlyingTicker
+    )
+        return null;
     const series = [...tickers, underlyingTicker].map(buildSeries);
     const dates = commonDates(series);
     if (dates.length < 2) return null;
@@ -95,13 +124,14 @@ export function calculateRivalComparison(tickers, underlyingTicker, asOfDate) {
     oneYearAgo.setUTCFullYear(oneYearAgo.getUTCFullYear() - 1);
     const preferredStart = dateKey(oneYearAgo);
     const startDate = dates.find((date) => date >= preferredStart) ?? dates[0];
-    const endDate = [...dates].reverse().find((date) => date <= asOfDate) ?? dates.at(-1);
+    const endDate =
+        [...dates].reverse().find((date) => date <= asOfDate) ?? dates.at(-1);
     if (!startDate || !endDate || startDate >= endDate) return null;
 
     const calculatedMetrics = series
         .map((item) => calculateMetric(item, startDate, endDate))
         .filter(Boolean);
-    if (calculatedMetrics.length !== 4) return null;
+    if (calculatedMetrics.length !== tickers.length + 1) return null;
 
     const underlying = calculatedMetrics.at(-1);
     const metrics = calculatedMetrics.slice(0, -1).map((metric) => ({
@@ -118,7 +148,8 @@ export function calculateRivalComparison(tickers, underlyingTicker, asOfDate) {
         initialInvestment: INITIAL_INVESTMENT,
         startDate,
         endDate,
-        usesFullYear: Math.round((toDate(endDate) - toDate(startDate)) / DAY_MS) >= 358,
+        usesFullYear:
+            Math.round((toDate(endDate) - toDate(startDate)) / DAY_MS) >= 358,
         metrics,
         underlying: {
             ...underlying,
