@@ -15,6 +15,14 @@ SPEC.loader.exec_module(update_distributions)
 
 
 class YieldMaxOcrTests(unittest.TestCase):
+    def test_workflow_boundary_normalizes_yqqq_alias(self):
+        self.assertEqual(
+            update_distributions.normalize_provider_ticker(
+                update_distributions.YieldMaxParser, "YEQQ"
+            ),
+            "YQQQ",
+        )
+
     def test_provider_scoped_aliases_are_normalized(self):
         text = "\n".join(
             [

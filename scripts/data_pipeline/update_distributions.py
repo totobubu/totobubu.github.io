@@ -997,7 +997,12 @@ def main():
 
         extracted_tickers += len(data_map)
         for ticker, amount in data_map.items():
-            extracted_symbols.add(ticker.upper())
+            # Keep discovery and update passes on the same canonical ticker.
+            # This guards against an OCR alias escaping a parser fallback and
+            # being hydrated as a nonexistent JSON filename (for example,
+            # YieldMax YEQQ instead of YQQQ).
+            ticker = normalize_provider_ticker(parser_type, ticker)
+            extracted_symbols.add(ticker)
             if args.ticker_output:
                 continue
             json_path = find_json_path(ticker)
@@ -1051,6 +1056,15 @@ PARSER_TYPES.update({
     "defiance": DefianceParser,
     "neos": NeosParser,
 })
+
+
+def normalize_provider_ticker(parser_type, ticker):
+    """Apply issuer-scoped OCR aliases at the workflow boundary as well."""
+    normalized = ticker.upper().strip()
+    if parser_type is YieldMaxParser:
+        return normalize_yieldmax_ticker(normalized) or normalized
+    return normalized
+
 
 if __name__ == "__main__":
     main()
