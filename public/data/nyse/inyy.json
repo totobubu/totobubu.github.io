@@ -11,7 +11,10 @@
         "currency": "USD",
         "Update": "2026-10-07 08:04:23 KST",
         "isin": "US88636J7256",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": []
+        }
     },
     "backtestData": [
         {
@@ -721,11 +724,13 @@
             "officiallyAnnounced": true,
             "announcementDate": "2026-10-01",
             "announcementUrl": "https://yieldmaxetfs.com/our-etfs/inyy/",
-            "priceStatus": "provisional",
+            "priceStatus": "confirmed",
             "referenceCloseDate": "2026-09-30",
             "referenceClose": 41.09,
             "recordedAt": "2026-10-06T14:04:34.549170+00:00",
-            "yield": 0.2981545106
+            "yield": 0.2981545106,
+            "confirmedClose": 40.580002,
+            "confirmedAt": "2026-10-07T02:26:40.374403+00:00"
         },
         {
             "date": "2026-10-02",
@@ -747,9 +752,9 @@
             "date": "2026-10-06",
             "open": 40.060001,
             "high": 40.080002,
-            "low": 39.5,
-            "close": 39.5,
-            "volume": 9451
+            "low": 38.470001,
+            "close": 38.599998,
+            "volume": 104571
         },
         {
             "date": "2026-10-08",

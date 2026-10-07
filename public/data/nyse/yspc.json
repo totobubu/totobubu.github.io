@@ -11,7 +11,10 @@
         "currency": "USD",
         "Update": "2026-10-07 08:04:23 KST",
         "isin": "US88636Y6234",
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": []
+        }
     },
     "backtestData": [
         {
@@ -485,11 +488,13 @@
             "officiallyAnnounced": true,
             "announcementDate": "2026-10-01",
             "announcementUrl": "https://yieldmaxetfs.com/our-etfs/yspc/",
-            "priceStatus": "provisional",
+            "priceStatus": "confirmed",
             "referenceCloseDate": "2026-09-30",
             "referenceClose": 46.720001,
             "recordedAt": "2026-10-06T14:04:34.862311+00:00",
-            "yield": 0.1415850796
+            "yield": 0.1415850796,
+            "confirmedClose": 45.709999,
+            "confirmedAt": "2026-10-07T02:26:37.434287+00:00"
         },
         {
             "date": "2026-10-02",
@@ -511,9 +516,9 @@
             "date": "2026-10-06",
             "open": 50.950001,
             "high": 51.77,
-            "low": 50.827,
-            "close": 51.419998,
-            "volume": 17004
+            "low": 50.509998,
+            "close": 50.720001,
+            "volume": 41256
         },
         {
             "date": "2026-10-08",
