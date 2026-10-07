@@ -17,6 +17,11 @@ Defiance, Roundhill, Global X, NEOS, REX, Direxion, T-Rex이다.
 Yahoo 결과는 검토용일 뿐 `underlying` 자동 등록에 사용하지 않는다. 공식
 카탈로그에 단일 기초자산이 명시되지 않은 항목은 `needs_review` 상태로 남는다.
 
+운용사 카탈로그를 읽지 못하면 Cboe 신규 상장 공지를 보조 원천으로 조회한다.
+이 결과는 `exchange_confirmed_needs_review`이며 SEC EDGAR 검색 링크를 함께
+남긴다. 거래소 상장 확인만으로는 인컴 전략이나 단일 기초자산이 증명되지 않으므로
+자동 등록 대상이 아니다.
+
 로컬 점검은 다음과 같다.
 
 ```powershell

@@ -19,8 +19,10 @@ from bs4 import BeautifulSoup
 
 try:
     from .provider_sources import PROVIDERS
+    from .fallback_sources import fetch_cboe_fallbacks
 except ImportError:  # Direct script invocation from repository root.
     from provider_sources import PROVIDERS
+    from fallback_sources import fetch_cboe_fallbacks
 
 ROOT = Path(__file__).resolve().parents[2]
 NAV_PATH = ROOT / "public" / "nav.json"
@@ -159,12 +161,34 @@ def discover(providers: list[str], yahoo_limit: int = 25) -> dict[str, Any]:
                     item["yahooCandidateUnderlying"] = yahoo_underlying
                     item["yahooEvidence"] = "single_holding_at_least_90_percent"
             candidates.append(item)
+    # Only query exchange listings for issuer catalogues that failed this run.
+    failed_providers = {
+        item["provider"] for item in errors if item.get("provider") in providers
+    }
+    fallback_evidence: list[dict[str, Any]] = []
+    if failed_providers:
+        fallback_candidates, fallback_errors = fetch_cboe_fallbacks(
+            {slug: PROVIDERS[slug] for slug in failed_providers}
+        )
+        errors.extend(fallback_errors)
+        for item in fallback_candidates:
+            if item["symbol"] in seen or item["symbol"] in registered:
+                continue
+            seen.add(item["symbol"])
+            candidates.append(item)
+            fallback_evidence.append({
+                "symbol": item["symbol"],
+                "provider": item["provider"],
+                "exchangeEvidence": item["exchangeEvidence"],
+                "secSearchUrl": item["secSearchUrl"],
+            })
     return {
         "schemaVersion": 1,
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "reviewRequired": True,
         "candidates": sorted(candidates, key=lambda item: item["symbol"]),
         "sourceErrors": errors,
+        "fallbackSources": fallback_evidence,
     }
 
 
