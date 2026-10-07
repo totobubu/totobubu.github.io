@@ -1,17 +1,19 @@
 {
     "tickerInfo": {
         "Symbol": "SCA",
-        "isinPending": true,
+        "koName": null,
+        "longName": null,
+        "company": "GraniteShares",
+        "frequency": null,
+        "group": null,
+        "underlying": "SMCI",
         "market": "NASDAQ",
         "currency": "USD",
-        "company": "GraniteShares",
-        "underlying": "SMCI",
-        "autoRegistered": true,
-        "registrationSource": "https://graniteshares.com/underlyings/autocallable-distribution/",
-        "Update": "2026-10-07 08:09:30 KST",
+        "Update": "2026-10-08 08:35:12 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {}
     },
     "backtestData": [
         {
@@ -60,7 +62,9 @@
             "high": 25.58,
             "low": 25.58,
             "close": 25.58,
-            "volume": 500
+            "volume": 500,
+            "amount": 0.804,
+            "yield": 0.0314308053
         },
         {
             "date": "2026-06-04",
@@ -212,7 +216,9 @@
             "high": 20.379999,
             "low": 20.08,
             "close": 20.08,
-            "volume": 1200
+            "volume": 1200,
+            "amount": 0.829,
+            "yield": 0.0802062829
         },
         {
             "date": "2026-07-02",
@@ -444,7 +450,9 @@
             "high": 24.65,
             "low": 24.530001,
             "close": 24.530001,
-            "volume": 600
+            "volume": 600,
+            "amount": 0.81,
+            "yield": 0.0991075051
         },
         {
             "date": "2026-08-13",
@@ -596,7 +604,9 @@
             "high": 25.09,
             "low": 24.98,
             "close": 24.98,
-            "volume": 1300
+            "volume": 1300,
+            "amount": 0.793,
+            "yield": 0.1290271132
         },
         {
             "date": "2026-09-10",

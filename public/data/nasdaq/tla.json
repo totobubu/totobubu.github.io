@@ -1,17 +1,19 @@
 {
     "tickerInfo": {
         "Symbol": "TLA",
-        "isinPending": true,
+        "koName": null,
+        "longName": null,
+        "company": "GraniteShares",
+        "frequency": null,
+        "group": null,
+        "underlying": "TSLA",
         "market": "NASDAQ",
         "currency": "USD",
-        "company": "GraniteShares",
-        "underlying": "TSLA",
-        "autoRegistered": true,
-        "registrationSource": "https://graniteshares.com/underlyings/autocallable-distribution/",
-        "Update": "2026-10-07 08:09:31 KST",
+        "Update": "2026-10-08 08:35:12 KST",
         "events": {
             "splits": []
-        }
+        },
+        "changes": {}
     },
     "backtestData": [
         {
@@ -172,7 +174,9 @@
             "high": 24.58,
             "low": 24.52,
             "close": 24.58,
-            "volume": 1100
+            "volume": 1100,
+            "amount": 0.402,
+            "yield": 0.0163947798
         },
         {
             "date": "2026-03-05",
@@ -332,7 +336,9 @@
             "high": 24.08,
             "low": 24.059999,
             "close": 24.059999,
-            "volume": 2500
+            "volume": 2500,
+            "amount": 0.388,
+            "yield": 0.032807309
         },
         {
             "date": "2026-04-02",
@@ -524,7 +530,9 @@
             "high": 24.75,
             "low": 24.66,
             "close": 24.690001,
-            "volume": 900
+            "volume": 900,
+            "amount": 0.412,
+            "yield": 0.0487429035
         },
         {
             "date": "2026-05-07",
@@ -676,7 +684,9 @@
             "high": 24.67,
             "low": 24.67,
             "close": 24.67,
-            "volume": 500
+            "volume": 500,
+            "amount": 0.392,
+            "yield": 0.0646128901
         },
         {
             "date": "2026-06-04",
@@ -828,7 +838,9 @@
             "high": 24.76,
             "low": 24.379999,
             "close": 24.68,
-            "volume": 3800
+            "volume": 3800,
+            "amount": 0.406,
+            "yield": 0.0820344578
         },
         {
             "date": "2026-07-02",
@@ -1060,7 +1072,9 @@
             "high": 23.51,
             "low": 23.08,
             "close": 23.139999,
-            "volume": 5300
+            "volume": 5300,
+            "amount": 0.388,
+            "yield": 0.1015737984
         },
         {
             "date": "2026-08-13",
@@ -1212,7 +1226,9 @@
             "high": 24.65,
             "low": 24.51,
             "close": 24.51,
-            "volume": 2000
+            "volume": 2000,
+            "amount": 0.378,
+            "yield": 0.1122109533
         },
         {
             "date": "2026-09-10",

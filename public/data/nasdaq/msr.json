@@ -1,17 +1,32 @@
 {
     "tickerInfo": {
         "Symbol": "MSR",
-        "isinPending": true,
+        "koName": null,
+        "longName": null,
+        "company": "GraniteShares",
+        "frequency": null,
+        "group": null,
+        "underlying": "MSTR",
         "market": "NASDAQ",
         "currency": "USD",
-        "company": "GraniteShares",
-        "underlying": "MSTR",
-        "autoRegistered": true,
-        "registrationSource": "https://graniteshares.com/underlyings/autocallable-distribution/",
-        "Update": "2026-10-07 08:09:13 KST",
+        "Update": "2026-10-08 08:35:12 KST",
+        "regularMarketPrice": null,
+        "englishName": null,
+        "earningsDate": null,
+        "enterpriseValue": null,
+        "marketCap": null,
+        "Volume": null,
+        "AvgVolume": null,
+        "sharesOutstanding": null,
+        "52Week": null,
+        "Yield": null,
+        "dividendRate": null,
+        "payoutRatio": null,
+        "isin": null,
         "events": {
             "splits": []
-        }
+        },
+        "changes": {}
     },
     "backtestData": [
         {
@@ -132,7 +147,9 @@
             "high": 18.74,
             "low": 18.74,
             "close": 18.74,
-            "volume": 100
+            "volume": 100,
+            "amount": 0.718,
+            "yield": 0.0383137673
         },
         {
             "date": "2026-06-04",
@@ -668,7 +685,9 @@
             "high": 14.72,
             "low": 14.72,
             "close": 14.72,
-            "volume": 400
+            "volume": 400,
+            "amount": 0.55,
+            "yield": 0.0861413043
         },
         {
             "date": "2026-09-10",
