@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 
 from scripts.ticker_onboarding import discover_official_dividend_etfs as discovery
+from scripts.ticker_onboarding import fallback_sources
 from scripts.workflows.run_new_ticker_workflow import prepare_steps
 
 
@@ -38,6 +39,15 @@ class OfficialDividendEtfDiscoveryTests(unittest.TestCase):
         steps = prepare_steps(["TEST"], skip_format=True, skip_ipo_sync=True)
         commands = [command for _, command in steps]
         self.assertNotIn(["npm", "run", "add-ipo-dates"], commands)
+
+    def test_cboe_fallback_is_review_only(self):
+        rows = [["2026-07-29", "BNAV", "Cboe New Issue Notification for 1 Amplify ETF"]]
+        with patch.object(fallback_sources, "fetch_cboe_rows", return_value=rows):
+            candidates, errors = fallback_sources.fetch_cboe_fallbacks({"amplify": {"company": "Amplify"}}, year=2026)
+        self.assertEqual(errors, [])
+        self.assertEqual(candidates[0]["symbol"], "BNAV")
+        self.assertEqual(candidates[0]["status"], "exchange_confirmed_needs_review")
+        self.assertFalse(candidates[0]["autoRegisterEligible"])
 
 
 if __name__ == "__main__":
