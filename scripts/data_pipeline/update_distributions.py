@@ -24,6 +24,7 @@ YIELDMAX_TICKER_REGISTRY = {
     "SDTY": {"aliases": {"SDTV", "SPTY"}},
     "YMAG": {"aliases": {"VMAG", "VM", "LDMAX"}},
     "HOOY": {"aliases": {"HOOYY"}},
+    "NFLY": {"aliases": {"NEFLY"}},
     "INYY": {"aliases": set()},
     "YSPC": {"aliases": set()},
     "YRAM": {"aliases": set()},
@@ -307,6 +308,7 @@ class YieldMaxParser(BaseParser):
         'MANY': 'MRNY',
         'MSRO': 'MSFO',
         'NETY': 'NFLY',
+        'NEFLY': 'NFLY',
         'PURTY': 'PLTY',
         'ROVY': 'RDYY',
         'QS': 'TSLY',
@@ -843,8 +845,15 @@ def update_json(path, date_str, amount):
                         print(f"  [i] {path.name}: {date_str}의 배당금이 이미 반영됨")
                         return UpdateOutcome(path.stem.upper(), "already_applied", f"date={date_str}", amount)
                 else:
-                    print(f"  [!] {path.name} 건너뜀: {date_str} 항목이 expected 상태가 아님")
-                    return UpdateOutcome(path.stem.upper(), "missing_distribution_row", f"date={date_str} is not expected", amount)
+                    # A row in the ticker's own data file is enough to attach an
+                    # official OCR amount.  Some newly onboarded YieldMax
+                    # tickers use `forecasted` rather than `expected`; requiring
+                    # the latter would silently drop a confirmed amount.  The
+                    # existing amountFixed conflict guard above still prevents
+                    # overwriting a confirmed value.
+                    entry['amountFixed'] = amount
+                    updated = True
+                    print(f"  [+] {path.name} 업데이트됨: {date_str} → {amount}")
 
         if not matching_date_found:
             print(f"  [!] {path.name} 건너뜀: {date_str} 날짜의 배당 내역을 찾지 못함")

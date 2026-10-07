@@ -19,6 +19,7 @@ class YieldMaxOcrTests(unittest.TestCase):
         text = "\n".join(
             [
                 "HOOYY Weekly $0.4302",
+                "NEFLY Weekly $0.1750",
                 "YEQQ Weekly $0.0373",
                 "SDTV Weekly $0.1640",
                 "VM Weekly $0.0857",
@@ -28,7 +29,13 @@ class YieldMaxOcrTests(unittest.TestCase):
         parser = update_distributions.YieldMaxParser(text, "YieldMax_2026-10-07.txt")
         self.assertEqual(
             parser.extract_data(),
-            {"HOOY": 0.4302, "YQQQ": 0.0373, "SDTY": 0.164, "YMAG": 0.0857},
+            {
+                "HOOY": 0.4302,
+                "NFLY": 0.175,
+                "YQQQ": 0.0373,
+                "SDTY": 0.164,
+                "YMAG": 0.0857,
+            },
         )
 
     def test_target_12_fixture_recovers_bigy_rnty_and_soxy_by_table_order(self):
@@ -71,6 +78,17 @@ class UpdateOutcomeTests(unittest.TestCase):
                 self.write_data(directory, []), "2026-10-07", 0.9992
             )
             self.assertEqual(outcome.status, "missing_distribution_row")
+
+    def test_known_ticker_row_without_expected_is_confirmed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = self.write_data(
+                directory, [{"date": "2026-10-08", "forecasted": True}]
+            )
+            outcome = update_distributions.update_json(path, "2026-10-08", 0.7667)
+            self.assertEqual(outcome.status, "updated")
+            row = json.loads(path.read_text(encoding="utf-8"))["backtestData"][0]
+            self.assertTrue(row["forecasted"])
+            self.assertEqual(row["amountFixed"], 0.7667)
 
     def test_confirmed_amount_is_not_overwritten(self):
         with tempfile.TemporaryDirectory() as directory:
