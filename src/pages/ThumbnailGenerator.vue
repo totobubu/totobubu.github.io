@@ -9,7 +9,7 @@
     import RivalThumbnail from '@/components/thumbnail/RivalThumbnail.vue';
     import GroupItem from '@/components/thumbnail/GroupItem.vue';
     import TossCommunityCopy from '@/components/thumbnail/TossCommunityCopy.vue';
-    import { RIVAL_SETS } from '@/config/rivalSets';
+    import { getRivalSet } from '@/config/rivalSets';
     import { calculateRivalComparison } from '@/services/thumbnail/rivalComparison';
     import { useFilterState } from '@/composables/portfolio/useFilterState';
 
@@ -381,7 +381,11 @@
                                   amount: event.amountFixed ?? event.amount,
                               }));
 
-                const rivalSet = RIVAL_SETS[symbol];
+                const rivalSet = getRivalSet(
+                    symbol,
+                    tickerInfo,
+                    navData.nav
+                );
                 let rivalComparison = null;
                 if (rivalSet) {
                     try {
