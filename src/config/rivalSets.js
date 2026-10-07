@@ -1,24 +1,7 @@
 const MAX_RIVALS = 3;
 
-// Curated selections take precedence where the order of comparable funds has
-// been explicitly reviewed. Other cards derive their rivals from the same
-// declared underlying in nav.json.
-export const RIVAL_SETS = {
-    TSLY: {
-        underlying: 'TSLA',
-        rivals: ['TSII', 'TEST', 'TSLW'],
-    },
-    MSTY: {
-        underlying: 'MSTR',
-        rivals: ['MSII', 'MST', 'MSTW'],
-    },
-};
-
 export function getRivalSet(symbol, tickerInfo, navItems = []) {
     const normalizedSymbol = symbol?.toUpperCase();
-    const configured = RIVAL_SETS[normalizedSymbol];
-    if (configured) return configured;
-
     const navItem = navItems.find(
         (item) => item.symbol?.toUpperCase() === normalizedSymbol
     );
