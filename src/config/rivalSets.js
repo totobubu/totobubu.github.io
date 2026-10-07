@@ -3,6 +3,10 @@
 export const RIVAL_SETS = {
     TSLY: {
         underlying: 'TSLA',
-        rivals: ['TSII', 'TEST'],
+        rivals: ['TSII', 'TEST', 'TSLW'],
+    },
+    MSTY: {
+        underlying: 'MSTR',
+        rivals: ['MSII', 'MST', 'MSTW'],
     },
 };
