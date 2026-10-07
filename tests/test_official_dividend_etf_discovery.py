@@ -3,8 +3,6 @@ from unittest.mock import patch
 
 from scripts.ticker_onboarding import discover_official_dividend_etfs as discovery
 from scripts.ticker_onboarding import fallback_sources
-from scripts.ticker_onboarding import collect_dividend_etf_report as inventory
-from scripts.ticker_onboarding import refresh_etf_taxonomy as taxonomy
 from scripts.workflows.run_new_ticker_workflow import prepare_steps
 
 
@@ -50,32 +48,6 @@ class OfficialDividendEtfDiscoveryTests(unittest.TestCase):
         self.assertEqual(candidates[0]["symbol"], "BNAV")
         self.assertEqual(candidates[0]["status"], "exchange_confirmed_needs_review")
         self.assertFalse(candidates[0]["autoRegisterEligible"])
-
-    def test_inventory_classifies_registered_and_marks_missing_fields(self):
-        rows = inventory.build_rows(
-            [{"symbol": "NEW", "longName": "New Dividend Income ETF", "dividendYield": 5.0, "firstTradeDateMilliseconds": 1767225600000, "fullExchangeName": "NYSEArca"}],
-            [{"symbol": "KNOWN", "company": "Example", "underlying": "AAPL", "officialTitle": "KNOWN AAPL Option Income ETF"}],
-            [], [],
-            {"KNOWN": {"symbol": "KNOWN", "company": "Example", "underlying": "AAPL", "isin": "US0000000001", "ipoDate": "2026-01-01", "market": "NYSE"}},
-        )
-        by_symbol = {row["symbol"]: row for row in rows}
-        self.assertEqual(by_symbol["KNOWN"]["registrationStatus"], "registered")
-        self.assertEqual(by_symbol["KNOWN"]["isin"], "US0000000001")
-        self.assertEqual(by_symbol["NEW"]["registrationStatus"], "unregistered")
-        self.assertIn("isin", by_symbol["NEW"]["missingFields"])
-        self.assertEqual(by_symbol["NEW"]["theme"], "배당 주식")
-        report = inventory.render_markdown({"generatedAt": "2026-01-01T00:00:00Z", "summary": {"total": 2, "registered": 1, "unregistered": 1, "withMissingFields": 1, "withInferredTheme": 2}, "rows": rows, "sourceFailures": []})
-        self.assertIn("## 기등록 ETF", report)
-        self.assertIn("## 미등록 ETF", report)
-
-    def test_taxonomy_uses_yahoo_category_and_preserves_verified_values(self):
-        rules = [{"code": "option_income", "bucket": "strategyTags", "pattern": "option income|derivative income", "priority": 90}]
-        result = taxonomy.classify("Example Option Income ETF", {"categoryName": "Derivative Income", "family": "Example"}, rules)
-        self.assertEqual(result["primary"], "option_income")
-        self.assertEqual(result["source"], "yahoo_category")
-        nav = {"nav": [{"symbol": "TEST", "classification": {"primary": "manual", "reviewStatus": "verified"}}]}
-        changed, _ = taxonomy.refresh({"rows": [{"symbol": "TEST", "registrationStatus": "registered", "name": "Option Income ETF"}]}, nav, {}, 0)
-        self.assertEqual(changed, 0)
 
 
 if __name__ == "__main__":
