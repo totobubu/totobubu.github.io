@@ -20,7 +20,7 @@ PARSER_TYPES = {}
 # repository-wide ticker alias map: a short OCR token can be a valid symbol for
 # a different issuer.
 YIELDMAX_TICKER_REGISTRY = {
-    "YQQQ": {"aliases": {"YEQQ", "YAAA", "YAAQ", "YOQOO", "YOQQQ"}},
+    "YQQQ": {"aliases": {"YEOQ", "YEQQ", "YAAA", "YAAQ", "YOQOO", "YOQQQ"}},
     "SDTY": {"aliases": {"SDTV", "SPTY"}},
     "YMAG": {"aliases": {"VMAG", "VM", "LDMAX"}},
     "HOOY": {"aliases": {"HOOYY"}},
@@ -316,7 +316,7 @@ class YieldMaxParser(BaseParser):
         'XVZY': 'XYZY',
         'YERT': 'YBIT',
         'YAAQ': 'YQQQ',
-        'YEQQ': 'YQQQ',
+        'YEQQ': 'YQQQ', 'YEOQ': 'YQQQ',
         'HOOYY': 'HOOY',
         'SDTV': 'SDTY',
         'VMAG': 'YMAG',

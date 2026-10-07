@@ -22,6 +22,12 @@ class YieldMaxOcrTests(unittest.TestCase):
             ),
             "YQQQ",
         )
+        self.assertEqual(
+            update_distributions.normalize_provider_ticker(
+                update_distributions.YieldMaxParser, "YEOQ"
+            ),
+            "YQQQ",
+        )
 
     def test_provider_scoped_aliases_are_normalized(self):
         text = "\n".join(
@@ -29,6 +35,7 @@ class YieldMaxOcrTests(unittest.TestCase):
                 "HOOYY Weekly $0.4302",
                 "NEFLY Weekly $0.1750",
                 "YEQQ Weekly $0.0373",
+                "YEOQ Weekly $0.0373",
                 "SDTV Weekly $0.1640",
                 "VM Weekly $0.0857",
                 "YOQQQ Weekly $0.0373",
