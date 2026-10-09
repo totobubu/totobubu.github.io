@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-09 08:59:22 KST",
-        "regularMarketPrice": 303.88,
+        "Update": "2026-10-10 08:10:42 KST",
+        "regularMarketPrice": 302.75,
         "englishName": "Intuit Inc.",
         "earningsDate": "2026-08-25",
-        "enterpriseValue": 80654229504,
-        "marketCap": 81207681024,
-        "Volume": 5165806,
-        "AvgVolume": 3891925,
+        "enterpriseValue": 82428674048,
+        "marketCap": 80905699328,
+        "Volume": 2601733,
+        "AvgVolume": 3917146,
         "sharesOutstanding": 267236000,
         "52Week": "252.84 - 689.17",
-        "Yield": 0.015796,
+        "Yield": 0.015855,
         "dividendRate": 5.52,
         "payoutRatio": 0.2916,
         "isin": "US4612021034",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 303.88,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 80654229504,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 81207681024,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5165806,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3891925,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.015796,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -75999,14 +76024,16 @@
             "high": 304,
             "low": 291.940002,
             "close": 303.880005,
-            "volume": 5627500
+            "volume": 5627500,
+            "amount": 1.38,
+            "yield": 0.0208249083
         },
         {
             "date": "2027-01-08",
             "forecasted": true
         },
         {
-            "date": "2027-04-09",
+            "date": "2027-04-08",
             "forecasted": true
         }
     ]

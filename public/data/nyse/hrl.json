@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-09 08:59:22 KST",
-        "regularMarketPrice": 19.42,
+        "Update": "2026-10-10 08:10:42 KST",
+        "regularMarketPrice": 19.19,
         "englishName": "Hormel Foods Corporation",
         "earningsDate": "2026-08-27",
-        "enterpriseValue": 12762245120,
-        "marketCap": 10687812608,
-        "Volume": 10041387,
-        "AvgVolume": 4609637,
+        "enterpriseValue": 12690699264,
+        "marketCap": 10561231872,
+        "Volume": 6312126,
+        "AvgVolume": 4701832,
         "sharesOutstanding": 550350800,
-        "52Week": "19.37 - 26.6",
-        "Yield": 0.060144,
+        "52Week": "19.165 - 26.6",
+        "Yield": 0.060865,
         "dividendRate": 1.17,
         "payoutRatio": 1.8831,
         "isin": "US4404521001",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.42,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 12762245120,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 10687812608,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10041387,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4609637,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.060144,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -15620,7 +15645,7 @@
             "close": 1.1328129768371582,
             "volume": 262400,
             "amount": 0.0001,
-            "yield": 0.0000853333,
+            "yield": 8.53333e-5,
             "marketCap": 623045362,
             "amountOriginal": 4.800512,
             "amountSplitAdjustments": [

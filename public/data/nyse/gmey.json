@@ -9,16 +9,16 @@
         "underlying": "GME",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-09 08:59:22 KST",
-        "regularMarketPrice": 25.2457,
+        "Update": "2026-10-10 08:10:42 KST",
+        "regularMarketPrice": 25.839,
         "englishName": "Yieldmax Gme Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12681,
-        "AvgVolume": 2225,
+        "Volume": 5433,
+        "AvgVolume": 2412,
         "sharesOutstanding": null,
-        "52Week": "22.645 - 50.655",
+        "52Week": "22.645 - 50.56",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.2457,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12681,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2225,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2348,7 +2361,8 @@
             "high": 25.469999,
             "low": 24.209999,
             "close": 25.246,
-            "volume": 12700
+            "volume": 12700,
+            "yield": 0.798488261
         },
         {
             "date": "2026-10-15",
