@@ -4,19 +4,19 @@
         "koName": null,
         "longName": null,
         "company": "GraniteShares",
-        "frequency": null,
+        "frequency": "매월",
         "group": null,
         "underlying": "HOOD",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-08 08:35:12 KST",
-        "regularMarketPrice": 25.85,
+        "Update": "2026-10-09 08:59:22 KST",
+        "regularMarketPrice": 25.825,
         "englishName": "Graniteshares Autocallable Hood ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 20659,
-        "AvgVolume": 5714,
+        "Volume": 5894,
+        "AvgVolume": 5862,
         "sharesOutstanding": null,
         "52Week": "24.55 - 29.77",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.85,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 20659,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5714,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -819,7 +832,33 @@
             "high": 25.9499,
             "low": 25.77,
             "close": 25.85,
-            "volume": 20659
+            "volume": 20659,
+            "amount": 0.719,
+            "yield": 0.1239273242
+        },
+        {
+            "date": "2026-11-06",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-07",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-07",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-05",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-05",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-07",
+            "forecasted": true
         }
     ]
 }

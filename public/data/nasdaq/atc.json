@@ -4,18 +4,18 @@
         "koName": null,
         "longName": null,
         "company": "GraniteShares",
-        "frequency": null,
+        "frequency": "매월",
         "group": null,
         "underlying": "COIN",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-08 08:35:12 KST",
-        "regularMarketPrice": 24.1122,
+        "Update": "2026-10-09 08:59:22 KST",
+        "regularMarketPrice": 23.9081,
         "englishName": "Graniteshares Autocallable Coin ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 134,
+        "Volume": 670,
         "AvgVolume": 250,
         "sharesOutstanding": null,
         "52Week": "19.96 - 25.36",
@@ -26,7 +26,16 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.1122,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 134,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -851,7 +860,33 @@
             "high": 24.17,
             "low": 24.1122,
             "close": 24.1122,
-            "volume": 134
+            "volume": 134,
+            "amount": 0.742,
+            "yield": 0.1397186595
+        },
+        {
+            "date": "2026-11-06",
+            "forecasted": true
+        },
+        {
+            "date": "2026-12-07",
+            "forecasted": true
+        },
+        {
+            "date": "2027-01-07",
+            "forecasted": true
+        },
+        {
+            "date": "2027-02-05",
+            "forecasted": true
+        },
+        {
+            "date": "2027-03-05",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-07",
+            "forecasted": true
         }
     ]
 }
