@@ -4,6 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
+        "release:public": "python scripts/release/build_public_release.py",
         "add:etf": "python scripts/utils/add_etfs_by_provider.py",
         "backfill-market-cap": "python scripts/data_pipeline/backfill_market_cap_approximate.py",
         "discover:underlyings": "python scripts/data_pipeline/discover_underlying_candidates.py",

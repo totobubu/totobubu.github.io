@@ -31,6 +31,7 @@ jobs:
                       !/*/
                       /src/
                       /scripts/cloud/
+                      /scripts/release/
                       /scripts/workflows/
                       /public/
                       !/public/data/
@@ -56,6 +57,16 @@ jobs:
 
             - name: Upload changed data files to R2
               run: python scripts/cloud/upload_changed_to_r2.py
+
+            - name: Publish versioned public data contract
+              env:
+                  RELEASE_ID: ${{ github.sha }}
+              run: |
+                  python scripts/release/build_public_release.py --release-id "$RELEASE_ID"
+                  python scripts/cloud/upload_specific_to_r2.py \
+                    "public/releases/v1/releases/$RELEASE_ID/manifest.json" \
+                    "public/releases/v1/releases/$RELEASE_ID/catalog.json" \
+                    public/releases/v1/current.json
 
             # R2로 제공되는 대용량 데이터·로고만 제거한다. 썸네일 배경은 Pages에 포함한다.
             - name: Remove large local data before build
