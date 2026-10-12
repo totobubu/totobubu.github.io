@@ -7,6 +7,26 @@ const EXPLICIT_RIVAL_SETS = {
         underlying: 'QQQ',
         rivals: ['JEPQ', 'QQQI', 'MAGS'],
     },
+    MSTY: {
+        underlying: 'MSTR',
+        rivals: ['MSII', 'MST', 'MSTW'],
+    },
+    LFGY: {
+        underlying: 'BKCH',
+        rivals: ['YBIT', 'CONY', 'MSTY'],
+    },
+    YMAX: {
+        underlying: 'SPY',
+        rivals: ['YMAG', 'ULTY', 'QDTY'],
+    },
+    JEPI: {
+        underlying: 'SPY',
+        rivals: ['SPYI', 'XYLD', 'GPIX'],
+    },
+    SCHE: {
+        underlying: 'VWO',
+        rivals: ['IEMG', 'EEM', 'SPEM'],
+    },
 };
 
 export function getRivalSet(symbol, tickerInfo, navItems = []) {
