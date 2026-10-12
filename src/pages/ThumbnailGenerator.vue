@@ -41,6 +41,8 @@
     // const selectedThumbnails = ref([]); // [삭제] 개별 선택 방식 제거
     // [수정] isLoading 초기값은 isBookmarksLoading과 연동되도록 설정
     const isLoading = ref(true);
+    const loadError = ref('');
+    const navLoadFinished = ref(false);
     const isDownloading = ref(false);
     const isSyncing = ref(false); // [신규] 데이터 동기화 로딩 상태
     const includeChart = ref(true); // [신규] 차트 포함 여부 (기본값 true)
@@ -58,6 +60,24 @@
     const tickerDataCache = new Map();
     // nav.json의 티커별 dataPath 캐싱
     const navDataCache = ref(null);
+    const FETCH_TIMEOUT_MS = 20_000;
+
+    const fetchJson = async (url) => {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(
+            () => controller.abort(),
+            FETCH_TIMEOUT_MS
+        );
+        try {
+            const response = await fetch(url, { signal: controller.signal });
+            if (!response.ok) {
+                throw new Error(`데이터 요청 실패: ${response.status}`);
+            }
+            return await response.json();
+        } finally {
+            window.clearTimeout(timeoutId);
+        }
+    };
 
     const filteredThumbnails = computed(() => {
         const query = tickerQuery.value.trim().toUpperCase();
@@ -106,15 +126,11 @@
         try {
             const navUrl =
                 getDataUrl('nav.json') + `?t=${new Date().getTime()}`;
-            const navResponse = await fetch(navUrl);
-            if (!navResponse.ok) {
-                console.error('Failed to load nav.json');
-                return null;
-            }
-            navDataCache.value = await navResponse.json();
+            navDataCache.value = await fetchJson(navUrl);
             return navDataCache.value;
         } catch (e) {
             console.error('Failed to load nav.json', e);
+            loadError.value = '종목 목록을 불러오지 못했습니다. 잠시 후 새로고침해 주세요.';
             return null;
         }
     };
@@ -143,18 +159,11 @@
         const localUrl = getDataUrl(dataPath) + `?t=${new Date().getTime()}`;
         let data;
         try {
-            const response = await fetch(localUrl);
-            if (!response.ok)
-                throw new Error(`Local fetch failed: ${response.status}`);
-            data = await response.json();
+            data = await fetchJson(localUrl);
         } catch (error) {
             const baseR2Url = getR2Url(dataPath);
             if (!baseR2Url || baseR2Url === getDataUrl(dataPath)) throw error;
-            const response = await fetch(
-                baseR2Url + `?t=${new Date().getTime()}`
-            );
-            if (!response.ok) throw error;
-            data = await response.json();
+            data = await fetchJson(baseR2Url + `?t=${new Date().getTime()}`);
         }
         const normalized = {
             backtestData: data.backtestData || [],
@@ -602,7 +611,12 @@
         date.value = `${String(today.getFullYear()).slice(-2)}. ${String(today.getMonth() + 1).padStart(2, '0')}. ${String(today.getDate()).padStart(2, '0')}`;
 
         // 1. Nav Data 로드 시작
-        loadNavData().then(() => {
+        loadNavData().finally(() => {
+            navLoadFinished.value = true;
+            if (!navDataCache.value) {
+                isLoading.value = false;
+                return;
+            }
             // Nav Data 로드 완료 시 업데이트 시도
             updateThumbnailConfigs();
         });
@@ -614,12 +628,20 @@
         async ([newBookmarks, newLoading, newNav]) => {
             // 로딩 중이면 isLoading = true 유지
             // 단, navDataCache가 있고, bookmarksLoading이 false여야 로딩 완료로 간주
-            if (newLoading || !newNav) {
+            if (newLoading) {
                 isLoading.value = true;
+            } else if (!newNav) {
+                if (navLoadFinished.value) isLoading.value = false;
             } else {
-                // 데이터 업데이트
-                await updateThumbnailConfigs();
-                isLoading.value = false;
+                try {
+                    // 데이터 업데이트
+                    await updateThumbnailConfigs();
+                } catch (error) {
+                    console.error('Failed to initialize thumbnail data', error);
+                    loadError.value = '썸네일 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
+                } finally {
+                    isLoading.value = false;
+                }
             }
         },
         { immediate: true, deep: true }
@@ -836,6 +858,10 @@
             <div v-if="isLoading" class="loading-spinner">
                 <ProgressSpinner />
                 <p>썸네일 데이터 로딩 중...</p>
+            </div>
+
+            <div v-else-if="loadError" class="no-bookmarks">
+                <p>{{ loadError }}</p>
             </div>
 
             <!-- 정적 기본 목록 로드 실패 안내 -->
