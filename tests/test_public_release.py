@@ -20,4 +20,3 @@ class PublicReleaseTest(unittest.TestCase):
             self.assertEqual(result["catalog"]["instruments"][0]["dataPath"], "data/nyse/demo.json")
             pointer = json.loads((public / "releases" / "v1" / "current.json").read_text(encoding="utf-8"))
             self.assertEqual(pointer["manifestKey"], "releases/v1/releases/test-release/manifest.json")
-
