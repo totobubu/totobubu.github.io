@@ -8953,7 +8953,9 @@
             "koName": "그레이스케일 이더리움 미니 트러스트",
             "logo": "logos/company/company-grayscale.png",
             "dataPaths": ["data/nyse/eth.json"],
-            "periods": []
+            "periods": [],
+            "frequency": "매월",
+            "group": "SO"
         },
         {
             "symbol": "ETHA",
@@ -11956,7 +11958,7 @@
             "symbol": "GIS",
             "ipoDate": "1980-03-17",
             "frequency": "분기",
-            "group": "JAJ",
+            "group": "JJO",
             "sharesOutstanding": false,
             "isin": "US3703341046",
             "market": "NYSE",
@@ -13932,7 +13934,7 @@
             "logo": "logos/company/company-ishares.jpeg",
             "dataPaths": ["data/nyse/iagg.json"],
             "periods": ["10Y"],
-            "group": "MJD"
+            "group": "JOD"
         },
         {
             "symbol": "IAI",
@@ -31586,7 +31588,7 @@
             "koName": "인베스코 변동금리 투자적격 ETF",
             "logo": "logos/company/company-invesco.svg",
             "dataPaths": ["data/nyse/vrig.json"],
-            "periods": ["1Y", "2Y", "3Y", "5Y"],
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
             "group": "OND"
         },
         {
