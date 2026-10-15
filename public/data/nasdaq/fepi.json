@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-15 07:13:42 KST",
-        "regularMarketPrice": 42.08,
+        "Update": "2026-10-16 07:06:28 KST",
+        "regularMarketPrice": 42.11,
         "englishName": "REX FANG & Innovation Equity Premium Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 328312,
-        "AvgVolume": 194898,
+        "Volume": 465088,
+        "AvgVolume": 196432,
         "sharesOutstanding": null,
         "52Week": "37.9 - 49.68",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.08,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 328312,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 194898,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6201,30 +6214,32 @@
             "high": 43.025002,
             "low": 41.959999,
             "close": 42.080002,
-            "volume": 329956
+            "volume": 329956,
+            "amount": 0.209,
+            "yield": 0.2500093225
         },
         {
-            "date": "2026-11-06",
+            "date": "2026-11-13",
             "forecasted": true
         },
         {
-            "date": "2026-12-07",
+            "date": "2026-12-14",
             "forecasted": true
         },
         {
-            "date": "2027-01-07",
+            "date": "2027-01-14",
             "forecasted": true
         },
         {
-            "date": "2027-02-05",
+            "date": "2027-02-12",
             "forecasted": true
         },
         {
-            "date": "2027-03-05",
+            "date": "2027-03-12",
             "forecasted": true
         },
         {
-            "date": "2027-04-07",
+            "date": "2027-04-14",
             "forecasted": true
         }
     ]

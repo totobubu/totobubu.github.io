@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-15 07:13:42 KST",
-        "regularMarketPrice": 55.68,
+        "Update": "2026-10-16 07:06:28 KST",
+        "regularMarketPrice": 57.14,
         "englishName": "Fox Corporation",
         "earningsDate": "2026-11-02",
-        "enterpriseValue": 27020032000,
-        "marketCap": 23478788096,
-        "Volume": 700368,
-        "AvgVolume": 1111395,
+        "enterpriseValue": 26915121152,
+        "marketCap": 24094431232,
+        "Volume": 681348,
+        "AvgVolume": 1097168,
         "sharesOutstanding": 220248764,
         "52Week": "44.08 - 68.175",
-        "Yield": 0.010057,
+        "Yield": 0.0098,
         "dividendRate": null,
         "payoutRatio": 0.1458,
         "isin": "US35137L2043",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 55.68,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 27020032000,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 23478788096,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 700368,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1111395,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.010057,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -17118,7 +17143,8 @@
             "high": 56.349998,
             "low": 54.645,
             "close": 55.68,
-            "volume": 707876
+            "volume": 707876,
+            "marketCap": 24094431232
         }
     ]
 }
