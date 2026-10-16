@@ -151,7 +151,7 @@ jobs:
               run: |
                   rm -f update_distributions.log ocr_debug.txt
                   set -o pipefail
-                  python scripts/data_pipeline/update_distributions.py 2>&1 | tee update_distributions.log
+                  python scripts/data_pipeline/update_distributions.py --skip-missing-distribution-row 2>&1 | tee update_distributions.log
 
             - name: Format changed JSON files
               run: npm run format:changed
