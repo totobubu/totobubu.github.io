@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import os
 import re
@@ -68,6 +69,7 @@ TESSERACT_CMD_PATHS = [
     r"C:\Users\User\AppData\Local\Programs\Tesseract-OCR\tesseract.exe",
 ]
 
+
 def setup_tesseract():
     try:
         pytesseract.get_tesseract_version()
@@ -80,6 +82,7 @@ def setup_tesseract():
             return True
     return False
 
+
 # Base Parser
 class BaseParser:
     def __init__(self, text, filename):
@@ -89,46 +92,46 @@ class BaseParser:
 
     def parse_date(self):
         # Try YYYY-MM-DD
-        match = re.search(r'(\d{4})[-_.](\d{1,2})[-_.](\d{1,2})', self.filename)
+        match = re.search(r"(\d{4})[-_.](\d{1,2})[-_.](\d{1,2})", self.filename)
         if match:
-             return f"{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+            return f"{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
 
         # Try YY-MM-DD (assume 20xx)
-        match = re.search(r'(\d{2})[-_.](\d{1,2})[-_.](\d{1,2})', self.filename)
+        match = re.search(r"(\d{2})[-_.](\d{1,2})[-_.](\d{1,2})", self.filename)
         if match:
-             return f"20{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+            return f"20{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
 
-
-        match = re.search(r'(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})', self.text)
+        match = re.search(r"(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})", self.text)
         if match:
-             return f"{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+            return f"{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
 
         return None
-
 
     def extract_data(self):
         raise NotImplementedError
 
+
 # RoundHill Parser
 class RoundHillParser(BaseParser):
     OCR_CORRECTIONS = {
-        'COsSWw': 'COSW',
-        'GOOWw': 'GOOW',
-        'COSSW': 'COSW',
-        'GOOWW': 'GOOW',
-        'COIw': 'COIW',
-        'GOOwWw': 'GOOW',
+        "COsSWw": "COSW",
+        "GOOWw": "GOOW",
+        "COSSW": "COSW",
+        "GOOWW": "GOOW",
+        "COIw": "COIW",
+        "GOOwWw": "GOOW",
     }
 
     def extract_data(self):
         results = {}
-        lines = self.text.split('\n')
+        lines = self.text.split("\n")
 
         # Strategy 1: Same-line format (Ticker and Amount on the same line)
         for line in lines:
             line = line.strip()
-            if not line: continue
-            
+            if not line:
+                continue
+
             # Pre-cleanup keys using OCR corrections
             for bad, good in self.OCR_CORRECTIONS.items():
                 if bad in line:
@@ -137,10 +140,10 @@ class RoundHillParser(BaseParser):
             if "Expense Ratio" in line or "Fee" in line:
                 continue
 
-            match = re.findall(r'\b([A-Z]{3,5})\b', line)
+            match = re.findall(r"\b([A-Z]{3,5})\b", line)
 
             # Find float with at least 4 decimals
-            amount_match = re.search(r'[\$]?(\d+\.\d{4,})', line)
+            amount_match = re.search(r"[\$]?(\d+\.\d{4,})", line)
 
             if match and amount_match:
                 ticker = match[-1]
@@ -155,14 +158,15 @@ class RoundHillParser(BaseParser):
             amounts_list = []
             for line in lines:
                 line = line.strip()
-                if not line: continue
-                
+                if not line:
+                    continue
+
                 if "Expense Ratio" in line or "Fee" in line:
                     continue
 
                 # Look for distribution amount (e.g., $0.158776 or 0.158776)
                 # Must have at least 4 decimals to be a valid distribution amount
-                amount_match = re.search(r'^\$?(\d+\.\d{4,})$', line)
+                amount_match = re.search(r"^\$?(\d+\.\d{4,})$", line)
                 if amount_match:
                     amounts_list.append(float(amount_match.group(1)))
                     continue
@@ -175,7 +179,7 @@ class RoundHillParser(BaseParser):
                     token = words[0]
                     # Apply corrections first (e.g., GOOwWw -> GOOW)
                     corrected_token = self.OCR_CORRECTIONS.get(token, token)
-                    
+
                     # If it's a known correction, it's definitely a ticker
                     if corrected_token in self.OCR_CORRECTIONS.values():
                         tickers_list.append(corrected_token)
@@ -183,11 +187,25 @@ class RoundHillParser(BaseParser):
 
                     # Otherwise, check if it looks like a valid ticker (all caps, 3-5 chars)
                     # or if it was a minor OCR mess (allow some lowercase if corrected or short)
-                    if re.match(r'^[A-Za-z]{3,5}$', token):
+                    if re.match(r"^[A-Za-z]{3,5}$", token):
                         ticker = token.upper()
                         # Final check against stopwords
-                        if ticker not in ["FUND", "NAME", "ETF", "NAV", "DATE", "SHARE", "PER", "STOCK", "MACRO", "THE", "THEIR", "AND", "FOR"]:
-                             tickers_list.append(ticker)
+                        if ticker not in [
+                            "FUND",
+                            "NAME",
+                            "ETF",
+                            "NAV",
+                            "DATE",
+                            "SHARE",
+                            "PER",
+                            "STOCK",
+                            "MACRO",
+                            "THE",
+                            "THEIR",
+                            "AND",
+                            "FOR",
+                        ]:
+                            tickers_list.append(ticker)
 
             # Map by position if counts match
             if len(tickers_list) == len(amounts_list) and tickers_list:
@@ -196,6 +214,7 @@ class RoundHillParser(BaseParser):
 
         return results
 
+
 # YieldMax Parser
 class YieldMaxParser(BaseParser):
     # YieldMax publishes the weekly table in this order. Keeping the order in
@@ -203,172 +222,255 @@ class YieldMaxParser(BaseParser):
     # still pairing each value with the correct Distribution per Share row.
     # 2026-07-30 added INYY and YSPC.
     CANONICAL_WEEKLY_TICKERS = [
-        'AIYY', 'AMDY', 'AMZY', 'APLY', 'BABO', 'BRKC', 'CONY',
-        'CRCO', 'CRSH', 'CVNY', 'DIPS', 'DRAY', 'FBY', 'FIAT',
-        'GDXY', 'GMEY', 'GOOY', 'HIYY', 'HOOY', 'INYY', 'JPO',
-        'MARO', 'MRNY', 'MSFO', 'MSTY', 'NFLY', 'NVDY', 'OARK',
-        'PLTY', 'PYPY', 'RBLY', 'RDYY', 'SMCY', 'SNOY', 'TSLY',
-        'TSMY', 'WNTR', 'XOMO', 'XYZY', 'YSPC', 'YBIT', 'YQQQ', 'YRAM',
+        "AIYY",
+        "AMDY",
+        "AMZY",
+        "APLY",
+        "BABO",
+        "BRKC",
+        "CONY",
+        "CRCO",
+        "CRSH",
+        "CVNY",
+        "DIPS",
+        "DRAY",
+        "FBY",
+        "FIAT",
+        "GDXY",
+        "GMEY",
+        "GOOY",
+        "HIYY",
+        "HOOY",
+        "INYY",
+        "JPO",
+        "MARO",
+        "MRNY",
+        "MSFO",
+        "MSTY",
+        "NFLY",
+        "NVDY",
+        "OARK",
+        "PLTY",
+        "PYPY",
+        "RBLY",
+        "RDYY",
+        "SMCY",
+        "SNOY",
+        "TSLY",
+        "TSMY",
+        "WNTR",
+        "XOMO",
+        "XYZY",
+        "YSPC",
+        "YBIT",
+        "YQQQ",
+        "YRAM",
     ]
 
     # OCR often misreads YieldMax tickers
     # Map: OCR_result → Actual_ticker (case-insensitive)
     OCR_CORRECTIONS = {
         # Direct mappings based on analysis of ocr_output.txt
-        'APNY': 'ABNY', 'APNY_': 'ABNY',
-        'ALYY': 'AIYY', 'AIVY': 'AIYY', 'seestegy': 'AIYY', 'AL': 'AIYY',
-        'ANIPY': 'AMDY',
-        'ANAZY': 'AMZY', 'ANAZY,': 'AMZY',
-        'APTY': 'APLY',  # Correction: APLY (Apple), not QDTY
-        'PASO': 'BABO', 'PASO,': 'BABO',
-        'SAKE': 'BRKY',
-        'CONY': 'CONY',
-        'CRCO': 'CRCO', 'CRCO_': 'CRCO',
-        'CRS': 'CRSH', 'CRS,': 'CRSH', # Short TSLA
-        'EVNY': 'CVNY',
-        'PS': 'DIPS', # Short NVDA
-        'DISO': 'DISO',
-        'PRAY': 'DRAY',
-        'GAY': 'FBYY',
-        'PAR': 'FIAT', # Short COIN
-        'EPXY': 'GDXY',
-        'EMEY': 'GMEY',
-        'COOY': 'GOOY',
-        'RVY': 'HIYY', 'RVY_': 'HIYY',
-        'HOOY': 'HOOY',
-        'JPMO': 'JPO',
-        'MANO': 'MARO',
-        'MARNY': 'MRNY', 'MARNY,': 'MRNY',
-        'MSRO': 'MSFO',
-        'MUSTY': 'MSTY', 'MUSTY:': 'MSTY',
-        'NEVY': 'NFLY',
-        'NVPY': 'NVDY',
-        'ARK': 'OARK',
-        'PLTY': 'PLTY',
-        'PYPY': 'PYPY',
-        'PRETY': 'RBLY',
-        'AOVY': 'RDYY', 'AOVY:': 'RDYY',
-        'SMCY': 'SMCY', 'SMCY_': 'SMCY',
-        'SNOY': 'SNOY', 'SNOY:': 'SNOY',
-        'RSTY': 'TSLY', 'RSTY,': 'TSLY',
-        'TSMY': 'TSMY',
-        'WWTR': 'WNTR', # Short MSTR
-        'XOMO': 'XOMO',
-        'WPAY': 'TOPW',
-        'XYZY': 'XYZY',
-        'YAR': 'YBIT',
-        'YAAA': 'YQQQ', # Short N100
-        
+        "APNY": "ABNY",
+        "APNY_": "ABNY",
+        "ALYY": "AIYY",
+        "AIVY": "AIYY",
+        "seestegy": "AIYY",
+        "AL": "AIYY",
+        "ANIPY": "AMDY",
+        "ANAZY": "AMZY",
+        "ANAZY,": "AMZY",
+        "APTY": "APLY",  # Correction: APLY (Apple), not QDTY
+        "PASO": "BABO",
+        "PASO,": "BABO",
+        "SAKE": "BRKY",
+        "CONY": "CONY",
+        "CRCO": "CRCO",
+        "CRCO_": "CRCO",
+        "CRS": "CRSH",
+        "CRS,": "CRSH",  # Short TSLA
+        "EVNY": "CVNY",
+        "PS": "DIPS",  # Short NVDA
+        "DISO": "DISO",
+        "PRAY": "DRAY",
+        "GAY": "FBYY",
+        "PAR": "FIAT",
+        "EPXY": "GDXY",
+        "EMEY": "GMEY",
+        "COOY": "GOOY",
+        "RVY": "HIYY",
+        "RVY_": "HIYY",
+        "HOOY": "HOOY",
+        "JPMO": "JPO",
+        "MANO": "MARO",
+        "MARNY": "MRNY",
+        "MARNY,": "MRNY",
+        "MSRO": "MSFO",
+        "MUSTY": "MSTY",
+        "MUSTY:": "MSTY",
+        "NEVY": "NFLY",
+        "NVPY": "NVDY",
+        "ARK": "OARK",
+        "PLTY": "PLTY",
+        "PYPY": "PYPY",
+        "PRETY": "RBLY",
+        "AOVY": "RDYY",
+        "AOVY:": "RDYY",
+        "SMCY": "SMCY",
+        "SMCY_": "SMCY",
+        "SNOY": "SNOY",
+        "SNOY:": "SNOY",
+        "RSTY": "TSLY",
+        "RSTY,": "TSLY",
+        "TSMY": "TSMY",
+        "WWTR": "WNTR",
+        "XOMO": "XOMO",
+        "WPAY": "TOPW",
+        "XYZY": "XYZY",
+        "YAR": "YBIT",
+        "YAAA": "YQQQ",
         # New corrections for 2026-02-11
-        'CUPY': 'CHPY',
-        'RIVY': 'FIVY',
-        'GERY': 'GPTY',
-        'URAY': 'LFGY',
-        'OOTY': 'QDTY',
-        'SPTY': 'SDTY',
-        'SURY': 'SLTY',
-        'UM': 'ULTY',
-
+        "CUPY": "CHPY",
+        "RIVY": "FIVY",
+        "GERY": "GPTY",
+        "URAY": "LFGY",
+        "OOTY": "QDTY",
+        "SPTY": "SDTY",
+        "SURY": "SLTY",
+        "UM": "ULTY",
         # Existing/Generic corrections just in case
-        'GAPY': 'CHPY',
-        'PEAR': 'FEAT',
-        'PIVY': 'FIVY',
-        'ELEMAX': 'FIVY',  # OCR sometimes reads "pivy_" as "eleMax"
-        'UPCY': 'LFGY',
-        'SIRE': 'SLTY',
-        'SUTY': 'SLTY',
-        'WIRY': 'ULTY',
-        'UTY': 'ULTY',
-        'YMAG': 'YMAG',  # Sometimes correct
-        'LDMAX': 'YMAG',  # OCR sometimes reads "ymag_" as "ldMax"
-        'YELEIAN': 'LFGY',
-        'YIN': 'YMAX',
-        'VI': 'YMAX',
-        'GPTY': 'GPTY',  # Sometimes correct
-        'RDTY': 'RDTY',  # Sometimes correct
-        'SDTY': 'SDTY',  # Sometimes correct
-
+        "GAPY": "CHPY",
+        "PEAR": "FEAT",
+        "PIVY": "FIVY",
+        "ELEMAX": "FIVY",
+        "UPCY": "LFGY",
+        "SIRE": "SLTY",
+        "SUTY": "SLTY",
+        "WIRY": "ULTY",
+        "UTY": "ULTY",
+        "YMAG": "YMAG",
+        "LDMAX": "YMAG",
+        "YELEIAN": "LFGY",
+        "YIN": "YMAX",
+        "VI": "YMAX",
+        "GPTY": "GPTY",
+        "RDTY": "RDTY",
+        "SDTY": "SDTY",
         # New corrections for 2026-02-12
-        'AY': 'AIYY',
-        'AMPY': 'AMDY',
-        'ANMZY': 'AMZY',
-        'APTY': 'APLY', # Overrides previous if any, identifying as Apple
-        'SAKE': 'BRKY',
-        'CUNY': 'CVNY',
-        'PIPS': 'DIPS',
-        'PISO': 'DISO', 'piso': 'DISO',
-        'PRAY': 'DRAY',
-        'RAY': 'FBY',
-        'RAT': 'FIAT',
-        'GPXY': 'GDXY',
-        'AMEY': 'GMEY',
-        'SPMO': 'JPO',
-        'JPMO': 'JPO',
-        'NANG': 'MARO',
-        'MANY': 'MRNY',
-        'MSRO': 'MSFO',
-        'NETY': 'NFLY',
-        'NEFLY': 'NFLY',
-        'PURTY': 'PLTY',
-        'ROVY': 'RDYY',
-        'QS': 'TSLY',
-        'WWE': 'WNTR',
-        'XVZY': 'XYZY',
-        'YERT': 'YBIT',
-        'YAAQ': 'YQQQ',
-        'YEQQ': 'YQQQ', 'YEOQ': 'YQQQ',
-        'HOOYY': 'HOOY',
-        'SDTV': 'SDTY',
-        'VMAG': 'YMAG',
-
+        "AY": "AIYY",
+        "AMPY": "AMDY",
+        "ANMZY": "AMZY",
+        "APTY": "APLY",
+        "SAKE": "BRKY",
+        "CUNY": "CVNY",
+        "PIPS": "DIPS",
+        "PISO": "DISO",
+        "piso": "DISO",
+        "PRAY": "DRAY",
+        "RAY": "FBY",
+        "RAT": "FIAT",
+        "GPXY": "GDXY",
+        "AMEY": "GMEY",
+        "SPMO": "JPO",
+        "JPMO": "JPO",
+        "NANG": "MARO",
+        "MANY": "MRNY",
+        "MSRO": "MSFO",
+        "NETY": "NFLY",
+        "NEFLY": "NFLY",
+        "PURTY": "PLTY",
+        "ROVY": "RDYY",
+        "QS": "TSLY",
+        "WWE": "WNTR",
+        "XVZY": "XYZY",
+        "YERT": "YBIT",
+        "YAAQ": "YQQQ",
+        "YEQQ": "YQQQ",
+        "YEOQ": "YQQQ",
+        "HOOYY": "HOOY",
+        "SDTV": "SDTY",
+        "VMAG": "YMAG",
         # Corrections for missing tickers (2026-02-12 debug)
-        '8RKC': 'BRKC', 'BRKC': 'BRKC', 'sake' : 'BRKC',
-        '0IPS': 'DIPS', 'OIPS': 'DIPS', 'DlPS': 'DIPS', 'pips': 'DIPS',
-        '6DXY': 'GDXY', 'CDXY': 'GDXY', '@pxy': 'GDXY',
-        'M5FO': 'MSFO',
-        'M5TY': 'MSTY', 'misty': 'MSTY',
-        'NELY': 'NFLY', 'nety': 'NFLY',
-
+        "8RKC": "BRKC",
+        "BRKC": "BRKC",
+        "sake": "BRKC",
+        "0IPS": "DIPS",
+        "OIPS": "DIPS",
+        "DlPS": "DIPS",
+        "pips": "DIPS",
+        "6DXY": "GDXY",
+        "CDXY": "GDXY",
+        "@pxy": "GDXY",
+        "M5FO": "MSFO",
+        "M5TY": "MSTY",
+        "misty": "MSTY",
+        "NELY": "NFLY",
+        "nety": "NFLY",
         # New garbled patterns from 2026-03-26 (Updated 2026-04-02)
-        'ARR': 'AIYY', 'AIRR': 'AIYY',
-        'AMIDY': 'AMDY', 'AMIDY,': 'AMDY',
-        'ACNFRI': 'AMZY',
-        'AG': 'APLY',
-        'MARS': 'BABO',
-        'CERE': 'BRKC', 'cere': 'BRKC',
-        'CONN': 'CONY', 'CONN,': 'CONY',
-        'ERCO': 'CRCO',
-        'GRI': 'CRSH',
-        'DIS': 'CVNY',
-        'BRAY': 'DIPS', 'BRAY,': 'DIPS', # Correction for 2026-04-02
-        'ay': 'DRAY', # Correction for 2026-04-02
-        'FEY)': 'FBY', 'FEY': 'FBY', 'MEY': 'FBY', 'MEY,': 'FBY',
-        'BOOY)': 'FIAT',
-        '“IRR?': 'GDXY',
-        'NOOY': 'GMEY', 'nOoY': 'GMEY',
-        'IRO': 'GOOY', 'iro': 'GOOY',
-        'IRR?': 'HIYY',
-        'NOT': 'HOOY',
-        'MANY': 'MRNY', 'MANY,': 'MRNY',
-        'MERO': 'MSFO', 'Mero': 'MSFO',
-        'METN': 'MSTY', 'MeTN': 'MSTY',
-        'NNA?': 'NFLY', 'nna?': 'NFLY',
-        'CR?': 'NVDY', 'NUDY': 'NVDY',
-        'ENS': 'OARK', 'ens': 'OARK',
-        'PYEN': 'PLTY', 'PYEN,': 'PLTY',
-        'REIN': 'RBLY', 'REIN,': 'RBLY',
-        'ROY': 'RDYY',
-        'AURA': 'SMCY', 'aura': 'SMCY',
-        'ENOY': 'SNOY', 'aay': 'SNOY', 'AAY': 'SNOY',
-        'GARY': 'TSLY',
-        'MOMO)': 'TSMY', 'MOMO': 'TSMY',
-        'AR': 'WNTR',
-        'AN': 'XOMO', 'an': 'XOMO',
-        'YOQOO': 'YQQQ', 'YoQoo': 'YQQQ',
+        "ARR": "AIYY",
+        "AIRR": "AIYY",
+        "AMIDY": "AMDY",
+        "AMIDY,": "AMDY",
+        "ACNFRI": "AMZY",
+        "AG": "APLY",
+        "MARS": "BABO",
+        "CERE": "BRKC",
+        "cere": "BRKC",
+        "CONN": "CONY",
+        "CONN,": "CONY",
+        "ERCO": "CRCO",
+        "GRI": "CRSH",
+        "DIS": "CVNY",
+        "BRAY": "DIPS",
+        "BRAY,": "DIPS",
+        "ay": "DRAY",
+        "FEY)": "FBY",
+        "FEY": "FBY",
+        "MEY": "FBY",
+        "MEY,": "FBY",
+        "BOOY)": "FIAT",
+        "“IRR?": "GDXY",
+        "NOOY": "GMEY",
+        "nOoY": "GMEY",
+        "IRO": "GOOY",
+        "iro": "GOOY",
+        "IRR?": "HIYY",
+        "NOT": "HOOY",
+        "MANY": "MRNY",
+        "MANY,": "MRNY",
+        "MERO": "MSFO",
+        "Mero": "MSFO",
+        "METN": "MSTY",
+        "MeTN": "MSTY",
+        "NNA?": "NFLY",
+        "nna?": "NFLY",
+        "CR?": "NVDY",
+        "NUDY": "NVDY",
+        "ENS": "OARK",
+        "ens": "OARK",
+        "PYEN": "PLTY",
+        "PYEN,": "PLTY",
+        "REIN": "RBLY",
+        "REIN,": "RBLY",
+        "ROY": "RDYY",
+        "AURA": "SMCY",
+        "aura": "SMCY",
+        "ENOY": "SNOY",
+        "aay": "SNOY",
+        "AAY": "SNOY",
+        "GARY": "TSLY",
+        "MOMO)": "TSMY",
+        "MOMO": "TSMY",
+        "AR": "WNTR",
+        "AN": "XOMO",
+        "an": "XOMO",
+        "YOQOO": "YQQQ",
+        "YoQoo": "YQQQ",
     }
+
     def extract_data(self):
         results = {}
-        lines = self.text.split('\n')
+        lines = self.text.split("\n")
 
         # Target 12 is a separate monthly table, not the weekly canonical
         # roster.  Its OCR frequently reads BIGY/RNTY as BI?/GOUGE.  Only use
@@ -377,17 +479,19 @@ class YieldMaxParser(BaseParser):
         if "target 12" in self.text.lower():
             target_amounts = []
             for line in lines:
-                amount_match = re.search(r'(?:\$|§)?(\d+\.\d{4})\b', line)
+                amount_match = re.search(r"(?:\$|§)?(\d+\.\d{4})\b", line)
                 if amount_match:
                     target_amounts.append(float(amount_match.group(1)))
             if len(target_amounts) == len(YIELDMAX_TARGET_12_MONTHLY_ORDER):
                 return dict(zip(YIELDMAX_TARGET_12_MONTHLY_ORDER, target_amounts))
             if any("gouge" in line.lower() for line in lines):
-                self.issues.append({
-                    "status": "ambiguous_mapping",
-                    "ticker": "GOUGE",
-                    "detail": "Target 12 table did not contain all three distribution amounts",
-                })
+                self.issues.append(
+                    {
+                        "status": "ambiguous_mapping",
+                        "ticker": "GOUGE",
+                        "detail": "Target 12 table did not contain all three distribution amounts",
+                    }
+                )
                 return results
 
         # The current YieldMax image is a wide, bordered table. With Tesseract
@@ -396,7 +500,7 @@ class YieldMaxParser(BaseParser):
         # order, so prefer a complete positional mapping over partial matches.
         ordered_amounts = []
         for line in lines:
-            amt_match = re.search(r'(\d+\.\d{4})\b', line)
+            amt_match = re.search(r"(\d+\.\d{4})\b", line)
             if amt_match:
                 amount = float(amt_match.group(1))
                 if amount < 5.0:
@@ -407,16 +511,26 @@ class YieldMaxParser(BaseParser):
 
         for line in lines:
             clean_line = line.strip()
-            if not clean_line: continue
+            if not clean_line:
+                continue
 
             # Strategy 1: Look for line starting with ticker or corrected ticker
             parts = clean_line.split()
             valid_ticker = None
-            
+
             if parts:
-                raw_first = parts[0].replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('[', '').replace('*', '').strip()
+                raw_first = (
+                    parts[0]
+                    .replace("_", "")
+                    .replace(",", "")
+                    .replace(":", "")
+                    .replace("|", "")
+                    .replace("[", "")
+                    .replace("*", "")
+                    .strip()
+                )
                 first_token = raw_first.upper()
-                
+
                 # Check OCR_CORRECTIONS first (case-sensitive or upper)
                 if raw_first in self.OCR_CORRECTIONS:
                     valid_ticker = self.OCR_CORRECTIONS[raw_first]
@@ -425,14 +539,28 @@ class YieldMaxParser(BaseParser):
                 elif normalize_yieldmax_ticker(first_token):
                     valid_ticker = normalize_yieldmax_ticker(first_token)
                 elif first_token == "GOUGE":
-                    self.issues.append({
-                        "status": "ambiguous_mapping",
-                        "ticker": "GOUGE",
-                        "detail": "GOUGE requires Target 12 table context before it can map to RNTY",
-                    })
+                    self.issues.append(
+                        {
+                            "status": "ambiguous_mapping",
+                            "ticker": "GOUGE",
+                            "detail": "GOUGE requires Target 12 table context before it can map to RNTY",
+                        }
+                    )
                     continue
                 elif 2 <= len(first_token) <= 5 and first_token.isalpha():
-                    if first_token not in ["YIELD", "ETF", "THE", "AND", "FOR", "SEE", "DATE", "YI", "YI_", "WEEKL", "WEEKLY"]:
+                    if first_token not in [
+                        "YIELD",
+                        "ETF",
+                        "THE",
+                        "AND",
+                        "FOR",
+                        "SEE",
+                        "DATE",
+                        "YI",
+                        "YI_",
+                        "WEEKL",
+                        "WEEKLY",
+                    ]:
                         valid_ticker = first_token
 
             if not valid_ticker:
@@ -442,7 +570,7 @@ class YieldMaxParser(BaseParser):
             corrected_ticker = normalize_yieldmax_ticker(corrected_ticker) or corrected_ticker
 
             # Look for distribution amount ($0.xxxx, §0.xxxx, 0.xxxx)
-            amt_match = re.search(r'(?:\$|§)?(\d+\.\d{4})\b', clean_line)
+            amt_match = re.search(r"(?:\$|§)?(\d+\.\d{4})\b", clean_line)
             if amt_match:
                 val = float(amt_match.group(1))
                 if val < 5.0:
@@ -452,49 +580,107 @@ class YieldMaxParser(BaseParser):
         if not results:
             tickers_list = []
             amounts_list = []
-            
+
             # Known YieldMax Weekly ETF tickers in alphabetical order (as appears in table).
-            # Updated 2026-07-30: INYY(INTC), YSPC 추가 -> 42종목
-            stopwords = {"YIELDMAX", "ETF", "TICKER", "FUND", "DATE", "VAL", "TEST", 
-                         "WEEKLY", "DAILY", "MONTHLY", "ROC", "SEC", "YIELD", "DAY",
-                         "RATE", "PER", "SHARE", "WELD", "MIAN", "MELD", "MAX", 
-                         "DORSEY", "WRIGHT", "OPTION", "INCOME", "ODTE", "COVERED", 
-                         "CALL", "ULTRA", "SHORT", "TECH", "CRYPTO", "NAME", "FECH", 
-                         "ORIG", "VELIE", "ULTA", "SHERE", "MERT", "ETFS", "WEIGHT",
-                         "THE", "AND", "FOR", "SEE", "NAV", "DIST", "PAY", "REC"}
-            
+            # Updated 2026-07-30: INYY(INTC), YSPC added -> 42 items
+            stopwords = {
+                "YIELDMAX",
+                "ETF",
+                "TICKER",
+                "FUND",
+                "DATE",
+                "VAL",
+                "TEST",
+                "WEEKLY",
+                "DAILY",
+                "MONTHLY",
+                "ROC",
+                "SEC",
+                "YIELD",
+                "DAY",
+                "RATE",
+                "PER",
+                "SHARE",
+                "WELD",
+                "MIAN",
+                "MELD",
+                "MAX",
+                "DORSEY",
+                "WRIGHT",
+                "OPTION",
+                "INCOME",
+                "ODTE",
+                "COVERED",
+                "CALL",
+                "ULTRA",
+                "SHORT",
+                "TECH",
+                "CRYPTO",
+                "NAME",
+                "FECH",
+                "ORIG",
+                "VELIE",
+                "ULTA",
+                "SHERE",
+                "MERT",
+                "ETFS",
+                "WEIGHT",
+                "THE",
+                "AND",
+                "FOR",
+                "SEE",
+                "NAV",
+                "DIST",
+                "PAY",
+                "REC",
+            }
+
             seen_tickers = set()
 
             for line in lines:
                 clean_line = line.strip()
-                if not clean_line: continue
-                
-                amt_match = re.search(r'(?:^|\s)(?:\$|50\.|§)?(\d+\.\d{4})\b', clean_line)
+                if not clean_line:
+                    continue
+
+                amt_match = re.search(r"(?:^|\s)(?:\$|50\.|§)?(\d+\.\d{4})\b", clean_line)
                 if amt_match:
                     val = float(amt_match.group(1))
-                    dec = amt_match.group(1).split('.')[1]
+                    dec = amt_match.group(1).split(".")[1]
                     if val >= 5.0 and len(dec) == 4:
                         val = float(f"0.{dec}")
                     if val < 5.0:
                         amounts_list.append(val)
                         continue
-                
+
                 words = clean_line.split()
                 if words:
-                    raw_token = words[0].replace('_', '').replace(',', '').replace(':', '').replace('|', '').replace('(', '').replace(')', '').replace('?', '')
-                    token = raw_token.upper().replace('\u201c', '').replace('\u201d', '').replace('\u2018', '').replace('\u2019', '').replace('"', '').replace("'", '')
-                    
+                    raw_token = (
+                        words[0]
+                        .replace("_", "")
+                        .replace(",", "")
+                        .replace(":", "")
+                        .replace("|", "")
+                        .replace("(", "")
+                        .replace(")", "")
+                        .replace("?", "")
+                    )
+                    token = raw_token.upper().replace("\u201c", "").replace("\u201d", "").replace(
+                        "\u2018", ""
+                    ).replace("\u2019", "").replace('"', "").replace("'", "")
+
                     corrected = self.OCR_CORRECTIONS.get(raw_token, self.OCR_CORRECTIONS.get(token, token))
                     corrected = normalize_yieldmax_ticker(corrected) or corrected
 
                     if token == "GOUGE":
-                        self.issues.append({
-                            "status": "ambiguous_mapping",
-                            "ticker": "GOUGE",
-                            "detail": "GOUGE requires Target 12 table context before it can map to RNTY",
-                        })
+                        self.issues.append(
+                            {
+                                "status": "ambiguous_mapping",
+                                "ticker": "GOUGE",
+                                "detail": "GOUGE requires Target 12 table context before it can map to RNTY",
+                            }
+                        )
                         continue
-                    
+
                     if corrected in self.OCR_CORRECTIONS.values():
                         if corrected not in seen_tickers:
                             tickers_list.append(corrected)
@@ -503,7 +689,7 @@ class YieldMaxParser(BaseParser):
                         if token not in stopwords and token not in seen_tickers:
                             tickers_list.append(token)
                             seen_tickers.add(token)
-            
+
             print(f"  [i] 열 형식: {self.filename}에서 티커 {len(tickers_list)}개, 금액 {len(amounts_list)}개 감지")
 
             if len(amounts_list) == len(self.CANONICAL_WEEKLY_TICKERS):
@@ -512,46 +698,51 @@ class YieldMaxParser(BaseParser):
                     results[ticker] = amounts_list[i]
             else:
                 if len(tickers_list) != len(amounts_list):
-                    print(f"  [!] {self.filename} 열 불일치: 티커 {len(tickers_list)}개 vs 금액 {len(amounts_list)}개 - 앞 {min(len(tickers_list), len(amounts_list))}개만 매핑")
+                    print(
+                        f"  [!] {self.filename} 열 불일치: 티커 {len(tickers_list)}개 vs 금액 {len(amounts_list)}개 - 앞 {min(len(tickers_list), len(amounts_list))}개만 매핑"
+                    )
                 min_len = min(len(tickers_list), len(amounts_list))
                 for i in range(min_len):
                     results[tickers_list[i]] = amounts_list[i]
 
         return results
 
+
+# Rex Parser
 class RexParser(BaseParser):
     # OCR often misreads REX tickers as underlying stock symbols
     # Map: OCR_result → Actual_REX_ticker
     OCR_CORRECTIONS = {
-        'NVDA': 'NVII',  # REX NVDA Growth & Income ETF
-        'TSLA': 'TSII',  # REX TSLA Growth & Income ETF
-        'MSTR': 'MSII',  # REX MSTR Growth & Income ETF
-        'COIN': 'COII',  # REX COIN Growth & Income ETF
-        'HOOD': 'HOII',  # REX HOOD Growth & Income ETF
-        'HOON': 'HOII',  # OCR sometimes reads HOOD as "Hoon"
-        'CRWY': 'CWII',  # REX CRWY Growth & Income ETF
-        'PLTR': 'PLTI',  # REX PLTR Growth & Income ETF
-        'LLY': 'LLII',   # REX LLY Growth & Income ETF
-        'WMT': 'WMTI',   # REX WMT Growth & Income ETF
+        "NVDA": "NVII",  # REX NVDA Growth & Income ETF
+        "TSLA": "TSII",  # REX TSLA Growth & Income ETF
+        "MSTR": "MSII",  # REX MSTR Growth & Income ETF
+        "COIN": "COII",  # REX COIN Growth & Income ETF
+        "HOOD": "HOII",  # REX HOOD Growth & Income ETF
+        "HOON": "HOII",  # OCR sometimes reads HOOD as "Hoon"
+        "CRWY": "CWII",  # REX CRWY Growth & Income ETF
+        "PLTR": "PLTI",  # REX PLTR Growth & Income ETF
+        "LLY": "LLII",  # REX LLY Growth & Income ETF
+        "WMT": "WMTI",  # REX WMT Growth & Income ETF
     }
-    
+
     def extract_data(self):
         results = {}
-        lines = self.text.split('\n')
+        lines = self.text.split("\n")
 
         for i, line in enumerate(lines):
             line = line.strip()
-            if not line: continue
+            if not line:
+                continue
 
             # Strategy 1: Image-based table format
             # Extract Fund Ticker and Distribution Per Share from table rows
             # Pattern: "REX TICKER ... $0.xxxx" or "REX TICKER ... 0.xxxx"
-            
+
             # Find ALL tickers in the line (3-4 letters)
-            ticker_matches = re.findall(r'\b([A-Z]{3,4})\b', line)
+            ticker_matches = re.findall(r"\b([A-Z]{3,4})\b", line)
             if not ticker_matches:
                 continue
-            
+
             # Filter out header words and find the actual fund ticker
             # Prioritize tickers in OCR_CORRECTIONS or 4-letter tickers
             ticker = None
@@ -565,32 +756,32 @@ class RexParser(BaseParser):
                 # This is likely the actual ticker
                 ticker = candidate
                 break
-            
+
             if not ticker:
                 continue
-            
+
             # Look for distribution amount on the same line
             # Try with $ first
-            amt_match = re.search(r'\$(\d+\.\d+)', line)
+            amt_match = re.search(r"\$(\d+\.\d+)", line)
             if not amt_match:
                 # Fallback: decimal without $ (must have 4 decimals to avoid percentages)
-                amt_match = re.search(r'\b(\d+\.\d{4})\b', line)
-            
+                amt_match = re.search(r"\b(\d+\.\d{4})\b", line)
+
             if amt_match:
                 amount = float(amt_match.group(1))
-                
+
                 # Fix OCR error: sometimes leading 0 is dropped (9.0491 → 0.0491)
                 # If amount > 5.0 and has 4 decimals, likely missing leading 0
                 if amount > 5.0:
                     # Try replacing first digit with 0
                     amt_str = amt_match.group(1)
-                    if '.' in amt_str:
+                    if "." in amt_str:
                         # e.g., "9.0491" → "0.0491"
-                        fixed_amt_str = '0' + amt_str[1:]
+                        fixed_amt_str = "0" + amt_str[1:]
                         fixed_amount = float(fixed_amt_str)
                         if 0.001 <= fixed_amount <= 5.0:
                             amount = fixed_amount
-                
+
                 # Validate amount is in reasonable range for distributions
                 if 0.001 <= amount <= 5.0:
                     # Apply OCR correction if needed
@@ -601,7 +792,7 @@ class RexParser(BaseParser):
             # Strategy 2: Text-based format (original logic)
             # REX Ticker Pattern: Line with only 4 uppercase letters
             # e.g. "NVII", "TSII". Avoids text lines.
-            if re.match(r'^[A-Z]{4}$', line):
+            if re.match(r"^[A-Z]{4}$", line):
                 ticker = line
                 # Filter out potential false positives
                 if ticker in ["DATE", "RATE", "YIELD"]:
@@ -609,12 +800,14 @@ class RexParser(BaseParser):
 
                 # Look forward for price (e.g. "$0.2075")
                 for offset in range(1, 5):
-                    if i + offset >= len(lines): break
+                    if i + offset >= len(lines):
+                        break
                     next_line = lines[i + offset].strip()
-                    if not next_line: continue
+                    if not next_line:
+                        continue
 
                     # Match $0.xxxx
-                    amt_match = re.match(r'^\$(\d+\.\d+)', next_line)
+                    amt_match = re.match(r"^\$(\d+\.\d+)", next_line)
                     if amt_match:
                         results[ticker] = float(amt_match.group(1))
                         break
@@ -625,37 +818,39 @@ class RexParser(BaseParser):
 class GranitesharesParser(BaseParser):
     def extract_data(self):
         results = {}
-        lines = self.text.split('\n')
+        lines = self.text.split("\n")
 
         for line in lines:
             line = line.strip()
-            if not line: continue
+            if not line:
+                continue
 
             # Pattern: Ticker (first word) ... $Amount
             # Handle OCR noise: |OYY -> IOYY, _YieldBOOST -> YieldBOOST
 
             parts = line.split()
-            if not parts: continue
+            if not parts:
+                continue
 
             raw_ticker = parts[0]
 
             # Clean ticker
             clean_ticker = raw_ticker
-            if '|' in clean_ticker:
-                 clean_ticker = clean_ticker.replace('|', 'I')
+            if "|" in clean_ticker:
+                clean_ticker = clean_ticker.replace("|", "I")
 
             # Special case for QBy -> QBY
-            if clean_ticker == 'QBy':
-                clean_ticker = 'QBY'
+            if clean_ticker == "QBy":
+                clean_ticker = "QBY"
 
             clean_ticker = clean_ticker.upper()
 
             # Filter: Must be 3-5 uppercase letters
-            if not re.match(r'^[A-Z]{3,5}$', clean_ticker):
+            if not re.match(r"^[A-Z]{3,5}$", clean_ticker):
                 continue
 
             # Look for $0.xxxx
-            amount_match = re.search(r'\$(\d+\.\d+)', line)
+            amount_match = re.search(r"\$(\d+\.\d+)", line)
             if amount_match:
                 amount = float(amount_match.group(1))
                 results[clean_ticker] = amount
@@ -667,12 +862,12 @@ class GranitesharesParser(BaseParser):
 class DefianceParser(BaseParser):
     def extract_data(self):
         results = {}
-        lines = self.text.split('\n')
+        lines = self.text.split("\n")
 
         def get_ticker_from_line(line):
             line_lower = line.lower()
-            line_lower = line_lower.replace('—', '').replace('@', 'q') # e.g. —@lpy -> qlpy
-            
+            line_lower = line_lower.replace("—", "").replace("@", "q")  # e.g. —@lpy -> qlpy
+
             if "r2000" in line_lower or "r200" in line_lower or "russell" in line_lower:
                 return "IWMY"
             if "nasdaq 100 weekly" in line_lower or "n100 weekly" in line_lower:
@@ -683,7 +878,12 @@ class DefianceParser(BaseParser):
                 return "GLDY"
             if "oil" in line_lower:
                 return "USOY"
-            if "lightningspread" in line_lower or "lightning spread" in line_lower or "qldy" in line_lower or "lpy" in line_lower:
+            if (
+                "lightningspread" in line_lower
+                or "lightning spread" in line_lower
+                or "qldy" in line_lower
+                or "lpy" in line_lower
+            ):
                 return "QLDY"
             if "nasdaq 100 income" in line_lower or "qqqt" in line_lower:
                 return "QQQT"
@@ -698,28 +898,28 @@ class DefianceParser(BaseParser):
             return None
 
         def extract_amount_from_line(line):
-            line_clean = re.sub(r'\b\d+(?:\.\d+)?%', '', line)
-            line_clean = re.sub(r'\b\d{2}[-_./]\d{2}[-_./]\d{4}\b', '', line_clean)
-            
-            float_matches = re.findall(r'\$?(\d+\.\d+)', line_clean)
+            line_clean = re.sub(r"\b\d+(?:\.\d+)?%", "", line)
+            line_clean = re.sub(r"\b\d{2}[-_./]\d{2}[-_./]\d{4}\b", "", line_clean)
+
+            float_matches = re.findall(r"\$?(\d+\.\d+)", line_clean)
             for m in float_matches:
                 val = float(m)
                 if 0.01 <= val <= 2.0:
                     return val
-                    
-            digit_matches = re.findall(r'\b(\d{4,5})\b', line_clean)
+
+            digit_matches = re.findall(r"\b(\d{4,5})\b", line_clean)
             if not digit_matches:
-                digit_matches = re.findall(r'(\d{4,5})', line_clean)
-                
+                digit_matches = re.findall(r"(\d{4,5})", line_clean)
+
             for m in digit_matches:
                 if m in ["100", "500", "2000", "2024", "2025", "2026", "2027"]:
                     continue
-                if len(m) == 5 and m.startswith('9'):
-                    val = float('0.' + m[1:])
+                if len(m) == 5 and m.startswith("9"):
+                    val = float("0." + m[1:])
                     if 0.01 <= val <= 2.0:
                         return val
                 elif len(m) == 4:
-                    val = float('0.' + m)
+                    val = float("0." + m)
                     if 0.01 <= val <= 2.0:
                         return val
             return None
@@ -760,29 +960,51 @@ class DefianceParser(BaseParser):
 class NeosParser(BaseParser):
     def extract_data(self):
         results = {}
-        lines = self.text.split('\n')
+        lines = self.text.split("\n")
 
         # NEOS distribution announcements often have Tickers as standalone lines,
         # or followed by their name, then the amount on another line or same line.
-        
+
         # Valid Neos tickers are usually 4 or 5 uppercase characters.
         # Examples from screenshot: SPYI, QQQI, IWMI, NIHI, BTCI, NEHI, IYRI, IAUI, MLPI, XSPI, XQQI, XBCI, QQQH, SPYH, NLSI, HYBI, BNDI, TLTI, CSHI
-        
+
         current_ticker = None
         for line in lines:
             line = line.strip()
-            if not line: continue
+            if not line:
+                continue
 
             # Pattern for Ticker: standalone 4-5 uppercase chars that aren't common words
-            ticker_match = re.search(r'\b([A-Z]{4,5})\b', line)
-            
+            ticker_match = re.search(r"\b([A-Z]{4,5})\b", line)
+
             # Pattern for amount: $0.xxxx (at least 4 decimals)
-            amount_match = re.search(r'\$?(\d+\.\d{4,})', line)
+            amount_match = re.search(r"\$?(\d+\.\d{4,})", line)
 
             if ticker_match and not amount_match:
                 candidate = ticker_match.group(1)
                 # Exclusion list for non-tickers
-                if candidate not in ["NEOS", "FUND", "DATE", "RATE", "YIELD", "DIST", "NAV", "PAY", "REC", "TEST", "NET", "ASSET", "ROC", "MONTH", "YEAR", "HIGH", "BOND", "MARKET", "DAILY", "SHAR[...]"]:
+                if candidate not in [
+                    "NEOS",
+                    "FUND",
+                    "DATE",
+                    "RATE",
+                    "YIELD",
+                    "DIST",
+                    "NAV",
+                    "PAY",
+                    "REC",
+                    "TEST",
+                    "NET",
+                    "ASSET",
+                    "ROC",
+                    "MONTH",
+                    "YEAR",
+                    "HIGH",
+                    "BOND",
+                    "MARKET",
+                    "DAILY",
+                    "SHAR[...",
+                ]:
                     current_ticker = candidate
 
             if amount_match:
@@ -804,10 +1026,11 @@ def find_json_path(ticker):
         return Path(matches[0])
     return None
 
+
 def update_json(path, date_str, amount):
     """Apply an official amount and return an auditable outcome, never a bool."""
     try:
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         updated = False
@@ -816,12 +1039,12 @@ def update_json(path, date_str, amount):
         if isinstance(data, list):
             target_list = data
         elif isinstance(data, dict):
-            if 'backtestData' in data:
-                target_list = data['backtestData']
-            elif 'dividend_history' in data:
-                target_list = data['dividend_history']
-            elif 'dividends' in data:
-                target_list = data['dividends']
+            if "backtestData" in data:
+                target_list = data["backtestData"]
+            elif "dividend_history" in data:
+                target_list = data["dividend_history"]
+            elif "dividends" in data:
+                target_list = data["dividends"]
 
         if target_list is None:
             print(f"  [!] {path} 건너뜀: 지원하는 배당 내역 목록을 찾지 못함")
@@ -829,29 +1052,23 @@ def update_json(path, date_str, amount):
 
         matching_date_found = False
         for entry in target_list:
-            if entry.get('date') == date_str:
+            if entry.get("date") == date_str:
                 matching_date_found = True
-                if entry.get('expected') == True:
-                    del entry['expected']
-                    entry['amountFixed'] = amount
+                if entry.get("expected") == True:
+                    del entry["expected"]
+                    entry["amountFixed"] = amount
                     updated = True
                     print(f"  [+] {path.name} 업데이트됨: {date_str} → {amount}")
-                elif 'amountFixed' in entry:
+                elif "amountFixed" in entry:
                     # Skip overwriting existing values
-                    if abs(entry['amountFixed'] - amount) > 0.0001:
+                    if abs(entry["amountFixed"] - amount) > 0.0001:
                         print(f"  [!] {path.name} 건너뜀: {date_str}에 이미 {entry['amountFixed']} 존재 (새 값: {amount})")
                         return UpdateOutcome(path.stem.upper(), "conflicting_confirmed_amount", f"existing={entry['amountFixed']}; incoming={amount}; date={date_str}", amount)
                     else:
                         print(f"  [i] {path.name}: {date_str}의 배당금이 이미 반영됨")
                         return UpdateOutcome(path.stem.upper(), "already_applied", f"date={date_str}", amount)
                 else:
-                    # A row in the ticker's own data file is enough to attach an
-                    # official OCR amount.  Some newly onboarded YieldMax
-                    # tickers use `forecasted` rather than `expected`; requiring
-                    # the latter would silently drop a confirmed amount.  The
-                    # existing amountFixed conflict guard above still prevents
-                    # overwriting a confirmed value.
-                    entry['amountFixed'] = amount
+                    entry["amountFixed"] = amount
                     updated = True
                     print(f"  [+] {path.name} 업데이트됨: {date_str} → {amount}")
 
@@ -860,7 +1077,7 @@ def update_json(path, date_str, amount):
             return UpdateOutcome(path.stem.upper(), "missing_distribution_row", f"date={date_str} does not exist", amount)
 
         if updated:
-            with open(path, 'w', encoding='utf-8') as f:
+            with open(path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
             return UpdateOutcome(path.stem.upper(), "updated", f"date={date_str}", amount)
@@ -872,8 +1089,17 @@ def update_json(path, date_str, amount):
     return UpdateOutcome(path.stem.upper(), "missing_distribution_row", f"no applicable row for date={date_str}", amount)
 
 
-def write_review_summary(outcomes):
-    """Write CI-visible machine and human review summaries outside public/data."""
+def write_review_summary(outcomes, skip_missing_distribution_row=False):
+    """Write CI-visible machine and human review summaries outside public/data.
+
+    Returns (payload, skipped) where skipped is a list of UpdateOutcome objects
+    with status == 'missing_distribution_row' (for use in step summaries).
+    """
+    def is_blocking(outcome):
+        if skip_missing_distribution_row and outcome.status == "missing_distribution_row":
+            return False
+        return outcome.status in BLOCKING_REVIEW_STATUSES
+
     payload = {
         "outcomes": [
             {
@@ -884,7 +1110,7 @@ def write_review_summary(outcomes):
             }
             for outcome in outcomes
         ],
-        "blocking": any(outcome.status in BLOCKING_REVIEW_STATUSES for outcome in outcomes),
+        "blocking": any(is_blocking(outcome) for outcome in outcomes),
     }
     Path("distribution-update-review.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
@@ -895,7 +1121,10 @@ def write_review_summary(outcomes):
         amount = "" if outcome.amount is None else f"; amount={outcome.amount}"
         lines.append(f"- `{outcome.status}` `{outcome.ticker}` — {outcome.detail}{amount}")
     Path("distribution-update-review.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return payload
+
+    skipped = [o for o in outcomes if o.status == "missing_distribution_row"]
+    return payload, skipped
+
 
 def main():
     parser_args = argparse.ArgumentParser()
@@ -904,7 +1133,16 @@ def main():
         type=Path,
         help="Write OCR-extracted ticker symbols and stop before reading public/data.",
     )
-    args = parser_args.parse_args()
+    parser_args.add_argument(
+        "--skip-missing-distribution-row",
+        action="store_true",
+        help="Treat missing_distribution_row outcomes as non-blocking so the workflow can proceed when a ticker lacks the expected date row.",
+    )
+    # Be tolerant of callers that may pass flags the local script doesn't (yet) recognize.
+    # parse_known_args allows the workflow to pass the new flag while older local
+    # copies (or tests) won't fail if they don't declare it.
+    args, _ = parser_args.parse_known_args()
+
     if not setup_tesseract():
         print("[!] Tesseract OCR을 찾지 못했습니다.")
         sys.exit(1)
@@ -960,17 +1198,13 @@ def main():
             with open(OCR_DEBUG_PATH, "a", encoding="utf-8") as f:
                 f.write(f"\n--- {img_path.name} ---\n")
                 f.write(text)
-                f.write("\n" + "="*30 + "\n")
+                f.write("\n" + "=" * 30 + "\n")
         except Exception as e:
             print(f"  [!] 디버그 로그 쓰기 실패: {e}")
 
         filename_lower = img_path.name.lower()
         parser_type = next(
-            (
-                parser
-                for provider, parser in PARSER_TYPES.items()
-                if provider in filename_lower
-            ),
+            (parser for provider, parser in PARSER_TYPES.items() if provider in filename_lower),
             None,
         )
         if parser_type is None:
@@ -988,9 +1222,7 @@ def main():
 
         data_map = parser.extract_data()
         for issue in parser.issues:
-            outcomes.append(UpdateOutcome(
-                issue["ticker"], issue["status"], issue["detail"]
-            ))
+            outcomes.append(UpdateOutcome(issue["ticker"], issue["status"], issue["detail"]))
         if not data_map:
             print(f"  [!] 티커와 배당금을 추출하지 못함: {img_path.name}")
             continue
@@ -1013,14 +1245,8 @@ def main():
                     updated_entries += 1
             else:
                 print(f"  [!] {ticker}에 해당하는 JSON 파일을 {DATA_DIR}에서 찾지 못함")
-                status = (
-                    "missing_registration"
-                    if ticker.upper() in YIELDMAX_TICKER_REGISTRY
-                    else "unknown_ocr_token"
-                )
-                outcomes.append(UpdateOutcome(
-                    ticker.upper(), status, "no registered public/data JSON", amount
-                ))
+                status = "missing_registration" if ticker.upper() in YIELDMAX_TICKER_REGISTRY else "unknown_ocr_token"
+                outcomes.append(UpdateOutcome(ticker.upper(), status, "no registered public/data JSON", amount))
 
     if args.ticker_output:
         args.ticker_output.write_text(
@@ -1029,7 +1255,10 @@ def main():
         )
         print(f"  JSON hydration targets: {len(extracted_symbols)}")
 
-    review = write_review_summary(outcomes)
+    # Pass the CLI flag into the review logic so missing_distribution_row can be
+    # treated as non-blocking when requested. write_review_summary returns both
+    # the machine-readable payload and the list of skipped items for summary output.
+    review, skipped = write_review_summary(outcomes, skip_missing_distribution_row=getattr(args, "skip_missing_distribution_row", False))
 
     print("\n" + "=" * 60)
     print("배당 스크린샷 처리 요약")
@@ -1040,6 +1269,18 @@ def main():
     print(f"  업데이트한 배당 항목: {updated_entries}")
     print(f"  검토 필요 항목: {sum(1 for outcome in outcomes if outcome.status in BLOCKING_REVIEW_STATUSES)}")
 
+    # If running in GitHub Actions, append skipped items summary to the step summary.
+    github_step_summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if github_step_summary and skipped:
+        try:
+            with open(github_step_summary, "a", encoding="utf-8") as f:
+                f.write("\n## Skipped: missing distribution rows\n\n")
+                for o in skipped:
+                    amount = "" if o.amount is None else f"; amount={o.amount}"
+                    f.write(f"- `{o.ticker}` — {o.detail}{amount}\n")
+        except Exception as e:
+            print(f"  [!] GITHUB_STEP_SUMMARY 쓰기 실패: {e}")
+
     # Discovery deliberately exits successfully so the workflow can hydrate
     # known files. The update pass must fail before format/upload/commit if an
     # OCR result still needs a human or official-source correction.
@@ -1048,14 +1289,16 @@ def main():
         sys.exit(2)
 
 
-PARSER_TYPES.update({
-    "roundhill": RoundHillParser,
-    "yieldmax": YieldMaxParser,
-    "rex": RexParser,
-    "graniteshares": GranitesharesParser,
-    "defiance": DefianceParser,
-    "neos": NeosParser,
-})
+PARSER_TYPES.update(
+    {
+        "roundhill": RoundHillParser,
+        "yieldmax": YieldMaxParser,
+        "rex": RexParser,
+        "graniteshares": GranitesharesParser,
+        "defiance": DefianceParser,
+        "neos": NeosParser,
+    }
+)
 
 
 def normalize_provider_ticker(parser_type, ticker):
