@@ -5,6 +5,9 @@ import re
 import sys
 import json
 import glob
+import math
+from decimal import Decimal
+from datetime import date
 import pytesseract
 from PIL import Image
 from pathlib import Path
@@ -21,7 +24,7 @@ PARSER_TYPES = {}
 # repository-wide ticker alias map: a short OCR token can be a valid symbol for
 # a different issuer.
 YIELDMAX_TICKER_REGISTRY = {
-    "YQQQ": {"aliases": {"YEOQ", "YEQQ", "YAAA", "YAAQ", "YOQOO", "YOQQQ"}},
+    "YQQQ": {"aliases": {"YEOQ", "YEQQ", "YAAA", "YAAQ", "YOQOO", "YOQQQ", "YQ0Q"}},
     "SDTY": {"aliases": {"SDTV", "SPTY"}},
     "YMAG": {"aliases": {"VMAG", "VM", "LDMAX"}},
     "HOOY": {"aliases": {"HOOYY"}},
@@ -29,6 +32,8 @@ YIELDMAX_TICKER_REGISTRY = {
     "INYY": {"aliases": set()},
     "YSPC": {"aliases": set()},
     "YRAM": {"aliases": set()},
+    "MUY": {"aliases": set()},
+    "CVNY": {"aliases": {"CCVNY"}},
 }
 
 # These Target 12 rows are published together in this exact order.  The OCR
@@ -52,9 +57,14 @@ class UpdateOutcome:
     status: str
     detail: str
     amount: float | None = None
+    source: str | None = None
+    date: str | None = None
+    raw_text: str | None = None
 
 
 BLOCKING_REVIEW_STATUSES = {
+    "extraction_failed",
+    "data_error",
     "missing_registration",
     "missing_distribution_row",
     "ambiguous_mapping",
@@ -89,6 +99,7 @@ class BaseParser:
         self.text = text
         self.filename = filename
         self.issues = []
+        self.raw_rows = {}
 
     def parse_date(self):
         # Try YYYY-MM-DD
@@ -217,11 +228,9 @@ class RoundHillParser(BaseParser):
 
 # YieldMax Parser
 class YieldMaxParser(BaseParser):
-    # YieldMax publishes the weekly table in this order. Keeping the order in
-    # one place lets us recover rows whose ticker cell is lost by OCR while
-    # still pairing each value with the correct Distribution per Share row.
-    # 2026-07-30 added INYY and YSPC.
-    CANONICAL_WEEKLY_TICKERS = [
+    # Membership helps identify incomplete OCR rows. Order is never used
+    # to assign amounts: issuer tables change as funds launch or move groups.
+    KNOWN_TICKERS = [
         "AIYY",
         "AMDY",
         "AMZY",
@@ -469,246 +478,119 @@ class YieldMaxParser(BaseParser):
     }
 
     def extract_data(self):
+        """Pair a ticker with its own row, never with a historical roster."""
+        self.issues = []
+        self.raw_rows = {}
         results = {}
-        lines = self.text.split("\n")
+        lines = self.text.splitlines()
 
-        # Target 12 is a separate monthly table, not the weekly canonical
-        # roster.  Its OCR frequently reads BIGY/RNTY as BI?/GOUGE.  Only use
-        # positional recovery when the table heading and all three amounts are
-        # both present; otherwise GOUGE remains a review item.
+        def issue(token, detail, line):
+            self.issues.append({
+                "status": "ambiguous_mapping",
+                "ticker": token,
+                "detail": detail,
+                "raw_text": line,
+            })
+
+        # Target 12 has a separate, context-qualified three-row recovery path.
         if "target 12" in self.text.lower():
-            target_amounts = []
-            for line in lines:
-                amount_match = re.search(r"(?:\$|§)?(\d+\.\d{4})\b", line)
-                if amount_match:
-                    target_amounts.append(float(amount_match.group(1)))
-            if len(target_amounts) == len(YIELDMAX_TARGET_12_MONTHLY_ORDER):
-                return dict(zip(YIELDMAX_TARGET_12_MONTHLY_ORDER, target_amounts))
-            if any("gouge" in line.lower() for line in lines):
-                self.issues.append(
-                    {
-                        "status": "ambiguous_mapping",
-                        "ticker": "GOUGE",
-                        "detail": "Target 12 table did not contain all three distribution amounts",
-                    }
-                )
+            monthly_rows = [
+                (line, re.search(r"(?:\$|§)?(\d+\.\d{4})\b", line))
+                for line in lines
+            ]
+            monthly_rows = [(line, match) for line, match in monthly_rows if match]
+            if len(monthly_rows) == len(YIELDMAX_TARGET_12_MONTHLY_ORDER):
+                for ticker, (line, match) in zip(YIELDMAX_TARGET_12_MONTHLY_ORDER, monthly_rows):
+                    results[ticker] = float(match.group(1))
+                    self.raw_rows[ticker] = line
                 return results
+            issue("GOUGE", "Target 12 requires the complete three-row table", self.text)
+            return results
 
-        # The current YieldMax image is a wide, bordered table. With Tesseract
-        # PSM 6 each visual row remains one OCR line, but several ticker cells
-        # are still garbled. Amounts are read reliably and remain in table
-        # order, so prefer a complete positional mapping over partial matches.
-        ordered_amounts = []
-        for line in lines:
-            amt_match = re.search(r"(\d+\.\d{4})\b", line)
-            if amt_match:
-                amount = float(amt_match.group(1))
-                if amount < 5.0:
-                    ordered_amounts.append(amount)
-
-        if len(ordered_amounts) == len(self.CANONICAL_WEEKLY_TICKERS):
-            return dict(zip(self.CANONICAL_WEEKLY_TICKERS, ordered_amounts))
+        known = set(self.KNOWN_TICKERS) | set(YIELDMAX_TICKER_REGISTRY)
+        known.update(self.OCR_CORRECTIONS.values())
+        known.update({"MSST", "NVIT", "TEST", "MINY", "YMAX", "BIGY", "RNTY", "SOXY"})
+        stopwords = {"YIELD", "ETF", "THE", "AND", "FOR", "SEE", "DATE",
+                     "FUND", "NAME", "NAV", "RATE", "SHARE", "TOTAL",
+                     "WEEKL", "WEEKLY", "MONTHLY", "DAILY", "YI"}
 
         for line in lines:
-            clean_line = line.strip()
-            if not clean_line:
+            clean = line.strip()
+            if not clean:
                 continue
-
-            # Strategy 1: Look for line starting with ticker or corrected ticker
-            parts = clean_line.split()
-            valid_ticker = None
-
-            if parts:
-                raw_first = (
-                    parts[0]
-                    .replace("_", "")
-                    .replace(",", "")
-                    .replace(":", "")
-                    .replace("|", "")
-                    .replace("[", "")
-                    .replace("*", "")
-                    .strip()
-                )
-                first_token = raw_first.upper()
-
-                # Check OCR_CORRECTIONS first (case-sensitive or upper)
-                if raw_first in self.OCR_CORRECTIONS:
-                    valid_ticker = self.OCR_CORRECTIONS[raw_first]
-                elif first_token in self.OCR_CORRECTIONS:
-                    valid_ticker = self.OCR_CORRECTIONS[first_token]
-                elif normalize_yieldmax_ticker(first_token):
-                    valid_ticker = normalize_yieldmax_ticker(first_token)
-                elif first_token == "GOUGE":
-                    self.issues.append(
-                        {
-                            "status": "ambiguous_mapping",
-                            "ticker": "GOUGE",
-                            "detail": "GOUGE requires Target 12 table context before it can map to RNTY",
-                        }
-                    )
-                    continue
-                elif 2 <= len(first_token) <= 5 and first_token.isalpha():
-                    if first_token not in [
-                        "YIELD",
-                        "ETF",
-                        "THE",
-                        "AND",
-                        "FOR",
-                        "SEE",
-                        "DATE",
-                        "YI",
-                        "YI_",
-                        "WEEKL",
-                        "WEEKLY",
-                    ]:
-                        valid_ticker = first_token
-
-            if not valid_ticker:
+            raw = clean.split()[0].strip("_,:|[]*()?'\\\"“”‘’")
+            token = raw.upper()
+            ticker = self.OCR_CORRECTIONS.get(raw, self.OCR_CORRECTIONS.get(token, token))
+            ticker = normalize_yieldmax_ticker(ticker) or ticker
+            is_ticker = ticker in known or (
+                re.fullmatch(r"[A-Z]{2,5}", ticker) and ticker not in stopwords
+            )
+            # Prefer the dollar-labelled distribution cell. An unlabelled
+            # four-decimal value is accepted only when it is not a percentage.
+            amounts = re.findall(r"(?:\$|§)\s*(\d+\.\d{4,})\b", clean)
+            if not amounts:
+                amounts = re.findall(r"(?<![\w.])(\d+\.\d{4,})(?![\d.]|\s*%)", clean)
+            distribution_row = bool(amounts) or ticker in known or (
+                is_ticker and re.search(r"\b(?:weekly|monthly)\b", clean, re.IGNORECASE)
+            )
+            if not distribution_row:
                 continue
-
-            corrected_ticker = self.OCR_CORRECTIONS.get(valid_ticker, valid_ticker)
-            corrected_ticker = normalize_yieldmax_ticker(corrected_ticker) or corrected_ticker
-
-            # Look for distribution amount ($0.xxxx, §0.xxxx, 0.xxxx)
-            amt_match = re.search(r"(?:\$|§)?(\d+\.\d{4})\b", clean_line)
-            if amt_match:
-                val = float(amt_match.group(1))
-                if val < 5.0:
-                    results[corrected_ticker] = val
-
-        # Strategy 2: Columnar format / fallback using the canonical list
-        if not results:
-            tickers_list = []
-            amounts_list = []
-
-            # Known YieldMax Weekly ETF tickers in alphabetical order (as appears in table).
-            # Updated 2026-07-30: INYY(INTC), YSPC added -> 42 items
-            stopwords = {
-                "YIELDMAX",
-                "ETF",
-                "TICKER",
-                "FUND",
-                "DATE",
-                "VAL",
-                "TEST",
-                "WEEKLY",
-                "DAILY",
-                "MONTHLY",
-                "ROC",
-                "SEC",
-                "YIELD",
-                "DAY",
-                "RATE",
-                "PER",
-                "SHARE",
-                "WELD",
-                "MIAN",
-                "MELD",
-                "MAX",
-                "DORSEY",
-                "WRIGHT",
-                "OPTION",
-                "INCOME",
-                "ODTE",
-                "COVERED",
-                "CALL",
-                "ULTRA",
-                "SHORT",
-                "TECH",
-                "CRYPTO",
-                "NAME",
-                "FECH",
-                "ORIG",
-                "VELIE",
-                "ULTA",
-                "SHERE",
-                "MERT",
-                "ETFS",
-                "WEIGHT",
-                "THE",
-                "AND",
-                "FOR",
-                "SEE",
-                "NAV",
-                "DIST",
-                "PAY",
-                "REC",
-            }
-
-            seen_tickers = set()
-
-            for line in lines:
-                clean_line = line.strip()
-                if not clean_line:
-                    continue
-
-                amt_match = re.search(r"(?:^|\s)(?:\$|50\.|§)?(\d+\.\d{4})\b", clean_line)
-                if amt_match:
-                    val = float(amt_match.group(1))
-                    dec = amt_match.group(1).split(".")[1]
-                    if val >= 5.0 and len(dec) == 4:
-                        val = float(f"0.{dec}")
-                    if val < 5.0:
-                        amounts_list.append(val)
-                        continue
-
-                words = clean_line.split()
-                if words:
-                    raw_token = (
-                        words[0]
-                        .replace("_", "")
-                        .replace(",", "")
-                        .replace(":", "")
-                        .replace("|", "")
-                        .replace("(", "")
-                        .replace(")", "")
-                        .replace("?", "")
-                    )
-                    token = raw_token.upper().replace("\u201c", "").replace("\u201d", "").replace(
-                        "\u2018", ""
-                    ).replace("\u2019", "").replace('"', "").replace("'", "")
-
-                    corrected = self.OCR_CORRECTIONS.get(raw_token, self.OCR_CORRECTIONS.get(token, token))
-                    corrected = normalize_yieldmax_ticker(corrected) or corrected
-
-                    if token == "GOUGE":
-                        self.issues.append(
-                            {
-                                "status": "ambiguous_mapping",
-                                "ticker": "GOUGE",
-                                "detail": "GOUGE requires Target 12 table context before it can map to RNTY",
-                            }
-                        )
-                        continue
-
-                    if corrected in self.OCR_CORRECTIONS.values():
-                        if corrected not in seen_tickers:
-                            tickers_list.append(corrected)
-                            seen_tickers.add(corrected)
-                    elif 2 <= len(token) <= 5 and token.isalpha():
-                        if token not in stopwords and token not in seen_tickers:
-                            tickers_list.append(token)
-                            seen_tickers.add(token)
-
-            print(f"  [i] 열 형식: {self.filename}에서 티커 {len(tickers_list)}개, 금액 {len(amounts_list)}개 감지")
-
-            if len(amounts_list) == len(self.CANONICAL_WEEKLY_TICKERS):
-                print(f"  [i] {self.filename}: 정규 {len(self.CANONICAL_WEEKLY_TICKERS)}종목 목록 사용")
-                for i, ticker in enumerate(self.CANONICAL_WEEKLY_TICKERS):
-                    results[ticker] = amounts_list[i]
-            else:
-                if len(tickers_list) != len(amounts_list):
-                    print(
-                        f"  [!] {self.filename} 열 불일치: 티커 {len(tickers_list)}개 vs 금액 {len(amounts_list)}개 - 앞 {min(len(tickers_list), len(amounts_list))}개만 매핑"
-                    )
-                min_len = min(len(tickers_list), len(amounts_list))
-                for i in range(min_len):
-                    results[tickers_list[i]] = amounts_list[i]
-
+            if not is_ticker or token == "GOUGE":
+                issue(token, "Distribution amount has no unambiguous ticker on the same row", line)
+                continue
+            if len(amounts) != 1:
+                issue(ticker, "Expected exactly one distribution amount on the ticker row", line)
+                continue
+            value = float(amounts[0])
+            if not math.isfinite(value):
+                issue(ticker, "Invalid distribution amount", line)
+                continue
+            if ticker in results and results[ticker] != value:
+                issue(ticker, f"Conflicting duplicate OCR rows: {results[ticker]} vs {value}", line)
+                continue
+            results[ticker] = value
+            self.raw_rows[ticker] = line
         return results
 
 
-# Rex Parser
+def recover_yieldmax_visual_rows(image):
+    """Recover sparse OCR only from tokens sharing a visual row.
+
+    PSM 6 can merge or lose amount cells in short Target 25 tables. PSM 11
+    recognizes those cells independently; coordinates establish their row
+    relationship without relying on a ticker list or table order.
+    """
+    words = pytesseract.image_to_data(
+        image, config="--psm 11", output_type=pytesseract.Output.DICT
+    )
+    tokens = [
+        (text.strip(), words["left"][i], words["top"][i],
+         words["width"][i], words["height"][i])
+        for i, text in enumerate(words["text"]) if text.strip()
+    ]
+    tickers = [word for word in tokens if word[1] < image.width * 0.12
+               and re.fullmatch(r"\*?[A-Za-z]{2,5}", word[0])]
+    amounts = [word for word in tokens if re.fullmatch(r"[$§]\d+\.\d{4,}", word[0])]
+    rows = []
+    used = set()
+    for amount in amounts:
+        center = amount[2] + amount[4] / 2
+        matches = [
+            (i, word) for i, word in enumerate(tickers)
+            if word[1] + word[3] < amount[1]
+            and abs(word[2] + word[4] / 2 - center) <= max(word[4], amount[4]) * 0.75
+        ]
+        if len(matches) != 1 or matches[0][0] in used:
+            return None
+        i, ticker = matches[0]
+        used.add(i)
+        rows.append((center, f"{ticker[0]} Weekly {amount[0]}"))
+    # Do not accept a fallback which silently loses a ticker or an amount.
+    if not rows or len(used) != len(tickers):
+        return None
+    return "\n".join(row for _, row in sorted(rows))
+
+
 class RexParser(BaseParser):
     # OCR often misreads REX tickers as underlying stock symbols
     # Map: OCR_result → Actual_REX_ticker
@@ -1027,66 +909,46 @@ def find_json_path(ticker):
     return None
 
 
-def update_json(path, date_str, amount):
-    """Apply an official amount and return an auditable outcome, never a bool."""
+def update_json(path, date_str, amount, *, dry_run=False):
+    """Validate before writing; confirmed values always take precedence."""
+    ticker = path.stem.upper()
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        updated = False
-        target_list = None
-
+        if not math.isfinite(amount) or amount < 0:
+            return UpdateOutcome(ticker, "data_error", "invalid incoming amount", amount)
+        with path.open(encoding="utf-8") as handle:
+            data = json.load(handle)
         if isinstance(data, list):
-            target_list = data
-        elif isinstance(data, dict):
-            if "backtestData" in data:
-                target_list = data["backtestData"]
-            elif "dividend_history" in data:
-                target_list = data["dividend_history"]
-            elif "dividends" in data:
-                target_list = data["dividends"]
-
-        if target_list is None:
-            print(f"  [!] {path} 건너뜀: 지원하는 배당 내역 목록을 찾지 못함")
-            return UpdateOutcome(path.stem.upper(), "missing_distribution_row", "unsupported dividend history shape", amount)
-
-        matching_date_found = False
-        for entry in target_list:
-            if entry.get("date") == date_str:
-                matching_date_found = True
-                if entry.get("expected") == True:
-                    del entry["expected"]
-                    entry["amountFixed"] = amount
-                    updated = True
-                    print(f"  [+] {path.name} 업데이트됨: {date_str} → {amount}")
-                elif "amountFixed" in entry:
-                    # Skip overwriting existing values
-                    if abs(entry["amountFixed"] - amount) > 0.0001:
-                        print(f"  [!] {path.name} 건너뜀: {date_str}에 이미 {entry['amountFixed']} 존재 (새 값: {amount})")
-                        return UpdateOutcome(path.stem.upper(), "conflicting_confirmed_amount", f"existing={entry['amountFixed']}; incoming={amount}; date={date_str}", amount)
-                    else:
-                        print(f"  [i] {path.name}: {date_str}의 배당금이 이미 반영됨")
-                        return UpdateOutcome(path.stem.upper(), "already_applied", f"date={date_str}", amount)
-                else:
-                    entry["amountFixed"] = amount
-                    updated = True
-                    print(f"  [+] {path.name} 업데이트됨: {date_str} → {amount}")
-
-        if not matching_date_found:
-            print(f"  [!] {path.name} 건너뜀: {date_str} 날짜의 배당 내역을 찾지 못함")
-            return UpdateOutcome(path.stem.upper(), "missing_distribution_row", f"date={date_str} does not exist", amount)
-
-        if updated:
-            with open(path, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
-
-            return UpdateOutcome(path.stem.upper(), "updated", f"date={date_str}", amount)
-
-    except Exception as e:
-        print(f"  [!] {path} 읽기/쓰기 오류: {e}")
-        return UpdateOutcome(path.stem.upper(), "missing_distribution_row", f"read/write error: {e}", amount)
-
-    return UpdateOutcome(path.stem.upper(), "missing_distribution_row", f"no applicable row for date={date_str}", amount)
+            rows = data
+        else:
+            rows = next((data[key] for key in ("backtestData", "dividend_history", "dividends")
+                         if key in data), None)
+        if not isinstance(rows, list):
+            return UpdateOutcome(ticker, "data_error", "unsupported dividend history shape", amount)
+        matches = [row for row in rows if row.get("date") == date_str]
+        if not matches:
+            return UpdateOutcome(ticker, "missing_distribution_row",
+                                 f"date={date_str} does not exist", amount)
+        if len(matches) != 1:
+            return UpdateOutcome(ticker, "ambiguous_mapping",
+                                 f"duplicate distribution rows for date={date_str}", amount)
+        entry = matches[0]
+        # Even expected=true must never bypass an existing confirmed amount.
+        if "amountFixed" in entry:
+            if Decimal(str(entry["amountFixed"])) != Decimal(str(amount)):
+                return UpdateOutcome(
+                    ticker, "conflicting_confirmed_amount",
+                    f"existing={entry['amountFixed']}; incoming={amount}; date={date_str}", amount
+                )
+            return UpdateOutcome(ticker, "already_applied", f"date={date_str}", amount)
+        if not dry_run:
+            entry.pop("expected", None)
+            entry["amountFixed"] = amount
+            with path.open("w", encoding="utf-8") as handle:
+                json.dump(data, handle, indent=2, ensure_ascii=False)
+            print(f"  [+] {path.name}: {date_str} -> {amount}")
+        return UpdateOutcome(ticker, "updated", f"date={date_str}", amount)
+    except Exception as exc:
+        return UpdateOutcome(ticker, "data_error", f"read/write error: {exc}", amount)
 
 
 def write_review_summary(outcomes, skip_missing_distribution_row=False):
@@ -1107,6 +969,9 @@ def write_review_summary(outcomes, skip_missing_distribution_row=False):
                 "status": outcome.status,
                 "detail": outcome.detail,
                 "amount": outcome.amount,
+                "source": outcome.source,
+                "date": outcome.date,
+                "raw_text": outcome.raw_text,
             }
             for outcome in outcomes
         ],
@@ -1119,7 +984,10 @@ def write_review_summary(outcomes, skip_missing_distribution_row=False):
     lines = ["## Distribution OCR review", ""]
     for outcome in outcomes:
         amount = "" if outcome.amount is None else f"; amount={outcome.amount}"
-        lines.append(f"- `{outcome.status}` `{outcome.ticker}` — {outcome.detail}{amount}")
+        context = f"; source={outcome.source}; date={outcome.date}" if outcome.source else ""
+        lines.append(f"- `{outcome.status}` `{outcome.ticker}` — {outcome.detail}{amount}{context}")
+        if outcome.raw_text:
+            lines.append("  OCR: " + outcome.raw_text.replace("\n", " | ").replace("\r", ""))
     Path("distribution-update-review.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     skipped = [o for o in outcomes if o.status == "missing_distribution_row"]
@@ -1128,165 +996,144 @@ def write_review_summary(outcomes, skip_missing_distribution_row=False):
 
 def main():
     parser_args = argparse.ArgumentParser()
-    parser_args.add_argument(
-        "--ticker-output",
-        type=Path,
-        help="Write OCR-extracted ticker symbols and stop before reading public/data.",
-    )
-    parser_args.add_argument(
-        "--skip-missing-distribution-row",
-        action="store_true",
-        help="Treat missing_distribution_row outcomes as non-blocking so the workflow can proceed when a ticker lacks the expected date row.",
-    )
-    # Be tolerant of callers that may pass flags the local script doesn't (yet) recognize.
-    # parse_known_args allows the workflow to pass the new flag while older local
-    # copies (or tests) won't fail if they don't declare it.
-    args, _ = parser_args.parse_known_args()
-
-    if not setup_tesseract():
-        print("[!] Tesseract OCR을 찾지 못했습니다.")
-        sys.exit(1)
-
+    parser_args.add_argument("--ticker-output", type=Path,
+                             help="Discover canonical tickers without changing data.")
+    parser_args.add_argument("--skip-missing-distribution-row", action="store_true",
+                             help="Skip missing dates only; mapping and confirmed-value conflicts still block.")
+    args = parser_args.parse_args()
     if not SCREENSHOT_DIR.is_dir():
-        print(f"[!] 스크린샷 폴더를 찾지 못했습니다: {SCREENSHOT_DIR}")
-        return
-
+        raise SystemExit(f"Screenshot directory not found: {SCREENSHOT_DIR}")
     image_files = sorted(
-        (
-            path
-            for path in SCREENSHOT_DIR.iterdir()
-            if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS
-        ),
+        (path for path in SCREENSHOT_DIR.iterdir()
+         if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS),
         key=lambda path: path.name.lower(),
     )
-
     if not image_files:
-        print(f"[!] 지원하는 스크린샷 파일이 없습니다: {SCREENSHOT_DIR}")
-        return
+        raise SystemExit("No supported screenshots found")
+    if any(path.suffix.lower() != ".txt" for path in image_files) and not setup_tesseract():
+        raise SystemExit("Tesseract OCR not found")
 
-    try:
-        OCR_DEBUG_PATH.unlink(missing_ok=True)
-    except OSError as e:
-        print(f"[!] 이전 OCR 디버그 로그 삭제 실패: {e}")
-
-    processed_files = 0
-    recognized_files = 0
-    extracted_tickers = 0
-    updated_entries = 0
-    extracted_symbols = set()
+    OCR_DEBUG_PATH.unlink(missing_ok=True)
     outcomes = []
-
+    pending = []
+    symbols = set()
+    seen_events = {}
+    recognized = 0
+    extracted = 0
     for img_path in image_files:
-        print(f"\n{img_path.name} 처리 중...")
-        processed_files += 1
+        parser_type = next((kind for provider, kind in PARSER_TYPES.items()
+                            if provider in img_path.name.lower()), None)
+        if parser_type is None:
+            continue
+        recognized += 1
+        text = ""
         try:
             if img_path.suffix.lower() == ".txt":
-                with open(img_path, "r", encoding="utf-8") as f:
-                    text = f.read()
+                text = img_path.read_text(encoding="utf-8")
             else:
-                # YieldMax uses a single wide table. PSM 6 preserves its visual
-                # row order for reliable ticker/value pairing.
-                ocr_config = "--psm 6" if "yieldmax" in img_path.name.lower() else ""
+                config = "--psm 6" if parser_type is YieldMaxParser else ""
                 with Image.open(img_path) as image:
-                    text = pytesseract.image_to_string(image, config=ocr_config)
-        except Exception as e:
-            print(f"  [!] {img_path.name} 이미지 읽기/처리 실패: {e}")
+                    text = pytesseract.image_to_string(image, config=config)
+            parser = parser_type(text, img_path.name)
+            date_str = parser.parse_date()
+            if date_str:
+                date.fromisoformat(date_str)
+            data_map = parser.extract_data()
+            # Sparse tables may defeat PSM 6. Recovery must establish a unique
+            # visual row for every ticker and amount; it never uses roster order.
+            if (parser_type is YieldMaxParser and parser.issues
+                    and img_path.suffix.lower() != ".txt"
+                    and "target 12" not in text.lower()):
+                with Image.open(img_path) as image:
+                    recovered_text = recover_yieldmax_visual_rows(image)
+                if recovered_text:
+                    recovered = parser_type(recovered_text, img_path.name)
+                    recovered_map = recovered.extract_data()
+                    required = set(data_map) | {issue["ticker"] for issue in parser.issues}
+                    if (not recovered.issues and required <= recovered_map.keys()
+                            and all(recovered_map[key] == value for key, value in data_map.items())):
+                        parser, data_map = recovered, recovered_map
+                        text += "\n--- coordinate-verified rows ---\n" + recovered_text
+            with OCR_DEBUG_PATH.open("a", encoding="utf-8") as handle:
+                handle.write(f"\n--- {img_path.name} ---\n{text}\n")
+        except Exception as exc:
+            outcomes.append(UpdateOutcome(
+                "", "extraction_failed", str(exc), source=img_path.name, raw_text=text
+            ))
             continue
 
-        # Debug: Save OCR output to file
-        try:
-            with open(OCR_DEBUG_PATH, "a", encoding="utf-8") as f:
-                f.write(f"\n--- {img_path.name} ---\n")
-                f.write(text)
-                f.write("\n" + "=" * 30 + "\n")
-        except Exception as e:
-            print(f"  [!] 디버그 로그 쓰기 실패: {e}")
-
-        filename_lower = img_path.name.lower()
-        parser_type = next(
-            (parser for provider, parser in PARSER_TYPES.items() if provider in filename_lower),
-            None,
-        )
-        if parser_type is None:
-            print(f"  [!] 지원하지 않는 운용사 파일명: {img_path.name}")
-            continue
-
-        recognized_files += 1
-        parser = parser_type(text, img_path.name)
-        date_str = parser.parse_date()
-
-        if not date_str:
-            print(f"  [!] 날짜를 인식하지 못함: {img_path.name}")
-            continue
-        print(f"  날짜: {date_str}")
-
-        data_map = parser.extract_data()
         for issue in parser.issues:
-            outcomes.append(UpdateOutcome(issue["ticker"], issue["status"], issue["detail"]))
-        if not data_map:
-            print(f"  [!] 티커와 배당금을 추출하지 못함: {img_path.name}")
+            outcomes.append(UpdateOutcome(
+                issue["ticker"], issue["status"], issue["detail"],
+                source=img_path.name, date=date_str, raw_text=issue.get("raw_text", text)
+            ))
+        if not date_str or not data_map:
+            outcomes.append(UpdateOutcome(
+                "", "extraction_failed", "Missing date or no safely paired distribution rows",
+                source=img_path.name, date=date_str, raw_text=text
+            ))
             continue
-
-        extracted_tickers += len(data_map)
-        for ticker, amount in data_map.items():
-            # Keep discovery and update passes on the same canonical ticker.
-            # This guards against an OCR alias escaping a parser fallback and
-            # being hydrated as a nonexistent JSON filename (for example,
-            # YieldMax YEQQ instead of YQQQ).
-            ticker = normalize_provider_ticker(parser_type, ticker)
-            extracted_symbols.add(ticker)
+        extracted += len(data_map)
+        for raw_ticker, amount in data_map.items():
+            ticker = normalize_provider_ticker(parser_type, raw_ticker)
+            symbols.add(ticker)
+            raw_text = parser.raw_rows.get(raw_ticker, text)
+            event_key = (ticker, date_str)
+            if event_key in seen_events and seen_events[event_key] != amount:
+                outcomes.append(UpdateOutcome(
+                    ticker, "ambiguous_mapping", "Screenshots disagree on the same ticker/date",
+                    amount, img_path.name, date_str, raw_text
+                ))
+                continue
+            seen_events[event_key] = amount
             if args.ticker_output:
                 continue
-            json_path = find_json_path(ticker)
-            if json_path:
-                outcome = update_json(json_path, date_str, amount)
-                outcomes.append(outcome)
-                if outcome.status == "updated":
-                    updated_entries += 1
-            else:
-                print(f"  [!] {ticker}에 해당하는 JSON 파일을 {DATA_DIR}에서 찾지 못함")
-                status = "missing_registration" if ticker.upper() in YIELDMAX_TICKER_REGISTRY else "unknown_ocr_token"
-                outcomes.append(UpdateOutcome(ticker.upper(), status, "no registered public/data JSON", amount))
+            path = find_json_path(ticker)
+            if path is None:
+                outcomes.append(UpdateOutcome(
+                    ticker, "missing_registration", "No registered public/data JSON",
+                    amount, img_path.name, date_str, raw_text
+                ))
+                continue
+            outcome = update_json(path, date_str, amount, dry_run=True)
+            outcome.source, outcome.date, outcome.raw_text = img_path.name, date_str, raw_text
+            outcomes.append(outcome)
+            pending.append((path, date_str, amount, outcome))
 
+    if not recognized:
+        outcomes.append(UpdateOutcome("", "extraction_failed", "No recognized provider inputs"))
     if args.ticker_output:
         args.ticker_output.write_text(
-            "\n".join(sorted(extracted_symbols)) + ("\n" if extracted_symbols else ""),
-            encoding="utf-8",
+            "\n".join(sorted(symbols)) + ("\n" if symbols else ""), encoding="utf-8"
         )
-        print(f"  JSON hydration targets: {len(extracted_symbols)}")
+    # Preflight every screenshot and data row before changing any ticker file.
+    review, skipped = write_review_summary(outcomes, args.skip_missing_distribution_row)
+    if not args.ticker_output:
+        if review["blocking"]:
+            for outcome in outcomes:
+                if outcome.status == "updated":
+                    outcome.status = "not_applied"
+                    outcome.detail += "; batch blocked before any data write"
+        else:
+            for path, date_str, amount, outcome in pending:
+                if outcome.status != "updated":
+                    continue
+                applied = update_json(path, date_str, amount)
+                outcome.status, outcome.detail = applied.status, applied.detail
+        review, skipped = write_review_summary(outcomes, args.skip_missing_distribution_row)
 
-    # Pass the CLI flag into the review logic so missing_distribution_row can be
-    # treated as non-blocking when requested. write_review_summary returns both
-    # the machine-readable payload and the list of skipped items for summary output.
-    review, skipped = write_review_summary(outcomes, skip_missing_distribution_row=getattr(args, "skip_missing_distribution_row", False))
-
-    print("\n" + "=" * 60)
-    print("배당 스크린샷 처리 요약")
-    print(f"  발견한 파일: {len(image_files)}")
-    print(f"  처리한 파일: {processed_files}")
-    print(f"  인식한 운용사 파일: {recognized_files}")
-    print(f"  추출한 티커: {extracted_tickers}")
-    print(f"  업데이트한 배당 항목: {updated_entries}")
-    print(f"  검토 필요 항목: {sum(1 for outcome in outcomes if outcome.status in BLOCKING_REVIEW_STATUSES)}")
-
-    # If running in GitHub Actions, append skipped items summary to the step summary.
+    print(f"Screenshots: {recognized}; extracted rows: {extracted}; "
+          f"updated: {sum(o.status == 'updated' for o in outcomes)}; blocking: {review['blocking']}")
     github_step_summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if github_step_summary and skipped:
-        try:
-            with open(github_step_summary, "a", encoding="utf-8") as f:
-                f.write("\n## Skipped: missing distribution rows\n\n")
-                for o in skipped:
-                    amount = "" if o.amount is None else f"; amount={o.amount}"
-                    f.write(f"- `{o.ticker}` — {o.detail}{amount}\n")
-        except Exception as e:
-            print(f"  [!] GITHUB_STEP_SUMMARY 쓰기 실패: {e}")
-
-    # Discovery deliberately exits successfully so the workflow can hydrate
-    # known files. The update pass must fail before format/upload/commit if an
-    # OCR result still needs a human or official-source correction.
+        with open(github_step_summary, "a", encoding="utf-8") as handle:
+            handle.write("\n## Skipped: missing distribution rows\n\n")
+            for outcome in skipped:
+                handle.write(f"- `{outcome.ticker}` {outcome.date}: {outcome.detail}\n")
+    # Discovery may still hydrate known files. The update invocation must block
+    # before the workflow can format, upload to R2, or commit unsafe results.
     if not args.ticker_output and review["blocking"]:
-        print("[!] 검토 필요 OCR 결과가 있어 배당 업데이트를 실패 처리합니다.")
-        sys.exit(2)
+        raise SystemExit(2)
 
 
 PARSER_TYPES.update(
