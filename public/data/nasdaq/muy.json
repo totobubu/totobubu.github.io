@@ -23,7 +23,10 @@
         "dividendRate": null,
         "payoutRatio": null,
         "isin": null,
-        "changes": {}
+        "changes": {},
+        "events": {
+            "splits": []
+        }
     },
     "backtestData": [
         {
@@ -147,6 +150,14 @@
             "low": 21.120001,
             "close": 21.120001,
             "volume": 15904
+        },
+        {
+            "date": "2026-10-19",
+            "open": 21.85,
+            "high": 22.27,
+            "low": 21.76,
+            "close": 21.870001,
+            "volume": 21000
         },
         {
             "date": "2026-10-22",
