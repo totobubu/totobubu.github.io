@@ -9,14 +9,14 @@
         "underlying": "SPCX",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 43.58,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 43.48,
         "englishName": "YieldMax SPCX Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 17386,
-        "AvgVolume": 29634,
+        "Volume": 21490,
+        "AvgVolume": 29851,
         "sharesOutstanding": null,
         "52Week": "40.83 - 52.1",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43.58,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 17386,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 29634,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -590,7 +603,8 @@
             "high": 44.09,
             "low": 41.700001,
             "close": 44.09,
-            "volume": 46100
+            "volume": 46100,
+            "yield": 0.1731065213
         },
         {
             "date": "2026-10-16",

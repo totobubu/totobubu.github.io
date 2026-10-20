@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 394.25,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 400.24,
         "englishName": "Ferrari N.V.",
         "earningsDate": "2026-11-03",
         "enterpriseValue": 71095459840,
-        "marketCap": 69151440896,
-        "Volume": 253554,
-        "AvgVolume": 434842,
+        "marketCap": 70202081280,
+        "Volume": 365667,
+        "AvgVolume": 433759,
         "sharesOutstanding": 175399966,
         "52Week": "312.51 - 437.15",
-        "Yield": 0.009169,
+        "Yield": 0.009032,
         "dividendRate": 4.23,
         "payoutRatio": 0.3917,
         "isin": "NL0011585146",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 394.25,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 69151440896,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 253554,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 434842,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.009169,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21164,16 +21185,6 @@
             "volume": 476856
         },
         {
-            "date": "2026-04-22",
-            "forecasted": true,
-            "marketCap": 63680577536,
-            "open": 360.709991,
-            "high": 364,
-            "low": 358.500092,
-            "close": 358.579987,
-            "volume": 467922
-        },
-        {
             "date": "2026-04-23",
             "open": 357,
             "high": 359.720001,
@@ -22197,7 +22208,12 @@
             "high": 397.119995,
             "low": 393.140015,
             "close": 394.25,
-            "volume": 253600
+            "volume": 253600,
+            "marketCap": 70202081280
+        },
+        {
+            "date": "2027-04-20",
+            "forecasted": true
         }
     ]
 }

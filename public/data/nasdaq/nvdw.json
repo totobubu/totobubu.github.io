@@ -9,14 +9,14 @@
         "underlying": "NVDA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 34.2207,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 33.99,
         "englishName": "Roundhill ETF Trust - Roundhill NVDA WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 50613,
-        "AvgVolume": 50918,
+        "Volume": 41481,
+        "AvgVolume": 51098,
         "sharesOutstanding": null,
         "52Week": "31.77 - 53.765",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 34.2207,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 50613,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 50918,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3649,7 +3662,8 @@
             "high": 34.610001,
             "low": 33.790001,
             "close": 34.221001,
-            "volume": 50600
+            "volume": 50600,
+            "yield": 0.5246896071
         },
         {
             "date": "2026-10-26",

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 1.95,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 2.02,
         "englishName": "Solid Power, Inc.",
-        "earningsDate": "2026-08-04",
-        "enterpriseValue": 212505168,
-        "marketCap": 444953376,
-        "Volume": 3872304,
-        "AvgVolume": 3116568,
+        "earningsDate": "2026-11-03",
+        "enterpriseValue": 210223360,
+        "marketCap": 460926048,
+        "Volume": 3095703,
+        "AvgVolume": 3114587,
         "sharesOutstanding": 228181212,
-        "52Week": "1.93 - 8.86",
+        "52Week": "1.91 - 8.86",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1.95,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 212505168,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 444953376,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3872304,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3116568,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10983,7 +11004,8 @@
             "high": 2.07,
             "low": 1.93,
             "close": 1.95,
-            "volume": 3899800
+            "volume": 3899800,
+            "marketCap": 460926048
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 99.47,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 100.26,
         "englishName": "iShares US Consumer Discretionary ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 79203,
-        "AvgVolume": 110003,
+        "Volume": 57772,
+        "AvgVolume": 109856,
         "sharesOutstanding": null,
         "52Week": "93.99 - 107.36",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 99.47,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 79203,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 110003,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -745,7 +758,7 @@
             "close": 12.90625,
             "volume": 0,
             "amount": 0.001,
-            "yield": 0.0000774818,
+            "yield": 7.74818e-5,
             "marketCap": 58078125,
             "amountOriginal": 0.064,
             "amountSplitAdjustments": [

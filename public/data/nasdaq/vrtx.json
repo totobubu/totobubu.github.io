@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 501.95,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 514.65,
         "englishName": "Vertex Pharmaceuticals Incorporated",
         "earningsDate": "2026-11-02",
-        "enterpriseValue": 120789762048,
-        "marketCap": 127224717312,
-        "Volume": 1273963,
-        "AvgVolume": 1173328,
+        "enterpriseValue": 121349914624,
+        "marketCap": 130443673600,
+        "Volume": 1226104,
+        "AvgVolume": 1176407,
         "sharesOutstanding": 253460924,
         "52Week": "403.16 - 560.25",
         "Yield": null,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 501.95,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 120789762048,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 127224717312,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1273963,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1173328,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -79708,7 +79729,8 @@
             "high": 505.829987,
             "low": 499.5,
             "close": 501.950012,
-            "volume": 1298700
+            "volume": 1298700,
+            "marketCap": 130443673600
         }
     ]
 }

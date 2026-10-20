@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 136.02,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 142.72,
         "englishName": "Strategy Inc",
         "earningsDate": "2026-10-29",
-        "enterpriseValue": 71337295872,
-        "marketCap": 57597272064,
-        "Volume": 11782590,
-        "AvgVolume": 22228373,
+        "enterpriseValue": 71026073600,
+        "marketCap": 60434366464,
+        "Volume": 18369195,
+        "AvgVolume": 22163006,
         "sharesOutstanding": 403806823,
-        "52Week": "81.81 - 306.16",
+        "52Week": "81.81 - 305.99",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 136.02,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 71337295872,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 57597272064,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 11782590,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 22228373,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -64066,7 +64087,8 @@
             "high": 141.100006,
             "low": 135.800003,
             "close": 136.020004,
-            "volume": 11843700
+            "volume": 11843700,
+            "marketCap": 60434366464
         }
     ]
 }

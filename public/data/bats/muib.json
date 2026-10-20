@@ -9,14 +9,14 @@
         "underlying": "MU",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 27.2158,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 26.9743,
         "englishName": "Direxion MU Defined Income Boost ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 383,
-        "AvgVolume": 1789,
+        "Volume": 177,
+        "AvgVolume": 1765,
         "sharesOutstanding": null,
         "52Week": "23.47 - 33.52",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.2158,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 383,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1789,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -484,7 +497,8 @@
             "high": 27.870001,
             "low": 26.1,
             "close": 27.870001,
-            "volume": 1000
+            "volume": 1000,
+            "yield": 0.0591187739
         },
         {
             "date": "2026-10-16",

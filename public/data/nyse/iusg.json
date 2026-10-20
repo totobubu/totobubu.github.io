@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 191.02,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 190.86,
         "englishName": "iShares Core S&P U.S. Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 435259,
-        "AvgVolume": 466668,
+        "Volume": 574908,
+        "AvgVolume": 464193,
         "sharesOutstanding": 105750000,
         "52Week": "148.39 - 200.02",
-        "Yield": 0.004638,
+        "Yield": 0.004642,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642876712",
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 191.02,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 435259,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 466668,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.004638,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -376,7 +393,7 @@
             "close": 33.9375,
             "volume": 2000,
             "amount": 0.002,
-            "yield": 0.0000599251,
+            "yield": 5.99251e-5,
             "marketCap": 3588890625,
             "amountOriginal": 0.016,
             "amountSplitAdjustments": [

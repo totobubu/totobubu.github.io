@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 5.295,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 5.4503,
         "englishName": "REX IncomeMax Option Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 41986,
-        "AvgVolume": 64729,
+        "Volume": 40869,
+        "AvgVolume": 64210,
         "sharesOutstanding": null,
         "52Week": "5.222 - 26.5",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.295,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 41986,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 64729,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2063,7 +2076,8 @@
             "high": 5.53,
             "low": 5.25,
             "close": 5.525,
-            "volume": 80300
+            "volume": 80300,
+            "yield": 1.429566855
         },
         {
             "date": "2026-10-16",

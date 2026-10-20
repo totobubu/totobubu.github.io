@@ -9,16 +9,16 @@
         "underlying": "HIMS",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 10.85,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 11.2,
         "englishName": "YieldMax HIMS Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 56850,
-        "AvgVolume": 53317,
+        "Volume": 23129,
+        "AvgVolume": 53315,
         "sharesOutstanding": null,
-        "52Week": "9.53 - 42.93",
+        "52Week": "9.53 - 42.21",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 10.85,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 56850,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 53317,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2325,7 +2338,8 @@
             "high": 11.37,
             "low": 10.12,
             "close": 11.36,
-            "volume": 52300
+            "volume": 52300,
+            "yield": 1.6857444765
         },
         {
             "date": "2026-10-16",

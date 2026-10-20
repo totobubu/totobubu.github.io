@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 19.06,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 19.13,
         "englishName": "Invesco CEF Income Composite ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 122508,
-        "AvgVolume": 116325,
+        "Volume": 137362,
+        "AvgVolume": 117225,
         "sharesOutstanding": null,
         "52Week": "18.3 - 20.6",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.06,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 122508,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 116325,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -33959,22 +33972,20 @@
             "high": 19.17,
             "low": 19.049999,
             "close": 19.059999,
-            "volume": 122500
+            "volume": 122500,
+            "amount": 0.115,
+            "yield": 0.0846475196
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-11-19",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-12-18",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
-            "forecasted": true
-        },
-        {
-            "date": "2027-01-21",
+            "date": "2027-01-19",
             "forecasted": true
         },
         {
@@ -33983,6 +33994,10 @@
         },
         {
             "date": "2027-03-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-19",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 433.18,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 438,
         "englishName": "Intuitive Surgical, Inc.",
         "earningsDate": "2026-10-20",
         "enterpriseValue": 147946078208,
-        "marketCap": 153032982528,
-        "Volume": 2471216,
-        "AvgVolume": 2626457,
+        "marketCap": 154735788032,
+        "Volume": 3140006,
+        "AvgVolume": 2576650,
         "sharesOutstanding": 353278038,
         "52Week": "328.57 - 603.88",
         "Yield": null,
@@ -42,7 +42,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 433.18,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 153032982528,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2471216,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2626457,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -59500,7 +59517,8 @@
             "high": 434.619995,
             "low": 426.700012,
             "close": 433.179993,
-            "volume": 2530200
+            "volume": 2530200,
+            "marketCap": 154735788032
         }
     ]
 }

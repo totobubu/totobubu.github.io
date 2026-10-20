@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 25.59,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 25.7,
         "englishName": "Invesco Equal Weight 0-30 Years Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 84136,
-        "AvgVolume": 210887,
+        "Volume": 275782,
+        "AvgVolume": 210393,
         "sharesOutstanding": null,
         "52Week": "25.04 - 28.32",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.59,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 84136,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 210887,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38757,22 +38770,20 @@
             "high": 25.690001,
             "low": 25.559999,
             "close": 25.59,
-            "volume": 84100
+            "volume": 84100,
+            "amount": 0.092,
+            "yield": 0.0445482866
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-11-19",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-12-18",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
-            "forecasted": true
-        },
-        {
-            "date": "2027-01-21",
+            "date": "2027-01-19",
             "forecasted": true
         },
         {
@@ -38781,6 +38792,10 @@
         },
         {
             "date": "2027-03-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-19",
             "forecasted": true
         }
     ]

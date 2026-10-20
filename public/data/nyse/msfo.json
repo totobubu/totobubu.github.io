@@ -9,14 +9,14 @@
         "underlying": "MSFT",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 12.54,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 12.55,
         "englishName": "YieldMax MSFT Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 36438,
-        "AvgVolume": 92948,
+        "Volume": 19421,
+        "AvgVolume": 92162,
         "sharesOutstanding": null,
         "52Week": "9.89 - 18.1",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.54,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 36438,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 92948,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6584,7 +6597,8 @@
             "high": 12.64,
             "low": 12.48,
             "close": 12.617,
-            "volume": 37300
+            "volume": 37300,
+            "yield": 0.3950320513
         },
         {
             "date": "2026-10-16",

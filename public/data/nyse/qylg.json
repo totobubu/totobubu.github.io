@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 29.718,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 29.72,
         "englishName": "Global X Nasdaq 100 Covered Call & Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 59010,
-        "AvgVolume": 49615,
+        "Volume": 35487,
+        "AvgVolume": 49718,
         "sharesOutstanding": null,
         "52Week": "25.01 - 30.978",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 29.718,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 59010,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 49615,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12373,22 +12386,20 @@
             "high": 29.91,
             "low": 29.65,
             "close": 29.718,
-            "volume": 59700
+            "volume": 59700,
+            "amount": 0.17,
+            "yield": 0.1766286039
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-11-19",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-12-18",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
-            "forecasted": true
-        },
-        {
-            "date": "2027-01-21",
+            "date": "2027-01-19",
             "forecasted": true
         },
         {
@@ -12397,6 +12408,10 @@
         },
         {
             "date": "2027-03-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-19",
             "forecasted": true
         }
     ]

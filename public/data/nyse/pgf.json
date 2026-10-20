@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 12.61,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 12.56,
         "englishName": "Invesco Financial Preferred ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 354510,
-        "AvgVolume": 236662,
+        "Volume": 579150,
+        "AvgVolume": 239235,
         "sharesOutstanding": null,
         "52Week": "12.55 - 14.67",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.61,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 354510,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 236662,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -40501,22 +40514,20 @@
             "high": 12.69,
             "low": 12.6,
             "close": 12.61,
-            "volume": 354500
+            "volume": 354500,
+            "amount": 0.079,
+            "yield": 0.0750985028
         },
         {
-            "date": "2026-10-21",
+            "date": "2026-11-19",
             "forecasted": true
         },
         {
-            "date": "2026-11-20",
+            "date": "2026-12-18",
             "forecasted": true
         },
         {
-            "date": "2026-12-21",
-            "forecasted": true
-        },
-        {
-            "date": "2027-01-21",
+            "date": "2027-01-19",
             "forecasted": true
         },
         {
@@ -40525,6 +40536,10 @@
         },
         {
             "date": "2027-03-19",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-19",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 555.8,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 557.93,
         "englishName": "IDEXX Laboratories, Inc.",
         "earningsDate": "2026-11-02",
         "enterpriseValue": 44685692928,
-        "marketCap": 43786547200,
-        "Volume": 496988,
-        "AvgVolume": 546512,
+        "marketCap": 43954348032,
+        "Volume": 439488,
+        "AvgVolume": 547906,
         "sharesOutstanding": 78781116,
         "52Week": "500.61 - 769.98",
         "Yield": null,
@@ -47,7 +47,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 555.8,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 43786547200,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 496988,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 546512,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -79955,7 +79972,8 @@
             "high": 563.950012,
             "low": 553.52002,
             "close": 555.799988,
-            "volume": 497100
+            "volume": 497100,
+            "marketCap": 43954348032
         }
     ]
 }

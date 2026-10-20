@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 355.93,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 355.29,
         "englishName": "State Street SPDR NYSE Technology ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 65447,
-        "AvgVolume": 60046,
+        "Volume": 34953,
+        "AvgVolume": 60529,
         "sharesOutstanding": 10550000,
         "52Week": "242.73 - 395.35",
-        "Yield": 0.001152,
+        "Yield": 0.001154,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US78464A1025",
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 355.93,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 65447,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 60046,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.001152,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1636,7 +1653,7 @@
             "close": 27.170000076293945,
             "volume": 233400,
             "amount": 0.0003,
-            "yield": 0.0000110906,
+            "yield": 1.10906e-5,
             "marketCap": 286643500,
             "amountOriginal": 0.002,
             "amountSplitAdjustments": [

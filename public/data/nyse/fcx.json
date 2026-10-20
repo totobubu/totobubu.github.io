@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 69.75,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 68.87,
         "englishName": "Freeport-McMoRan Inc.",
         "earningsDate": "2026-10-27",
         "enterpriseValue": 118554222592,
-        "marketCap": 100162224128,
-        "Volume": 9022621,
-        "AvgVolume": 12861728,
+        "marketCap": 98898534400,
+        "Volume": 8795634,
+        "AvgVolume": 12848289,
         "sharesOutstanding": 1436017523,
         "52Week": "38.54 - 80.24",
-        "Yield": 0.008602,
+        "Yield": 0.008712,
         "dividendRate": 0.6,
         "payoutRatio": 0.2956,
         "isin": "US35671D8570",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 69.75,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 100162224128,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9022621,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12861728,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.008602,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -71328,7 +71349,8 @@
             "high": 70.25,
             "low": 66.129997,
             "close": 70.059998,
-            "volume": 16140500
+            "volume": 16140500,
+            "yield": 0.0111111111
         },
         {
             "date": "2026-10-16",

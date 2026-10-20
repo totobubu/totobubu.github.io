@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 249.43,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 253.99,
         "englishName": "Williams-Sonoma, Inc.",
         "earningsDate": "2026-08-26",
-        "enterpriseValue": 29962647552,
-        "marketCap": 29377658880,
-        "Volume": 813884,
-        "AvgVolume": 1092087,
+        "enterpriseValue": 29876668416,
+        "marketCap": 29914732544,
+        "Volume": 1066364,
+        "AvgVolume": 1092784,
         "sharesOutstanding": 117779173,
-        "52Week": "165.51 - 255.33",
-        "Yield": 0.011386,
+        "52Week": "165.51 - 256.8606",
+        "Yield": 0.011182,
         "dividendRate": 3.04,
         "payoutRatio": 0.2913,
         "isin": "US9699041011",
@@ -67,7 +67,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 249.43,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 29962647552,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 29377658880,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 813884,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1092087,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.011386,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -98808,7 +98833,9 @@
             "high": 255.330002,
             "low": 248.449997,
             "close": 250.160004,
-            "volume": 1808400
+            "volume": 1808400,
+            "amount": 0.76,
+            "yield": 0.0142845804
         },
         {
             "date": "2026-10-19",

@@ -9,14 +9,14 @@
         "underlying": "TSLA",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 37.3497,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 37.6134,
         "englishName": "YieldMax TSLA Performance & Distribution Target 25 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
         "Volume": 3176,
-        "AvgVolume": 1487,
+        "AvgVolume": 1496,
         "sharesOutstanding": null,
         "52Week": "33.396 - 57.74",
         "Yield": null,
@@ -26,7 +26,16 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 37.3497,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1487,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2083,6 +2092,10 @@
         },
         {
             "date": "2027-04-13",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-20",
             "forecasted": true
         }
     ]

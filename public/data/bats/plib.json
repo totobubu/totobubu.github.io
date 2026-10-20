@@ -9,14 +9,14 @@
         "underlying": "PLTR",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-10-20 08:01:44 KST",
-        "regularMarketPrice": 33.5286,
+        "Update": "2026-10-21 07:13:55 KST",
+        "regularMarketPrice": 33.2666,
         "englishName": "Direxion PLTR Defined Income Boost ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 535,
-        "AvgVolume": 428,
+        "Volume": 611,
+        "AvgVolume": 429,
         "sharesOutstanding": null,
         "52Week": "24.38 - 36.8",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.5286,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 535,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 428,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -484,7 +497,8 @@
             "high": 34.669998,
             "low": 33.720001,
             "close": 34.669998,
-            "volume": 700
+            "volume": 700,
+            "yield": 0.122894421
         },
         {
             "date": "2026-10-16",
