@@ -153,6 +153,34 @@ jobs:
                   set -o pipefail
                   python scripts/data_pipeline/update_distributions.py --skip-missing-distribution-row 2>&1 | tee update_distributions.log
 
+            - name: Explain OCR review failures
+              if: failure()
+              shell: bash
+              run: |
+                  python - <<'PY'
+                  import json
+                  from pathlib import Path
+
+                  review_path = Path("distribution-update-review.json")
+                  if not review_path.exists():
+                      raise SystemExit(0)
+                  review = json.loads(review_path.read_text(encoding="utf-8"))
+                  if not review.get("blocking"):
+                      raise SystemExit(0)
+
+                  def escape(value):
+                      return str(value or "").replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+
+                  for outcome in review["outcomes"]:
+                      if outcome["status"] in {"updated", "already_applied", "not_applied", "missing_distribution_row"}:
+                          continue
+                      message = (
+                          f"{outcome['status']}: {outcome['ticker']} "
+                          f"({outcome.get('source')}, {outcome.get('date')}): {outcome['detail']}"
+                      )
+                      print(f"::error::{escape(message)}")
+                  PY
+
             - name: Format changed JSON files
               run: npm run format:changed
 
@@ -163,6 +191,24 @@ jobs:
                   mapfile -d '' changed_files < <(git diff --name-only --diff-filter=AM -z -- public/data)
 
                   if [[ ${#changed_files[@]} -eq 0 ]]; then
+                    if python - <<'PY'
+                  import json
+                  from pathlib import Path
+
+                  review = json.loads(Path("distribution-update-review.json").read_text(encoding="utf-8"))
+                  outcomes = review.get("outcomes", [])
+                  already_applied = (
+                      not review.get("blocking", True)
+                      and bool(outcomes)
+                      and all(row["status"] == "already_applied" for row in outcomes)
+                  )
+                  raise SystemExit(0 if already_applied else 1)
+                  PY
+                    then
+                      echo "has_changes=false" >> "$GITHUB_OUTPUT"
+                      echo "All screenshot distributions are already applied; no upload or commit needed." >> "$GITHUB_STEP_SUMMARY"
+                      exit 0
+                    fi
                     echo "::error::Screenshots were processed, but no public/data files changed. Check the OCR log, filename date, and expected dividend rows."
                     exit 1
                   fi
@@ -195,8 +241,10 @@ jobs:
                   PY
 
                   cat distribution-update-summary.md >> "${GITHUB_STEP_SUMMARY}"
+                  echo "has_changes=true" >> "$GITHUB_OUTPUT"
 
             - name: Upload validated distribution JSON to R2
+              if: steps.validate_data.outputs.has_changes == 'true'
               shell: bash
               run: |
                   mapfile -t changed_files < distribution-r2-targets.txt
@@ -245,6 +293,7 @@ jobs:
                   fi
 
             - name: Commit and push data changes
+              if: steps.validate_data.outputs.has_changes == 'true'
               shell: bash
               run: |
                   git config user.name "github-actions[bot]"

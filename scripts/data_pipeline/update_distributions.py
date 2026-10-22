@@ -29,6 +29,8 @@ YIELDMAX_TICKER_REGISTRY = {
     "YMAG": {"aliases": {"VMAG", "VM", "LDMAX"}},
     "HOOY": {"aliases": {"HOOYY"}},
     "NFLY": {"aliases": {"NEFLY"}},
+    # Verified against the GDXY row in YieldMax_2026-10-22.png.
+    "GDXY": {"aliases": {"GDXXY"}},
     "INYY": {"aliases": set()},
     "YSPC": {"aliases": set()},
     "YRAM": {"aliases": set()},

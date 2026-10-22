@@ -63,6 +63,18 @@ class YieldMaxOcrTests(unittest.TestCase):
         self.assertEqual(update_distributions.normalize_provider_ticker(
             update_distributions.RoundHillParser, "YQ0Q"), "YQ0Q")
 
+    def test_october_22_gdxy_duplicate_x_is_issuer_scoped(self):
+        parser = update_distributions.YieldMaxParser(
+            "FIAT Weekly $0.2203\nGDXxY Income Strategy ETF hate Weekly $0.0766 40.74% 2.97%\nGMEY Weekly $0.3418",
+            "YieldMax_2026-10-22.png",
+        )
+        self.assertEqual(parser.extract_data(), {"FIAT": 0.2203, "GDXY": 0.0766, "GMEY": 0.3418})
+        self.assertEqual(parser.issues, [])
+        self.assertEqual(update_distributions.normalize_provider_ticker(
+            update_distributions.YieldMaxParser, "GDXXY"), "GDXY")
+        self.assertEqual(update_distributions.normalize_provider_ticker(
+            update_distributions.RoundHillParser, "GDXXY"), "GDXXY")
+
     def test_visual_recovery_uses_coordinates_not_token_order(self):
         data = {
             "text": ["$0.2451", "MSST", "NVIT", "$0.1501"],
