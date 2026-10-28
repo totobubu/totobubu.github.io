@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 33.9488,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 33.8395,
         "englishName": "YieldMax Russell 2000 0DTE Covered Call Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 5198,
-        "AvgVolume": 10885,
+        "Volume": 3370,
+        "AvgVolume": 10689,
         "sharesOutstanding": null,
-        "52Week": "32.49 - 44.368",
+        "52Week": "32.49 - 43.996",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 33.9488,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5198,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10885,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3709,6 +3722,10 @@
         },
         {
             "date": "2027-04-21",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

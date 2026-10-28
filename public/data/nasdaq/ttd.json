@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 12.7,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 12.76,
         "englishName": "The Trade Desk, Inc.",
-        "earningsDate": "2026-08-06",
-        "enterpriseValue": 4916255232,
-        "marketCap": 6004497920,
-        "Volume": 9267651,
-        "AvgVolume": 23856432,
+        "earningsDate": "2026-11-09",
+        "enterpriseValue": 4944448512,
+        "marketCap": 6032865792,
+        "Volume": 13664697,
+        "AvgVolume": 23679057,
         "sharesOutstanding": 429686475,
-        "52Week": "11.62 - 53.94",
+        "52Week": "11.62 - 51.62",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 12.7,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 4916255232,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 6004497920,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9267651,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 23856432,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22701,7 +22722,8 @@
             "high": 12.85,
             "low": 12.55,
             "close": 12.7,
-            "volume": 9269800
+            "volume": 9269800,
+            "marketCap": 6032865792
         }
     ]
 }

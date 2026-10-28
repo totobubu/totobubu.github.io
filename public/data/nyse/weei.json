@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 26.15,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 26.1492,
         "englishName": "Westwood Salient Enhanced Energy Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 32829,
-        "AvgVolume": 39420,
+        "Volume": 26446,
+        "AvgVolume": 39192,
         "sharesOutstanding": null,
         "52Week": "20.56 - 26.39",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.15,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 32829,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 39420,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5103,6 +5116,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

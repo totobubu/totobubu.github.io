@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 50.145,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 50.03,
         "englishName": "T. Rowe Price U.S. High Yield ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 123962,
-        "AvgVolume": 17103,
+        "Volume": 30958,
+        "AvgVolume": 18870,
         "sharesOutstanding": null,
         "52Week": "49.5 - 52.72",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.145,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 123962,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 17103,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8149,7 +8162,9 @@
             "high": 50.174999,
             "low": 49.860001,
             "close": 50.145,
-            "volume": 124000
+            "volume": 124000,
+            "amount": 0.285,
+            "yield": 0.0699959874
         },
         {
             "date": "2026-11-26",
@@ -8160,7 +8175,7 @@
             "forecasted": true
         },
         {
-            "date": "2027-01-26",
+            "date": "2027-01-27",
             "forecasted": true
         },
         {
@@ -8172,7 +8187,7 @@
             "forecasted": true
         },
         {
-            "date": "2027-04-26",
+            "date": "2027-04-27",
             "forecasted": true
         }
     ]

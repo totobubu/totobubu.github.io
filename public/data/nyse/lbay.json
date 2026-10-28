@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 27.1,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 26.7432,
         "englishName": "Leatherback Long/Short Alternative Yield ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 623,
-        "AvgVolume": 1690,
+        "Volume": 341,
+        "AvgVolume": 1681,
         "sharesOutstanding": null,
         "52Week": "23.44 - 29.03",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 27.1,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 623,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1690,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12096,10 +12109,6 @@
             "volume": 623
         },
         {
-            "date": "2026-10-28",
-            "forecasted": true
-        },
-        {
             "date": "2026-11-26",
             "forecasted": true
         },
@@ -12117,6 +12126,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

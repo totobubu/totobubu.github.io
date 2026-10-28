@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 59.735,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 59.74,
         "englishName": "First Trust Enhanced Short Maturity ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 589018,
-        "AvgVolume": 739840,
+        "Volume": 535460,
+        "AvgVolume": 736790,
         "sharesOutstanding": null,
         "52Week": "59.491 - 60.91",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 59.735,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 589018,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 739840,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -25106,6 +25119,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 32.62,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 32.57,
         "englishName": "Hartford Total Return Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 731880,
-        "AvgVolume": 297671,
+        "Volume": 662646,
+        "AvgVolume": 306509,
         "sharesOutstanding": 14450000,
-        "52Week": "31.93 - 34.82",
+        "52Week": "31.93 - 34.81",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.62,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 731880,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 297671,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -20540,6 +20553,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

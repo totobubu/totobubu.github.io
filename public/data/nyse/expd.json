@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 199.64,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 197.15,
         "englishName": "Expeditors International of Washington, Inc.",
         "earningsDate": "2026-11-03",
-        "enterpriseValue": 25072265216,
-        "marketCap": 25951328256,
-        "Volume": 848681,
-        "AvgVolume": 1041585,
+        "enterpriseValue": 25165858816,
+        "marketCap": 25627650048,
+        "Volume": 1095433,
+        "AvgVolume": 1040056,
         "sharesOutstanding": 129990622,
         "52Week": "117.45 - 200.66",
-        "Yield": 0.007914,
+        "Yield": 0.008014,
         "dividendRate": 1.62,
         "payoutRatio": 0.23,
         "isin": "US3021301094",
@@ -57,7 +57,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 199.64,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 25072265216,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 25951328256,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 848681,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1041585,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.007914,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -96047,7 +96072,8 @@
             "high": 199.740005,
             "low": 195.039993,
             "close": 199.639999,
-            "volume": 848700
+            "volume": 848700,
+            "marketCap": 25627650048
         }
     ]
 }

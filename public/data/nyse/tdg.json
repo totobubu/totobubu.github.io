@@ -9,15 +9,15 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 1130.23,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 1136.53,
         "englishName": "TransDigm Group Incorporated",
         "earningsDate": "2026-08-04",
-        "enterpriseValue": 93240893440,
-        "marketCap": 63217815552,
-        "Volume": 323863,
-        "AvgVolume": 397023,
-        "sharesOutstanding": 55933583,
+        "enterpriseValue": 93270188032,
+        "marketCap": 62823428096,
+        "Volume": 254757,
+        "AvgVolume": 397514,
+        "sharesOutstanding": 55276525,
         "52Week": "1071.25 - 1463.03",
         "Yield": null,
         "dividendRate": null,
@@ -26,7 +26,32 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 1130.23,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 93240893440,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 63217815552,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 323863,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 397023,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 55933583,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -46532,7 +46557,8 @@
             "high": 1134.430054,
             "low": 1119.119995,
             "close": 1130.22998,
-            "volume": 323900
+            "volume": 323900,
+            "marketCap": 62823428096
         }
     ]
 }

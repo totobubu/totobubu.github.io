@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 19.2824,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 19.08,
         "englishName": "YieldmaxTM Ultra Short Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 7742,
-        "AvgVolume": 19242,
+        "Volume": 9854,
+        "AvgVolume": 19026,
         "sharesOutstanding": null,
-        "52Week": "19.02 - 40.12",
+        "52Week": "19.0148 - 40.12",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.2824,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7742,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 19242,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2681,6 +2694,10 @@
         },
         {
             "date": "2027-04-21",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

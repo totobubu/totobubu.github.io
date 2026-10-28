@@ -9,14 +9,14 @@
         "underlying": "WMT",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 20.49,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 20.37,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 12135,
-        "AvgVolume": 24501,
+        "Volume": 20881,
+        "AvgVolume": 24071,
         "sharesOutstanding": null,
         "52Week": "18.22 - 30.34",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 20.49,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 12135,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 24501,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2130,7 +2143,9 @@
             "high": 20.610001,
             "low": 20.424999,
             "close": 20.49,
-            "volume": 12200
+            "volume": 12200,
+            "amount": 0.095,
+            "yield": 0.3562402897
         },
         {
             "date": "2026-11-03",

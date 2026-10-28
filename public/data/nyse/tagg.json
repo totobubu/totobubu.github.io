@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 41.09,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 41.05,
         "englishName": "T. Rowe Price QM U.S. Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 171143,
-        "AvgVolume": 254834,
+        "Volume": 60797,
+        "AvgVolume": 254731,
         "sharesOutstanding": null,
         "52Week": "40.3 - 43.7",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.09,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 171143,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 254834,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10345,10 +10358,12 @@
             "high": 41.139999,
             "low": 41.029999,
             "close": 41.09,
-            "volume": 171100
+            "volume": 171100,
+            "amount": 0.164,
+            "yield": 0.0502556611
         },
         {
-            "date": "2026-11-25",
+            "date": "2026-11-26",
             "forecasted": true
         },
         {
@@ -10356,19 +10371,19 @@
             "forecasted": true
         },
         {
-            "date": "2027-01-25",
+            "date": "2027-01-27",
             "forecasted": true
         },
         {
-            "date": "2027-02-25",
+            "date": "2027-02-26",
             "forecasted": true
         },
         {
-            "date": "2027-03-25",
+            "date": "2027-03-26",
             "forecasted": true
         },
         {
-            "date": "2027-04-23",
+            "date": "2027-04-27",
             "forecasted": true
         }
     ]

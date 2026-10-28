@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 49.96,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 49.98,
         "englishName": "F/m US Treasury 6 Month Bill ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 76212,
-        "AvgVolume": 107850,
+        "Volume": 86811,
+        "AvgVolume": 107814,
         "sharesOutstanding": null,
         "52Week": "49.93 - 50.22",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.96,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 76212,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 107850,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7433,22 +7446,20 @@
             "high": 49.970001,
             "low": 49.950001,
             "close": 49.959999,
-            "volume": 76200
-        },
-        {
-            "date": "2026-10-28",
-            "forecasted": true
+            "volume": 76200,
+            "amount": 0.174,
+            "yield": 0.0400640376
         },
         {
             "date": "2026-11-26",
             "forecasted": true
         },
         {
-            "date": "2026-12-28",
+            "date": "2026-12-24",
             "forecasted": true
         },
         {
-            "date": "2027-01-28",
+            "date": "2027-01-27",
             "forecasted": true
         },
         {
@@ -7457,6 +7468,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-27",
             "forecasted": true
         }
     ]

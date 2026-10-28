@@ -9,15 +9,15 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 35.09,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 35.81,
         "englishName": "Super Micro Computer, Inc.",
         "earningsDate": "2026-11-03",
-        "enterpriseValue": 27417923584,
-        "marketCap": 22698774528,
-        "Volume": 31320298,
-        "AvgVolume": 42410385,
-        "sharesOutstanding": 646873027,
+        "enterpriseValue": 28994639872,
+        "marketCap": 23525931008,
+        "Volume": 29094921,
+        "AvgVolume": 42332339,
+        "sharesOutstanding": 656965384,
         "52Week": "19.48 - 54.08",
         "Yield": null,
         "dividendRate": null,
@@ -32,7 +32,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.09,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 27417923584,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 22698774528,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 31320298,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 42410385,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 646873027,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -44193,7 +44218,8 @@
             "high": 35.209999,
             "low": 33.23,
             "close": 35.09,
-            "volume": 31377000
+            "volume": 31377000,
+            "marketCap": 23525931008
         }
     ]
 }

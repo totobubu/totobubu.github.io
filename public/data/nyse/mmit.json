@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 23.64,
-        "englishName": "NYLIM MacKay Muni Intermediate ETF",
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 23.63,
+        "englishName": "NYLI MacKay Muni Intermediate ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2138997,
-        "AvgVolume": 806246,
+        "Volume": 1141760,
+        "AvgVolume": 835804,
         "sharesOutstanding": null,
         "52Week": "22.77 - 24.77",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.64,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2138997,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 806246,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -18401,6 +18414,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

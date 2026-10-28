@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 42.62,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 42.54,
         "englishName": "Fidelity Investment Grade Securitized ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 327573,
-        "AvgVolume": 450231,
+        "Volume": 317673,
+        "AvgVolume": 449107,
         "sharesOutstanding": null,
-        "52Week": "41.45 - 44.95",
+        "52Week": "41.45 - 44.93",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.62,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 327573,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 450231,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11525,6 +11538,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

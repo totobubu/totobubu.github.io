@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 50.9847,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 50.9772,
         "englishName": "Angel Oak Ultrashort Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 203549,
-        "AvgVolume": 386071,
+        "Volume": 188726,
+        "AvgVolume": 388023,
         "sharesOutstanding": null,
         "52Week": "50.69 - 51.4",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.9847,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 203549,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 386071,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8179,6 +8192,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

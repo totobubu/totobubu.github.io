@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 337.42,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 339.91,
         "englishName": "Snowflake Inc.",
         "earningsDate": "2026-09-02",
-        "enterpriseValue": 119332339712,
-        "marketCap": 119041777664,
-        "Volume": 2310418,
-        "AvgVolume": 4889103,
+        "enterpriseValue": 120209858560,
+        "marketCap": 119920246784,
+        "Volume": 2659053,
+        "AvgVolume": 4844825,
         "sharesOutstanding": 352800000,
         "52Week": "118.3 - 384.56",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 337.42,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 119332339712,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 119041777664,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2310418,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4889103,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13668,7 +13689,8 @@
             "high": 341.23999,
             "low": 331.570007,
             "close": 337.420013,
-            "volume": 2311300
+            "volume": 2311300,
+            "marketCap": 119920246784
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": "MSTR",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 15.64,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 15.27,
         "englishName": "YieldMax MSTR Short Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 42683,
-        "AvgVolume": 170315,
+        "Volume": 100210,
+        "AvgVolume": 169207,
         "sharesOutstanding": null,
         "52Week": "14.122 - 45.53",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.64,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 42683,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 170315,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3448,6 +3461,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

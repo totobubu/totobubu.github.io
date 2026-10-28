@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 74.87,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 75.21,
         "englishName": "Block, Inc.",
         "earningsDate": "2026-11-03",
-        "enterpriseValue": 45186646016,
-        "marketCap": 44981522432,
-        "Volume": 4799889,
-        "AvgVolume": 4467690,
+        "enterpriseValue": 45583171584,
+        "marketCap": 45185794048,
+        "Volume": 2489616,
+        "AvgVolume": 4466845,
         "sharesOutstanding": 540816000,
         "52Week": "48.21 - 86.92",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 74.87,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 45186646016,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 44981522432,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 4799889,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4467690,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24585,7 +24606,8 @@
             "high": 75.459999,
             "low": 73.790001,
             "close": 74.870003,
-            "volume": 4800900
+            "volume": 4800900,
+            "marketCap": 45185794048
         }
     ]
 }

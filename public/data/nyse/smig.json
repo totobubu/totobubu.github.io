@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 31.815,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 31.93,
         "englishName": "Bahl & Gaynor Small/Mid Cap Income Growth ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 137369,
-        "AvgVolume": 238082,
+        "Volume": 173244,
+        "AvgVolume": 237362,
         "sharesOutstanding": null,
         "52Week": "27.66 - 33.7",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 31.815,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 137369,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 238082,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -10528,10 +10541,6 @@
             "volume": 137400
         },
         {
-            "date": "2026-10-28",
-            "forecasted": true
-        },
-        {
             "date": "2026-11-26",
             "forecasted": true
         },
@@ -10549,6 +10558,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

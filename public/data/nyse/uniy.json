@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 46.7456,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 46.6275,
         "englishName": "WisdomTree Voya Yield Enchanced USD Universal Bond Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 114,
-        "AvgVolume": 14101,
+        "Volume": 731,
+        "AvgVolume": 14090,
         "sharesOutstanding": null,
-        "52Week": "46.023 - 49.685",
+        "52Week": "46.023 - 49.63",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 46.7456,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 114,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 14101,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -7587,10 +7600,12 @@
             "high": 46.745998,
             "low": 46.66,
             "close": 46.745998,
-            "volume": 100
+            "volume": 100,
+            "amount": 0.21,
+            "yield": 0.054436348
         },
         {
-            "date": "2026-11-25",
+            "date": "2026-11-26",
             "forecasted": true
         },
         {
@@ -7598,19 +7613,19 @@
             "forecasted": true
         },
         {
-            "date": "2027-01-25",
+            "date": "2027-01-27",
             "forecasted": true
         },
         {
-            "date": "2027-02-25",
+            "date": "2027-02-26",
             "forecasted": true
         },
         {
-            "date": "2027-03-25",
+            "date": "2027-03-26",
             "forecasted": true
         },
         {
-            "date": "2027-04-23",
+            "date": "2027-04-27",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 13.62,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 13.84,
         "englishName": "REX-Osprey SOL + Staking ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 14294,
-        "AvgVolume": 55273,
+        "Volume": 13435,
+        "AvgVolume": 55107,
         "sharesOutstanding": null,
-        "52Week": "8.37 - 31.29",
+        "52Week": "8.37 - 30.99",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 13.62,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 14294,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 55273,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2739,6 +2752,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]

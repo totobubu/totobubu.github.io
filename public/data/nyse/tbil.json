@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 49.82,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 49.84,
         "englishName": "F/m US Treasury 3 Month Bill Fund - ETF Class Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2126926,
-        "AvgVolume": 1978948,
+        "Volume": 1602440,
+        "AvgVolume": 1985348,
         "sharesOutstanding": null,
         "52Week": "49.82 - 50.02",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 49.82,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2126926,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1978948,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8603,22 +8616,20 @@
             "high": 49.830002,
             "low": 49.82,
             "close": 49.82,
-            "volume": 2132100
-        },
-        {
-            "date": "2026-10-28",
-            "forecasted": true
+            "volume": 2132100,
+            "amount": 0.167,
+            "yield": 0.0398354389
         },
         {
             "date": "2026-11-26",
             "forecasted": true
         },
         {
-            "date": "2026-12-28",
+            "date": "2026-12-24",
             "forecasted": true
         },
         {
-            "date": "2027-01-28",
+            "date": "2027-01-27",
             "forecasted": true
         },
         {
@@ -8627,6 +8638,10 @@
         },
         {
             "date": "2027-03-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-27",
             "forecasted": true
         }
     ]

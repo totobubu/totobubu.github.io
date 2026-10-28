@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 65.59,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 65.72,
         "englishName": "iShares MSCI Eurozone ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 862734,
-        "AvgVolume": 990287,
-        "sharesOutstanding": 153100000,
+        "Volume": 2716650,
+        "AvgVolume": 989828,
+        "sharesOutstanding": null,
         "52Week": "59.92 - 72.2",
-        "Yield": 0.016878,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642866085",
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.59,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 862734,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 990287,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -943,7 +956,7 @@
             "close": 34.75,
             "volume": 5400,
             "amount": 0.0018,
-            "yield": 0.0000517056,
+            "yield": 5.17056e-5,
             "marketCap": 5320225000,
             "amountOriginal": 0.014,
             "amountSplitAdjustments": [

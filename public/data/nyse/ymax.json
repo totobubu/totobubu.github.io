@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-28 07:58:28 KST",
-        "regularMarketPrice": 7.21,
+        "Update": "2026-10-29 08:11:40 KST",
+        "regularMarketPrice": 7.22,
         "englishName": "YieldMax Universe Fund of Option Income ETFs",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 657535,
-        "AvgVolume": 1092848,
+        "Volume": 1064940,
+        "AvgVolume": 1079129,
         "sharesOutstanding": null,
-        "52Week": "7.05 - 12.64",
+        "52Week": "7.05 - 12.37",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -40,7 +40,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7.21,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 657535,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1092848,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6113,6 +6126,10 @@
         },
         {
             "date": "2027-04-21",
+            "forecasted": true
+        },
+        {
+            "date": "2027-04-28",
             "forecasted": true
         }
     ]
