@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-10-30 08:26:04 KST",
-        "regularMarketPrice": 18.555,
-        "englishName": "Digital Asset Debt Strategy ETF",
+        "Update": "2026-10-31 08:00:09 KST",
+        "regularMarketPrice": null,
+        "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 280,
-        "AvgVolume": 2457,
+        "Volume": null,
+        "AvgVolume": null,
         "sharesOutstanding": null,
-        "52Week": "18.24 - 21.93",
+        "52Week": null,
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,20 +26,7 @@
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 18.777,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 469,
-                "change": "down"
-            },
-            "AvgVolume": {
-                "value": 2512,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -2538,14 +2525,16 @@
             "high": 18.555,
             "low": 18.551001,
             "close": 18.555,
-            "volume": 300
+            "volume": 300,
+            "amount": 0.097,
+            "yield": 0.0573553955
         },
         {
-            "date": "2026-12-28",
+            "date": "2027-01-29",
             "forecasted": true
         },
         {
-            "date": "2027-03-26",
+            "date": "2027-04-29",
             "forecasted": true
         }
     ]

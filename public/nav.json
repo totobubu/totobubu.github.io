@@ -4413,7 +4413,7 @@
             "koName": "캐피탈그룹 코어 채권 ETF",
             "logo": "logos/company/company-capital.png",
             "dataPaths": ["data/nyse/cgcb.json"],
-            "periods": ["1Y", "2Y"],
+            "periods": ["1Y", "2Y", "3Y"],
             "group": "OND"
         },
         {
@@ -4657,7 +4657,7 @@
             "koName": "캐피탈그룹 단기 지방채 소득 ETF",
             "logo": "logos/company/company-capital.png",
             "dataPaths": ["data/nyse/cgsm.json"],
-            "periods": ["1Y", "2Y"],
+            "periods": ["1Y", "2Y", "3Y"],
             "group": "OND"
         },
         {
@@ -5681,7 +5681,7 @@
             "dataPaths": ["data/bats/cry.json"],
             "frequency": "매주",
             "group": "금",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "CSCL",
@@ -7099,8 +7099,8 @@
             "logo": null,
             "dataPaths": ["data/nyse/dive.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "DIVI",
@@ -8890,7 +8890,7 @@
             "logo": "logos/company/company-rex.png",
             "dataPaths": ["data/nyse/esk.json"],
             "frequency": "매월",
-            "periods": [],
+            "periods": ["1Y"],
             "group": "OND"
         },
         {
@@ -26763,8 +26763,8 @@
             "logo": null,
             "dataPaths": ["data/nyse/snth.json"],
             "frequency": "분기",
-            "periods": [],
-            "group": "MJD"
+            "group": "MJD",
+            "periods": []
         },
         {
             "symbol": "SO",
@@ -32736,7 +32736,7 @@
             "dataPaths": ["data/bats/xey.json"],
             "frequency": "매주",
             "group": "금",
-            "periods": []
+            "periods": ["6M"]
         },
         {
             "symbol": "XHB",
