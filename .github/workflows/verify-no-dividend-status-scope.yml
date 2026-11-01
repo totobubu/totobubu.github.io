@@ -1,0 +1,38 @@
+name: Verify no-dividend status scope
+
+on:
+    pull_request:
+        paths:
+            - "public/nav/NASDAQ/g.json"
+            - "public/nav/NYSE/c.json"
+            - "public/nav/NYSE/e.json"
+            - "public/nav/NYSE/g.json"
+            - "public/nav/NYSE/l.json"
+            - "public/nav/NYSE/m.json"
+            - "public/nav/NYSE/p.json"
+            - "public/nav/NYSE/r.json"
+            - "public/nav/NYSE/s.json"
+            - "public/nav/NYSE/u.json"
+            - "scripts/data_pipeline/remove_verified_no_dividends.py"
+            - "tests/test_verified_no_dividend_scope.py"
+    push:
+        branches:
+            - "fix/issue-202-verified-dividend-status"
+
+permissions:
+    contents: read
+
+jobs:
+    verified-no-dividend-scope:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.11"
+
+            - name: Run scoped regression tests
+              run: python -m unittest discover -s tests -p "test_verified_no_dividend_scope.py" -v
