@@ -13,7 +13,7 @@
             "koName": "애질런트 테크놀로지스",
             "logo": "logos/nyse/a.png",
             "dataPaths": ["data/nyse/a.json"],
-            "periods": ["5Y", "10Y", "15Y"]
+            "periods": ["5Y", "10Y", "15Y", "20Y"]
         },
         {
             "symbol": "AAAU",
@@ -2360,7 +2360,7 @@
             "koName": "블랙록 어드밴티지 대형주 인컴 ETF",
             "logo": "logos/company/company-ishares.jpeg",
             "dataPaths": ["data/nasdaq/bali.json"],
-            "periods": ["1Y", "2Y"],
+            "periods": ["1Y", "2Y", "3Y"],
             "group": "FND"
         },
         {
@@ -2701,7 +2701,7 @@
             "koName": "프로셰어즈 비트코인 & 이더 동일 가중 전략 ETF",
             "logo": "logos/company/company-prosares.png",
             "dataPaths": ["data/nyse/bete.json"],
-            "periods": ["1Y", "2Y"],
+            "periods": ["1Y", "2Y", "3Y"],
             "group": "FMD"
         },
         {
@@ -2717,7 +2717,7 @@
             "koName": "프로셰어즈 비트코인 & 이더리움 시가총액 가중 전략 ETF",
             "logo": "logos/company/company-prosares.png",
             "dataPaths": ["data/nyse/beth.json"],
-            "periods": ["1Y", "2Y"],
+            "periods": ["1Y", "2Y", "3Y"],
             "group": "FND"
         },
         {
@@ -3604,7 +3604,7 @@
             "koName": "인베스코 2026 회사채 ETF",
             "logo": "logos/company/company-invesco.svg",
             "dataPaths": ["data/nyse/bscq.json"],
-            "periods": ["1Y", "2Y", "3Y", "5Y"],
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
             "group": "AND"
         },
         {
@@ -4715,7 +4715,6 @@
             "market": "NYSE",
             "yfSymbol": "CHAT",
             "currency": "USD",
-            "noDividends": true,
             "koName": "라운드힐 생성형 AI & 기술 ETF",
             "logo": "logos/company/company-roundhill-investments.svg",
             "dataPaths": ["data/nyse/chat.json"],
@@ -4919,7 +4918,7 @@
             "koName": "클로봇",
             "logo": "logos/company/company-vaneck.png",
             "dataPaths": ["data/nyse/clob.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "FND"
         },
         {
@@ -8108,7 +8107,7 @@
             "koName": "프로셰어즈 이더리움 전략 ETF",
             "logo": "logos/company/company-prosares.png",
             "dataPaths": ["data/nyse/eeth.json"],
-            "periods": ["1Y", "2Y"],
+            "periods": ["1Y", "2Y", "3Y"],
             "group": "FMD"
         },
         {
@@ -8949,7 +8948,6 @@
             "market": "NYSE",
             "yfSymbol": "ETH",
             "currency": "USD",
-            "noDividends": true,
             "koName": "그레이스케일 이더리움 미니 트러스트",
             "logo": "logos/company/company-grayscale.png",
             "dataPaths": ["data/nyse/eth.json"],
@@ -8981,7 +8979,6 @@
             "market": "NYSE",
             "yfSymbol": "ETHE",
             "currency": "USD",
-            "noDividends": true,
             "koName": "그레이스케일 이더리움 현물 ETF",
             "logo": "logos/company/company-grayscale.png",
             "dataPaths": ["data/nyse/ethe.json"],
@@ -11659,7 +11656,7 @@
             "koName": "골드만삭스 만기1년 미국 국채 ETF",
             "logo": "logos/company/company-goldman-sachs.svg",
             "dataPaths": ["data/nyse/gbil.json"],
-            "periods": ["1Y", "2Y", "3Y", "5Y"],
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
             "group": "MJD"
         },
         {
@@ -11883,7 +11880,6 @@
             "market": "NASDAQ",
             "yfSymbol": "GFS",
             "currency": "USD",
-            "noDividends": true,
             "koName": "글로벌파운드리",
             "logo": "logos/nasdaq/gfs.svg",
             "dataPaths": ["data/nasdaq/gfs.json"],
@@ -12024,7 +12020,6 @@
             "market": "NASDAQ",
             "yfSymbol": "GLDW",
             "currency": "USD",
-            "noDividends": true,
             "logo": "logos/company/company-roundhill-investments.svg",
             "dataPaths": ["data/nasdaq/gldw.json"],
             "periods": ["6M"]
@@ -12550,7 +12545,6 @@
             "market": "NYSE",
             "yfSymbol": "GRNY",
             "currency": "USD",
-            "noDividends": true,
             "koName": "펀드스트랫 그래니 샷 미국 대형주 ETF",
             "logo": null,
             "dataPaths": ["data/nyse/grny.json"],
@@ -14042,7 +14036,7 @@
             "koName": "아이셰어즈 2026 회사채 ETF",
             "logo": "logos/company/company-ishares.jpeg",
             "dataPaths": ["data/nyse/ibdr.json"],
-            "periods": ["1Y", "2Y", "3Y", "5Y"],
+            "periods": ["1Y", "2Y", "3Y", "5Y", "10Y"],
             "group": "FND"
         },
         {
@@ -15735,7 +15729,7 @@
             "koName": "프로셰어즈 러셀 2000 고배당 ETF",
             "logo": "logos/company/company-prosares.png",
             "dataPaths": ["data/nasdaq/itwo.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "FND"
         },
         {
@@ -16553,7 +16547,7 @@
             "koName": "JP모건 액티브 채권 ETF",
             "logo": "logos/company/company-jpmorgan.png",
             "dataPaths": ["data/nyse/jbnd.json"],
-            "periods": ["1Y", "2Y"],
+            "periods": ["1Y", "2Y", "3Y"],
             "group": "FND"
         },
         {
@@ -18040,7 +18034,6 @@
             "market": "NYSE",
             "yfSymbol": "LLYX",
             "currency": "USD",
-            "noDividends": true,
             "koName": "디파이언스 일라이 릴리 데일리 타겟 2배 ETF",
             "logo": "logos/company/company-defiance.png",
             "dataPaths": ["data/nyse/llyx.json"],
@@ -19776,7 +19769,6 @@
             "market": "NYSE",
             "yfSymbol": "MSTU",
             "currency": "USD",
-            "noDividends": true,
             "logo": "logos/company/company-t-rex.png",
             "dataPaths": ["data/nyse/mstu.json"],
             "periods": []
@@ -19993,7 +19985,6 @@
             "market": "NYSE",
             "yfSymbol": "MULL",
             "currency": "USD",
-            "noDividends": true,
             "koName": "그래닛셰어즈 마이크론 데일리 2배 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nyse/mull.json"],
@@ -21405,7 +21396,7 @@
             "logo": "logos/company/company-pgim.png",
             "dataPaths": ["data/nyse/paaa.json"],
             "periods": ["1Y", "2Y", "3Y"],
-            "group": "MSD"
+            "group": "SOD"
         },
         {
             "symbol": "PABU",
@@ -22390,7 +22381,7 @@
             "currency": "USD",
             "logo": "logos/company/company-pimco.png",
             "dataPaths": ["data/nyse/pmbs.json"],
-            "periods": ["1Y"],
+            "periods": ["1Y", "2Y"],
             "group": "FND"
         },
         {
@@ -22809,7 +22800,6 @@
             "market": "NYSE",
             "yfSymbol": "PTIR",
             "currency": "USD",
-            "noDividends": true,
             "koName": "그래닛셰어즈 팔란티어 데일리 2배 롱 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nyse/ptir.json"],
@@ -23194,7 +23184,7 @@
             "symbol": "QDPL",
             "company": "Pacer",
             "ipoDate": "2021-07-27",
-            "frequency": "분기",
+            "frequency": "매월",
             "sharesOutstanding": false,
             "isin": "US69374H4368",
             "market": "NYSE",
@@ -24827,7 +24817,6 @@
             "market": "NYSE",
             "yfSymbol": "RSSY",
             "currency": "USD",
-            "noDividends": true,
             "koName": "리턴 스택드 미국 주식 및 선물 수익률 ETF",
             "logo": "logos/company/company-return.png",
             "dataPaths": ["data/nyse/rssy.json"],
@@ -26388,7 +26377,6 @@
             "market": "NYSE",
             "yfSymbol": "SMCX",
             "currency": "USD",
-            "noDividends": true,
             "koName": "디파이언스 슈퍼 마이크로 컴퓨터 2배 롱 ETF",
             "logo": "logos/company/company-defiance.png",
             "dataPaths": ["data/nyse/smcx.json"],
@@ -29897,7 +29885,6 @@
             "market": "NYSE",
             "yfSymbol": "UBRL",
             "currency": "USD",
-            "noDividends": true,
             "koName": "그래닛셰어즈 우버 데일리 2배 롱 ETF",
             "logo": "logos/company/company-graniteshares.png",
             "dataPaths": ["data/nyse/ubrl.json"],
