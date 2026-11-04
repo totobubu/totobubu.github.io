@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 14.7,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 15.23,
         "englishName": "Coupang, Inc.",
         "earningsDate": "2026-11-03",
         "enterpriseValue": 25946421248,
-        "marketCap": 26423420928,
-        "Volume": 12419609,
-        "AvgVolume": 16044104,
-        "sharesOutstanding": 1639708712,
-        "52Week": "13.35 - 32.315",
+        "marketCap": 27338827776,
+        "Volume": 26463235,
+        "AvgVolume": 15976451,
+        "sharesOutstanding": 1637261211,
+        "52Week": "13.35 - 32.14",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.7,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 26423420928,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12419609,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 16044104,
+                "change": "down"
+            },
+            "sharesOutstanding": {
+                "value": 1639708712,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12730,7 +12751,8 @@
             "high": 14.975,
             "low": 14.26,
             "close": 14.7,
-            "volume": 12417100
+            "volume": 12417100,
+            "marketCap": 27338827776
         }
     ]
 }

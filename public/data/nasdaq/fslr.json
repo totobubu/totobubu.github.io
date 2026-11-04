@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 182.05,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 185.9,
         "englishName": "First Solar, Inc.",
         "earningsDate": "2026-10-29",
         "enterpriseValue": 18267842560,
-        "marketCap": 19566944256,
-        "Volume": 3318987,
-        "AvgVolume": 2324387,
+        "marketCap": 19980744704,
+        "Volume": 3449140,
+        "AvgVolume": 2296989,
         "sharesOutstanding": 107481151,
         "52Week": "165.86 - 320.95",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 182.05,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 19566944256,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 3318987,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2324387,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -45070,7 +45087,8 @@
             "high": 186.240005,
             "low": 176.919998,
             "close": 182.050003,
-            "volume": 3316100
+            "volume": 3316100,
+            "marketCap": 19980744704
         }
     ]
 }

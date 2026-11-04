@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 50.15,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 53.74,
         "englishName": "CoreWeave, Inc.",
         "earningsDate": "2026-11-10",
         "enterpriseValue": 73733562368,
-        "marketCap": 27659560960,
-        "Volume": 48455354,
-        "AvgVolume": 38767371,
+        "marketCap": 29639575552,
+        "Volume": 36691372,
+        "AvgVolume": 38827759,
         "sharesOutstanding": 458871690,
-        "52Week": "49.465 - 138.25",
+        "52Week": "49.46 - 138.25",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.15,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 27659560960,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 48455354,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 38767371,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3577,7 +3594,8 @@
             "high": 55.737999,
             "low": 49.459999,
             "close": 50.150002,
-            "volume": 48245900
+            "volume": 48245900,
+            "marketCap": 29639575552
         }
     ]
 }

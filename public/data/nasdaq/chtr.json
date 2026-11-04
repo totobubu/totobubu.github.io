@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 115.54,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 113.79,
         "englishName": "Charter Communications, Inc.",
         "earningsDate": "2026-11-06",
         "enterpriseValue": 114931318784,
-        "marketCap": 15015301120,
-        "Volume": 2385403,
-        "AvgVolume": 2810457,
+        "marketCap": 14787875840,
+        "Volume": 1854352,
+        "AvgVolume": 2805496,
         "sharesOutstanding": 114457596,
         "52Week": "101.11 - 254.11",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 115.54,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 15015301120,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2385403,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2810457,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38056,7 +38073,8 @@
             "high": 115.870003,
             "low": 111.389999,
             "close": 115.540001,
-            "volume": 2384400
+            "volume": 2384400,
+            "marketCap": 14787875840
         }
     ]
 }

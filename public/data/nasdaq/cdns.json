@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 329.51,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 323.75,
         "englishName": "Cadence Design Systems, Inc.",
         "earningsDate": "2026-10-26",
         "enterpriseValue": 91679924224,
-        "marketCap": 90410631168,
-        "Volume": 2239851,
-        "AvgVolume": 2394151,
+        "marketCap": 88830205952,
+        "Volume": 2335076,
+        "AvgVolume": 2400676,
         "sharesOutstanding": 274379000,
         "52Week": "262.75 - 416.69",
         "Yield": null,
@@ -42,7 +42,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 329.51,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 90410631168,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2239851,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 2394151,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -89300,7 +89317,8 @@
             "high": 333,
             "low": 323.480011,
             "close": 329.51001,
-            "volume": 2236100
+            "volume": 2236100,
+            "marketCap": 88830205952
         }
     ]
 }

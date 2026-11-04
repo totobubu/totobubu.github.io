@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 105.95,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 107.74,
         "englishName": "Pinnacle West Capital Corporation",
         "earningsDate": "2026-11-03",
         "enterpriseValue": 29377351680,
-        "marketCap": 12840846336,
-        "Volume": 1638377,
-        "AvgVolume": 1208865,
+        "marketCap": 13057789952,
+        "Volume": 2250175,
+        "AvgVolume": 1209914,
         "sharesOutstanding": 121197234,
         "52Week": "86.18 - 111.16",
-        "Yield": 0.034214,
+        "Yield": 0.033646,
         "dividendRate": 3.7,
         "payoutRatio": 0.6958,
         "isin": "US7234841010",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 105.95,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 12840846336,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1638377,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1208865,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.034214,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -121912,14 +121933,16 @@
             "high": 106.440002,
             "low": 104.589996,
             "close": 105.949997,
-            "volume": 1638400
+            "volume": 1638400,
+            "amount": 0.925,
+            "yield": 0.042997081
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-05-03",
+            "date": "2027-04-30",
             "forecasted": true
         }
     ]

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 67.82,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 63.61,
         "englishName": "Builders FirstSource, Inc.",
         "earningsDate": "2026-10-29",
         "enterpriseValue": 12523287552,
-        "marketCap": 7297860608,
-        "Volume": 3808452,
-        "AvgVolume": 2762356,
+        "marketCap": 6844837888,
+        "Volume": 2852246,
+        "AvgVolume": 2775473,
         "sharesOutstanding": 107606319,
         "52Week": "49.67 - 131.5",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 67.82,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 7297860608,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3808452,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2762356,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -48300,7 +48317,8 @@
             "high": 68.669998,
             "low": 65.550003,
             "close": 67.82,
-            "volume": 3808300
+            "volume": 3808300,
+            "marketCap": 6844837888
         }
     ]
 }

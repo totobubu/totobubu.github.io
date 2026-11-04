@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 294.73,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 298.56,
         "englishName": "Targa Resources Corp.",
         "earningsDate": "2026-11-05",
-        "enterpriseValue": 82784157696,
-        "marketCap": 63199256576,
-        "Volume": 1851375,
-        "AvgVolume": 1181106,
+        "enterpriseValue": 83605422080,
+        "marketCap": 64020525056,
+        "Volume": 1353395,
+        "AvgVolume": 1197551,
         "sharesOutstanding": 214431021,
-        "52Week": "151.78 - 316.6",
-        "Yield": 0.015268,
+        "52Week": "152.22 - 316.6",
+        "Yield": 0.015072,
         "dividendRate": 5,
         "payoutRatio": 0.4063,
         "isin": "US87612G1013",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 294.73,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 82784157696,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 63199256576,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1851375,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1181106,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.015268,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35887,7 +35912,9 @@
             "high": 316.600006,
             "low": 311.980011,
             "close": 314.98999,
-            "volume": 1479700
+            "volume": 1479700,
+            "amount": 1.25,
+            "yield": 0.0183261085
         },
         {
             "date": "2026-11-02",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 26.5824,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 27.42,
         "englishName": "YieldMax MSTR Performance & Distribution Target 25 ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 712,
-        "AvgVolume": 1750,
+        "Volume": 1128,
+        "AvgVolume": 1726,
         "sharesOutstanding": null,
         "52Week": "19.41 - 54.29",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.5824,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 712,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1750,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2163,6 +2176,10 @@
         },
         {
             "date": "2027-04-27",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-04",
             "forecasted": true
         }
     ]

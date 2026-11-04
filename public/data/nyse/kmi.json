@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 32.71,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 32.87,
         "englishName": "Kinder Morgan, Inc.",
         "earningsDate": "2026-10-21",
         "enterpriseValue": 106577567744,
-        "marketCap": 72868569088,
-        "Volume": 13199069,
-        "AvgVolume": 12528379,
+        "marketCap": 73225003008,
+        "Volume": 10719250,
+        "AvgVolume": 12592937,
         "sharesOutstanding": 2227715229,
-        "52Week": "25.6 - 34.81",
-        "Yield": 0.036227,
+        "52Week": "25.66 - 34.81",
+        "Yield": 0.036051,
         "dividendRate": 1.19,
         "payoutRatio": 0.7284,
         "isin": "US49456B1017",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.71,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 72868569088,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 13199069,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12528379,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.036227,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -35488,14 +35509,16 @@
             "high": 33.439999,
             "low": 32.68,
             "close": 32.709999,
-            "volume": 13187700
+            "volume": 13187700,
+            "amount": 0.298,
+            "yield": 0.0442583745
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-05-03",
+            "date": "2027-04-30",
             "forecasted": true
         }
     ]

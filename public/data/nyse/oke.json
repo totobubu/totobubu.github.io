@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 92.52,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 91.94,
         "englishName": "ONEOK, Inc.",
         "earningsDate": "2026-10-27",
-        "enterpriseValue": 95857270784,
-        "marketCap": 58329272320,
-        "Volume": 3534950,
-        "AvgVolume": 3496496,
+        "enterpriseValue": 95491612672,
+        "marketCap": 57963614208,
+        "Volume": 2627299,
+        "AvgVolume": 3480939,
         "sharesOutstanding": 630450437,
         "52Week": "64.02 - 99.85",
-        "Yield": 0.04626,
+        "Yield": 0.046552,
         "dividendRate": 4.28,
         "payoutRatio": 0.6584,
         "isin": "US6826801036",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 92.52,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 95857270784,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 58329272320,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3534950,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3496496,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.04626,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106794,14 +106819,16 @@
             "high": 95.120003,
             "low": 92.019997,
             "close": 92.519997,
-            "volume": 3530800
+            "volume": 3530800,
+            "amount": 1.07,
+            "yield": 0.055977229
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-05-03",
+            "date": "2027-04-30",
             "forecasted": true
         }
     ]

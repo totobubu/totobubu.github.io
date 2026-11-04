@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 425.43,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 416.57,
         "englishName": "Axon Enterprise, Inc.",
         "earningsDate": "2026-11-05",
         "enterpriseValue": 35718905856,
-        "marketCap": 34560831488,
-        "Volume": 848152,
-        "AvgVolume": 993654,
+        "marketCap": 33841070080,
+        "Volume": 729861,
+        "AvgVolume": 989620,
         "sharesOutstanding": 81237415,
-        "52Week": "339.01 - 738.23",
+        "52Week": "339.01 - 719.92",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -42,7 +42,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 425.43,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 34560831488,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 848152,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 993654,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -57407,7 +57424,8 @@
             "high": 439.76001,
             "low": 424.820007,
             "close": 425.429993,
-            "volume": 847500
+            "volume": 847500,
+            "marketCap": 33841070080
         }
     ]
 }

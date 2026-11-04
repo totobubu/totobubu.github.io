@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 94.62,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 96.26,
         "englishName": "NRG Energy, Inc.",
         "earningsDate": "2026-11-09",
         "enterpriseValue": 43845115904,
-        "marketCap": 19890116608,
-        "Volume": 2424478,
-        "AvgVolume": 3075856,
+        "marketCap": 20234860544,
+        "Volume": 3878773,
+        "AvgVolume": 3072203,
         "sharesOutstanding": 210210483,
         "52Week": "90.8 - 189.96",
-        "Yield": 0.01971,
+        "Yield": 0.019375,
         "dividendRate": 1.9,
         "payoutRatio": 0.4791,
         "isin": "US6293775085",
@@ -32,7 +32,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 94.62,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 19890116608,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 2424478,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3075856,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.01971,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -51789,14 +51810,16 @@
             "high": 97.589996,
             "low": 93.93,
             "close": 94.620003,
-            "volume": 2413600
+            "volume": 2413600,
+            "amount": 0.475,
+            "yield": 0.024375
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-05-03",
+            "date": "2027-04-30",
             "forecasted": true
         }
     ]

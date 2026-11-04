@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 86.69,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 86.53,
         "englishName": "Akamai Technologies, Inc.",
         "earningsDate": "2026-11-05",
         "enterpriseValue": 18442391552,
-        "marketCap": 12458792960,
-        "Volume": 4205054,
-        "AvgVolume": 4621565,
+        "marketCap": 12435798016,
+        "Volume": 4704262,
+        "AvgVolume": 4637335,
         "sharesOutstanding": 143716609,
         "52Week": "70.82 - 165.45",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 86.69,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 12458792960,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 4205054,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4621565,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -61101,7 +61118,8 @@
             "high": 93.019997,
             "low": 86.440002,
             "close": 86.690002,
-            "volume": 4203700
+            "volume": 4203700,
+            "marketCap": 12435798016
         }
     ]
 }

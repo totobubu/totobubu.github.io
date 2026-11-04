@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 171.11,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 166.96,
         "englishName": "Airbnb, Inc.",
         "earningsDate": "2026-11-05",
         "enterpriseValue": 91311005696,
-        "marketCap": 102458212352,
-        "Volume": 5960555,
-        "AvgVolume": 4651582,
+        "marketCap": 99973259264,
+        "Volume": 3735275,
+        "AvgVolume": 4688450,
         "sharesOutstanding": 419529556,
         "52Week": "110.81 - 193.453",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 171.11,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 102458212352,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5960555,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4651582,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13284,7 +13301,8 @@
             "high": 173.050003,
             "low": 166.505005,
             "close": 171.110001,
-            "volume": 5957000
+            "volume": 5957000,
+            "marketCap": 99973259264
         }
     ]
 }

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 42.88,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 45.45,
         "englishName": "Roblox Corporation",
         "earningsDate": "2026-10-29",
-        "enterpriseValue": 29377787904,
-        "marketCap": 30689789952,
-        "Volume": 14261200,
-        "AvgVolume": 11964664,
+        "enterpriseValue": 31217172480,
+        "marketCap": 32529172480,
+        "Volume": 10110729,
+        "AvgVolume": 11795914,
         "sharesOutstanding": 671330395,
-        "52Week": "33.88 - 113.6",
+        "52Week": "33.88 - 108.285",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 42.88,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 29377787904,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 30689789952,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 14261200,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 11964664,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11455,7 +11476,8 @@
             "high": 44.790001,
             "low": 41.779999,
             "close": 42.880001,
-            "volume": 14255100
+            "volume": 14255100,
+            "marketCap": 32529172480
         }
     ]
 }

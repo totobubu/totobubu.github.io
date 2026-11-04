@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 41.2419,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 42.4481,
         "englishName": "YieldMax Memory and Storage Portfolio Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 11256,
-        "AvgVolume": 12752,
+        "Volume": 8263,
+        "AvgVolume": 12722,
         "sharesOutstanding": null,
-        "52Week": "41.2419 - 56.65",
+        "52Week": "41.24 - 56.65",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.2419,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 11256,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 12752,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -445,10 +458,6 @@
             "low": 41.240002,
             "close": 41.240002,
             "volume": 11300
-        },
-        {
-            "date": "2026-11-04",
-            "forecasted": true
         },
         {
             "date": "2026-11-11",

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 137.83,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 145.45,
         "englishName": "Coinbase Global, Inc.",
         "earningsDate": "2026-10-29",
         "enterpriseValue": 34557145088,
-        "marketCap": 36492341248,
-        "Volume": 10634242,
-        "AvgVolume": 9145390,
+        "marketCap": 38509838336,
+        "Volume": 10585518,
+        "AvgVolume": 9168600,
         "sharesOutstanding": 223729527,
-        "52Week": "135.47 - 342.8",
+        "52Week": "135.46 - 325.45",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 137.83,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 36492341248,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 10634242,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 9145390,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12523,7 +12540,8 @@
             "high": 143.770004,
             "low": 135.460007,
             "close": 137.830002,
-            "volume": 10576100
+            "volume": 10576100,
+            "marketCap": 38509838336
         }
     ]
 }

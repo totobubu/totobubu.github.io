@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 100.43,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 100.44,
         "englishName": "iShares 0-3 Month Treasury Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 38128304,
-        "AvgVolume": 21764487,
+        "Volume": 19710399,
+        "AvgVolume": 21806221,
         "sharesOutstanding": null,
         "52Week": "100.27 - 100.74",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 100.43,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 38128304,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 21764487,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -213,7 +226,7 @@
             "close": 100.01499938964844,
             "volume": 15100,
             "amount": 0.006,
-            "yield": 0.000059988
+            "yield": 5.9988e-5
         },
         {
             "date": "2020-07-02",

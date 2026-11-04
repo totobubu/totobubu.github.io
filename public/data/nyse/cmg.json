@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 32.91,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 33.26,
         "englishName": "Chipotle Mexican Grill, Inc.",
         "earningsDate": "2026-10-28",
         "enterpriseValue": 46326796288,
-        "marketCap": 41630326784,
-        "Volume": 19854563,
-        "AvgVolume": 18696525,
+        "marketCap": 42073067520,
+        "Volume": 15939581,
+        "AvgVolume": 18768337,
         "sharesOutstanding": 1264975000,
         "52Week": "27.31 - 41.42",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 32.91,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 41630326784,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 19854563,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 18696525,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -46988,7 +47005,8 @@
             "high": 33.349998,
             "low": 31.9,
             "close": 32.91,
-            "volume": 19844100
+            "volume": 19844100,
+            "marketCap": 42073067520
         }
     ]
 }

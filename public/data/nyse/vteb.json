@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 48.73,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 48.75,
         "englishName": "Vanguard Tax-Exempt Bond Index Fund ETF Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 18319040,
-        "AvgVolume": 21341685,
+        "Volume": 13654412,
+        "AvgVolume": 21520096,
         "sharesOutstanding": null,
         "52Week": "46.87 - 51.18",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 48.73,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 18319040,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 21341685,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -22805,10 +22818,12 @@
             "high": 48.869999,
             "low": 48.689999,
             "close": 48.73,
-            "volume": 18319000
+            "volume": 18319000,
+            "amount": 0.144,
+            "yield": 0.0377896248
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -22816,15 +22831,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

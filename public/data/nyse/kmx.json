@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 56.42,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 53.38,
         "englishName": "CarMax, Inc.",
         "earningsDate": "2026-12-17",
         "enterpriseValue": 25908199424,
-        "marketCap": 8008412672,
-        "Volume": 3056059,
-        "AvgVolume": 2544878,
+        "marketCap": 7576906752,
+        "Volume": 2994772,
+        "AvgVolume": 2572696,
         "sharesOutstanding": 141942807,
         "52Week": "30.26 - 65.28",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 56.42,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 8008412672,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3056059,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2544878,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -67207,7 +67224,8 @@
             "high": 58.700001,
             "low": 55.560001,
             "close": 56.419998,
-            "volume": 3055900
+            "volume": 3055900,
+            "marketCap": 7576906752
         }
     ]
 }

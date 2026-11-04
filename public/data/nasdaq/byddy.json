@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 8.95,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 9.12,
         "englishName": "BYD Company Limited",
         "earningsDate": "2026-10-29",
         "enterpriseValue": 127879839744,
-        "marketCap": 81598914560,
-        "Volume": 397548,
-        "AvgVolume": 1242623,
+        "marketCap": 83148840960,
+        "Volume": 232147,
+        "AvgVolume": 1246343,
         "sharesOutstanding": 3683400000,
         "52Week": "8.51 - 14.46",
-        "Yield": 0.04,
+        "Yield": 0.039254,
         "dividendRate": 0.05,
         "payoutRatio": 0.1045,
         "isin": "US05606L1008",
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.95,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 81598914560,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 397548,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1242623,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.04,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28348,7 +28369,7 @@
             "close": 13.046667098999023,
             "volume": 1324800,
             "amount": 0.0009,
-            "yield": 0.0000690537,
+            "yield": 6.90537e-5,
             "marketCap": 48056093592,
             "amountOriginal": 0.198,
             "amountSplitAdjustments": [
@@ -38155,7 +38176,8 @@
             "high": 9,
             "low": 8.88,
             "close": 8.95,
-            "volume": 397548
+            "volume": 397548,
+            "marketCap": 83148840960
         }
     ]
 }

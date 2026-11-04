@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 3253.01,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 3200,
         "englishName": "AutoZone, Inc.",
         "earningsDate": "2026-09-22",
         "enterpriseValue": 65179836416,
-        "marketCap": 52355051520,
-        "Volume": 145081,
-        "AvgVolume": 273614,
+        "marketCap": 51501891584,
+        "Volume": 119722,
+        "AvgVolume": 273051,
         "sharesOutstanding": 16094341,
         "52Week": "2730.65 - 3996.25",
         "Yield": null,
@@ -37,7 +37,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 3253.01,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 52355051520,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 145081,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 273614,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -80615,7 +80632,8 @@
             "high": 3266.290039,
             "low": 3184.02002,
             "close": 3253.01001,
-            "volume": 145000
+            "volume": 145000,
+            "marketCap": 51501891584
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 7.05,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 7.27,
         "englishName": "Beyond Meat, Inc.",
         "earningsDate": "2026-11-04",
         "enterpriseValue": 357661344,
-        "marketCap": 121217448,
-        "Volume": 883178,
-        "AvgVolume": 1403272,
+        "marketCap": 125000120,
+        "Volume": 1119091,
+        "AvgVolume": 1401036,
         "sharesOutstanding": 17193965,
         "52Week": "6.49 - 46.8",
         "Yield": null,
@@ -32,7 +32,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7.05,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 121217448,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 883178,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1403272,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16947,7 +16964,8 @@
             "high": 7.7,
             "low": 7.005,
             "close": 7.05,
-            "volume": 873500
+            "volume": 873500,
+            "marketCap": 125000120
         }
     ]
 }

@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 30.81,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 31.08,
         "englishName": "Roundhill ETF Trust - Roundhill Top WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 56655,
-        "AvgVolume": 61856,
+        "Volume": 63854,
+        "AvgVolume": 61365,
         "sharesOutstanding": null,
-        "52Week": "30.81 - 54.5",
+        "52Week": "30.73 - 52.7",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 30.81,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 56655,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 61856,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -2571,6 +2584,10 @@
         },
         {
             "date": "2027-04-27",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-04",
             "forecasted": true
         }
     ]

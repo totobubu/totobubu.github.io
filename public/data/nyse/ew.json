@@ -9,15 +9,15 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 93.26,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 95.19,
         "englishName": "Edwards Lifesciences Corporation",
         "earningsDate": "2026-11-04",
         "enterpriseValue": 50313662464,
-        "marketCap": 53755064320,
-        "Volume": 12172519,
-        "AvgVolume": 3337221,
-        "sharesOutstanding": 576400000,
+        "marketCap": 54810402816,
+        "Volume": 6525904,
+        "AvgVolume": 3465453,
+        "sharesOutstanding": 575800000,
         "52Week": "74.66 - 96.29",
         "Yield": null,
         "dividendRate": null,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 93.26,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 53755064320,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 12172519,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3337221,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 576400000,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -60162,7 +60183,8 @@
             "high": 95.75,
             "low": 87.900002,
             "close": 93.260002,
-            "volume": 12169100
+            "volume": 12169100,
+            "marketCap": 54810402816
         }
     ]
 }

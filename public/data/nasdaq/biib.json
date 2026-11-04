@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 249.01,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 248.93,
         "englishName": "Biogen Inc.",
         "earningsDate": "2026-10-28",
         "enterpriseValue": 43306115072,
-        "marketCap": 36808712192,
-        "Volume": 1172994,
-        "AvgVolume": 1043654,
+        "marketCap": 36796887040,
+        "Volume": 1057621,
+        "AvgVolume": 1047267,
         "sharesOutstanding": 147820223,
         "52Week": "148.51 - 258.78",
         "Yield": null,
@@ -37,7 +37,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 249.01,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 36808712192,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1172994,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1043654,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -79576,7 +79593,8 @@
             "high": 255.529999,
             "low": 247.910004,
             "close": 249.009995,
-            "volume": 1172100
+            "volume": 1172100,
+            "marketCap": 36796887040
         }
     ]
 }

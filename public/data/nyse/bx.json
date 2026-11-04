@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 120.14,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 118.19,
         "englishName": "Blackstone Inc.",
         "earningsDate": "2026-10-22",
         "enterpriseValue": 119413497856,
-        "marketCap": 143603073024,
-        "Volume": 5480140,
-        "AvgVolume": 4641209,
+        "marketCap": 141272252416,
+        "Volume": 3702067,
+        "AvgVolume": 4640759,
         "sharesOutstanding": 750625114,
         "52Week": "101.73 - 165.14",
-        "Yield": 0.042118,
-        "dividendRate": 5.23,
+        "Yield": 0.042812,
+        "dividendRate": 5.06,
         "payoutRatio": 1.1119,
         "isin": "US09260D1072",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 120.14,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 143603073024,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 5480140,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4641209,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.042118,
+                "change": "up"
+            },
+            "dividendRate": {
+                "value": 5.23,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -43777,14 +43802,16 @@
             "high": 122.470001,
             "low": 117.800003,
             "close": 120.139999,
-            "volume": 5475000
+            "volume": 5475000,
+            "amount": 1.12,
+            "yield": 0.0535684153
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-05-03",
+            "date": "2027-04-30",
             "forecasted": true
         }
     ]

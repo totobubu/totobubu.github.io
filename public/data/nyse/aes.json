@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 14.9,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 14.92,
         "englishName": "The AES Corporation",
         "earningsDate": null,
         "enterpriseValue": 49602236416,
-        "marketCap": 10630236160,
-        "Volume": 8887766,
-        "AvgVolume": 8399917,
-        "sharesOutstanding": 713438630,
+        "marketCap": 10640313344,
+        "Volume": 8022001,
+        "AvgVolume": 8421998,
+        "sharesOutstanding": 713157713,
         "52Week": "13.21 - 17.65",
-        "Yield": 0.047248,
+        "Yield": 0.047185,
         "dividendRate": 0.7,
         "payoutRatio": 0.2636,
         "isin": "US00130H1059",
@@ -47,7 +47,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.9,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 10630236160,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8887766,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8399917,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 713438630,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.047248,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -80202,7 +80227,9 @@
             "high": 14.88,
             "low": 14.83,
             "close": 14.83,
-            "volume": 9137900
+            "volume": 9137900,
+            "amount": 0.176,
+            "yield": 0.0591795562
         },
         {
             "date": "2026-11-02",

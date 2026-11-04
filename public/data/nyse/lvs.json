@@ -9,24 +9,45 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 38.2,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 38.26,
         "englishName": "Las Vegas Sands Corp.",
         "earningsDate": "2026-10-21",
         "enterpriseValue": 36780752896,
-        "marketCap": 24742184960,
-        "Volume": 6958176,
-        "AvgVolume": 5642273,
+        "marketCap": 24781045760,
+        "Volume": 5601618,
+        "AvgVolume": 5652801,
         "sharesOutstanding": 647701184,
         "52Week": "35.03 - 70.45",
-        "Yield": 0.031414,
+        "Yield": 0.031364,
         "dividendRate": 1.2,
         "payoutRatio": 0.4713,
         "isin": "US5178341070",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 38.2,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 24742184960,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 6958176,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5642273,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.031414,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -49414,14 +49435,16 @@
             "high": 38.279999,
             "low": 37.09,
             "close": 38.200001,
-            "volume": 6955900
+            "volume": 6955900,
+            "amount": 0.3,
+            "yield": 0.0389680204
         },
         {
-            "date": "2026-11-04",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-02-04",
+            "date": "2027-04-30",
             "forecasted": true
         }
     ]

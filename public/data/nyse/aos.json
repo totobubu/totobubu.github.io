@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 65.42,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 63.84,
         "englishName": "A. O. Smith Corporation",
         "earningsDate": "2026-10-29",
         "enterpriseValue": 9268300800,
-        "marketCap": 8787800064,
-        "Volume": 1781323,
-        "AvgVolume": 1501871,
+        "marketCap": 8575560704,
+        "Volume": 1597426,
+        "AvgVolume": 1494400,
         "sharesOutstanding": 108468717,
         "52Week": "54.16 - 81.87",
-        "Yield": 0.022012,
+        "Yield": 0.022556,
         "dividendRate": 1.52,
         "payoutRatio": 0.4022,
         "isin": "US8318652091",
@@ -52,7 +52,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 65.42,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 8787800064,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1781323,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1501871,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.022012,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -100761,7 +100782,9 @@
             "high": 64.019997,
             "low": 62.68,
             "close": 63.07,
-            "volume": 2495400
+            "volume": 2495400,
+            "amount": 0.38,
+            "yield": 0.0286569053
         },
         {
             "date": "2026-11-02",

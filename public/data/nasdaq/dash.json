@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-03 10:40:48 KST",
-        "regularMarketPrice": 190.07,
+        "Update": "2026-11-04 09:00:44 KST",
+        "regularMarketPrice": 183.32,
         "englishName": "DoorDash, Inc.",
         "earningsDate": "2026-10-29",
         "enterpriseValue": 80192020480,
-        "marketCap": 82866020352,
-        "Volume": 6211986,
-        "AvgVolume": 4254064,
+        "marketCap": 79923183616,
+        "Volume": 6140572,
+        "AvgVolume": 4297068,
         "sharesOutstanding": 411998576,
-        "52Week": "143.3 - 258.0",
+        "52Week": "143.3 - 244.17",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 190.07,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 82866020352,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 6211986,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4254064,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13285,7 +13302,8 @@
             "high": 191.020004,
             "low": 177,
             "close": 190.070007,
-            "volume": 6208600
+            "volume": 6208600,
+            "marketCap": 79923183616
         }
     ]
 }
