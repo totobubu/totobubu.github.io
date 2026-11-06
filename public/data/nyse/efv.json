@@ -24,7 +24,13 @@
         "payoutRatio": null,
         "isin": "US4642888774",
         "events": {
-            "splits": []
+            "splits": [
+                {
+                    "date": "2026-11-05",
+                    "ratio": "2:1",
+                    "type": "reverse-split"
+                }
+            ]
         },
         "changes": {
             "regularMarketPrice": {
@@ -42892,6 +42898,14 @@
             "low": 80.709999,
             "close": 81.370003,
             "volume": 1648500
+        },
+        {
+            "date": "2026-11-05",
+            "open": 40.619999,
+            "high": 40.77,
+            "low": 39.889999,
+            "close": 39.93,
+            "volume": 3031700
         }
     ]
 }
