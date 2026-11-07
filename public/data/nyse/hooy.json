@@ -9,16 +9,16 @@
         "underlying": "HOOD",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 18.28,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 18.85,
         "englishName": "YieldMax HOOD Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 198272,
-        "AvgVolume": 140495,
+        "Volume": 103352,
+        "AvgVolume": 142737,
         "sharesOutstanding": null,
-        "52Week": "17.6315 - 65.0",
+        "52Week": "17.632 - 63.15",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.28,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 198272,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 140495,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3225,7 +3238,9 @@
             "high": 20.02,
             "low": 17.632,
             "close": 18.280001,
-            "volume": 200800
+            "volume": 200800,
+            "amount": 0.233,
+            "yield": 1.3103332312
         },
         {
             "date": "2026-11-12",

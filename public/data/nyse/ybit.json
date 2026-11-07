@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 18.75,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 18.62,
         "englishName": "YieldMax Bitcoin Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 17990,
-        "AvgVolume": 35068,
+        "Volume": 18941,
+        "AvgVolume": 35006,
         "sharesOutstanding": null,
         "52Week": "17.86 - 42.45",
         "Yield": null,
@@ -39,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.75,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 17990,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 35068,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5569,7 +5582,9 @@
             "high": 19.305,
             "low": 18.620001,
             "close": 18.75,
-            "volume": 19100
+            "volume": 19100,
+            "amount": 0.149,
+            "yield": 0.5503937416
         },
         {
             "date": "2026-11-12",

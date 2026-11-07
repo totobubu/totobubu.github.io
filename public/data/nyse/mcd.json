@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 278.04,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 276.52,
         "englishName": "McDonald's Corporation",
         "earningsDate": "2026-11-04",
-        "enterpriseValue": null,
-        "marketCap": 196752654336,
-        "Volume": 7294853,
-        "AvgVolume": 5375289,
+        "enterpriseValue": 249459032064,
+        "marketCap": 195677028352,
+        "Volume": 6323366,
+        "AvgVolume": 5423684,
         "sharesOutstanding": 707641531,
         "52Week": "229.2 - 341.75",
-        "Yield": 0.00669,
+        "Yield": 0.026906,
         "dividendRate": 7.72,
         "payoutRatio": 0.5971,
         "isin": "US5801351017",
@@ -72,7 +72,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 278.04,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 196752654336,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7294853,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 5375289,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.00669,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -27212,7 +27233,7 @@
             "close": 1.2901229858398438,
             "volume": 7002450,
             "amount": 0.0001,
-            "yield": 0.0000796069,
+            "yield": 7.96069e-5,
             "marketCap": 920637483,
             "amountOriginal": 3.644636,
             "amountSplitAdjustments": [

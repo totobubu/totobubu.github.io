@@ -9,24 +9,53 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 26.48,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 26.385,
         "englishName": "News Corporation",
         "earningsDate": "2026-11-04",
-        "enterpriseValue": 18058567680,
-        "marketCap": 14244456448,
-        "Volume": 9751222,
-        "AvgVolume": 3905551,
-        "sharesOutstanding": 358761896,
+        "enterpriseValue": 16124680192,
+        "marketCap": 14189069312,
+        "Volume": 7099547,
+        "AvgVolume": 3937817,
+        "sharesOutstanding": 358648773,
         "52Week": "22.2 - 31.66",
-        "Yield": null,
+        "Yield": 0.00758,
         "dividendRate": 0.2,
-        "payoutRatio": 0.1942,
+        "payoutRatio": 0.1786,
         "isin": "CNE000000KJ6",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.48,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 18058567680,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14244456448,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 9751222,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3905551,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 358761896,
+                "change": "down"
+            },
+            "payoutRatio": {
+                "value": 0.1942,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30193,7 +30222,8 @@
             "high": 29.700001,
             "low": 26.469999,
             "close": 26.48,
-            "volume": 9751900
+            "volume": 9751900,
+            "marketCap": 14189069312
         }
     ]
 }

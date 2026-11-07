@@ -9,14 +9,14 @@
         "underlying": "SNOW",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 8.55,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 8.8,
         "englishName": "YieldMax SNOW Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 181067,
-        "AvgVolume": 137956,
+        "Volume": 81841,
+        "AvgVolume": 139440,
         "sharesOutstanding": null,
         "52Week": "6.17 - 15.759",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 8.55,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 181067,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 137956,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5085,7 +5098,9 @@
             "high": 8.99,
             "low": 8.5,
             "close": 8.55,
-            "volume": 181100
+            "volume": 181100,
+            "amount": 0.082,
+            "yield": 0.7581868743
         },
         {
             "date": "2026-11-12",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 118.01,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 119.65,
         "englishName": "Incyte Corporation",
         "earningsDate": "2026-10-29",
-        "enterpriseValue": 20230998016,
-        "marketCap": 24054274048,
-        "Volume": 1599722,
-        "AvgVolume": 1617331,
+        "enterpriseValue": 20237113344,
+        "marketCap": 24388558848,
+        "Volume": 1486170,
+        "AvgVolume": 1604981,
         "sharesOutstanding": 203832492,
         "52Week": "89.25 - 132.6",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 118.01,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 20230998016,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 24054274048,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 1599722,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1617331,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -74642,7 +74663,8 @@
             "high": 123.959999,
             "low": 117.879997,
             "close": 118.010002,
-            "volume": 1600000
+            "volume": 1600000,
+            "marketCap": 24388558848
         }
     ]
 }

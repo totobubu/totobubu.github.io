@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 127.72,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 125.52,
         "englishName": "Walmart Inc.",
         "earningsDate": "2026-11-19",
         "enterpriseValue": 1083422081024,
-        "marketCap": 1016405884928,
-        "Volume": 41735671,
-        "AvgVolume": 23487210,
+        "marketCap": 998898073600,
+        "Volume": 24815423,
+        "AvgVolume": 23781632,
         "sharesOutstanding": 7958079155,
         "52Week": "98.88 - 135.16",
-        "Yield": 0.007556,
+        "Yield": 0.007688,
         "dividendRate": 0.99,
         "payoutRatio": 0.3496,
         "isin": "CA93267X1006",
@@ -77,7 +77,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 127.72,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1016405884928,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 41735671,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 23487210,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.007556,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -36861,7 +36882,7 @@
             "close": 1.6927080154418945,
             "volume": 25680000,
             "amount": 0.0001,
-            "yield": 0.0000590769,
+            "yield": 5.90769e-5,
             "marketCap": 13495709000,
             "amountOriginal": 0.72,
             "amountSplitAdjustments": [

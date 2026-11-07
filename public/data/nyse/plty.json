@@ -9,14 +9,14 @@
         "underlying": "PLTR",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 28.62,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 29.65,
         "englishName": "YieldMax PLTR Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 311446,
-        "AvgVolume": 190265,
+        "Volume": 137465,
+        "AvgVolume": 193362,
         "sharesOutstanding": null,
         "52Week": "26.06 - 62.248",
         "Yield": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 28.62,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 311446,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 190265,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4396,7 +4409,9 @@
             "high": 30.889999,
             "low": 28.200001,
             "close": 28.620001,
-            "volume": 314100
+            "volume": 314100,
+            "amount": 0.224,
+            "yield": 0.8077943561
         },
         {
             "date": "2026-11-12",

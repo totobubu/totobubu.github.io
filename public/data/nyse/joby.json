@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 5.3,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 5.93,
         "englishName": "Joby Aviation, Inc.",
         "earningsDate": "2026-11-04",
-        "enterpriseValue": 3478964480,
-        "marketCap": 5280359936,
-        "Volume": 44608745,
-        "AvgVolume": 24245535,
+        "enterpriseValue": 3723121152,
+        "marketCap": 5908024832,
+        "Volume": 32561279,
+        "AvgVolume": 24179796,
         "sharesOutstanding": 996294246,
         "52Week": "4.43 - 17.1",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 5.3,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 3478964480,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 5280359936,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 44608745,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 24245535,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13407,7 +13428,8 @@
             "high": 5.83,
             "low": 4.82,
             "close": 5.3,
-            "volume": 44863000
+            "volume": 44863000,
+            "marketCap": 5908024832
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 6.9,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 6.91,
         "englishName": "Defiance Oil Enhanced Options Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 587746,
-        "AvgVolume": 402982,
+        "Volume": 496728,
+        "AvgVolume": 407776,
         "sharesOutstanding": null,
         "52Week": "6.35 - 9.58",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 6.9,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 587746,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 402982,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5289,7 +5302,9 @@
             "high": 6.93,
             "low": 6.8,
             "close": 6.9,
-            "volume": 588200
+            "volume": 588200,
+            "amount": 0.064,
+            "yield": 0.5392005814
         },
         {
             "date": "2026-11-12",

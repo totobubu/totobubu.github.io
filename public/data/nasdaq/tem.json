@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 70.43,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 76.05,
         "englishName": "Tempus AI, Inc.",
         "earningsDate": "2026-11-02",
-        "enterpriseValue": 14585946112,
-        "marketCap": 12846546944,
-        "Volume": 9957595,
-        "AvgVolume": 7119876,
+        "enterpriseValue": 14664378368,
+        "marketCap": 13871644672,
+        "Volume": 6271218,
+        "AvgVolume": 7235585,
         "sharesOutstanding": 177357848,
         "52Week": "40.77 - 89.09",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 70.43,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 14585946112,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 12846546944,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9957595,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 7119876,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5251,7 +5272,8 @@
             "high": 72.639999,
             "low": 65.07,
             "close": 70.43,
-            "volume": 9975200
+            "volume": 9975200,
+            "marketCap": 13871644672
         }
     ]
 }

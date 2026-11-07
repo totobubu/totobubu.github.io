@@ -9,14 +9,14 @@
         "underlying": "QQQ",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 19.05,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 19.25,
         "englishName": "Defiance Nasdaq 100 Target 30 Weekly Distribution ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 255162,
-        "AvgVolume": 98762,
+        "Volume": 101718,
+        "AvgVolume": 102128,
         "sharesOutstanding": null,
         "52Week": "19.05 - 24.959",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 19.05,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 255162,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 98762,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6845,7 +6858,9 @@
             "high": 20.139999,
             "low": 19.049999,
             "close": 19.049999,
-            "volume": 257100
+            "volume": 257100,
+            "amount": 0.117,
+            "yield": 0.3582274259
         },
         {
             "date": "2026-11-12",

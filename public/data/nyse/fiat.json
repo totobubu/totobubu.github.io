@@ -9,14 +9,14 @@
         "underlying": "COIN",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-06 09:20:19 KST",
-        "regularMarketPrice": 18.37,
+        "Update": "2026-11-07 08:56:07 KST",
+        "regularMarketPrice": 18.41,
         "englishName": "YieldMax Short COIN Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 149667,
-        "AvgVolume": 67456,
+        "Volume": 41956,
+        "AvgVolume": 69189,
         "sharesOutstanding": null,
         "52Week": "14.14 - 36.11",
         "Yield": null,
@@ -39,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.37,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 149667,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 67456,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5102,7 +5115,9 @@
             "high": 18.549999,
             "low": 16.74,
             "close": 18.370001,
-            "volume": 150600
+            "volume": 150600,
+            "amount": 0.307,
+            "yield": 0.9572792363
         },
         {
             "date": "2026-11-12",
