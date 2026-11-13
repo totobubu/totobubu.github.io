@@ -9,14 +9,14 @@
         "underlying": "MRNA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 43.84,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 40.14,
         "englishName": "YieldMax MRNA Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 608849,
-        "AvgVolume": 400448,
+        "Volume": 402114,
+        "AvgVolume": 408175,
         "sharesOutstanding": null,
         "52Week": "13.6 - 48.425",
         "Yield": null,
@@ -39,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 43.84,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 608849,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 400448,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6769,6 +6782,10 @@
         },
         {
             "date": "2027-05-06",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-13",
             "forecasted": true
         }
     ]

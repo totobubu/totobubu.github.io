@@ -9,24 +9,37 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 105.26,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 104.77,
         "englishName": "iShares TIPS Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 2802151,
-        "AvgVolume": 1993862,
-        "sharesOutstanding": 177700000,
+        "Volume": 2382392,
+        "AvgVolume": 2019951,
+        "sharesOutstanding": null,
         "52Week": "103.76 - 111.98",
-        "Yield": 0.011875,
+        "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642871762",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 105.26,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2802151,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1993862,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -52045,7 +52058,9 @@
             "high": 106.639999,
             "low": 106.32,
             "close": 106.400002,
-            "volume": 2023000
+            "volume": 2023000,
+            "amount": 0.161,
+            "yield": 0.0456995305
         },
         {
             "date": "2026-11-03",
@@ -52104,7 +52119,7 @@
             "volume": 2802200
         },
         {
-            "date": "2026-12-03",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -52112,11 +52127,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-03",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
@@ -52124,7 +52139,7 @@
             "forecasted": true
         },
         {
-            "date": "2027-05-03",
+            "date": "2027-04-30",
             "forecasted": true
         }
     ]

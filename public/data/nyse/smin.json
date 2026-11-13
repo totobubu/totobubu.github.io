@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 70.82,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 71.26,
         "englishName": "iShares MSCI India Small-Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 51742,
-        "AvgVolume": 77275,
+        "Volume": 71277,
+        "AvgVolume": 77190,
         "sharesOutstanding": null,
         "52Week": "57.78 - 74.17",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 70.82,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 51742,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 77275,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -773,7 +786,7 @@
             "close": 21.059999465942383,
             "volume": 700,
             "amount": 0.001,
-            "yield": 0.0000476644
+            "yield": 4.76644e-5
         },
         {
             "date": "2012-06-22",

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 74.87,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 74.42,
         "englishName": "Vanguard Core-Plus Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 320866,
-        "AvgVolume": 371039,
+        "Volume": 150415,
+        "AvgVolume": 373735,
         "sharesOutstanding": null,
         "52Week": "73.445 - 79.34",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 74.87,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 320866,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 371039,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5917,7 +5930,9 @@
             "high": 75.220001,
             "low": 74.981003,
             "close": 75.010002,
-            "volume": 254400
+            "volume": 254400,
+            "amount": 0.284,
+            "yield": 0.0528417431
         },
         {
             "date": "2026-11-03",
@@ -5976,7 +5991,7 @@
             "volume": 320900
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -5984,15 +5999,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

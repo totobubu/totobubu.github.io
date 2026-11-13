@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 64.54,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 62.69,
         "englishName": "Netflix, Inc.",
         "earningsDate": "2026-10-20",
-        "enterpriseValue": 274263228416,
-        "marketCap": 265022291968,
-        "Volume": 28965110,
-        "AvgVolume": 36778250,
+        "enterpriseValue": 274329108480,
+        "marketCap": 257425571840,
+        "Volume": 31229289,
+        "AvgVolume": 36914517,
         "sharesOutstanding": 4106325903,
         "52Week": "61.39 - 116.733",
         "Yield": null,
@@ -42,7 +42,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 64.54,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 274263228416,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 265022291968,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 28965110,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 36778250,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -55283,7 +55304,8 @@
             "high": 64.559998,
             "low": 62.75,
             "close": 64.540001,
-            "volume": 29441400
+            "volume": 29441400,
+            "marketCap": 257425571840
         }
     ]
 }

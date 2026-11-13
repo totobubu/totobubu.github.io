@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 24.6,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 24.47,
         "englishName": "Schwab Core Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 409271,
-        "AvgVolume": 304315,
+        "Volume": 532995,
+        "AvgVolume": 308139,
         "sharesOutstanding": null,
         "52Week": "24.121 - 26.25",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.6,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 409271,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 304315,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3569,7 +3582,9 @@
             "high": 24.75,
             "low": 24.66,
             "close": 24.66,
-            "volume": 2071400
+            "volume": 2071400,
+            "amount": 0.104,
+            "yield": 0.0508103728
         },
         {
             "date": "2026-11-03",
@@ -3628,7 +3643,7 @@
             "volume": 409300
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -3636,15 +3651,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

@@ -9,16 +9,16 @@
         "underlying": "SMCI",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 3.77,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 3.38,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1198084,
-        "AvgVolume": 1172057,
+        "Volume": 1544356,
+        "AvgVolume": 1144571,
         "sharesOutstanding": null,
-        "52Week": "3.23 - 11.41",
+        "52Week": "3.23 - 10.79",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 3.77,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1198084,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1172057,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4699,6 +4712,10 @@
         },
         {
             "date": "2027-05-06",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-13",
             "forecasted": true
         }
     ]

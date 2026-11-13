@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 75.025,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 75.03,
         "englishName": "Northern Trust Ultra-Short Fixed Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 8569,
-        "AvgVolume": 93854,
+        "Volume": 66045,
+        "AvgVolume": 93240,
         "sharesOutstanding": null,
         "52Week": "74.36 - 75.63",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 75.025,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 8569,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 93854,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -28629,7 +28642,9 @@
             "high": 75.040001,
             "low": 74.940002,
             "close": 75.019997,
-            "volume": 60800
+            "volume": 60800,
+            "amount": 0.277,
+            "yield": 0.0460635163
         },
         {
             "date": "2026-11-03",
@@ -28688,7 +28703,7 @@
             "volume": 8600
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -28696,15 +28711,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

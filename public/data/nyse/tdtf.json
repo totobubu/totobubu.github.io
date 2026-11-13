@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 22.85,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 22.78,
         "englishName": "Northern Trust iBoxx 5-Year Target Duration TIPS ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 125446,
-        "AvgVolume": 333893,
+        "Volume": 228066,
+        "AvgVolume": 334173,
         "sharesOutstanding": null,
         "52Week": "22.63 - 24.41",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 22.85,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 125446,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 333893,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30649,7 +30662,9 @@
             "high": 23.15,
             "low": 23.09,
             "close": 23.1,
-            "volume": 966300
+            "volume": 966300,
+            "amount": 0.075,
+            "yield": 0.0542980562
         },
         {
             "date": "2026-11-03",
@@ -30708,7 +30723,7 @@
             "volume": 125400
         },
         {
-            "date": "2026-12-03",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -30716,11 +30731,11 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-03",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-03",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
@@ -30728,7 +30743,7 @@
             "forecasted": true
         },
         {
-            "date": "2027-05-03",
+            "date": "2027-04-30",
             "forecasted": true
         }
     ]

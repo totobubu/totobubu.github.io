@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 50.04,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 50.03,
         "englishName": "AB Ultra Short Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 57241,
-        "AvgVolume": 139317,
+        "Volume": 134384,
+        "AvgVolume": 137054,
         "sharesOutstanding": null,
         "52Week": "49.94 - 50.7",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.04,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 57241,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 139317,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8419,7 +8432,9 @@
             "high": 50.099998,
             "low": 50.07,
             "close": 50.09,
-            "volume": 109200
+            "volume": 109200,
+            "amount": 0.167,
+            "yield": 0.0431595766
         },
         {
             "date": "2026-11-03",
@@ -8478,7 +8493,7 @@
             "volume": 57200
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -8486,15 +8501,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

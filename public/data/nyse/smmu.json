@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 50.42,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 50.26,
         "englishName": "PIMCO Short Term Municipal Bond Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 145823,
-        "AvgVolume": 201212,
+        "Volume": 1037540,
+        "AvgVolume": 200835,
         "sharesOutstanding": null,
         "52Week": "49.23 - 50.9",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.42,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 145823,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 201212,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -34115,7 +34128,9 @@
             "high": 50.241402,
             "low": 50.18,
             "close": 50.23,
-            "volume": 292815
+            "volume": 292815,
+            "amount": 0.12,
+            "yield": 0.0310324249
         },
         {
             "date": "2026-11-03",
@@ -34174,7 +34189,7 @@
             "volume": 145823
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -34182,15 +34197,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

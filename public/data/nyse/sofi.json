@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 16.27,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 15.63,
         "englishName": "SoFi Technologies, Inc.",
         "earningsDate": "2026-10-27",
-        "enterpriseValue": 22251737088,
-        "marketCap": 21115863040,
-        "Volume": 39477152,
-        "AvgVolume": 48758754,
+        "enterpriseValue": 21421117440,
+        "marketCap": 20285245440,
+        "Volume": 45236904,
+        "AvgVolume": 48802567,
         "sharesOutstanding": 1297840447,
-        "52Week": "13.86 - 32.73",
+        "52Week": "13.86 - 31.75",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": 0,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 16.27,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 22251737088,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 21115863040,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 39477152,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 48758754,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -11876,7 +11897,8 @@
             "high": 16.825001,
             "low": 16.25,
             "close": 16.27,
-            "volume": 39845100
+            "volume": 39845100,
+            "marketCap": 20285245440
         }
     ]
 }

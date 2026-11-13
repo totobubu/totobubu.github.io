@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 60.2,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 59.78,
         "englishName": "Vanguard ESG U.S. Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 102343,
-        "AvgVolume": 133171,
+        "Volume": 90300,
+        "AvgVolume": 134137,
         "sharesOutstanding": null,
         "52Week": "59.05 - 64.46",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 60.2,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 102343,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 133171,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12443,7 +12456,9 @@
             "high": 60.330002,
             "low": 60.09,
             "close": 60.099998,
-            "volume": 104800
+            "volume": 104800,
+            "amount": 0.259,
+            "yield": 0.0537030878
         },
         {
             "date": "2026-11-03",
@@ -12502,7 +12517,7 @@
             "volume": 102300
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -12510,15 +12525,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

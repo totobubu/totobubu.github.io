@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 152.44,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 152.29,
         "englishName": "Atlassian Corporation",
         "earningsDate": "2026-11-05",
         "enterpriseValue": 38498930688,
-        "marketCap": 38588481536,
-        "Volume": 3285873,
-        "AvgVolume": 3409104,
+        "marketCap": 38550507520,
+        "Volume": 2203026,
+        "AvgVolume": 3397473,
         "sharesOutstanding": 159005198,
         "52Week": "56.01 - 229.96",
         "Yield": null,
@@ -26,7 +26,24 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 152.44,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 38588481536,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3285873,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 3409104,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -24564,7 +24581,8 @@
             "high": 154.190002,
             "low": 149.169998,
             "close": 152.440002,
-            "volume": 3287400
+            "volume": 3287400,
+            "marketCap": 38550507520
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 73.62,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 73.73,
         "englishName": "ON Semiconductor Corporation",
         "earningsDate": "2026-11-02",
-        "enterpriseValue": 29019523072,
-        "marketCap": 28659124224,
-        "Volume": 9255391,
-        "AvgVolume": 10465115,
+        "enterpriseValue": 29062344704,
+        "marketCap": 28701945856,
+        "Volume": 6009636,
+        "AvgVolume": 10457126,
         "sharesOutstanding": 389284489,
         "52Week": "44.56 - 134.92",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 73.62,
+                "change": "up"
+            },
+            "enterpriseValue": {
+                "value": 29019523072,
+                "change": "up"
+            },
+            "marketCap": {
+                "value": 28659124224,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 9255391,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 10465115,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -59900,7 +59921,8 @@
             "high": 74.839996,
             "low": 70.339996,
             "close": 73.620003,
-            "volume": 9305500
+            "volume": 9305500,
+            "marketCap": 28701945856
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 47.1242,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 46.7947,
         "englishName": "PIMCO Mortgage-Backed Securities Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1108268,
-        "AvgVolume": 200070,
+        "Volume": 302968,
+        "AvgVolume": 216210,
         "sharesOutstanding": null,
         "52Week": "45.71 - 50.95",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 47.1242,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1108268,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 200070,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4307,7 +4320,9 @@
             "high": 47.487999,
             "low": 47.310001,
             "close": 47.368,
-            "volume": 97700
+            "volume": 97700,
+            "amount": 0.185,
+            "yield": 0.0528035424
         },
         {
             "date": "2026-11-03",
@@ -4366,7 +4381,7 @@
             "volume": 1108500
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -4374,15 +4389,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

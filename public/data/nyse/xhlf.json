@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 50.16,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 50.14,
         "englishName": "Bondbloxx Bloomberg Six Month Target Duration US Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 83684,
-        "AvgVolume": 267937,
+        "Volume": 158304,
+        "AvgVolume": 261032,
         "sharesOutstanding": null,
         "52Week": "50.085 - 50.41",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 50.16,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 83684,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 267937,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -8411,7 +8424,9 @@
             "high": 50.139999,
             "low": 50.130001,
             "close": 50.139999,
-            "volume": 432400
+            "volume": 432400,
+            "amount": 0.161,
+            "yield": 0.040845633
         },
         {
             "date": "2026-11-03",
@@ -8470,7 +8485,7 @@
             "volume": 83700
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -8478,15 +8493,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

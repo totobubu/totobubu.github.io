@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 41.14,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 40.99,
         "englishName": "iShares 0-5 Year High Yield Corporate Bond ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1207129,
-        "AvgVolume": 1641289,
+        "Volume": 1447776,
+        "AvgVolume": 1648768,
         "sharesOutstanding": 64800000,
         "52Week": "40.82 - 43.14",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 41.14,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1207129,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1641289,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -29604,7 +29617,9 @@
             "high": 41.09,
             "low": 40.939999,
             "close": 40.939999,
-            "volume": 4023700
+            "volume": 4023700,
+            "amount": 0.238,
+            "yield": 0.0775206995
         },
         {
             "date": "2026-11-03",
@@ -29663,7 +29678,7 @@
             "volume": 1207100
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -29671,15 +29686,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

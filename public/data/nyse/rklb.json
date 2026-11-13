@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 66.15,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 64.07,
         "englishName": "Rocket Lab Corporation",
         "earningsDate": "2026-11-09",
-        "enterpriseValue": 37320515584,
-        "marketCap": 44517109760,
-        "Volume": 24005833,
-        "AvgVolume": 19570815,
+        "enterpriseValue": 36005912576,
+        "marketCap": 43117326336,
+        "Volume": 13397539,
+        "AvgVolume": 19685725,
         "sharesOutstanding": 632020915,
         "52Week": "37.57 - 151.0",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 66.15,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 37320515584,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 44517109760,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 24005833,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 19570815,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -12084,7 +12105,8 @@
             "high": 68.260002,
             "low": 63.200001,
             "close": 66.150002,
-            "volume": 24172100
+            "volume": 24172100,
+            "marketCap": 43117326336
         }
     ]
 }

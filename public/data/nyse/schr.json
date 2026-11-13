@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 23.95,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 23.82,
         "englishName": "Schwab Intermediate-Term U.S. Treasury ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1676242,
-        "AvgVolume": 3610931,
+        "Volume": 5053315,
+        "AvgVolume": 3599140,
         "sharesOutstanding": 78600000,
         "52Week": "23.57 - 25.42",
         "Yield": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 23.95,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1676242,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 3610931,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -38455,7 +38468,9 @@
             "high": 24.110001,
             "low": 24.049999,
             "close": 24.07,
-            "volume": 4697300
+            "volume": 4697300,
+            "amount": 0.088,
+            "yield": 0.0440565272
         },
         {
             "date": "2026-11-03",
@@ -38514,7 +38529,7 @@
             "volume": 1676700
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -38522,15 +38537,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

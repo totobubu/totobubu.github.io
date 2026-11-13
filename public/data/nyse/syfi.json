@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 35.05,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 34.945,
         "englishName": "AB Short Duration High Yield ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 41654,
-        "AvgVolume": 133912,
+        "Volume": 123949,
+        "AvgVolume": 133410,
         "sharesOutstanding": null,
         "52Week": "34.6 - 36.14",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 35.05,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 41654,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 133912,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4891,7 +4904,9 @@
             "high": 34.985001,
             "low": 34.860001,
             "close": 34.860001,
-            "volume": 98697
+            "volume": 98697,
+            "amount": 0.174,
+            "yield": 0.0649599561
         },
         {
             "date": "2026-11-03",
@@ -4950,7 +4965,7 @@
             "volume": 41654
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -4958,15 +4973,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

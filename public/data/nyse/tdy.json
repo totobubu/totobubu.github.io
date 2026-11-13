@@ -9,15 +9,15 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 651.12,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 647.57,
         "englishName": "Teledyne Technologies Incorporated",
         "earningsDate": "2026-10-21",
-        "enterpriseValue": 31440631808,
-        "marketCap": 30165827584,
-        "Volume": 395002,
-        "AvgVolume": 305212,
-        "sharesOutstanding": 46329138,
+        "enterpriseValue": 31277203456,
+        "marketCap": 30018543616,
+        "Volume": 275237,
+        "AvgVolume": 307256,
+        "sharesOutstanding": 46355673,
         "52Week": "483.02 - 697.67",
         "Yield": null,
         "dividendRate": null,
@@ -26,7 +26,32 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 651.12,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 31440631808,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 30165827584,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 395002,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 305212,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 46329138,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -60886,7 +60911,8 @@
             "high": 659.440002,
             "low": 643.700012,
             "close": 651.119995,
-            "volume": 395000
+            "volume": 395000,
+            "marketCap": 30018543616
         }
     ]
 }

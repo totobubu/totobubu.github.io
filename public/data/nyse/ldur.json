@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 94.25,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 94.1,
         "englishName": "PIMCO Enhanced Low Duration Active Exchange-Traded Fund",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 36245,
-        "AvgVolume": 77929,
+        "Volume": 40206,
+        "AvgVolume": 71179,
         "sharesOutstanding": null,
         "52Week": "93.74 - 96.54",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 94.25,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 36245,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 77929,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -26031,7 +26044,9 @@
             "high": 94.470001,
             "low": 94.370003,
             "close": 94.410004,
-            "volume": 133438
+            "volume": 133438,
+            "amount": 0.34,
+            "yield": 0.0457772583
         },
         {
             "date": "2026-11-03",
@@ -26090,7 +26105,7 @@
             "volume": 36245
         },
         {
-            "date": "2026-12-01",
+            "date": "2026-12-02",
             "forecasted": true
         },
         {
@@ -26098,15 +26113,15 @@
             "forecasted": true
         },
         {
-            "date": "2027-02-01",
+            "date": "2027-02-02",
             "forecasted": true
         },
         {
-            "date": "2027-03-01",
+            "date": "2027-03-02",
             "forecasted": true
         },
         {
-            "date": "2027-04-01",
+            "date": "2027-04-02",
             "forecasted": true
         },
         {

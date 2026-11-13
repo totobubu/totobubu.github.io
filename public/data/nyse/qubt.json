@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 6.17,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 5.82,
         "englishName": "Quantum Computing Inc.",
         "earningsDate": "2026-11-09",
-        "enterpriseValue": 525864960,
-        "marketCap": 1400168960,
-        "Volume": 7391062,
-        "AvgVolume": 7251265,
+        "enterpriseValue": 444396448,
+        "marketCap": 1320742912,
+        "Volume": 8446355,
+        "AvgVolume": 7245103,
         "sharesOutstanding": 226931758,
         "52Week": "5.39 - 14.45",
         "Yield": null,
@@ -37,7 +37,28 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 6.17,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 525864960,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 1400168960,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 7391062,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7251265,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -39927,7 +39948,8 @@
             "high": 6.57,
             "low": 6.1,
             "close": 6.17,
-            "volume": 7428000
+            "volume": 7428000,
+            "marketCap": 1320742912
         }
     ]
 }

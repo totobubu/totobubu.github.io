@@ -9,24 +9,49 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-12 10:24:40 KST",
-        "regularMarketPrice": 26.83,
+        "Update": "2026-11-13 09:16:06 KST",
+        "regularMarketPrice": 26.27,
         "englishName": "News Corporation",
         "earningsDate": "2026-11-04",
-        "enterpriseValue": 16292409344,
-        "marketCap": 14400906240,
-        "Volume": 3800817,
-        "AvgVolume": 4026954,
+        "enterpriseValue": 15986756608,
+        "marketCap": 14100329472,
+        "Volume": 2854673,
+        "AvgVolume": 4036742,
         "sharesOutstanding": 357956075,
         "52Week": "22.2 - 31.66",
-        "Yield": 0.007454,
+        "Yield": 0.007613,
         "dividendRate": 0.2,
         "payoutRatio": 0.1786,
         "isin": "CNE000000KJ6",
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.83,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 16292409344,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 14400906240,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3800817,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 4026954,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.007454,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30228,7 +30253,8 @@
             "high": 26.879999,
             "low": 26.51,
             "close": 26.83,
-            "volume": 3801500
+            "volume": 3801500,
+            "marketCap": 14100329472
         }
     ]
 }
