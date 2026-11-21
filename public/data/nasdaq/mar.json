@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 414.04,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 406.64,
         "englishName": "Marriott International, Inc.",
         "earningsDate": "2026-11-02",
-        "enterpriseValue": 123842117632,
-        "marketCap": 106617126912,
-        "Volume": 1278808,
-        "AvgVolume": 1542331,
+        "enterpriseValue": 121985515520,
+        "marketCap": 104711593984,
+        "Volume": 1989428,
+        "AvgVolume": 1533223,
         "sharesOutstanding": 257504397,
-        "52Week": "281.72 - 433.3",
-        "Yield": 0.006763,
+        "52Week": "282.03 - 433.3",
+        "Yield": 0.006886,
         "dividendRate": 2.92,
         "payoutRatio": 0.2792,
         "isin": "US5719032022",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 414.04,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 123842117632,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 106617126912,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1278808,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 1542331,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.006763,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -66429,14 +66454,16 @@
             "high": 425.410004,
             "low": 411.019989,
             "close": 414.040009,
-            "volume": 1278900
+            "volume": 1278900,
+            "amount": 0.73,
+            "yield": 0.0083288113
         },
         {
             "date": "2027-02-19",
             "forecasted": true
         },
         {
-            "date": "2027-05-20",
+            "date": "2027-05-19",
             "forecasted": true
         }
     ]

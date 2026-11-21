@@ -9,16 +9,16 @@
         "underlying": "TSM",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 11.65,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 10.65,
         "englishName": "YieldMax TSM Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 63804,
-        "AvgVolume": 129356,
+        "Volume": 316025,
+        "AvgVolume": 128954,
         "sharesOutstanding": null,
-        "52Week": "11.6301 - 18.02",
+        "52Week": "10.54 - 18.02",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 11.65,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 63804,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 129356,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4768,7 +4781,9 @@
             "high": 12.42,
             "low": 11.6301,
             "close": 11.65,
-            "volume": 63804
+            "volume": 63804,
+            "amount": 0.077,
+            "yield": 0.5797119342
         },
         {
             "date": "2026-11-25",

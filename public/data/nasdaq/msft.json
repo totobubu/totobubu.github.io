@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 498.3,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 484.52,
         "englishName": "Microsoft Corporation",
         "earningsDate": "2026-10-28",
-        "enterpriseValue": 3769894699008,
-        "marketCap": 3700472676352,
-        "Volume": 28435392,
-        "AvgVolume": 23319451,
+        "enterpriseValue": 3670866395136,
+        "marketCap": 3598139523072,
+        "Volume": 47123194,
+        "AvgVolume": 23462239,
         "sharesOutstanding": 7426194552,
         "52Week": "349.2 - 559.15",
-        "Yield": 0.007445,
+        "Yield": 0.007657,
         "dividendRate": 3.92,
         "payoutRatio": 0.19,
         "isin": "US5949181045",
@@ -72,7 +72,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 498.3,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 3769894699008,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 3700472676352,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 28435392,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 23319451,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.007445,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -92258,14 +92283,16 @@
             "high": 526.48999,
             "low": 498.160004,
             "close": 498.299988,
-            "volume": 29073900
+            "volume": 29073900,
+            "amount": 0.98,
+            "yield": 0.0088931665
         },
         {
             "date": "2027-02-19",
             "forecasted": true
         },
         {
-            "date": "2027-05-20",
+            "date": "2027-05-19",
             "forecasted": true
         }
     ]

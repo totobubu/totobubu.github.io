@@ -9,16 +9,16 @@
         "underlying": "PYPL",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 24.987,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 23.4898,
         "englishName": "Yieldmax PYPL Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 8808,
-        "AvgVolume": 12176,
+        "Volume": 19602,
+        "AvgVolume": 11970,
         "sharesOutstanding": null,
-        "52Week": "24.15 - 44.645",
+        "52Week": "23.4898 - 44.645",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -39,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 24.987,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 8808,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 12176,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6886,7 +6899,9 @@
             "high": 25.610001,
             "low": 24.870001,
             "close": 24.987,
-            "volume": 8808
+            "volume": 8808,
+            "amount": 0.228,
+            "yield": 0.5251099971
         },
         {
             "date": "2026-11-25",

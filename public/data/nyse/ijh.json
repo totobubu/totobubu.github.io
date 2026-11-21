@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 70.49,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 68.6,
         "englishName": "iShares Core S&P Mid-Cap ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 10392381,
-        "AvgVolume": 7376090,
+        "Volume": 18462610,
+        "AvgVolume": 7457643,
         "sharesOutstanding": 257400000,
-        "52Week": "62.22 - 78.71",
-        "Yield": 0.03985,
+        "52Week": "62.42 - 78.71",
+        "Yield": 0.040948,
         "dividendRate": null,
         "payoutRatio": null,
         "isin": "US4642875078",
@@ -37,7 +37,24 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 70.49,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 10392381,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 7376090,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.03985,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -201,7 +218,7 @@
             "close": 10.107812881469727,
             "volume": 1006000,
             "amount": 0.0007,
-            "yield": 0.0000693069,
+            "yield": 6.93069e-5,
             "marketCap": 2601751035,
             "amountOriginal": 0.68,
             "amountSplitAdjustments": [

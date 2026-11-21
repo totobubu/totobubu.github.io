@@ -9,16 +9,16 @@
         "underlying": "GOOGL",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 9.22,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 8.99,
         "englishName": "YieldMax GOOGL Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 633708,
-        "AvgVolume": 370900,
+        "Volume": 594417,
+        "AvgVolume": 377292,
         "sharesOutstanding": null,
-        "52Week": "9.215 - 15.96",
+        "52Week": "8.95 - 15.96",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 9.22,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 633708,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 370900,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6967,7 +6980,9 @@
             "high": 9.95,
             "low": 9.215,
             "close": 9.22,
-            "volume": 633708
+            "volume": 633708,
+            "amount": 0.056,
+            "yield": 0.5335252525
         },
         {
             "date": "2026-11-25",

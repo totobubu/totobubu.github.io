@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 629.34,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 615.74,
         "englishName": "Ulta Beauty, Inc.",
         "earningsDate": "2026-12-03",
-        "enterpriseValue": 29219567616,
-        "marketCap": 26908989440,
-        "Volume": 427199,
-        "AvgVolume": 522914,
+        "enterpriseValue": 28638064640,
+        "marketCap": 26327484416,
+        "Volume": 539175,
+        "AvgVolume": 521895,
         "sharesOutstanding": 42757471,
         "52Week": "443.6 - 714.97",
         "Yield": null,
@@ -26,7 +26,28 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 629.34,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 29219567616,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 26908989440,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 427199,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 522914,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -43021,7 +43042,8 @@
             "high": 648.5,
             "low": 625.929993,
             "close": 629.340027,
-            "volume": 431800
+            "volume": 431800,
+            "marketCap": 26327484416
         }
     ]
 }

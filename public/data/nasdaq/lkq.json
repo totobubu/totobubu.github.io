@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 18.81,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 18.51,
         "englishName": "LKQ Corporation",
         "earningsDate": "2026-10-29",
-        "enterpriseValue": 9529608192,
-        "marketCap": 4747607552,
-        "Volume": 2622169,
-        "AvgVolume": 4147592,
+        "enterpriseValue": 9453888512,
+        "marketCap": 4671888384,
+        "Volume": 3915707,
+        "AvgVolume": 4117223,
         "sharesOutstanding": 252398077,
         "52Week": "16.85 - 37.13",
-        "Yield": 0.063796,
+        "Yield": 0.06483,
         "dividendRate": 1.2,
         "payoutRatio": 1.1765,
         "isin": "US5018892084",
@@ -42,7 +42,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 18.81,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 9529608192,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 4747607552,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 2622169,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 4147592,
+                "change": "down"
+            },
+            "Yield": {
+                "value": 0.063796,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -52189,14 +52214,16 @@
             "high": 19.09,
             "low": 18.620001,
             "close": 18.809999,
-            "volume": 2622200
+            "volume": 2622200,
+            "amount": 0.3,
+            "yield": 0.0790722235
         },
         {
             "date": "2027-02-19",
             "forecasted": true
         },
         {
-            "date": "2027-05-20",
+            "date": "2027-05-19",
             "forecasted": true
         }
     ]

@@ -9,16 +9,16 @@
         "underlying": "XYZ",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 21.3064,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 19.9953,
         "englishName": "YieldMax XYZ Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 19415,
-        "AvgVolume": 10664,
+        "Volume": 112558,
+        "AvgVolume": 10771,
         "sharesOutstanding": null,
-        "52Week": "21.22 - 36.84",
+        "52Week": "19.9953 - 36.84",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -39,7 +39,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 21.3064,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 19415,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 10664,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6789,7 +6802,9 @@
             "high": 22.700001,
             "low": 21.219999,
             "close": 21.3064,
-            "volume": 19415
+            "volume": 19415,
+            "amount": 0.315,
+            "yield": 0.7006153165
         },
         {
             "date": "2026-11-25",

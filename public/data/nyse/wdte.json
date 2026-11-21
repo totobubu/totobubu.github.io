@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 25.67,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 24.79,
         "englishName": "Defiance S&P 500 Target 30 Weekly Distribution ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 31554,
-        "AvgVolume": 23107,
+        "Volume": 92109,
+        "AvgVolume": 23281,
         "sharesOutstanding": null,
-        "52Week": "25.67 - 32.75",
+        "52Week": "24.6 - 32.55",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 25.67,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 31554,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 23107,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6821,7 +6834,9 @@
             "high": 26.51,
             "low": 25.67,
             "close": 25.67,
-            "volume": 31554
+            "volume": 31554,
+            "amount": 0.152,
+            "yield": 0.3270022796
         },
         {
             "date": "2026-11-25",

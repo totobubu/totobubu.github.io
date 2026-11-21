@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 15.38,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 14.97,
         "englishName": "Defiance R2000 Target 30 Weekly Distribution ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 49807,
-        "AvgVolume": 59978,
+        "Volume": 123505,
+        "AvgVolume": 59304,
         "sharesOutstanding": null,
-        "52Week": "15.38 - 20.981",
+        "52Week": "14.9651 - 20.981",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -32,7 +32,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 15.38,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 49807,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 59978,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -6624,7 +6637,9 @@
             "high": 15.745,
             "low": 15.38,
             "close": 15.38,
-            "volume": 49807
+            "volume": 49807,
+            "amount": 0.091,
+            "yield": 0.3577151899
         },
         {
             "date": "2026-11-25",

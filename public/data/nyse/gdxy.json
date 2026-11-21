@@ -9,16 +9,16 @@
         "underlying": "GDX",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-20 10:13:51 KST",
-        "regularMarketPrice": 7.8,
+        "Update": "2026-11-21 09:34:20 KST",
+        "regularMarketPrice": 7.42,
         "englishName": "YieldMax Gold Miners Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 959155,
-        "AvgVolume": 809926,
+        "Volume": 1744628,
+        "AvgVolume": 811151,
         "sharesOutstanding": null,
-        "52Week": "7.8 - 18.89",
+        "52Week": "7.41 - 18.89",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -33,7 +33,20 @@
             ],
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 7.8,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 959155,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 809926,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5280,7 +5293,9 @@
             "high": 8.13,
             "low": 7.8,
             "close": 7.8,
-            "volume": 959155
+            "volume": 959155,
+            "amount": 0.06,
+            "yield": 0.8926217228
         },
         {
             "date": "2026-11-25",
