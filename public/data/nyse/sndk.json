@@ -24,7 +24,13 @@
         "payoutRatio": 0,
         "isin": "US80004C2008",
         "events": {
-            "splits": []
+            "splits": [
+                {
+                    "date": "2026-11-20",
+                    "ratio": "8:1",
+                    "type": "reverse-split"
+                }
+            ]
         },
         "changes": {
             "regularMarketPrice": {
@@ -3689,6 +3695,14 @@
             "close": 94.394997,
             "volume": 119852712,
             "marketCap": 90200072192
+        },
+        {
+            "date": "2026-11-20",
+            "open": 89.910004,
+            "high": 90.669998,
+            "low": 78.25,
+            "close": 79.239998,
+            "volume": 127147042
         }
     ]
 }
