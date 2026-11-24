@@ -9,14 +9,14 @@
         "underlying": "MSFT",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-21 09:34:20 KST",
-        "regularMarketPrice": 28.9,
+        "Update": "2026-11-24 13:28:17 KST",
+        "regularMarketPrice": 29.59,
         "englishName": "Roundhill MSFT WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 26177,
-        "AvgVolume": 9540,
+        "Volume": 14270,
+        "AvgVolume": 9828,
         "sharesOutstanding": null,
         "52Week": "22.97 - 41.58",
         "Yield": null,
@@ -28,15 +28,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 30.24,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 5274,
+                "value": 28.9,
                 "change": "up"
             },
+            "Volume": {
+                "value": 26177,
+                "change": "down"
+            },
             "AvgVolume": {
-                "value": 9504,
+                "value": 9540,
                 "change": "up"
             }
         }
@@ -2923,7 +2923,8 @@
         },
         {
             "date": "2026-11-23",
-            "expected": true
+            "expected": true,
+            "amount": 0.168
         },
         {
             "date": "2026-11-30",
@@ -3023,6 +3024,10 @@
         },
         {
             "date": "2027-05-17",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-24",
             "forecasted": true
         }
     ]

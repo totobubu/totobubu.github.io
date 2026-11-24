@@ -9,14 +9,14 @@
         "underlying": "TSLA",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-21 09:34:20 KST",
-        "regularMarketPrice": 15.41,
+        "Update": "2026-11-24 13:28:17 KST",
+        "regularMarketPrice": 17.27,
         "englishName": "Roundhill ETF Trust - Roundhill TSLA WeeklyPay ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 92113,
-        "AvgVolume": 84950,
+        "Volume": 88618,
+        "AvgVolume": 85107,
         "sharesOutstanding": null,
         "52Week": "15.02 - 38.5",
         "Yield": null,
@@ -28,15 +28,15 @@
         },
         "changes": {
             "regularMarketPrice": {
-                "value": 17.01,
-                "change": "down"
-            },
-            "Volume": {
-                "value": 48071,
+                "value": 15.41,
                 "change": "up"
             },
+            "Volume": {
+                "value": 92113,
+                "change": "down"
+            },
             "AvgVolume": {
-                "value": 84792,
+                "value": 84950,
                 "change": "up"
             }
         }
@@ -3870,7 +3870,8 @@
         },
         {
             "date": "2026-11-23",
-            "expected": true
+            "expected": true,
+            "amount": 0.215
         },
         {
             "date": "2026-11-30",
@@ -3970,6 +3971,10 @@
         },
         {
             "date": "2027-05-17",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-24",
             "forecasted": true
         }
     ]
