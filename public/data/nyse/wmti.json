@@ -9,37 +9,12 @@
         "underlying": "WMT",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-24 13:28:17 KST",
-        "regularMarketPrice": 21.92,
-        "englishName": "Rex WMT Enhanced Growth & Income ETF",
-        "earningsDate": null,
-        "enterpriseValue": null,
-        "marketCap": null,
-        "Volume": 30589,
-        "AvgVolume": 20431,
-        "sharesOutstanding": null,
-        "52Week": "18.22 - 30.34",
-        "Yield": null,
-        "dividendRate": null,
-        "payoutRatio": null,
+        "Update": "2026-11-25 12:01:51 KST",
         "isin": "US7615628754",
         "events": {
             "splits": []
         },
-        "changes": {
-            "regularMarketPrice": {
-                "value": 21.56,
-                "change": "up"
-            },
-            "Volume": {
-                "value": 26486,
-                "change": "up"
-            },
-            "AvgVolume": {
-                "value": 20667,
-                "change": "down"
-            }
-        }
+        "changes": {}
     },
     "backtestData": [
         {
@@ -2310,7 +2285,8 @@
         },
         {
             "date": "2026-11-24",
-            "expected": true
+            "expected": true,
+            "amount": 0.285
         },
         {
             "date": "2026-12-01",
@@ -2410,6 +2386,10 @@
         },
         {
             "date": "2027-05-18",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-25",
             "forecasted": true
         }
     ]
