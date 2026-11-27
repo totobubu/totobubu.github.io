@@ -9,14 +9,14 @@
         "underlying": "MU",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 14.1741,
         "englishName": "YieldMax MU Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
         "Volume": 46162,
-        "AvgVolume": 28365,
+        "AvgVolume": 28790,
         "sharesOutstanding": null,
         "52Week": "13.15 - 26.3",
         "Yield": null,
@@ -26,7 +26,12 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 28365,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -484,6 +489,10 @@
         },
         {
             "date": "2027-05-20",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-27",
             "forecasted": true
         }
     ]

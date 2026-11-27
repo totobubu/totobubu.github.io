@@ -9,15 +9,15 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 28.94,
         "englishName": "News Corporation",
         "earningsDate": "2026-11-04",
         "enterpriseValue": 17425848320,
-        "marketCap": 15523610624,
+        "marketCap": 15520896000,
         "Volume": 1101194,
-        "AvgVolume": 1164459,
-        "sharesOutstanding": 178685745,
+        "AvgVolume": 1171353,
+        "sharesOutstanding": 178654499,
         "52Week": "25.49 - 35.76",
         "Yield": 0.006911,
         "dividendRate": 0.2,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "marketCap": {
+                "value": 15523610624,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 1164459,
+                "change": "up"
+            },
+            "sharesOutstanding": {
+                "value": 178685745,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -30313,7 +30326,8 @@
             "high": 29.33,
             "low": 28.34,
             "close": 28.940001,
-            "volume": 1101200
+            "volume": 1101200,
+            "marketCap": 15520896000
         }
     ]
 }

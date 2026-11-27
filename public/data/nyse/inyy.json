@@ -9,14 +9,14 @@
         "underlying": "INTC",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 17.68,
         "englishName": "Yieldmax Intc Option Income Strategy ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
         "Volume": 75232,
-        "AvgVolume": 53896,
+        "AvgVolume": 54423,
         "sharesOutstanding": null,
         "52Week": "16.16 - 60.63",
         "Yield": null,
@@ -26,7 +26,12 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 53896,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1170,6 +1175,10 @@
         },
         {
             "date": "2027-05-20",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-27",
             "forecasted": true
         }
     ]

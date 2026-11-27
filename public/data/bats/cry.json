@@ -9,14 +9,14 @@
         "underlying": "CRCL",
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 12.03,
         "englishName": "GraniteShares YieldBOOST CRCL ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
         "Volume": 2555,
-        "AvgVolume": 11232,
+        "AvgVolume": 11215,
         "sharesOutstanding": null,
         "52Week": "11.93 - 25.93",
         "Yield": null,
@@ -26,7 +26,12 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 11232,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1266,10 +1271,6 @@
             "low": 11.93,
             "close": 12.03,
             "volume": 2600
-        },
-        {
-            "date": "2026-11-26",
-            "forecasted": true
         },
         {
             "date": "2026-12-04",

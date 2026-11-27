@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 101.44,
         "englishName": "Newmont Corporation",
         "earningsDate": "2026-10-22",
         "enterpriseValue": 102347759616,
         "marketCap": 105415761920,
         "Volume": 7603145,
-        "AvgVolume": 7029535,
+        "AvgVolume": 6991903,
         "sharesOutstanding": 1039193185,
-        "52Week": "87.17 - 135.29",
+        "52Week": "88.25 - 135.29",
         "Yield": 0.010252,
         "dividendRate": 1.04,
         "payoutRatio": 0.1195,
@@ -42,7 +42,12 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 7029535,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -106471,14 +106476,16 @@
             "high": 101.989998,
             "low": 94.239998,
             "close": 101.440002,
-            "volume": 7971200
+            "volume": 7971200,
+            "amount": 0.26,
+            "yield": 0.0134235174
         },
         {
-            "date": "2026-12-03",
+            "date": "2027-02-25",
             "forecasted": true
         },
         {
-            "date": "2027-03-03",
+            "date": "2027-05-25",
             "forecasted": true
         }
     ]

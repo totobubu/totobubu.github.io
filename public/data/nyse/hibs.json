@@ -9,16 +9,16 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 26.36,
         "englishName": "Direxion Daily S&P 500 High Beta Bear 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
         "Volume": 244137,
-        "AvgVolume": 239685,
+        "AvgVolume": 242115,
         "sharesOutstanding": null,
-        "52Week": "15.0 - 60.4",
+        "52Week": "15.0 - 58.8",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -42,7 +42,12 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 239685,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -815,7 +820,7 @@
             "close": 9850,
             "volume": 282,
             "yield": 0.1446463221,
-            "amountOriginal": 0.000075,
+            "amountOriginal": 7.5e-5,
             "amountSplitAdjustments": [
                 {
                     "date": "2021-01-11",

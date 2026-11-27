@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 23.54,
         "englishName": "IonQ, Inc.",
         "earningsDate": "2026-11-05",
         "enterpriseValue": 9298980864,
         "marketCap": 10896239616,
         "Volume": 22885500,
-        "AvgVolume": 23358075,
+        "AvgVolume": 23514493,
         "sharesOutstanding": 462881896,
         "52Week": "20.28 - 73.65",
         "Yield": null,
@@ -26,7 +26,12 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 23358075,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13201,7 +13206,8 @@
             "high": 23.895,
             "low": 20.280001,
             "close": 23.540001,
-            "volume": 22958800
+            "volume": 22958800,
+            "marketCap": 10896239616
         }
     ]
 }

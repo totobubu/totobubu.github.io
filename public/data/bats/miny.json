@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "BATS",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 27.6658,
         "englishName": "YieldMax Strategic Metals & Mining Portfolio Option Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
         "Volume": 2149,
-        "AvgVolume": 3943,
+        "AvgVolume": 3937,
         "sharesOutstanding": null,
         "52Week": "26.4 - 51.4",
         "Yield": null,
@@ -26,7 +26,12 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 3943,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -1620,7 +1625,9 @@
             "high": 27.67,
             "low": 26.42,
             "close": 27.67,
-            "volume": 2100
+            "volume": 2100,
+            "amount": 0.165,
+            "yield": 0.3188682816
         },
         {
             "date": "2026-12-02",

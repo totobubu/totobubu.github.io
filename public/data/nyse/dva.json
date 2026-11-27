@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 162.77,
         "englishName": "DaVita Inc.",
         "earningsDate": "2026-10-29",
         "enterpriseValue": 24781260800,
         "marketCap": 10238233600,
         "Volume": 614915,
-        "AvgVolume": 742804,
+        "AvgVolume": 744150,
         "sharesOutstanding": 62900000,
         "52Week": "101.0 - 247.49",
         "Yield": null,
@@ -42,7 +42,12 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 742804,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -70336,7 +70341,8 @@
             "high": 166.919998,
             "low": 162.509995,
             "close": 162.770004,
-            "volume": 614900
+            "volume": 614900,
+            "marketCap": 10238233600
         }
     ]
 }

@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 1.26,
         "englishName": "Opendoor Technologies Inc.",
         "earningsDate": "2026-11-05",
         "enterpriseValue": 3332101120,
         "marketCap": 1172100992,
         "Volume": 49982913,
-        "AvgVolume": 35701045,
+        "AvgVolume": 36102039,
         "sharesOutstanding": 930238919,
         "52Week": "1.09 - 8.26",
         "Yield": null,
@@ -26,7 +26,12 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 35701045,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -13055,7 +13060,8 @@
             "high": 1.32,
             "low": 1.1,
             "close": 1.26,
-            "volume": 50090800
+            "volume": 50090800,
+            "marketCap": 1172100992
         }
     ]
 }

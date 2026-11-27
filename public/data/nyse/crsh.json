@@ -9,16 +9,16 @@
         "underlying": "TSLA",
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 16.8411,
         "englishName": null,
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
         "Volume": 12077,
-        "AvgVolume": 13512,
+        "AvgVolume": 13584,
         "sharesOutstanding": null,
-        "52Week": "16.19 - 29.03",
+        "52Week": "16.19 - 28.4",
         "Yield": null,
         "dividendRate": null,
         "payoutRatio": null,
@@ -39,7 +39,12 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "AvgVolume": {
+                "value": 13512,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -5735,6 +5740,10 @@
         },
         {
             "date": "2027-05-20",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-27",
             "forecasted": true
         }
     ]

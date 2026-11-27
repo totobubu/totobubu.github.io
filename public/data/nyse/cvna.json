@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-26 11:18:32 KST",
+        "Update": "2026-11-27 11:18:07 KST",
         "regularMarketPrice": 67.84,
         "englishName": "Carvana Co.",
         "earningsDate": "2026-10-28",
         "enterpriseValue": 52420898816,
-        "marketCap": 170370711552,
+        "marketCap": 74845224960,
         "Volume": 9846822,
-        "AvgVolume": 8717089,
+        "AvgVolume": 8786634,
         "sharesOutstanding": 722713745,
         "52Week": "54.464 - 97.378",
         "Yield": null,
@@ -37,7 +37,16 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "marketCap": {
+                "value": 170370711552,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 8717089,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -21646,7 +21655,8 @@
             "high": 68.718002,
             "low": 62.810001,
             "close": 67.839996,
-            "volume": 9847700
+            "volume": 9847700,
+            "marketCap": 74845224960
         }
     ]
 }
