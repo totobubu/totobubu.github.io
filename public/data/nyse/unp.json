@@ -9,17 +9,17 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-27 11:18:07 KST",
-        "regularMarketPrice": 298.38,
+        "Update": "2026-11-28 10:58:51 KST",
+        "regularMarketPrice": 297.89,
         "englishName": "Union Pacific Corporation",
         "earningsDate": "2026-10-22",
-        "enterpriseValue": 205338443776,
-        "marketCap": 177312448512,
-        "Volume": 3060990,
-        "AvgVolume": 2639365,
+        "enterpriseValue": 205047250944,
+        "marketCap": 177021272064,
+        "Volume": 1237528,
+        "AvgVolume": 2647226,
         "sharesOutstanding": 594250416,
         "52Week": "219.98 - 315.99",
-        "Yield": 0.018634,
+        "Yield": 0.018665,
         "dividendRate": 5.68,
         "payoutRatio": 0.4337,
         "isin": "US9078181081",
@@ -52,7 +52,32 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 298.38,
+                "change": "down"
+            },
+            "enterpriseValue": {
+                "value": 205338443776,
+                "change": "down"
+            },
+            "marketCap": {
+                "value": 177312448512,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3060990,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 2639365,
+                "change": "up"
+            },
+            "Yield": {
+                "value": 0.018634,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -109212,6 +109237,10 @@
         },
         {
             "date": "2027-02-26",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-28",
             "forecasted": true
         }
     ]

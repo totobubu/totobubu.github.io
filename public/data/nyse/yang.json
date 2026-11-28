@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-27 11:18:07 KST",
-        "regularMarketPrice": 40.53,
+        "Update": "2026-11-28 10:58:51 KST",
+        "regularMarketPrice": 37.92,
         "englishName": "Direxion Daily FTSE China Bear 3X Shares",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 1149533,
-        "AvgVolume": 743356,
+        "Volume": 682723,
+        "AvgVolume": 746798,
         "sharesOutstanding": null,
         "52Week": "19.94 - 43.8",
         "Yield": null,
@@ -52,7 +52,20 @@
                 }
             ]
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 40.53,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 1149533,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 743356,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -16752,7 +16765,7 @@
             "close": 888,
             "volume": 8507,
             "yield": 0.2227171492,
-            "amountOriginal": 0.000025,
+            "amountOriginal": 2.5e-5,
             "amountSplitAdjustments": [
                 {
                     "date": "2018-03-29",

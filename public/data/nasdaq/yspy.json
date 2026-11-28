@@ -9,14 +9,14 @@
         "underlying": "SPY",
         "market": "NASDAQ",
         "currency": "USD",
-        "Update": "2026-11-27 11:18:07 KST",
-        "regularMarketPrice": 14.26,
+        "Update": "2026-11-28 10:58:51 KST",
+        "regularMarketPrice": 14.2456,
         "englishName": "GraniteShares YieldBOOST SPY ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 3736,
-        "AvgVolume": 5200,
+        "Volume": 11876,
+        "AvgVolume": 5250,
         "sharesOutstanding": null,
         "52Week": "13.99 - 18.82",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 14.26,
+                "change": "down"
+            },
+            "Volume": {
+                "value": 3736,
+                "change": "up"
+            },
+            "AvgVolume": {
+                "value": 5200,
+                "change": "up"
+            }
+        }
     },
     "backtestData": [
         {
@@ -3681,6 +3694,10 @@
         },
         {
             "date": "2027-05-21",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-28",
             "forecasted": true
         }
     ]

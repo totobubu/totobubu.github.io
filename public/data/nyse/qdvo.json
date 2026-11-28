@@ -9,14 +9,14 @@
         "underlying": null,
         "market": "NYSE",
         "currency": "USD",
-        "Update": "2026-11-27 11:18:07 KST",
-        "regularMarketPrice": 26.68,
+        "Update": "2026-11-28 10:58:51 KST",
+        "regularMarketPrice": 26.96,
         "englishName": "Amplify CWP Growth & Income ETF",
         "earningsDate": null,
         "enterpriseValue": null,
         "marketCap": null,
-        "Volume": 624437,
-        "AvgVolume": 231293,
+        "Volume": 174955,
+        "AvgVolume": 231247,
         "sharesOutstanding": null,
         "52Week": "25.52 - 30.97",
         "Yield": null,
@@ -26,7 +26,20 @@
         "events": {
             "splits": []
         },
-        "changes": {}
+        "changes": {
+            "regularMarketPrice": {
+                "value": 26.68,
+                "change": "up"
+            },
+            "Volume": {
+                "value": 624437,
+                "change": "down"
+            },
+            "AvgVolume": {
+                "value": 231293,
+                "change": "down"
+            }
+        }
     },
     "backtestData": [
         {
@@ -4641,6 +4654,10 @@
         },
         {
             "date": "2027-04-28",
+            "forecasted": true
+        },
+        {
+            "date": "2027-05-28",
             "forecasted": true
         }
     ]
